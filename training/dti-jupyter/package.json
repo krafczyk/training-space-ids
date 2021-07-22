@@ -1,0 +1,6 @@
+{
+  "name" : "dti-jupyter",
+  "description" : "Tags for shared Jupyter use",
+  "author" : "babreu@illinois.edu",
+  "dependencies" : [ "standardDependencies" ]
+}
