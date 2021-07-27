@@ -27,8 +27,7 @@ jobs:
           
       - name: Setup C3 CLI Environment
         run: |
-          echo "C3_PATH=`pwd`/c3cli" >> $GITHUB_ENV
-          $C3_PATH/c3 install
+          ./c3cli/c3 install
           which c3
           
       - name: Checkout DTI Provisioner repo
