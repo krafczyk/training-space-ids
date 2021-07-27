@@ -1,0 +1,47 @@
+
+
+jobs:
+  test_provision:
+    runs-on: ubuntu-latest
+    name: Provision using dti-provisioner
+    steps:
+      - name: Set Variables for this repo/package
+        run: |
+          echo "TENANT=dti-jupyter" >> $GITHUB_ENV
+          echo "TAG=tc02 >> $GITHUB_ENV
+          echo "PACKAGE=dti-jupyter" >> $GITHUB_ENV
+          echo "C3REPO=training" >> GITHUB_ENV
+          
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+
+      - name: Check out C3 CLI
+        uses: actions/checkout@v2  
+        with:
+          repository: c3aidti/C3-CLI
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }}
+          path: c3cli
+          
+      - name: Setup C3 CLI Environment
+        run: |
+          echo "C3_PATH=`pwd`/c3cli" >> $GITHUB_ENV
+          $C3_PATH/c3 install
+          which c3
+          
+      - name: Checkout DTI Provisioner repo
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/dti-provisioner
+          ref: v1.29
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+          path: .github/actions/dti-provisioner
+          
+      - name: Run Provisioner
+        uses: ./.github/actions/dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+        with:
+          tenant: $TENANT
+          tag: $TAG
+          package: $PACKAGE
+          c3repo: $C3REPO
