@@ -39,5 +39,5 @@ jobs:
         with:
           tenant: 'dti-jupyter'
           tag: 'tc02'
-          package: 'dti-jupyter
+          package: 'dti-jupyter'
           c3repo: 'training'
