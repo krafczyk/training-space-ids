@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
-          ref: v1.34
+          ref: v1.35
           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
           path: .github/actions/dti-provisioner
           
