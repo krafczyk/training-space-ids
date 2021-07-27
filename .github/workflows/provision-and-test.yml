@@ -11,7 +11,7 @@ jobs:
       - name: Set Variables for this repo/package
         run: |
           echo "TENANT=dti-jupyter" >> $GITHUB_ENV
-          echo "TAG=tc02 >> $GITHUB_ENV
+          echo "TAG=tc02" >> $GITHUB_ENV
           echo "PACKAGE=dti-jupyter" >> $GITHUB_ENV
           echo "C3REPO=training" >> GITHUB_ENV
           
