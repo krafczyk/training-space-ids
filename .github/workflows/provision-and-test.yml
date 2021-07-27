@@ -8,13 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Provision using dti-provisioner
     steps:
-      - name: Set Variables for this repo/package
-        run: |
-          echo "TENANT=dti-jupyter" >> $GITHUB_ENV
-          echo "TAG=tc02" >> $GITHUB_ENV
-          echo "PACKAGE=dti-jupyter" >> $GITHUB_ENV
-          echo "C3REPO=training" >> GITHUB_ENV
-          
+
       - name: Checkout this repo
         uses: actions/checkout@v2
 
@@ -43,7 +37,7 @@ jobs:
         env:
           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
         with:
-          tenant: $TENANT
-          tag: $TAG
-          package: $PACKAGE
-          c3repo: $C3REPO
+          tenant: 'dti-jupyter'
+          tag: 'tc02'
+          package: 'dti-jupyter
+          c3repo: 'training'
