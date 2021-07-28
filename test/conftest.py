@@ -15,5 +15,4 @@ def c3():
     Returns:
         c3 object: c3 type system
     """
-    return get_c3(url="https://bogus.url"), tenant=os.environ.get("TENANT"), tag=os.environ.get("TAG"))
-    #return get_c3(url=os.environ.get("URL"), tenant=os.environ.get("TENANT"), tag=os.environ.get("TAG"))
+    return get_c3(url=os.environ.get("URL"), tenant=os.environ.get("TENANT"), tag=os.environ.get("TAG"))
