@@ -3,7 +3,7 @@ import pytest
 
 from c3python import get_c3
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def c3():
     """Loads c3 type system from a tag.
     
