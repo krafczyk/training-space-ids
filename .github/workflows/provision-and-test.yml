@@ -3,15 +3,32 @@ on:
     branches:
     - main
 
-jobs:
-  test_provision:
-    runs-on: ubuntu-latest
-    name: Provision using dti-provisioner
-    steps:
+########################################################################        
+# Settings for this workflow:
+# Modify the following settings to match target C3 tag and local 
+# c3repo and package names. 
+########################################################################
+env:
+  DTI_PROVISIONER_VERSION: v1.38
+  TAG: ${{ github.event.inputs.tag }}
+  TENANT: ${{ github.event.inputs.tenant }}
+  PACKAGE: ${{ github.event.inputs.package }}
+  C3REPO: ${{ github.event.inputs.c3repo }}
+  PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
 
+########################################################################
+# You should not need to edit below here, unless altering the workflow
+########################################################################
+
+jobs:
+  provision:
+    name: Provision
+    runs-on: ubuntu-latest
+    steps:
+          
       - name: Checkout this repo
         uses: actions/checkout@v2
-
+        
       - name: Check out C3 CLI
         uses: actions/checkout@v2  
         with:
@@ -19,25 +36,117 @@ jobs:
           token: ${{ secrets.DTI_DEVOPS_TOKEN }}
           path: c3cli
           
-      - name: Setup C3 CLI Environment
+      - name: Install C3 CLI Environment
         run: |
           ./c3cli/c3 install
-          which c3
-          
+        
       - name: Checkout DTI Provisioner repo
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
-          ref: v1.35
+          ref: ${{ env.DTI_PROVISIONER_VERSION }}
           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
-          path: .github/actions/dti-provisioner
+          path: dti-provisioner
           
       - name: Run Provisioner
-        uses: ./.github/actions/dti-provisioner
+        uses: ./dti-provisioner
         env:
           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
         with:
-          tenant: 'dti-jupyter'
-          tag: 'tc02'
-          package: 'dti-jupyter'
-          c3repo: 'training'
+          tenant: ${{ env.TENANT }}
+          tag: ${{ env.TAG }}
+          package: ${{ env.PACKAGE }}
+          c3repo: ${{ env.C3REPO }}
+          
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: provision
+    steps:
+      - name: Check out dti-provisioner
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/dti-provisioner
+          ref: ${{ env.DTI_PROVISIONER_VERSION }}
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+          path: dti-provisioner
+          
+      - name: Get key
+        uses: ./dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+        with:
+          tenant: ${{ env.TENANT }}
+          tag: ${{ env.TAG }}
+          package: ${{ env.PACKAGE }}
+          c3repo: ${{ env.C3REPO }}
+          do_provision: 'no' 
+          
+      - name: Check out c3python
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/c3python
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+          path: c3python
+          
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install ./c3python
+          
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+          
+      - name: Run Python tests
+        env:
+          URL: "https://${{ env.TAG }}-${{ env.TENANT }}.c3dti.ai"
+          TENANT: ${{ env.TENANT }}
+          TAG: ${{ env.TAG }}
+        run: |
+          pytest -v
+
+
+
+# jobs:
+#   test_provision:
+#     runs-on: ubuntu-latest
+#     name: Provision using dti-provisioner
+#     steps:
+
+#       - name: Checkout this repo
+#         uses: actions/checkout@v2
+
+#       - name: Check out C3 CLI
+#         uses: actions/checkout@v2  
+#         with:
+#           repository: c3aidti/C3-CLI
+#           token: ${{ secrets.DTI_DEVOPS_TOKEN }}
+#           path: c3cli
+          
+#       - name: Setup C3 CLI Environment
+#         run: |
+#           ./c3cli/c3 install
+#           which c3
+          
+#       - name: Checkout DTI Provisioner repo
+#         uses: actions/checkout@v2
+#         with:
+#           repository: c3aidti/dti-provisioner
+#           ref: v1.35
+#           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+#           path: .github/actions/dti-provisioner
+          
+#       - name: Run Provisioner
+#         uses: ./.github/actions/dti-provisioner
+#         env:
+#           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+#         with:
+#           tenant: 'dti-jupyter'
+#           tag: 'tc02'
+#           package: 'dti-jupyter'
+#           c3repo: 'training'
