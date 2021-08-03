@@ -14,11 +14,10 @@ env:
   TENANT: 'dti-jupyter'
   PACKAGE: 'dti-jupyter'
   C3REPO: 'training'
-  PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
-
 ########################################################################
 # You should not need to edit below here, unless altering the workflow
 ########################################################################
+  PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
 
 jobs:
   provision:
