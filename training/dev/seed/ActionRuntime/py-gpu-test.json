@@ -1,0 +1,1 @@
+{"type":"ActionRuntime","id":"py-gpu-test","language":"Python","runtimeVersion":"3.6","location":"all","modules":{"conda.cudatoolkit-dev":"=11.4.0","conda.numba":"=0.53.1","conda.numpy":"=1.19.5","conda.pytorch":"=1.7.1","conda.tensorflow-gpu":"=2.4.1","conda.time":"=1.8"},"repositories":["conda-forge"],"cudaVersion":"10.1","name":"py-gpu-test"}
