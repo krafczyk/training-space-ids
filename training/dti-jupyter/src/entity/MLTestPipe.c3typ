@@ -1,1 +1,1 @@
-entity type MLTestPipe extends MLPipe<Dataset, Dataset>
+entity type MLTestPipe extends MLPipe<Dataset, Dataset> schema name ML_TST_PIP

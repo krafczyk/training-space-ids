@@ -1,1 +1,1 @@
-entity type MLTestParent mixes MetricEvaluatable
+entity type MLTestParent mixes MetricEvaluatable schema name 'ML_TST_PRNT'
