@@ -1,1 +1,1 @@
-entity type MLTestDataSeries mixes TimedDataHeader<MLTestDataPoint> schema name ML_TST_DAT_SRS
+entity type MLTestDataSeries mixes TimedDataHeader<MLTestDataPoint> schema name 'ML_TST_DAT_SRS'
