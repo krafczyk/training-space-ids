@@ -1,0 +1,1 @@
+entity type MLTestDataPoint mixes TimedDataPoint<MLTestDataSeries>
