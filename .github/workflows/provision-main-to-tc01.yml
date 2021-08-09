@@ -9,7 +9,7 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.38
+  DTI_PROVISIONER_VERSION: v1.42
   TAG: 'tc01'
   TENANT: 'dti-jupyter'
   PACKAGE: 'dti-jupyter'
@@ -21,7 +21,7 @@ env:
 
 jobs:
   provision:
-    name: Provision to tag
+    name: Provision
     runs-on: ubuntu-latest
     steps:
           
@@ -58,7 +58,7 @@ jobs:
           c3repo: ${{ env.C3REPO }}
           
   test:
-    name: Test tc02
+    name: Test
     runs-on: ubuntu-latest
     needs: provision
     steps:
