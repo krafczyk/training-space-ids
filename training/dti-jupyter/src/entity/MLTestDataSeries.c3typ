@@ -1,0 +1,7 @@
+/**
+* MLTestDataSeries.c3typ
+*/
+entity type MLTestDataSeries mixes TimedDataHeader<MLTestDataPoint> schema name 'ML_TST_DAT_SRS'{
+    // The @{link MLTestParent} for this series
+    parent: !MLTestParent
+}

@@ -8,3 +8,6 @@ class TestC3Basic:
         info = c3.SystemInformation.about()
         assert hasattr(info, 'serverVersion')
         print(info.serverVersion)
+
+    def test_nothing(self, c3):
+        assert True
