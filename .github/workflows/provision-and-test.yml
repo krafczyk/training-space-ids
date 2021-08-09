@@ -9,7 +9,7 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.38
+  DTI_PROVISIONER_VERSION: v1.39
   TAG: 'tc02'
   TENANT: 'dti-jupyter'
   PACKAGE: 'dti-jupyter'
@@ -108,44 +108,3 @@ jobs:
           TAG: ${{ env.TAG }}
         run: |
           pytest -v
-
-
-
-# jobs:
-#   test_provision:
-#     runs-on: ubuntu-latest
-#     name: Provision using dti-provisioner
-#     steps:
-
-#       - name: Checkout this repo
-#         uses: actions/checkout@v2
-
-#       - name: Check out C3 CLI
-#         uses: actions/checkout@v2  
-#         with:
-#           repository: c3aidti/C3-CLI
-#           token: ${{ secrets.DTI_DEVOPS_TOKEN }}
-#           path: c3cli
-          
-#       - name: Setup C3 CLI Environment
-#         run: |
-#           ./c3cli/c3 install
-#           which c3
-          
-#       - name: Checkout DTI Provisioner repo
-#         uses: actions/checkout@v2
-#         with:
-#           repository: c3aidti/dti-provisioner
-#           ref: v1.35
-#           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
-#           path: .github/actions/dti-provisioner
-          
-#       - name: Run Provisioner
-#         uses: ./.github/actions/dti-provisioner
-#         env:
-#           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
-#         with:
-#           tenant: 'dti-jupyter'
-#           tag: 'tc02'
-#           package: 'dti-jupyter'
-#           c3repo: 'training'
