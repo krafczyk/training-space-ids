@@ -5,7 +5,8 @@
 C3 DTI training repo.
 
 ### Branches
-[dti-jupyter-dev](): Development branch for maintianing provisioned code for the dti-jypyter application.  
+[main](): Protected main branch. Associated with `tc01` tag
+[dti-jupyter-dev](): Development branch for dti-jypyter application. (`tc02`)  
 [develop](): Main branch for IDS- based development.  
 [tc*](): IDS generated branched for tags on tc1.  
 
