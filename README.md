@@ -4,6 +4,14 @@
 
 C3 DTI training repo.
 
-Includes types to support the following tutorial notebooks:  
+### Branches
+[dti-jupyter-dev](): Development branch for maintianing provisioned code for the dti-jypyter application.  
+[develop](): Main branch for IDS- based development.  
+[tc*](): IDS generated branched for tags on tc1.  
+
+### Workflows
+
+### Jupyter Notebook Tutorials
+Includes types to support the following c3 jypyter tutorial notebooks:  
 * TutorialMLTrainingJob
 * 
