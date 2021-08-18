@@ -1,8 +1,8 @@
 
-[![Provision + Test](https://github.com/c3aidti/training-space-ids/actions/workflows/provision-and-test.yml/badge.svg?event=pull_request)](https://github.com/c3aidti/training-space-ids/actions/workflows/provision-and-test.yml)  
 # training-space-ids
 
-C3 DTI training repo.
+C3 DTI training repo.  
+Developers, see: **[CONTRIBUTING](https://github.com/c3aidti/training-space-ids/blob/main/.github/CONTRIBUTING.md)**
 
 ### Branches
 [main](): Protected main branch. Associated with `tc01` tag  
