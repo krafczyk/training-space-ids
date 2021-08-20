@@ -1,0 +1,8 @@
+{
+    "name": "rfp2",
+    "id": "rfp2",
+    "path": "rfp2",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

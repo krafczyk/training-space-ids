@@ -1,0 +1,8 @@
+{
+    "name": "rfp2_tomlin",
+    "id": "rfp2_tomlin",
+    "path": "rfp2/tomlin",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
