@@ -582,8 +582,8 @@
         "nbformat_minor": 2
     },
     "name": "gpu_basic.ipynb",
-    "id": "dti-training/gpu_basic.ipynb",
-    "path": "dti-training/gpu_basic.ipynb",
+    "id": "dti-tutorials/gpu_basic.ipynb",
+    "path": "dti-tutorials/gpu_basic.ipynb",
     "jupyterContentType": "notebook",
     "format": "json",
     "writable": false,
