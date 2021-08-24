@@ -2,5 +2,5 @@
   "name": "dti-jupyter",
   "description": "Lightbulb Practice Exercises",
   "author": "C3 Training",
-  "dependencies": ["standardDependencies", "machineLearning"]
+  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment"]
 }
