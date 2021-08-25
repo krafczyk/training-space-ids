@@ -3,7 +3,7 @@ HycomFMRC.c3typ
 A collection of Hycom Forcast Model Runs
 */
 entity type HycomFMRC mixes File schema name "HC_FMRC" {
-    //
+    // Usually GOMu0.04_901m000 for this type
     dataset: !string
     //
     run: !datetime
