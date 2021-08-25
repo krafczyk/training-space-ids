@@ -2,5 +2,4 @@
 ImageDataCollector.c3typ
 Collect image data for research group using C3 AI Suite.
 */
-entity type ImageDataCollector mixes File schema name "IMG_DAT_CLLCTR" {
-}
+entity type ImageDataCollector mixes File schema name "IMG_DAT_CLLCTR"
