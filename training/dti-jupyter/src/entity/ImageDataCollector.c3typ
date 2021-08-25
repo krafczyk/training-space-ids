@@ -1,3 +1,5 @@
 /**
 * this is an c3 type that will collect image data for research group using C3 AI Suite.
 */
+entity type ImageDataCollector mixes File schema name "IMG_DAT_CLLCTR" {
+}
