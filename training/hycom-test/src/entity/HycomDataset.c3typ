@@ -3,8 +3,8 @@ HycomDataset.c3typ
 A collection of datasets and available from the HYCOM Thredds server.
 
 The geospatial data map from this xml:
-// The following fields map fromthis XML:
-    /**
+The following lat/lon min/max fields should map fromthis XML:
+'''    
     <geospatialCoverage>
     <northsouth>
     <start>18.1200008392334</start>
@@ -23,7 +23,8 @@ The geospatial data map from this xml:
     <units>m</units>
     </updown>
     </geospatialCoverage>
-
+```
+Notes:
     - Do we want explict unit definitions
 
 */
