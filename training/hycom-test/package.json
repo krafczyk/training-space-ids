@@ -1,0 +1,7 @@
+{
+    "name": "hycom-test",
+    "description": "Test application for Tomlin Hycom data analysis.",
+    "author": "DTI DevOps",
+    "dependencies": ["standardDependencies"]
+  }
+  

@@ -1,0 +1,23 @@
+/**
+HycomFMRC.c3typ
+A collection of Hycom Forcast Model Runs
+*/
+entity type HycomFMRC mixes File schema name "HC_FMRC" {
+    // Usually GOMu0.04_901m000 for this type
+    dataset: HycomDataset
+    // Date of the forecast run
+    run: !string
+    // Start of time coverage
+    start: !datetime
+    // End of time coverage
+    end: !datetime
+    // URL of the forecast run on the server
+    thredds_url: !string
+    // Anticipated expiration date for this run's data on Thredds server
+    expires: !datetime
+    // Indicated whether this run is still active
+    is_expired: !boolean
+
+    
+
+}
