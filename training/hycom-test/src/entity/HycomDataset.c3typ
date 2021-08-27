@@ -1,13 +1,9 @@
 /**
 HycomDataset.c3typ
 A collection of datasets and available from the HYCOM Thredds server.
-*/
-entity type HycomDataset schema name "HCM_DTST" {
-    // Name of the dataset
-    name: !string
-    // Description of the dataset
-    description: string
-    // The following fields map fromthis XML:
+
+The geospatial data map from this xml:
+// The following fields map fromthis XML:
     /**
     <geospatialCoverage>
     <northsouth>
@@ -28,8 +24,14 @@ entity type HycomDataset schema name "HCM_DTST" {
     </updown>
     </geospatialCoverage>
 
-    - Do we want explict usnit definitions
-    */    
+    - Do we want explict unit definitions
+
+*/
+entity type HycomDataset schema name "HCM_DTST" {
+    // Name of the dataset
+    name: !string
+    // Description of the dataset
+    description: string    
     // Starting latitude in degrees north
     lat_min: !double
     // Ending latitude in degrees north
