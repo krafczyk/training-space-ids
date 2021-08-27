@@ -1,6 +1,6 @@
 {
   "name": "dti-jupyter",
-  "description": "Lightbulb Practice Exercises",
-  "author": "C3 Training",
-  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment"]
+  "description": "Training application and development space for DTI project teams.",
+  "author": "DTI DevOps",
+  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment", "hycom-test"]
 }
