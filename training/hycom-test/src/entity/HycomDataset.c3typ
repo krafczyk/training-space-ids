@@ -4,7 +4,7 @@ A collection of datasets and available from the HYCOM Thredds server.
 
 The geospatial data map from this xml:
 The following lat/lon min/max fields should map fromthis XML:
-'''    
+```
     <geospatialCoverage>
     <northsouth>
     <start>18.1200008392334</start>
@@ -25,7 +25,7 @@ The following lat/lon min/max fields should map fromthis XML:
     </geospatialCoverage>
 ```
 Notes:
-    - Do we want explict unit definitions
+    - Do we want explict unit definitions?
 
 */
 entity type HycomDataset schema name "HCM_DTST" {
