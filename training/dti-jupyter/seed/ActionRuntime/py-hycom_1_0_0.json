@@ -9,7 +9,8 @@
       "conda.pivottablejs": "=0.9.0",
       "conda.numpy": "=1.15.2",
       "conda.pandas": "=1.0.1",
-      "conda.python-dateutil": "=2.8.2"
+      "conda.python-dateutil": "=2.8.2",
+      "pip.xmltodict": ""
     },
     "repositories": [
       "https://repo.continuum.io/pkgs/main"
