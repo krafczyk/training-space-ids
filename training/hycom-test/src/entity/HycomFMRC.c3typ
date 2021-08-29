@@ -16,5 +16,5 @@ entity type HycomFMRC mixes File schema name "HC_FMRC" {
     // URL of the forecast run on the server
     thredds_url: !string
     //
-    geospatialCoverage: post default 'dataset.geospatialCoverage'
+    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
 }
