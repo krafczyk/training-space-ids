@@ -29,16 +29,24 @@ Notes:
 
 */
 entity type HycomDataset schema name "HCM_DTST" {
+    // Version of the dataset
+    version: !string
     // Name of the dataset
     name: !string
     // Description of the dataset
     description: string    
     // Starting latitude in degrees north
+    @depricated
     lat_min: !double
     // Ending latitude in degrees north
+    @depricated
     lat_max: !double
     // Starting longitude in degrees east
+    @depricated
     lon_min: !double
     // Ending longitude in degrees east
+    @depricated
     lon_max: !double
+    //
+    geospatialCoverage: !GeospatialCoverage
 }
