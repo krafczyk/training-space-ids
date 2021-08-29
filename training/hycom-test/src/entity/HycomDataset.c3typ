@@ -30,7 +30,7 @@ Notes:
 */
 entity type HycomDataset schema name "HCM_DTST" {
     // Version of the dataset
-    version: !string
+    hycom_version: !string
     // Name of the dataset
     name: !string
     // Description of the dataset
