@@ -6,7 +6,7 @@ the start and end fields.
 */
 entity type HycomFMRC mixes File schema name "HC_FMRC" {
     // The name of the {@link HycomDataset} that this FMRC is based on
-    dataset: HycomDataset
+    dataset: !HycomDataset
     // Date of the forecast run
     run: !string
     // The time coverage of the forecast run

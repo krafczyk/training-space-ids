@@ -2,6 +2,8 @@ import requests
 import xmltodict
 #from urllib.parse import urlencode,urljoin
 
+
+
 def upsertHycomDatasetFromCatalog(url=None):
     """
     Query Hycom catalog and create HycomDataset object.
@@ -40,3 +42,58 @@ def upsertHycomDatasetFromCatalog(url=None):
     dataset.upsert()
     #print(dataset_spec)
     return dataset
+    
+def buildHycomFMRCUrl(urlpath,time_start,time_end,
+                      vars=['surl_el','salinity','water_temp','water_u','water_v'],
+                      disableLLSubset='on',
+                      disableProjSubset='on',
+                      horizStride=1,
+                      timeStride=1,
+                      vertStride=1,
+                      addLatLon='true',
+                      accept='netcdf4'
+                     ):
+    base_url=f"https://ncss.hycom.org/thredds/ncss/{urlpath}"
+    #print(base_url)
+    varst = [('var',v) for v in vars]
+    url1 = urlencode(varst,{'d':2})
+    url2 = urlencode({'disableLLSubset':disableLLSubset,
+                      'disableProjSubset':disableProjSubset,
+                      'horizStride':horizStride,
+                      'time_start':time_start,
+                      'time_end':time_end,
+                      'timeStride':timeStride,
+                      'vertStride':vertStride,
+                      'addLatLon':addLatLon,
+                      'accept':accept
+                     })
+    query = url1+'&'+url2
+    url = base_url+'?'+query
+    return url  
+
+
+
+def upsertFMRCFromDatasetCatalog(this):
+    url = this.catalog_url
+    with requests.get(url) as r:
+        doc = xmltodict.parse(r.text)
+    
+    frmcs = [ 
+        c3.HycomFMRC(
+        **{
+            'id': d['@ID'],
+            'dataset': this,
+            'run': d['@name'],
+            'timeCoverage': {
+                'start':d['timeCoverage']['start'],
+                'end':d['timeCoverage']['end'],
+            },
+            'thredds_url': buildHycomFMRCUrl(
+                   urlpath = d['@urlPath'],
+                   time_start = d['timeCoverage']['start'],
+                   time_end = d['timeCoverage']['end']
+                   )
+        }
+    ).upsert() for d in doc['catalog']['dataset']['dataset']
+            ]
+    return frmcs
