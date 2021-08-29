@@ -1,8 +1,6 @@
 import requests
 import xmltodict
-#from urllib.parse import urlencode,urljoin
-
-
+from urllib.parse import urlencode,urljoin
 
 def upsertHycomDatasetFromCatalog(url=None):
     """
