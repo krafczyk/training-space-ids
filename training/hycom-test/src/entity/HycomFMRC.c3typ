@@ -9,12 +9,10 @@ entity type HycomFMRC mixes File schema name "HC_FMRC" {
     dataset: HycomDataset
     // Date of the forecast run
     run: !string
-    // Start of time coverage
-    start: !datetime
-    // End of time coverage
-    end: !datetime
-    // URL of the forecast run on the server
+    // The time coverage of the forecast run
+    timeCoverage: !TimeRange
+    // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
+    geospatialCoverage: !GeospatialCoverage post default 'dataset.geospatialCoverage'
+    // the query url used to retrive the FRMC data
     thredds_url: !string
-    //
-    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
 }
