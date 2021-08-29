@@ -42,7 +42,7 @@ def upsertHycomDatasetFromCatalog(url=None):
     return dataset
     
 def buildHycomFMRCUrl(urlpath,time_start,time_end,
-                      vars=['surl_el','salinity','water_temp','water_u','water_v'],
+                      vars=['surf_el','salinity','water_temp','water_u','water_v'],
                       disableLLSubset='on',
                       disableProjSubset='on',
                       horizStride=1,
