@@ -37,6 +37,9 @@ entity type HycomDataset schema name "HCM_DTST" {
     description: string    
     // The geospatial coverage of the dataset in degrees LAT/LON
     geospatialCoverage: !GeospatialCoverage
+    // The url of the dataset catalog
+    catalog_url: !string
+    //
     @py(env="hycom_1_0_0")
-    createHycomDatasetFromCatalog: function(url: string): HycomDataset
+    upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
 }

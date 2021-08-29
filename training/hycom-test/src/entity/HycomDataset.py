@@ -2,12 +2,14 @@ import requests
 import xmltodict
 #from urllib.parse import urlencode,urljoin
 
-def createHycomDatasetFromCatalog(url=None):
+def upsertHycomDatasetFromCatalog(url=None):
     """
     Query Hycom catalog and create HycomDataset object.
+    should add try/except for bad request
     """
     with requests.get(url) as r:
         doc = xmltodict.parse(r.text)
+
     name = doc['catalog']['@name']
     version = doc['catalog']['@version']
     id = name.rpartition('/')[2]+'_'+version
@@ -30,7 +32,8 @@ def createHycomDatasetFromCatalog(url=None):
                 'latitude': lat_start + lat_size,
                 'longitude': lon_start + lon_size
             }
-        }
+        },
+        'catalog_url': url
         
     }
     dataset = c3.HycomDataset(**dataset_spec)
