@@ -55,17 +55,20 @@ def buildHycomFMRCUrl(urlpath,time_start,time_end,
     #print(base_url)
     varst = [('var',v) for v in vars]
     url1 = urlencode(varst,{'d':2})
-    url2 = urlencode({'disableLLSubset':disableLLSubset,
+    url3 = urlencode({'disableLLSubset':disableLLSubset,
                       'disableProjSubset':disableProjSubset,
                       'horizStride':horizStride,
-                      'time_start':time_start,
-                      'time_end':time_end,
                       'timeStride':timeStride,
                       'vertStride':vertStride,
                       'addLatLon':addLatLon,
                       'accept':accept
                      })
-    query = url1+'&'+url2
+    if (time_start == time_end):
+        url2 = urlencode({'time':time_start})
+    else:
+        url2 = urlencode({'time_start':time_start,'time_end':time_end})
+
+    query = url1 + '&' + url2 + '&' + url3
     url = base_url+'?'+query
     return url  
 
@@ -86,11 +89,11 @@ def upsertFMRCFromDatasetCatalog(this):
                 'start':d['timeCoverage']['start'],
                 'end':d['timeCoverage']['end'],
             },
-            'thredds_url': buildHycomFMRCUrl(
-                   urlpath = d['@urlPath'],
-                   time_start = d['timeCoverage']['start'],
-                   time_end = d['timeCoverage']['end']
-                   )
+            # 'thredds_url': buildHycomFMRCUrl(
+            #        urlpath = d['@urlPath'],
+            #        time_start = d['timeCoverage']['start'],
+            #        time_end = d['timeCoverage']['end']
+            #        )
         }
     ).upsert() for d in doc['catalog']['dataset']['dataset']
             ]
