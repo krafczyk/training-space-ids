@@ -17,5 +17,5 @@ entity type HycomFMRC schema name "HC_FMRC" {
     //thredds_url: !string
     //
     // The NetCDF file(s) containing the forecast results
-    dataFiles: [HycomFRMCFile](hycomFRMC, id)
+    dataFiles: [HycomFRMCFile](hycomFRMC, name)
 }
