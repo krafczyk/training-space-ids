@@ -1,7 +1,7 @@
 {
     "name": "tomlin",
-    "id": "rfp2_tomlin",
-    "path": "rfp2/tomlin",
+    "id": "research_teams_tomlin",
+    "path": "research_teams/tomlin",
     "jupyterContentType": "directory",
     "format": "json",
     "writable": true
