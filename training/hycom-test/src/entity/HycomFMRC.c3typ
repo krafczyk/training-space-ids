@@ -20,4 +20,6 @@ entity type HycomFMRC schema name "HC_FMRC" {
     //
     // The NetCDF file(s) containing the forecast results
     dataFiles: [HycomFMRCFile](hycomFMRC,id)
+    //
+    downloadFMRCRunData: member function(time_start: !string,time_end: !string, path: string) HycomFMRCFile
 }
