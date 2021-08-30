@@ -65,7 +65,7 @@ def downloadFMRCRunData(this,time_start,time_end,
                       'accept':accept
                      })
     
-    if (time_start == time_end):
+    if time_start == time_end:
         url2 = urlencode({'time':time_start})
         filename = this.run + '-' + time_start + file_ext
     else:
