@@ -1,4 +1,4 @@
-    """Methods  for Hycom FMRC type"""
+"""Methods  for Hycom FMRC type"""
 
 def downloadToExternal(srcUrl, fileName, s3_folder):
     import requests
