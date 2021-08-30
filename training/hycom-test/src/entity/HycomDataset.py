@@ -54,7 +54,7 @@ def upsertFMRCFromDatasetCatalog(this):
             'id': d['@ID'],
             'dataset': this,
             'run': d['@name'],
-            'urlPath': d['@urlPath']
+            'urlPath': d['@urlPath'],
             'timeCoverage': {
                 'start':d['timeCoverage']['start'],
                 'end':d['timeCoverage']['end'],
