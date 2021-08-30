@@ -21,5 +21,6 @@ entity type HycomFMRC schema name "HC_FMRC" {
     // The NetCDF file(s) containing the forecast results
     dataFiles: [HycomFMRCFile](hycomFMRC,id)
     //
-    downloadFMRCRunData: member function(time_start: !string,time_end: !string, path: string) HycomFMRCFile
+    @py(env="hycom_1_0_0")
+    downloadFMRCRunData: member function(time_start: !string, time_end: !string, path: string): HycomFMRCFile
 }
