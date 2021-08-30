@@ -1,7 +1,7 @@
 {
     "name": "modiano",
-    "id": "research_team_modiano",
-    "path": "research_team/modiano",
+    "id": "research_teams_modiano",
+    "path": "research_teams/modiano",
     "jupyterContentType": "directory",
     "format": "json",
     "writable": true
