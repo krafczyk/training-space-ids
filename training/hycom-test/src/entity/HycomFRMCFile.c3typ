@@ -2,9 +2,9 @@
 HycomFRMCFile.c3typ
 Files containing FRMC data
 */
-type HycomFRMCFile mixes File schema name "HCM_FRMC_FL" {
+entity type HycomFRMCFile mixes File schema name "HCM_FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
-    hycomFMRC: !HycomFRMC
+    hycomFMRC: !HycomFMRC
     //  FRMC file name
     name: !string
     // Time coverage for this file
