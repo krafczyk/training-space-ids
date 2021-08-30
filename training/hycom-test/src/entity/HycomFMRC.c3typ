@@ -1,23 +1,26 @@
 /**
 HycomFMRC.c3typ
-A collection of Hycom Forcast Model Runs
+A collection of Hycom Forcast Model Runs.  Each record is a single
+FMR with with results in a NetCDF file.  Time coverage is indicated by
+the start and end fields.
 */
-entity type HycomFMRC mixes File schema name "HC_FMRC" {
-    // Usually GOMu0.04_901m000 for this type
-    dataset: HycomDataset
+entity type HycomFMRC schema name "HC_FMRC" {
+    // The name of the {@link HycomDataset} that this FMRC is based on
+    dataset: !HycomDataset
     // Date of the forecast run
     run: !string
-    // Start of time coverage
-    start: !datetime
-    // End of time coverage
-    end: !datetime
-    // URL of the forecast run on the server
-    thredds_url: !string
-    // Anticipated expiration date for this run's data on Thredds server
-    expires: !datetime
-    // Indicated whether this run is still active
-    is_expired: !boolean
-
-    
-
+    // The urlPath for data download
+    urlPath: !string
+    // The time coverage of the forecast run
+    timeCoverage: !TimeRange
+    // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
+    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
+    // the query url used to retrive the FRMC data
+    //thredds_url: !string
+    //
+    // The NetCDF file(s) containing the forecast results
+    dataFiles: [HycomFMRCFile](hycomFMRC,id)
+    //
+    @py(env="hycom_1_0_0")
+    downloadFMRCRunData: member function(time_start: !string, time_end: !string, path: string): HycomFMRCFile
 }
