@@ -9,6 +9,8 @@ entity type HycomFMRC schema name "HC_FMRC" {
     dataset: !HycomDataset
     // Date of the forecast run
     run: !string
+    // The urlPath for data download
+    urlPath: !string
     // The time coverage of the forecast run
     timeCoverage: !TimeRange
     // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
