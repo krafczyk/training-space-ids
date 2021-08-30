@@ -1,18 +1,5 @@
 """Methods  for Hycom FMRC type"""
 
-def downloadToExternal(srcUrl, fileName, s3_folder):
-    import requests
-    tmp_path = "/tmp/" + fileName
-    with requests.get(srcUrl, stream=True) as r:
-        r.raise_for_status()
-        with open(tmp_path, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    c3.Client.uploadLocalClientFiles(tmp_path, s3_folder, {"peekForMetadata": True})
-    #c3.Logger.info("file {} downloaded to {}".format(fileName, s3_folder + fileName))
-    os.remove(tmp_path)
-    return s3_folder + '/' + fileName
-
 ####################
 
 def downloadToExternal(srcUrl, fileName, s3_folder):
@@ -71,7 +58,6 @@ def downloadFMRCRunData(this,time_start,time_end,
     else:
         url2 = urlencode({'time_start':time_start,'time_end':time_end})
         filename = this.run + '-' + time_start + '-' + time_end + file_ext
-        
 
     query = url1 + '&' + url2 + '&' + url3
     url = base_url+'?'+query
