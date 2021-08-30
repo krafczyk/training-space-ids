@@ -2,7 +2,7 @@
 HycomFRMCFile.c3typ
 Files containing FRMC data
 */
-entity type HycomFRMCFile mixes File schema name "HCM_FRMC_FL" {
+entity type HycomFMRCFile mixes File schema name "HCM_FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
     hycomFMRC: !HycomFMRC
     //  FRMC file name
@@ -13,5 +13,4 @@ entity type HycomFRMCFile mixes File schema name "HCM_FRMC_FL" {
     fileType: !string enum('netcdf4','netcdf')
     // Url used to download the file
     thredds_url: string
-
 }
