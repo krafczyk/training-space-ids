@@ -1,0 +1,8 @@
+{
+    "name": "tomlin",
+    "id": "research_team_tomlin",
+    "path": "research_team/tomlin",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

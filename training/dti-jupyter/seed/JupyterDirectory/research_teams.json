@@ -1,0 +1,8 @@
+{
+    "name": "research_teams",
+    "id": "research_teams",
+    "path": "reseatch_teams",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": false
+  }
