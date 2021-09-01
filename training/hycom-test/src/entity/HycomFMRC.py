@@ -15,6 +15,26 @@ def downloadToExternal(srcUrl, fileName, s3_folder):
     os.remove(tmp_path)
     return s3_folder + '/' + fileName
 
+def buildThreddsURL(baseurl, vars, options):
+    """Builds a Thredds URL for a set of variables and options
+    
+    Args:
+        baseurl (str): base url for the Thredds server + URL path for a run
+        vars (list): list of variable names to include in data files
+        options (dict): dictionary of options to include in the URL query
+
+    Returns:
+        str: Thredds URL
+    """
+    from urllib.parse import urlencode,urljoin
+    varst = [('var',v) for v in vars]
+    url1 = urlencode(varst,{'d':2})
+
+def stageFMRCDownloads(this,time_start=None,time_end=None,time_step=None):
+    """Stage records for netCDF data download for a given FMRC
+    """
+    pass
+
 def downloadFMRCRunData(this,time_start,time_end,
                       path=None,
                       vars=['surf_el','salinity','water_temp','water_u','water_v'],
