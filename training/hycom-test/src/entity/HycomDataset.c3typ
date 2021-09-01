@@ -12,7 +12,9 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The geospatial coverage of the dataset in degrees LAT/LON
     geospatialCoverage: !GeospatialCoverage
     // The resolution of the dataset in degrees LAT/LON
-    geospatialResolution: !GeospatialResolution post default 'GeospatialResolution.make({"latResolution": 0.04, "lonResolution": 0.04})'
+    //geospatialResolution: !GeospatialResolution post default 'GeospatialResolution.make({"latResolution": 0.04, "lonResolution": 0.04})'
+    geospatialResolution: !GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
+
     // The url of the dataset catalog
     catalog_url: !string
     //

@@ -16,7 +16,7 @@ entity type FMRCFile mixes File schema name "FRMC_FL" {
     // Geospatial coverage for this file
     geospatialCoverage: !GeospatialCoverage
     // Geospatial resolution for this file
-    geospatialResolution: !GeospatialResolution post default dataArchive.fmrc.dataset.geospatialResolution
+    /geospatialResolution: !GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
     // the varaibles contained in this file    
     vars: !string
     //  FRMC file type
