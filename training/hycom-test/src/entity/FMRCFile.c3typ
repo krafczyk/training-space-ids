@@ -18,7 +18,7 @@ entity type FMRCFile mixes File schema name "FRMC_FL" {
     // Geospatial resolution for this file
     geospatialResolution: !GeospatialResolution post default fmrc.dataset.geospatialResolution
     // the varaibles contained in this file    
-    vars: [!string]
+    vars: !string
     //  FRMC file type
     fileType: !string enum('netcdf4','netcdf')
     // Url used to download the file
