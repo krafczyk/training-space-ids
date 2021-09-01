@@ -9,5 +9,5 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     //
     downloadOptions: !FMRCDownloadOptions
     //
-    dataFiles: [FMRCFile](fmrc,id)
+    dataFiles: [FMRCFile](dataArchive,id)
 }
