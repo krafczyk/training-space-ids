@@ -3,6 +3,7 @@ FMRCDataArchive.c3typ
 A Data archive for a {@link HycomFMRC} containing associated {@link HycomFMRCFile}s.
 */
 entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
+    // The {@link HycomFMRC} associated with this archive.
     fmrc: !HycomFMRC
     //
     subsetOptions: !FMRCSubsetOptions
