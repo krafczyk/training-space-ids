@@ -8,6 +8,10 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 
 	blob_url: !string
 
+        image_width: int
+	
+	image_height: int
+
 	// initial with lat and long
 	lat_min: double
 	
