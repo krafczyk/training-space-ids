@@ -1,0 +1,27 @@
+// The C3 Type for storing the image metadata on C3 AI Suite
+entity type ImageMetadata schema name 'IMG_META' {
+  
+  // the unique image id for the C3 type
+  image_id: !string
+
+  // the image url from Azure blob
+  image_url: !string
+
+  // the image width from the image in Azure blob
+  image_width: int
+
+  // the image height from the image in Azure blob
+  image_height: int
+
+  // the min latitude of image in Azure blob represented on the earth
+  min_lat: double
+
+  // the max latitude of image in Azure blob represented on the earth
+  max_lat: double
+
+  // the max longitude of image in Azure blob represented on the earth
+  max_lon: double
+
+  // the min longitude of image in Azure blob represented on the earth
+  min_lon: double
+}
