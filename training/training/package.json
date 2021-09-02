@@ -1,0 +1,6 @@
+{
+  "name" : "training",
+  "description" : "Training tag",
+  "author" : "babreu@illinois.edu",
+  "dependencies" : [ "standardDependencies" ]
+}
