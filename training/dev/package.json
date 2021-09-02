@@ -1,0 +1,6 @@
+{
+  "name" : "dev",
+  "description" : "DevOps tags",
+  "author" : "babreu@illinois.edu",
+  "dependencies" : [ "standardDependencies" ]
+}

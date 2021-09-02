@@ -5,6 +5,7 @@ C3 DTI training repo.
 Developers, see: **[CONTRIBUTING](https://github.com/c3aidti/training-space-ids/blob/main/.github/CONTRIBUTING.md)**
 
 ### Branches
+This stuff is changeing now:  
 [main](): Protected main branch. Associated with `tc01` tag  
 [dti-jupyter-dev](): Development branch for dti-jypyter application. (`tc02`)  
 [develop](): Main branch for IDS- based development.  
