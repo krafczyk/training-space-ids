@@ -1,0 +1,11 @@
+/**
+*
+* MLTestDataPoint.c3typ
+*
+*/
+entity type MLTestDataPoint mixes TimedDataPoint<MLTestDataSeries> schema name 'ML_TST_DAT_PNT'{
+    //
+    parent: !MLTestDataSeries
+    //
+    value: double
+}

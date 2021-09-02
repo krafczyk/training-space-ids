@@ -1,0 +1,18 @@
+{
+    "id": "py-gpu_basic_1_0_0" ,
+    "name": "py-gpu_basic_1_0_0",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.7",
+    "modules": {
+    "conda.tensorflow-gpu":"=2.4.1",
+    "pip.torch":"==1.9.0",
+    "conda.numba":"=0.53.1",
+    "pip.cupy-cuda101":""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
