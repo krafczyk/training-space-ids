@@ -29,11 +29,87 @@ def buildThreddsURL(baseurl, vars, options):
     from urllib.parse import urlencode,urljoin
     varst = [('var',v) for v in vars]
     url1 = urlencode(varst,{'d':2})
+    url2 = urlencode(options)
+    url = urljoin(baseurl,url1+'&'+url2)
+    return url
 
-def stageFMRCDownloads(this,time_start=None,time_end=None,time_step=None):
-    """Stage records for netCDF data download for a given FMRC
+def stageFMRCDataArchive(this,archive_spec=None):
+    from datetime import datetime,timedelta
+    """Stage subset and download options for a downloading current  FMRC data
     """
-    pass
+    if archive_spec is None:
+        # Default Data Archive spec
+        archive_spec = {
+            'fmrc': this,
+            'subsetOptions': {
+                'timeRange': {
+                    'start': this.timeCoverage.start,
+                    'end': this.timeCoverage.end
+                },
+                'timeStride': 1,
+                'horizStride': 1,
+                'vertStride': 1,
+                'disableLLSubset': 'on',
+                'disableProjSubset': 'on',
+                'addLatLon': 'false',
+                'accept': 'netcdf4',
+                'vars': ['surf_el','salinity','water_temp','water_u','water_v']
+            },
+            'downloadOptions': {
+                'maxTimesPerFile': 1,
+            }
+        }
+
+    archive = c3.FMRCSubsetOptions(**archive_spec).upsert()
+
+    # Now stage download records for each file
+    # Genrnate time batches to include in each file
+    def gentimes():
+        t = archive_spec['subsetOptions']['timeRange']['start']
+        while t <= archive_spec['subsetOptions']['timeRange']['end']:
+            yield t
+            t += timedelta(hours=archive_spec['subsetOptions']['timeStride'])
+    
+    times = list(gentimes())
+    max_batch len(times)
+    if archive_spec['downloadOptions']['maxTimesPerFile'] < 0 || 
+        archive_spec['downloadOptions']['maxTimesPerFile'] > max_batch:
+        batch_size = max_batch
+    else:
+        batch_size = archive_spec['downloadOptions']['maxTimesPerFile']
+    
+    def genbatches(l,n):
+        for i in range(0, len(l), n): 
+            yield l[i:i + n]
+
+    batches = list(genbatches(times, batch_size))
+
+    # Create a FMRCFile spec for each batch
+    file_specs = [
+        {
+            'dataArchive': archive,
+            'name': (
+                this.run + '-' + time_start + file_ext 
+                if archive_spec['downloadOptions']['maxTimesPerFile'] == 1 else
+                this.run + '-' + time_start + '-' + time_end + file_ext
+            ),
+            'timeCoverage': {
+                'start': batches[i][0],
+                'end': batches[i][-1]
+            },
+            'timeStride': archive_spec['subsetOptions']['timeStride'],
+            'geospatialCoverage': this.geospatialCoverage,
+            'vars': archive_spec['subsetOptions']['vars'],
+            'fileType': archive_spec['subsetOptions'],
+            'status': 'not_downloaded'
+        }
+        for i in range(len(batches))
+    ]
+
+    files = [c3.FMRCFile(**spec) for spec in file_specs]
+
+    return files
+    
 
 def downloadFMRCRunData(this,time_start,time_end,
                       path=None,
