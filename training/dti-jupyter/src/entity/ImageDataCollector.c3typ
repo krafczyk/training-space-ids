@@ -29,6 +29,6 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 
 	// first python method //
 	@py(env="")
-	get_image_from_url: function(input_url: string): string py server
+	get_metadata_from_url: function(input_url: string): int py server
 
 }
