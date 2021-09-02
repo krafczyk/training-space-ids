@@ -27,4 +27,9 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 	// this is an optional field only useful whenever the image contains pre-marked tags for training.  
 	special_tag: string
 
+
+	// first python method //
+	@py(env="")
+	get_image_from_url: function(req: string): string py server
+
 }
