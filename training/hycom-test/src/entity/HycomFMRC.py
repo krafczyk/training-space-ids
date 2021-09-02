@@ -85,6 +85,7 @@ def stageFMRCDataArchive(this,archive_spec=None):
     batches = list(genbatches(times, batch_size))
 
     # Create a FMRCFile spec for each batch
+    #
     file_specs = [
         {
             'dataArchive': archive,
