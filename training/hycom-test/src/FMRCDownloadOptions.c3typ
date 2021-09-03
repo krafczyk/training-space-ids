@@ -1,0 +1,7 @@
+/**
+FMRCDownloadOptions
+*/
+type FMRCDownloadOptions {
+    // The maximum number of time steps to retrive in a single file
+    maxTimesPerFile: !int
+}
