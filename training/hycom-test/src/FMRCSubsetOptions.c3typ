@@ -1,0 +1,24 @@
+/**
+FMRCSubsetOptions.c3typ
+Download Options for a (link @HycomFMRC).
+*/
+type FMRCSubsetOptions {
+    //
+    timeRange: !TimeRange
+    //
+    timeStride: !int
+    //
+    vars: !string enum('surf_el','salinity','water_temp','water_u','water_v')
+    //
+    disableLLSubset: string enum('on', 'off')
+    //
+    disableProjSubset: string enum('on', 'off')
+    //
+    horizStride: int
+    //
+    vertStride: int
+    //
+    addLatLon: string enum('true', 'false')
+    //
+    accept: string enum('netcdf', 'netcdf4')
+}

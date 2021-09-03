@@ -1,18 +1,5 @@
 """Methods  for Hycom FMRC type"""
 
-def downloadToExternal(srcUrl, fileName, s3_folder):
-    import requests
-    tmp_path = "/tmp/" + fileName
-    with requests.get(srcUrl, stream=True) as r:
-        r.raise_for_status()
-        with open(tmp_path, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    c3.Client.uploadLocalClientFiles(tmp_path, s3_folder, {"peekForMetadata": True})
-    #c3.Logger.info("file {} downloaded to {}".format(fileName, s3_folder + fileName))
-    os.remove(tmp_path)
-    return s3_folder + '/' + fileName
-
 ####################
 
 def downloadToExternal(srcUrl, fileName, s3_folder):
@@ -27,6 +14,103 @@ def downloadToExternal(srcUrl, fileName, s3_folder):
     #c3.Logger.info("file {} downloaded to {}".format(fileName, s3_folder + fileName))
     os.remove(tmp_path)
     return s3_folder + '/' + fileName
+
+def buildThreddsURL(baseurl, vars, options):
+    """Builds a Thredds URL for a set of variables and options
+    
+    Args:
+        baseurl (str): base url for the Thredds server + URL path for a run
+        vars (list): list of variable names to include in data files
+        options (dict): dictionary of options to include in the URL query
+
+    Returns:
+        str: Thredds URL
+    """
+    from urllib.parse import urlencode,urljoin
+    varst = [('var',v) for v in vars]
+    url1 = urlencode(varst,{'d':2})
+    url2 = urlencode(options)
+    url = urljoin(baseurl,url1+'&'+url2)
+    return url
+
+def stageFMRCDataArchive(this,archive_spec=None):
+    from datetime import datetime,timedelta
+    """Stage subset and download options for a downloading current  FMRC data
+    """
+    if archive_spec is None:
+        # Default Data Archive spec
+        archive_spec = {
+            'fmrc': this,
+            'subsetOptions': {
+                'timeRange': {
+                    'start': this.timeCoverage.start,
+                    'end': this.timeCoverage.end
+                },
+                'timeStride': 1,
+                'horizStride': 1,
+                'vertStride': 1,
+                'disableLLSubset': 'on',
+                'disableProjSubset': 'on',
+                'addLatLon': 'false',
+                'accept': 'netcdf4',
+                'vars': ['surf_el','salinity','water_temp','water_u','water_v']
+            },
+            'downloadOptions': {
+                'maxTimesPerFile': 1,
+            }
+        }
+
+    archive = c3.FMRCSubsetOptions(**archive_spec).upsert()
+
+    # Now stage download records for each file
+    # Genrnate time batches to include in each file
+    def gentimes():
+        t = archive_spec['subsetOptions']['timeRange']['start']
+        while t <= archive_spec['subsetOptions']['timeRange']['end']:
+            yield t
+            t += timedelta(hours=archive_spec['subsetOptions']['timeStride'])
+    
+    times = list(gentimes())
+    max_batch len(times)
+    if archive_spec['downloadOptions']['maxTimesPerFile'] < 0 || 
+        archive_spec['downloadOptions']['maxTimesPerFile'] > max_batch:
+        batch_size = max_batch
+    else:
+        batch_size = archive_spec['downloadOptions']['maxTimesPerFile']
+    
+    def genbatches(l,n):
+        for i in range(0, len(l), n): 
+            yield l[i:i + n]
+
+    batches = list(genbatches(times, batch_size))
+
+    # Create a FMRCFile spec for each batch
+    #
+    file_specs = [
+        {
+            'dataArchive': archive,
+            'name': (
+                this.run + '-' + time_start + file_ext 
+                if archive_spec['downloadOptions']['maxTimesPerFile'] == 1 else
+                this.run + '-' + time_start + '-' + time_end + file_ext
+            ),
+            'timeCoverage': {
+                'start': batches[i][0],
+                'end': batches[i][-1]
+            },
+            'timeStride': archive_spec['subsetOptions']['timeStride'],
+            'geospatialCoverage': this.geospatialCoverage,
+            'vars': archive_spec['subsetOptions']['vars'],
+            'fileType': archive_spec['subsetOptions'],
+            'status': 'not_downloaded'
+        }
+        for i in range(len(batches))
+    ]
+
+    files = [c3.FMRCFile(**spec) for spec in file_specs]
+
+    return files
+    
 
 def downloadFMRCRunData(this,time_start,time_end,
                       path=None,
@@ -65,13 +149,12 @@ def downloadFMRCRunData(this,time_start,time_end,
                       'accept':accept
                      })
     
-    if (time_start == time_end):
+    if time_start == time_end:
         url2 = urlencode({'time':time_start})
         filename = this.run + '-' + time_start + file_ext
     else:
         url2 = urlencode({'time_start':time_start,'time_end':time_end})
         filename = this.run + '-' + time_start + '-' + time_end + file_ext
-        
 
     query = url1 + '&' + url2 + '&' + url3
     url = base_url+'?'+query
