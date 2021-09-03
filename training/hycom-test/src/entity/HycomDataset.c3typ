@@ -1,0 +1,48 @@
+/**
+HycomDataset.c3typ
+A collection of datasets and available from the HYCOM Thredds server.
+
+The geospatial data map from this xml:
+The following lat/lon min/max fields should map fromthis XML:
+```
+    <geospatialCoverage>
+    <northsouth>
+    <start>18.1200008392334</start>
+    <size>13.799999237060547</size>
+    <units>degrees_north</units>
+    </northsouth>
+    <eastwest>
+    <start>-98.0</start>
+    <size>21.5999755859375</size>
+    <units>degrees_east</units>
+    </eastwest>
+    <updown>
+    <start>0.0</start>
+    <size>5000.0</size>
+    <resolution>128.2051282051282</resolution>
+    <units>m</units>
+    </updown>
+    </geospatialCoverage>
+```
+Notes:
+    - Do we want explict unit definitions?
+
+*/
+entity type HycomDataset schema name "HCM_DTST" {
+    // Version of the dataset
+    hycom_version: !string
+    // Name of the dataset
+    name: !string
+    // Description of the dataset
+    description: string    
+    // The geospatial coverage of the dataset in degrees LAT/LON
+    geospatialCoverage: !GeospatialCoverage
+    // The url of the dataset catalog
+    catalog_url: !string
+    //
+    @py(env="hycom_1_0_0")
+    upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
+    //
+    @py(env="hycom_1_0_0")
+    upsertFMRCFromDatasetCatalog: member function(): [HycomFMRC]
+}
