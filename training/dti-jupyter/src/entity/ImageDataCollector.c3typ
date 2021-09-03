@@ -2,18 +2,33 @@
 ImageDataCollector.c3typ
 Collect image data for research group using C3 AI Suite.
 */
-entity type ImageDataCollector mixes ImageFile schema name "IMG_DAT_CLLCTR"{
+entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
+
+	// imporant image properties
+	image_id: !string
+
+	blob_url: !string
+
+	image_type: !string
+
+        image_width: int
+	
+	image_height: int
 
 	// initial with lat and long
-	lat_min: !double
+	lat_min: double
 	
-	lat_max: !double
+	lat_max: double
 
-	lon_min: !double
+	lon_min: double
 
-	lon_max: !double
+	lon_max: double
 
 	// this is an optional field only useful whenever the image contains pre-marked tags for training.  
 	special_tag: string
+
+	// first python method //
+	@py(env="image")
+	get_metadata_from_url: member function(input_url: string): [int] py server
 
 }

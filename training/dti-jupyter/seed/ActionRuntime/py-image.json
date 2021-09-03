@@ -1,0 +1,22 @@
+{
+    "id": "py-image" ,
+    "name": "py-image",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.6",
+    "modules": {
+        "conda.scipy": "=1.4.1",
+        "conda.pip": "",
+        "conda.pandas": "=1.0.1",
+        "conda.numpy": "=1.18.1",
+        "conda.matplotlib": "",
+        "conda.ipywidgets": "",
+	"conda.urllib3": "",
+	"conda.pillow": ""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
