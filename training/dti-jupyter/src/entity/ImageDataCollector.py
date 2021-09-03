@@ -1,10 +1,10 @@
 ## funcions ##
 def get_metadata_from_url(this, input_url):
     
-    ##import io
-    ##import numpy as np
-    ##import urllib
-    ##from PIL import Image
+    import io
+    import numpy as np
+    import urllib
+    from PIL import Image
 
     ##pil_im = None
     ## start request the image ##
