@@ -18,9 +18,9 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The url of the dataset catalog
     catalog_url: !string
     //
-    @py(env="hycom_1_0_0")
+    @py(env="hycom-light_1_0_0")
     upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
     //
-    @py(env="hycom_1_0_0")
+    @py(env="hycom-light_1_0_0")
     upsertFMRCFromDatasetCatalog: member function(): [HycomFMRC]
 }
