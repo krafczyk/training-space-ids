@@ -14,7 +14,7 @@ on:
 env:
   DTI_PROVISIONER_VERSION: v1.43
   TAG: 'tc01d'
-  TENANT: 'dti-jupyter'
+  TENANT: 'dev'
   C3REPO: 'training'
   PACKAGE: 'dti-jupyter'
 ########################################################################
