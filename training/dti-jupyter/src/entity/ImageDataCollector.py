@@ -16,4 +16,4 @@ def get_metadata_from_url(this, input_url):
 
     #print("hello world!")
 
-    return this.image_width
+    return [this.image_width, this.image_height]
