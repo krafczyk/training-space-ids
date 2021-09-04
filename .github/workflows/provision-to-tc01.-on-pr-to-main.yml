@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches:
-    - tc02d
+    - main
     paths:
     - 'training/**'
     - 'test/**'
@@ -12,11 +12,11 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.43
-  TAG: 'tc02d'
-  TENANT: 'dev'
-  C3REPO: 'training'
+  DTI_PROVISIONER_VERSION: v1.42
+  TAG: 'tc01'
+  TENANT: 'dti-jupyter'
   PACKAGE: 'dti-jupyter'
+  C3REPO: 'training'
 ########################################################################
 # You should not need to edit below here, unless altering the workflow
 ########################################################################
@@ -24,7 +24,7 @@ env:
 
 jobs:
   provision:
-    name: Provision to tc01d
+    name: Provision to tc01
     runs-on: ubuntu-latest
     steps:
           
