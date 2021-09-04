@@ -1,7 +1,7 @@
 on:
-  pull_request:
+  push:
     branches:
-    - tc01d
+    - tc02d
     paths:
     - 'training/**'
     - 'test/**'
@@ -13,7 +13,7 @@ on:
 ########################################################################
 env:
   DTI_PROVISIONER_VERSION: v1.43
-  TAG: 'tc01d'
+  TAG: 'tc02d'
   TENANT: 'dev'
   C3REPO: 'training'
   PACKAGE: 'dti-jupyter'
