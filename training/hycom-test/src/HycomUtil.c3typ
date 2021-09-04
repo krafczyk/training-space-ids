@@ -7,5 +7,5 @@ type HycomUtil {
     @py(env='hycom_1_0_0')
     downloadToExternal: inline function(srcUrl: !string, fileName: !string, extDir: !string)
     @py(env='hycom_1_0_0')
-    buildThreddsUrl: inline function(baseurl: !string, vars: [!string], options: !any)
+    buildThreddsUrl: inline function(baseurl: !string, vars: [string], options: any)
 }
