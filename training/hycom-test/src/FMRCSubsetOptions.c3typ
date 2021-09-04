@@ -5,20 +5,20 @@ Download Options for a (link @HycomFMRC).
 type FMRCSubsetOptions {
     // The time interval for the subset.
     timeRange: TimeRange
-    // 
+    // time stride for the subset.
     timeStride: int
-    // 
+    // Variables to be included in the subset.
     vars: string
-    //
+    // The spatial region subsetting.
     disableLLSubset: string enum('on', 'off')
     //
     disableProjSubset: string enum('on', 'off')
-    //
+    // Horizontal stride for the subset.
     horizStride: int
-    //
+    // Vertical stride for the subset.
     vertStride: int
-    //
+    // Wheter to include lat lon data
     addLatLon: string enum('true', 'false')
-    //
+    // file format
     accept: string enum('netcdf', 'netcdf4')
 }
