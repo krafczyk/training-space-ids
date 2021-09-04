@@ -12,7 +12,7 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.42
+  DTI_PROVISIONER_VERSION: v1.44
   TAG: 'tc01'
   TENANT: 'dti-jupyter'
   PACKAGE: 'dti-jupyter'
