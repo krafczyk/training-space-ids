@@ -8,7 +8,7 @@ type FMRCSubsetOptions {
     // 
     timeStride: int
     // 
-    vars: [string]
+    vars: string
     //
     disableLLSubset: string enum('on', 'off')
     //
