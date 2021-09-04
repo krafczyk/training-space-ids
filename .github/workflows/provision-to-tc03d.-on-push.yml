@@ -12,7 +12,7 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.43
+  DTI_PROVISIONER_VERSION: v1.44
   TAG: 'tc03d'
   TENANT: 'dev'
   C3REPO: 'training'
