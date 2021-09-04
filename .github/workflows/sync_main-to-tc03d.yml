@@ -3,14 +3,14 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'training/**'
-      - 'test/**'
+#     paths:
+#       - 'training/**'
+#       - 'test/**'
 
 jobs:
   sync-branches:
     runs-on: ubuntu-latest
-    name: Syncing main to tc03d-dev
+    name: Syncing main to tc03d
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,4 +24,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "main"
-          TO_BRANCH: "tc03d-dev"
+          TO_BRANCH: "tc03d"

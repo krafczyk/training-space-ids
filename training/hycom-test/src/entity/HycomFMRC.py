@@ -33,50 +33,51 @@ def buildThreddsURL(baseurl, vars, options):
     url = urljoin(baseurl,url1+'&'+url2)
     return url
 
-def stageFMRCDataArchive(this,archive_spec=None):
+def stageFMRCFiles(this,archive)):
     from datetime import datetime,timedelta
     """Stage subset and download options for a downloading current  FMRC data
     """
-    if archive_spec is None:
-        # Default Data Archive spec
-        archive_spec = {
-            'fmrc': this,
-            'subsetOptions': {
-                'timeRange': {
-                    'start': this.timeCoverage.start,
-                    'end': this.timeCoverage.end
-                },
-                'timeStride': 1,
-                'horizStride': 1,
-                'vertStride': 1,
-                'disableLLSubset': 'on',
-                'disableProjSubset': 'on',
-                'addLatLon': 'false',
-                'accept': 'netcdf4',
-                'vars': ['surf_el','salinity','water_temp','water_u','water_v']
-            },
-            'downloadOptions': {
-                'maxTimesPerFile': 1,
-            }
-        }
 
-    archive = c3.FMRCSubsetOptions(**archive_spec).upsert()
+    #if archive_spec is None:
+        # Default Data Archive spec
+        # archive_spec = {
+        #     'fmrc': this,
+        #     'subsetOptions': {
+        #         'timeRange': {
+        #             'start': this.timeCoverage.start,
+        #             'end': this.timeCoverage.end
+        #         },
+        #         'timeStride': 1,
+        #         'horizStride': 1,
+        #         'vertStride': 1,
+        #         'disableLLSubset': 'on',
+        #         'disableProjSubset': 'on',
+        #         'addLatLon': 'false',
+        #         'accept': 'netcdf4',
+        #         'vars': ['surf_el','salinity','water_temp','water_u','water_v']
+        #     },
+        #     'downloadOptions': {
+        #         'maxTimesPerFile': 1,
+        #     }
+        # }
+
+    #archive = c3.FMRCSubsetOptions(**archive_spec).upsert()
 
     # Now stage download records for each file
     # Genrnate time batches to include in each file
     def gentimes():
-        t = archive_spec['subsetOptions']['timeRange']['start']
-        while t <= archive_spec['subsetOptions']['timeRange']['end']:
+        t = archive.subsetOptions.timeRange.start
+        while t <= archive.subsetOptions.timeRange.end:
             yield t
-            t += timedelta(hours=archive_spec['subsetOptions']['timeStride'])
+            t += timedelta(hours=archive.subsetOptions.timeStride)
     
     times = list(gentimes())
-    max_batch len(times)
-    if archive_spec['downloadOptions']['maxTimesPerFile'] < 0 || 
-        archive_spec['downloadOptions']['maxTimesPerFile'] > max_batch:
+    max_batch = len(times)
+    if ( archive.downloadOptions.maxTimesPerFile < 0 or
+        archive.downloadOptions.maxTimesPerFile > max_batch):
         batch_size = max_batch
     else:
-        batch_size = archive_spec['downloadOptions']['maxTimesPerFile']
+        batch_size = archive.downloadOptions.maxTimesPerFile
     
     def genbatches(l,n):
         for i in range(0, len(l), n): 
@@ -84,30 +85,32 @@ def stageFMRCDataArchive(this,archive_spec=None):
 
     batches = list(genbatches(times, batch_size))
 
+    # upsert Data archive Record
+    archive.upsert()
     # Create a FMRCFile spec for each batch
     #
-    file_specs = [
-        {
+    file_ext = '.nc'
+    files = [
+        c3.FMRCFile(
+        **{
             'dataArchive': archive,
             'name': (
-                this.run + '-' + time_start + file_ext 
-                if archive_spec['downloadOptions']['maxTimesPerFile'] == 1 else
-                this.run + '-' + time_start + '-' + time_end + file_ext
+                this.run + '-' + batches[i][0] + file_ext 
+                if archive.downloadOptions.maxTimesPerFile == 1 else
+                this.run + '-' + batches[i][0] + '-' + batches[i][-1] + file_ext
             ),
             'timeCoverage': {
                 'start': batches[i][0],
                 'end': batches[i][-1]
             },
-            'timeStride': archive_spec['subsetOptions']['timeStride'],
+            'timeStride': archive.subsetOptions.timeStride,
             'geospatialCoverage': this.geospatialCoverage,
-            'vars': archive_spec['subsetOptions']['vars'],
-            'fileType': archive_spec['subsetOptions'],
+            'vars': archive.subsetOptions.vars,
+            'fileType': archive.subsetOptions.fileType,
             'status': 'not_downloaded'
         }
-        for i in range(len(batches))
+        ).upsert() for i in range(len(batches))
     ]
-
-    files = [c3.FMRCFile(**spec) for spec in file_specs]
 
     return files
     
