@@ -4,11 +4,11 @@ Download Options for a (link @HycomFMRC).
 */
 type FMRCSubsetOptions {
     // The time interval for the subset.
-    timeRange: !TimeRange
+    timeRange: TimeRange
     // 
-    timeStride: !int
+    timeStride: int
     // 
-    vars: [!string]
+    vars: [string]
     //
     disableLLSubset: string enum('on', 'off')
     //
