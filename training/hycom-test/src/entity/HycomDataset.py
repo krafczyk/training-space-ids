@@ -43,7 +43,7 @@ def upsertHycomDatasetFromCatalog(url=None):
     
 
 
-def upsertFMRCFromDatasetCatalog(this):
+def upsertFMRCs(this):
     url = this.catalog_url
     with requests.get(url) as r:
         doc = xmltodict.parse(r.text)

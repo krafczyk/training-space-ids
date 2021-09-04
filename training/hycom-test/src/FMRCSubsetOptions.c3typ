@@ -3,12 +3,12 @@ FMRCSubsetOptions.c3typ
 Download Options for a (link @HycomFMRC).
 */
 type FMRCSubsetOptions {
-    //
-    timeRange: !TimeRange
-    //
-    timeStride: !int
-    //
-    vars: !string enum('surf_el','salinity','water_temp','water_u','water_v')
+    // The time interval for the subset.
+    timeRange: TimeRange
+    // 
+    timeStride: int
+    // 
+    vars: string
     //
     disableLLSubset: string enum('on', 'off')
     //
