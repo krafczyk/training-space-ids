@@ -25,4 +25,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     status: !string enum('downloaded','not_downloaded','downloading','error')
     // The {@link File} objecy for this file
     file: File
+    //
+    @py(env=hycom_1_0_0)
+    download: member function(): string
 }

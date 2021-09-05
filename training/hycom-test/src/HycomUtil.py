@@ -14,21 +14,40 @@ def downloadToExternal(srcUrl, fileName, extDir):
     os.remove(tmp_path)
     return extDir + '/' + fileName
 
-def buildThreddsUrl(baseurl, vars, options):
+def buildThreddsUrl(baseurl, vars, subset):
     """Builds a Thredds URL for a set of variables and options
     
     Args:
         baseurl (str): base url for the Thredds server + URL path for a run
         vars (list): list of variable names to include in data files
-        options (dict): dictionary of options to include in the URL query
+        subset (object): A FMRCSubsetOptions object
 
     Returns:
         str: Thredds URL
     """
     from urllib.parse import urlencode,urljoin
+    # Convert FMRCSubsetOptions object to a dictionary
+    options = {
+        'disableLLSubset': subset.disableLLSubset,
+        'disableProjSubset': subset.disableProjSubset,
+        'horizStride': subset.horizStride,
+        'timeStride': subset.timeStride,
+        'vertStride': subset.vertStride,
+        'addLatLon': subset.addLatLon,
+        'accept': subset.accept
+        }
 
-    varst = [('var',v) for v in vars]
-    url1 = urlencode(varst,{'d':2})
+    time_start = subset.timeRange.start
+    time_end = subset.timeRange.end
+
+    if time_start == time_end:
+        options ['time'] = time_start
+    else:
+        options['time_start'] = time_start
+        options['time_end'] =time_end
+
+    vars = [('var',v) for v in vars]
+    url1 = urlencode(vars,{'d':2})
     url2 = urlencode(options)
     url = urljoin(baseurl,url1+'&'+url2)
     return url
