@@ -34,9 +34,9 @@ def stageFMRCFiles(this):
         **{
             'dataArchive': this,
             'name': (
-                this.fmrc.run + '-' + batches[i][0] + file_ext 
+                this.fmrc.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext 
                 if this.downloadOptions.maxTimesPerFile == 1 else
-                this.fmrc.run + '-' + batches[i][0] + '-' + batches[i][-1] + file_ext
+                this.fmrc.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + '-' + batches[i][-1].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext
             ),
             'timeCoverage': {
                 'start': batches[i][0],
@@ -48,8 +48,10 @@ def stageFMRCFiles(this):
             'fileType': this.subsetOptions.fileType,
             'status': 'not_downloaded'
         }
-        ).upsert() for i in range(len(batches))
+        ) for i in range(len(batches))
     ]
+
+    c3.FMRCFile.upsertBatch(files)
 
     return files
     
