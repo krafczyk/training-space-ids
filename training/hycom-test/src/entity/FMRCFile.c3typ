@@ -6,7 +6,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
     dataArchive: !FMRCDataArchive
     //  FRMC file name
-    name: !string
+    fileName: string post default 'id'
     // Time coverage for this file
     timeCoverage: !TimeRange
     // Time stride for this file
@@ -16,7 +16,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     // Geospatial coverage for this file
     geospatialCoverage: !GeospatialCoverage
     // Geospatial resolution for this file
-    geospatialResolution: !GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
+    geospatialResolution: GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
     // the varaibles contained in this file    
     vars: !string
     //  FRMC file type
