@@ -3,7 +3,7 @@
 def download(this):
     """Download this particular FMRCFile from the Thredds server
     """
-    if this.dataArchive.SubsetOptions is None or this.dataArchive.fmrc is None:
+    if this.dataArchive.subsetOptions is None or this.dataArchive.fmrc is None:
         dataArchive = c3.DataArchive.get(this.dataArchive.id)
     else:
         dataArchive = this.dataArchive
