@@ -45,7 +45,7 @@ def stageFMRCFiles(this):
             'timeStride': this.subsetOptions.timeStride,
             'geospatialCoverage': this.fmrc.geospatialCoverage,
             'vars': this.subsetOptions.vars,
-            'fileType': this.subsetOptions.fileType,
+            'fileType': this.subsetOptions.accept,
             'status': 'not_downloaded'
         }
         ) for i in range(len(batches))
