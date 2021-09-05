@@ -5,9 +5,9 @@ def download(this):
     """
 
     url = c3.HycomUtil.buildThreddsUrl(
-        baseurl = this.dataArchive.fmrc.urlPath
-        vars = this.vars.split(,)
-        options = 
+        baseurl = this.dataArchive.fmrc.urlPath,
+        vars = this.vars.split(','),
+        options =this.dataArchive.subsetOptions
         )
-        
+
     return url
