@@ -43,7 +43,7 @@ def stageFMRCFiles(this):
                 'end': batches[i][-1]
             },
             'timeStride': this.subsetOptions.timeStride,
-            'geospatialCoverage': this.dataset.geospatialCoverage,
+            'geospatialCoverage': this.fmrc.geospatialCoverage,
             'vars': this.subsetOptions.vars,
             'fileType': this.subsetOptions.fileType,
             'status': 'not_downloaded'
@@ -51,7 +51,7 @@ def stageFMRCFiles(this):
         ) for i in range(len(batches))
     ]
 
-    c3.FMRCFile.upsertBatch(files)
+    c3.FMRCFile.upsertBatch(objs=files)
 
     return files
     
