@@ -3,11 +3,21 @@
 def download(this):
     """Download this particular FMRCFile from the Thredds server
     """
+    if this.dataArchive.SubsetOptions is None or this.dataArchive.fmrc is None:
+        dataArchive = c3.DataArchive.get(this.dataArchive.id)
+    else:
+        dataArchive = this.dataArchive
+    fmrc = dataArchive.fmrc
+
+    if fmrc.urlPath is None:
+        fmrc = c3.HycomFMRC.get(this.dataArchive.fmrc.id)
+
+    url_path = fmrc.urlPath
 
     url = c3.HycomUtil.buildThreddsUrl(
-        baseurl = this.dataArchive.fmrc.urlPath,
+        baseurl = url_path,
         vars = this.vars.split(','),
-        options =this.dataArchive.subsetOptions
+        options = dataArchive.subsetOptions
         )
 
     return url
