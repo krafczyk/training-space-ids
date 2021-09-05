@@ -34,9 +34,9 @@ def stageFMRCFiles(this):
         **{
             'dataArchive': this,
             'name': (
-                this.run + '-' + batches[i][0] + file_ext 
+                this.fmrc.run + '-' + batches[i][0] + file_ext 
                 if this.downloadOptions.maxTimesPerFile == 1 else
-                this.run + '-' + batches[i][0] + '-' + batches[i][-1] + file_ext
+                this.fmrc.run + '-' + batches[i][0] + '-' + batches[i][-1] + file_ext
             ),
             'timeCoverage': {
                 'start': batches[i][0],
