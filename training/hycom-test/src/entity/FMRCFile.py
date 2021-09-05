@@ -14,10 +14,38 @@ def download(this):
 
     url_path = fmrc.urlPath
 
-    url = c3.HycomUtil.buildThreddsUrl(
-        baseurl = url_path,
-        vars = this.vars.split(','),
-        subset = dataArchive.subsetOptions
-        )
+    # url = c3.HycomUtil.buildThreddsUrl(
+    #     baseurl = url_path,
+    #     vars = this.vars.split(','),
+    #     subset = dataArchive.subsetOptions,
+    #     timeRange = this.timeRange
+    #     )
+    
+    baseurl = url_path
 
+    from urllib.parse import urlencode,urljoin
+    # Convert FMRCSubsetOptions object to a dictionary
+    options = {
+        'disableLLSubset': dataArchive.subsetOptions.disableLLSubset,
+        'disableProjSubset': dataArchive.subsetOptions.disableProjSubset,
+        'horizStride': dataArchive.subsetOptions.horizStride,
+        'timeStride': dataArchive.subsetOptions.timeStride,
+        'vertStride': dataArchive.subsetOptions.vertStride,
+        'addLatLon': dataArchive.subsetOptions.addLatLon,
+        'accept': dataArchive.subsetOptions.accept
+        }
+
+    time_start = this.timeCoverage.start
+    time_end = this.timeCoverage.end
+
+    if time_start == time_end:
+        options ['time'] = time_start
+    else:
+        options['time_start'] = time_start
+        options['time_end'] = time_end
+
+    vars = [('var',v) for v in vars]
+    url1 = urlencode(vars,{'d':2})
+    url2 = urlencode(options)
+    url = urljoin(baseurl,url1+'&'+url2)
     return url
