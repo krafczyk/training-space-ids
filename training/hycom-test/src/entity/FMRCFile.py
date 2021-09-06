@@ -21,7 +21,7 @@ def download(this):
     #     timeRange = this.timeRange
     #     )
     
-    baseurl = url_path
+    baseurl = urljoin('https://ncss.hycom.org/thredds/ncss/grid',url_path)
 
     from urllib.parse import urlencode,urljoin
     # Convert FMRCSubsetOptions object to a dictionary
@@ -45,7 +45,7 @@ def download(this):
         options['time_end'] = time_end
 
     vars_list = this.vars.split(',')
-    vars = [('var',v) for v in vars_list]
+    vars = [('var',v) for v in vars_list+]
     url1 = urlencode(vars,{'d':2})
     url2 = urlencode(options)
     url = urljoin(baseurl,url1+'&'+url2)
