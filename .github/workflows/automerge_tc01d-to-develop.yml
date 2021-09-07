@@ -10,12 +10,18 @@ on:
       - ready_for_review
       - reopened
       - unlocked
+    branches:
+      - develop
   pull_request_review:
     types:
       - submitted
+    branches:
+      - develop
   check_suite:
     types:
       - completed
+    branches:
+      - develop
   status: {}
 jobs:
   automerge:
