@@ -4,7 +4,7 @@ def download(this):
     """Download this particular FMRCFile from the Thredds server
     """
     from urllib.parse import urlencode,urljoin
-    
+
     if this.dataArchive.subsetOptions is None or this.dataArchive.fmrc is None:
         dataArchive = c3.FMRCDataArchive.get(this.dataArchive.id)
     else:
@@ -15,13 +15,6 @@ def download(this):
         fmrc = c3.HycomFMRC.get(this.dataArchive.fmrc.id)
 
     url_path = fmrc.urlPath
-
-    # url = c3.HycomUtil.buildThreddsUrl(
-    #     baseurl = url_path,
-    #     vars = this.vars.split(','),
-    #     subset = dataArchive.subsetOptions,
-    #     timeRange = this.timeRange
-    #     )
     
     baseurl = urljoin('https://ncss.hycom.org/thredds/ncss/grid',url_path)
 
@@ -49,5 +42,5 @@ def download(this):
     vars = [('var',v) for v in vars_list]
     url1 = urlencode(vars,{'d':2})
     url2 = urlencode(options)
-    url = urljoin(baseurl,url1+'&'+url2)
+    url = baseurl + '?' + url1 + '&' + url2
     return url
