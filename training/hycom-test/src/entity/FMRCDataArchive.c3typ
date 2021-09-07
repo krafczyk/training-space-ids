@@ -13,5 +13,5 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     dataFiles: [FMRCFile](dataArchive,id)
     //
     @py(env='hycom_1_0_0')
-    stageFMRCFiles: member function(archive: FMRCDataArchive): [FMRCFile]
+    stageFMRCFiles: member function(): [FMRCFile]
 }
