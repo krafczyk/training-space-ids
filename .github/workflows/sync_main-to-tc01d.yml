@@ -6,7 +6,7 @@ on:
     paths:
       - 'training/**'
       - 'test/**'
-      - '.github'
+      - '.github/**'
 
 jobs:
   sync-branches:
