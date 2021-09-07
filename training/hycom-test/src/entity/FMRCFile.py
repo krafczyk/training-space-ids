@@ -33,10 +33,10 @@ def download(this):
     time_end = this.timeCoverage.end
 
     if time_start == time_end:
-        options ['time'] = time_start
+        options ['time'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
     else:
-        options['time_start'] = time_start
-        options['time_end'] = time_end
+        options['time_start'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
+        options['time_end'] = time_end.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     vars_list = this.vars.split(',')
     vars = [('var',v) for v in vars_list]
