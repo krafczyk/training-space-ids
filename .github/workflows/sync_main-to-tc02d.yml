@@ -3,9 +3,10 @@ on:
   push:
     branches:
       - main
-#     paths:
-#       - 'training/**'
-#       - 'test/**'
+    paths:
+      - 'training/**'
+      - 'test/**'
+      - '.github'
 
 jobs:
   sync-branches:
