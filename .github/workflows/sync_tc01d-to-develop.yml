@@ -1,17 +1,17 @@
-name: Sync
+name: Sync tc01d to develop
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'training/**'
-      - 'test/**'
-      - '.github/**'
+      - tc01d
+    # paths:
+    #   - 'training/**'
+    #   - 'test/**'
+    #   - '.github/**'
 
 jobs:
-  sync-branches:
+  sync-main-to-tc01d:
     runs-on: ubuntu-latest
-    name: Syncing main to tc02d
+    name: Syncing tc01d to develop
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,5 +24,5 @@ jobs:
         uses: tretuna/sync-branches@1.2.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "main"
-          TO_BRANCH: "tc02d"
+          FROM_BRANCH: "tc01d"
+          TO_BRANCH: "develop"
