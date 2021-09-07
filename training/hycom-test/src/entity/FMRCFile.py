@@ -3,6 +3,8 @@
 def download(this):
     """Download this particular FMRCFile from the Thredds server
     """
+    from urllib.parse import urlencode,urljoin
+    
     if this.dataArchive.subsetOptions is None or this.dataArchive.fmrc is None:
         dataArchive = c3.FMRCDataArchive.get(this.dataArchive.id)
     else:
@@ -23,7 +25,6 @@ def download(this):
     
     baseurl = urljoin('https://ncss.hycom.org/thredds/ncss/grid',url_path)
 
-    from urllib.parse import urlencode,urljoin
     # Convert FMRCSubsetOptions object to a dictionary
     options = {
         'disableLLSubset': dataArchive.subsetOptions.disableLLSubset,
