@@ -1,0 +1,17 @@
+/**
+FMRCDataArchive.c3typ
+A Data archive for a {@link HycomFMRC} containing associated {@link HycomFMRCFile}s.
+*/
+entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
+    // The {@link HycomFMRC} associated with this archive.
+    fmrc: !HycomFMRC
+    // The data substting options for this archive.
+    subsetOptions: !FMRCSubsetOptions
+    // Options for how to retrive the files that make up the dataset
+    downloadOptions: !FMRCDownloadOptions
+    //
+    dataFiles: [FMRCFile](dataArchive,id)
+    //
+    @py(env='hycom_1_0_0')
+    stageFMRCFiles: member function(): [FMRCFile]
+}

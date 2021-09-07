@@ -1,0 +1,8 @@
+{
+    "name": "scratch",
+    "id": "scratch",
+    "path": "scratch",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

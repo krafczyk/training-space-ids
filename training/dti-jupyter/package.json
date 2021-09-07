@@ -1,6 +1,6 @@
 {
-  "name" : "dti-jupyter",
-  "description" : "Tags for shared Jupyter use",
-  "author" : "babreu@illinois.edu",
-  "dependencies" : [ "standardDependencies" ]
+  "name": "dti-jupyter",
+  "description": "Training application and development space for DTI project teams.",
+  "author": "DTI DevOps",
+  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment", "hycom-test", "dev"]
 }

@@ -1,0 +1,23 @@
+/**
+HycomFMRC.c3typ
+A collection of Hycom Forcast Model Runs.  Each record is a single
+FMR with with results in a NetCDF file.  Time coverage is indicated by
+the start and end fields.
+*/
+entity type HycomFMRC schema name "HC_FMRC" {
+    // The name of the {@link HycomDataset} that this FMRC is based on
+    dataset: !HycomDataset
+    // Date of the forecast run
+    run: !string
+    // The urlPath for data download
+    urlPath: !string
+    // The time coverage of the forecast run
+    timeCoverage: !TimeRange
+    // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
+    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
+    // The NetCDF file(s) containing the forecast results
+    dataFiles: [HycomFMRCFile](hycomFMRC,id)
+    // Depricated method
+    @py(env="hycom_1_0_0")
+    downloadFMRCRunData: member function(time_start: !string, time_end: !string, path: string, vars: [string] = ['surf_el','salinity','water_temp','water_u','water_v']): HycomFMRCFile
+}

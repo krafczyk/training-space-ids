@@ -1,0 +1,25 @@
+/**
+HycomDataset.c3typ
+A collection of datasets from the HYCOM Thredds server.
+*/
+entity type HycomDataset schema name "HCM_DTST" {
+    // Version of the dataset
+    hycom_version: !string
+    // Name of the dataset
+    name: !string
+    // Description of the dataset
+    description: string    
+    // The geospatial coverage of the dataset in degrees LAT/LON
+    geospatialCoverage: !GeospatialCoverage
+    // The resolution of the dataset in degrees LAT/LON
+    //geospatialResolution: !GeospatialResolution post default 'GeospatialResolution.make({"latResolution": 0.04, "lonResolution": 0.04})'
+    geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
+    // The url of the dataset catalog
+    catalog_url: !string
+    // Use the XML catalog for Hycom FMRC data to create a Dataset entry
+    @py(env="hycom_1_0_0")
+    upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
+    //
+    @py(env="hycom_1_0_0")
+    upsertFMRCs: member function(): [HycomFMRC]
+}
