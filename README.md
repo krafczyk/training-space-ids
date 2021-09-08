@@ -1,7 +1,7 @@
 # training-space-ids
 
 C3 DTI training and development repo.  
-Developers, for detailed information for contributing to this repoitory, see: **[CONTRIBUTING](https://github.com/c3aidti/training-space-ids/blob/main/.github/CONTRIBUTING.md)**.  Below is a basic overview.
+Developers, for detailed information for contributing to this repository, see: **[CONTRIBUTING](https://github.com/c3aidti/training-space-ids/blob/main/.github/CONTRIBUTING.md)**.  Below is a basic overview.
 
 ### Branches and Tags
 C3 "tags" are specific deployments of the C3AI suite that have a DNS endpoint.  All of the tags assosicated in this repository recieve deployments of a shared trinaing and development application called `dti-jupyter`. The `dti-jupyter` application can contain any number of packages related to your work on the cluster.  Below is a list of the active C3 tags and their associated GitHub branches:   
