@@ -9,7 +9,7 @@ type HycomUtil {
     @py(env='hycom_1_0_0')
     buildThreddsUrl: inline function(baseurl: !string, vars: [string], subset: any)
     @py(env='hycom_1_0_0')
-    nc_open: inline function(url: !string, local_path: !string): any
+    nc_open: inline function(url: !string, local_path: = '/tmp'): any
     @py(env='hycom_1_0_0')
-    nc_close: inline function(ds: !any, url: !string, local_path: !string): integer
+    nc_close: inline function(ds: !any, url: !string, local_path: ='/tmp'): integer
 }
