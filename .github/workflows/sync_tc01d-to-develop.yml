@@ -24,6 +24,7 @@ jobs:
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
           branch: develop-tc01d-update
+          
 # jobs:
 #   sync-main-to-tc01d:
 #     runs-on: ubuntu-latest
