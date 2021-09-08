@@ -1,0 +1,11 @@
+/**
+
+*/
+type FMRCDownloadJobOptions {
+    //
+    batchSize: int = 4
+    //
+    fmrcDownloadOptions: FMRCDownloadOptions
+    //
+    fmrcSubsetOptions: FMRCSubsetOptions
+}

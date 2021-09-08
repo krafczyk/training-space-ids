@@ -1,0 +1,8 @@
+/**
+FMRCDownloadJob A batch job to update HycomFMRC records and download all files
+*/
+type FMRCDownloadJob extends Batch<FMRCDownloadJob, FMRCDownloadJobOptions, FMRCDownloadJobBatch> type key 'FMRCDOWNLOAD'{
+    @py(env='hycom_1_0_0')
+    doStart: ~
+    processBatch: ~
+}

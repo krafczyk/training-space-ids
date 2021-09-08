@@ -3,5 +3,7 @@ FMRCDownloadOptions
 */
 type FMRCDownloadOptions {
     // The maximum number of time steps to retrive in a single file
-    maxTimesPerFile: !int
+    maxTimesPerFile: int
+    // The maximum forcast depth in hours (-1 for all) Only used in {@link FMRCDownloadJob}
+    maxForecastDepth: int
 }
