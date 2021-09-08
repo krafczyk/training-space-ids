@@ -21,7 +21,6 @@ jobs:
             automated pr
             automerge
           token: ${{secrets.DTI_DEVOPS_TOKEN}}
-
 # jobs:
 #   sync-main-to-tc01d:
 #     runs-on: ubuntu-latest
