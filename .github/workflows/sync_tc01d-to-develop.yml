@@ -9,19 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          ref: develop
+      - name: Reset tc01d
+        run: |
+          git fetch origin tc01d:tc01d
+          git reset --hard tc01d
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           title: 'Sync tc01d to develop'
-          author: dti-devops dti-devops@lists.berkeley.edu
-          branch: tc01d
-          base: develop
+          author: dti-devops <dti-devops@lists.berkeley.edu>
           labels: |
             automated pr
             automerge
           token: ${{secrets.DTI_DEVOPS_TOKEN}}
-
+          branch: develop-tc01d-update
 # jobs:
 #   sync-main-to-tc01d:
 #     runs-on: ubuntu-latest
