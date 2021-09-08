@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/auto-approve-action@v2
-      if: github.actor == 'github-actions[bot]'
+      if: github.actor == 'github-actions[bot]' || github.actor == 'dti-devops'
       with:
         github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
