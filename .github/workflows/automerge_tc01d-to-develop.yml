@@ -27,6 +27,7 @@ jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "Actor: $GITHUB_ACTOR"
       - name: automerge
         uses: "pascalgn/automerge-action@v0.14.3"
         env:
