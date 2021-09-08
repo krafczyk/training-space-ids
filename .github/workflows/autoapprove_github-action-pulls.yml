@@ -2,8 +2,18 @@ name: Auto approve
 
 on:
   pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
     branches:
     - develop
+
 
 jobs:
   auto-approve:
