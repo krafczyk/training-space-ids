@@ -1,0 +1,64 @@
+name: Sync main to dev branches
+on:
+  push:
+    branches:
+      - main
+    # paths:
+    #   - 'training/**'
+    #   - 'test/**'
+    #   - '.github/**'
+
+jobs:
+  sync-main-to-tc01d:
+    runs-on: ubuntu-latest
+    name: Syncing main to tc01d
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: "main"
+          TO_BRANCH: "tc01d"
+
+  sync-main-to-tc02d:
+    runs-on: ubuntu-latest
+    name: Syncing main to tc01d
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: "main"
+          TO_BRANCH: "tc02d"
+
+  sync-main-to-tc03d:
+    runs-on: ubuntu-latest
+    name: Syncing main to tc01d
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.2.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: "main"
+          TO_BRANCH: "tc03d"
