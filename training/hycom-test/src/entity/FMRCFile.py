@@ -43,4 +43,17 @@ def download(this):
     url1 = urlencode(vars,{'d':2})
     url2 = urlencode(options)
     url = baseurl + '?' + url1 + '&' + url2
+
+    this.status = 'downloading'
+    this.merge()
+
+    try:
+        extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
+        this.status='downloaded'
+        this.file = c3.File(**{'url': extPath})
+        this.merge()
+    except Exception as e:
+        this.status = 'error'
+        this.merge()
+        raise e
     return url
