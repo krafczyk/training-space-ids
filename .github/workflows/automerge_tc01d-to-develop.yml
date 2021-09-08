@@ -33,5 +33,4 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
           MERGE_METHOD: "merge"
-          MERGE_LABELS: ""
           MERGE_REQUIRED_APPROVALS: "1"
