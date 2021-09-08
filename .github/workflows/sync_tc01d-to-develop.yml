@@ -22,7 +22,7 @@ jobs:
           labels: |
             automated pr
             automerge
-          token: ${{secrets.DTI_DEVOPS_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           branch: develop-tc01d-update
 # jobs:
 #   sync-main-to-tc01d:
