@@ -45,7 +45,7 @@ def download(this):
     url = baseurl + '?' + url1 + '&' + url2
 
     this.status = 'downloading'
-    this.merge()
+    this.upsert()
 
     try:
         extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
