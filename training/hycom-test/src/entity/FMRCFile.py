@@ -51,9 +51,9 @@ def download(this):
         extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
         this.status='downloaded'
         this.file = c3.File(**{'url': extPath})
-        this.merge()
+        this.upsert()
     except Exception as e:
         this.status = 'error'
-        this.merge()
+        this.upsert()
         raise e
     return url
