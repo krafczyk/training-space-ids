@@ -10,7 +10,7 @@
 
     var dataset = FMRCFile.fetchObjStream({
         include: '[this, dataArchive.fmrc]',
-        filter: "status == 'not_downloaded'",
+        filter: "status != 'downloaded'",
         limit: options.limit,
     });
     while(dataset.hasNext()) {
