@@ -1,6 +1,6 @@
 """Python Methods  for HycomFMRC type"""
 
-def updateFMRCData():
+def updateFMRCData(fmrcSubsetOptions, fmrcDownloadOptions, fmrcDownloadJobOptions):
     """Update FMRC data
         For each FMRC:
           - Create FMRCDataArchive entries
