@@ -17,7 +17,10 @@ entity type HycomFMRC schema name "HC_FMRC" {
     geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
     // The NetCDF file(s) containing the forecast results
     dataFiles: [HycomFMRCFile](hycomFMRC,id)
+    // Whether data are still available in hycom catalog
+    expired: !boolean post default 'false'
     // Depricated method
-    @py(env="hycom_1_0_0")
-    downloadFMRCRunData: member function(time_start: !string, time_end: !string, path: string, vars: [string] = ['surf_el','salinity','water_temp','water_u','water_v']): HycomFMRCFile
+    //@py(env="hycom_1_0_0")
+    //downloadFMRCRunData: member function(time_start: !string, time_end: !string, path: string, vars: [string] = ['surf_el','salinity','water_temp','water_u','water_v']): HycomFMRCFile
+    updateFMRCData: function() js server
 }

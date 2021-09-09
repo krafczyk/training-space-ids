@@ -62,4 +62,6 @@ def upsertFMRCs(this):
         }
     ).upsert() for d in doc['catalog']['dataset']['dataset']
             ]
+
+    # mark existing FMRCs that are no longer in the catalog as expired
     return frmcs
