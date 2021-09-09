@@ -44,16 +44,18 @@ def download(this):
     url2 = urlencode(options)
     url = baseurl + '?' + url1 + '&' + url2
 
-    this.status = 'downloading'
-    this.merge()
+    # Create a fresh instance to avoid version errors or other bs
+    updated = c3.FMRCFile(**{'id':this.id})
+    updated.status = 'downloading'
+    updated.merge()
 
     try:
         extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
-        this.status='downloaded'
-        this.file = c3.File(**{'url': extPath})
-        this.merge()
+        updated.status='downloaded'
+        updated.file = c3.File(**{'url': extPath})
+        updated.merge()
     except Exception as e:
-        this.status = 'error'
-        this.merge()
+        updated.status = 'error'
+        updated.merge()
         raise e
-    return this.file
+    return updated.file
