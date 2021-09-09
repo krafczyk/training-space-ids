@@ -9,7 +9,7 @@
     var batch = []
 
     var dataset = FMRCFile.fetchObjStream({
-        include: 'id, fileName, file, status',
+        include: '[this, dataArchive.fmrc]',
         filter: "status == 'not_downloaded'",
         limit: -1
     });
