@@ -64,4 +64,16 @@ def upsertFMRCs(this):
             ]
 
     # mark existing FMRCs that are no longer in the catalog as expired
+    updates = []
+    valid_fmrcs = c3.HycomFMRC.fetch(spec={'filter':"expired==false"}).objs
+    if valid_fmrcs:
+        for fmrc in valid_fmrcs:
+            updated = c3.HycomFMRC(**{'id': fmrc.id,'expired':True})
+            for cat in doc['catalog']['dataset']['dataset']:
+                if cat['@name'] == fmrc.run:
+                    updated.expired = False
+                    break
+            print (f"{fmrc.run}: {updated.expired}")
+            updates.append(updated)
+        c3.HycomFMRC.mergeBatch(updates)
     return frmcs
