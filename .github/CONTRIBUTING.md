@@ -28,7 +28,7 @@ tar xzf cli.tar.gz
 Contributions to the `dti-jupyter` C3 application are generally accepted in the form of pull requests with the base branch being `main`.
 
 Use the following guidelines to ensure your pull request is accepted:
-* Ensure the code you are submitting is tested and provisions without errors to one of out development tags.
+* Ensure the code you are submitting is tested and provisions without errors to one of the development tags.
 * Check the Github action status of the pull request to ensure it is passing all checks.  The dti-jupyter C3 application uses Github actions to provision the proposed changes to the `tc02` tag.
 * Merged pull requests will be automatically deployed to the `tc01` tag.
 
