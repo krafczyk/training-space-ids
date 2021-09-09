@@ -1,7 +1,10 @@
 /**
-
+FMRCDownloadOptions.c3typ
+Options for {@link FMRCDownloadJob}
 */
 type FMRCDownloadJobOptions {
-    //
+    // Number of download batches to submit
     batchSize: int = 4
+    // Limit on total # of files (mostly for testing)
+    limit: int = -1
 }

@@ -11,7 +11,7 @@
     var dataset = FMRCFile.fetchObjStream({
         include: '[this, dataArchive.fmrc]',
         filter: "status == 'not_downloaded'",
-        limit: -1
+        limit: options.limit,
     });
     while(dataset.hasNext()) {
         batch.push(dataset.next());
