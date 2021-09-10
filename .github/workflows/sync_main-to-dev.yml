@@ -3,62 +3,116 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'training/**'
-    #   - 'test/**'
-    #   - '.github/**'
 
 jobs:
-  sync-main-to-tc01d:
+  create_tc01d-to-main-pr:
     runs-on: ubuntu-latest
-    name: Syncing main to tc01d
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: 12
-      - name: Opening pull request
-        id: pull
-        uses: tretuna/sync-branches@1.2.0
+          ref: tc01d
+      - name: Reset main
+        run: |
+          git fetch origin main:main
+          git reset --hard main
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "main"
-          TO_BRANCH: "tc01d"
+          title: 'Sync main to tc01d'
+          labels: |
+            automated pr
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: main-to-tc01d-update
 
-  sync-main-to-tc02d:
+  create_tc02d-to-main-pr:
     runs-on: ubuntu-latest
-    name: Syncing main to tc01d
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: 12
-      - name: Opening pull request
-        id: pull
-        uses: tretuna/sync-branches@1.2.0
+          ref: tc02d
+      - name: Reset promotion branch
+        run: |
+          git fetch origin main:main
+          git reset --hard main
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "main"
-          TO_BRANCH: "tc02d"
+          title: 'Sync main to tc02d'
+          labels: |
+            automated pr
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: main-to-tc02d-update
 
-  sync-main-to-tc03d:
+  create_tc03d-to-main-pr:
     runs-on: ubuntu-latest
-    name: Syncing main to tc01d
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: 12
-      - name: Opening pull request
-        id: pull
-        uses: tretuna/sync-branches@1.2.0
+          ref: tc03d
+      - name: Reset promotion branch
+        run: |
+          git fetch origin main:main
+          git reset --hard main
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "main"
-          TO_BRANCH: "tc03d"
+          title: 'Sync main to tc03d'
+          labels: |
+            automated pr
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: main-to-tc03d-update
+  
+
+  # sync-main-to-tc01d:
+  #   runs-on: ubuntu-latest
+  #   name: Syncing main to tc01d
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up Node
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - name: Opening pull request
+  #       id: pull
+  #       uses: tretuna/sync-branches@1.2.0
+  #       with:
+  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #         FROM_BRANCH: "main"
+  #         TO_BRANCH: "tc01d"
+
+  # sync-main-to-tc02d:
+  #   runs-on: ubuntu-latest
+  #   name: Syncing main to tc01d
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up Node
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - name: Opening pull request
+  #       id: pull
+  #       uses: tretuna/sync-branches@1.2.0
+  #       with:
+  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #         FROM_BRANCH: "main"
+  #         TO_BRANCH: "tc02d"
+
+  # sync-main-to-tc03d:
+  #   runs-on: ubuntu-latest
+  #   name: Syncing main to tc01d
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up Node
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - name: Opening pull request
+  #       id: pull
+  #       uses: tretuna/sync-branches@1.2.0
+  #       with:
+  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #         FROM_BRANCH: "main"
+  #         TO_BRANCH: "tc03d"
