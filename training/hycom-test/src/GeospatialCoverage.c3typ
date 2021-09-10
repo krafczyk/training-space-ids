@@ -1,6 +1,6 @@
 /**
 GeospatialCoverage.c3typ
-The geospatial coverage in LatLong coordinates of a spherical-rectangular area.
+The geospatial coverage in {@link LatLong} coordinates of a spherical-rectangular area.
 */
 type GeospatialCoverage {
     // The starting coordinate.
