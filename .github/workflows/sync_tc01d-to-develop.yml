@@ -3,26 +3,43 @@ on:
   push:
     branches:
       - tc01d
-    # paths:
-    #   - 'training/**'
-    #   - 'test/**'
-    #   - '.github/**'
 
 jobs:
-  sync-main-to-tc01d:
+  createPullRequest:
     runs-on: ubuntu-latest
-    name: Syncing tc01d to develop
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
         with:
-          node-version: 12
-      - name: Opening pull request
-        id: pull
-        uses: tretuna/sync-branches@1.2.0
+          ref: develop
+      - name: Reset tc01d
+        run: |
+          git fetch origin tc01d:tc01d
+          git reset --hard tc01d
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "tc01d"
-          TO_BRANCH: "develop"
+          title: 'Sync tc01d to develop'
+          labels: |
+            automated pr
+            automerge
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: develop-tc01d-update
+          
+# jobs:
+#   sync-main-to-tc01d:
+#     runs-on: ubuntu-latest
+#     name: Syncing tc01d to develop
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Set up Node
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 12
+#       - name: Opening pull request
+#         id: pull
+#         uses: tretuna/sync-branches@1.2.0
+#         with:
+#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#           FROM_BRANCH: "tc01d"
+#           TO_BRANCH: "develop"
