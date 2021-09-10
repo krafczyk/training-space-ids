@@ -12,14 +12,13 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The geospatial coverage of the dataset in degrees LAT/LON
     geospatialCoverage: !GeospatialCoverage
     // The resolution of the dataset in degrees LAT/LON
-    //geospatialResolution: !GeospatialResolution post default 'GeospatialResolution.make({"latResolution": 0.04, "lonResolution": 0.04})'
     geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
     // The url of the dataset catalog
     catalog_url: !string
     // Use the XML catalog for Hycom FMRC data to create a Dataset entry
     @py(env="hycom_1_0_0")
     upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
-    //
+    // Use the XML catalog for Hycom FMRC data to create records for each available run collection
     @py(env="hycom_1_0_0")
     upsertFMRCs: member function(): [HycomFMRC]
 }
