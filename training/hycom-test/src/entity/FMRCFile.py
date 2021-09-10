@@ -1,6 +1,6 @@
 """Python Methods for the FMRCFile Type
 """
-def download(this):
+def download(this)):
     """Download this particular FMRCFile from the Thredds server
     """
     from urllib.parse import urlencode,urljoin
@@ -50,7 +50,7 @@ def download(this):
     updated.merge()
 
     try:
-        extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
+        extPath = c3.HycomUtil.downloadToExternal(url, this.id, 'hycom-data')
         updated.status='downloaded'
         updated.file = c3.File(**{'url': extPath})
         updated.merge()
