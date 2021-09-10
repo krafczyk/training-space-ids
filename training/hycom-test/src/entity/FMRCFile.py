@@ -1,6 +1,6 @@
 """Python Methods for the FMRCFile Type
 """
-def download(this)):
+def download(this):
     """Download this particular FMRCFile from the Thredds server
     """
     from urllib.parse import urlencode,urljoin
