@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  createPullRequest:
+  create_tc01d-to-main-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
           branch: main-to-tc01d-update
 
-  createPullRequest:
+  create_tc02d-to-main-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
           branch: main-to-tc02d-update
 
-  createPullRequest:
+  create_tc03d-to-main-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
