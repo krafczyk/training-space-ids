@@ -32,6 +32,8 @@ def stageFMRCFiles(this):
     file_ext = '.nc'  # hardcoded netcdf extension
     # make sure we have the geospatialCoverage
     gsc = c3.FMRCDataArchive(id=this.id).get(include="fmrc.geospatialCoverage").fmrc.geospatialCoverage
+    if gsc is None:
+        raise Exception("Missing geospatialCoverage")
 
     files = [
         c3.FMRCFile(
