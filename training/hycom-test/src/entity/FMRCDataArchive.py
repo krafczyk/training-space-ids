@@ -28,7 +28,11 @@ def stageFMRCFiles(this):
 
     # Stage download records for each file
     # Create a FMRCFile spec for each batch
-    file_ext = '.nc'
+    
+    file_ext = '.nc'  # hardcoded netcdf extension
+    # make sure we have the geospatialCoverage
+    gsc = c3.FMRCDataArchive(id=this.id).get(include="fmrc.geospatialCoverage").fmrc.geospatialCoverage
+
     files = [
         c3.FMRCFile(
         **{
@@ -43,7 +47,7 @@ def stageFMRCFiles(this):
                 'end': batches[i][-1]
             },
             'timeStride': this.subsetOptions.timeStride,
-            'geospatialCoverage': this.fmrc.geospatialCoverage,
+            'geospatialCoverage': gsc,
             'vars': this.subsetOptions.vars,
             'fileType': this.subsetOptions.accept,
             'status': 'not_downloaded'
