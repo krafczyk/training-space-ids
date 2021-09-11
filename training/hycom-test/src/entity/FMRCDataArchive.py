@@ -35,6 +35,8 @@ def stageFMRCFiles(this):
     if gsc is None:
         raise Exception("Missing geospatialCoverage")
 
+    # Note, the status is explicitly not upserted here so that the post default will kick in if needed
+    # and already "downloaded" files don't get re-downloaded
     files = [
         c3.FMRCFile(
         **{
@@ -51,8 +53,7 @@ def stageFMRCFiles(this):
             'timeStride': this.subsetOptions.timeStride,
             'geospatialCoverage': gsc,
             'vars': this.subsetOptions.vars,
-            'fileType': this.subsetOptions.accept,
-            'status': 'not_downloaded'
+            'fileType': this.subsetOptions.accept
         }
         ) for i in range(len(batches))
     ]
