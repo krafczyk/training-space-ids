@@ -1,30 +1,30 @@
-name: Sync main to dev branches
+name: Sync develop to dev branches
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
-  create_tc01d-to-main-pr:
+  create_develop-to-tc01d-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           ref: tc01d
-      - name: Reset main
+      - name: Reset develop
         run: |
-          git fetch origin main:main
-          git reset --hard main
+          git fetch origin develop:develop
+          git reset --hard develop
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'Sync main to tc01d'
+          title: 'Sync develop to tc01d'
           labels: |
             automated pr
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: main-to-tc01d-update
+          branch: develop-to-tc01d-update
 
-  create_tc02d-to-main-pr:
+  create_develop-to-tc02d-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,18 +32,18 @@ jobs:
           ref: tc02d
       - name: Reset promotion branch
         run: |
-          git fetch origin main:main
-          git reset --hard main
+          git fetch origin develop:develop
+          git reset --hard develop
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'Sync main to tc02d'
+          title: 'Sync develop to tc02d'
           labels: |
             automated pr
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: main-to-tc02d-update
+          branch: develop-to-tc02d-update
 
-  create_tc03d-to-main-pr:
+  create_develop-tc03d-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -51,16 +51,16 @@ jobs:
           ref: tc03d
       - name: Reset promotion branch
         run: |
-          git fetch origin main:main
-          git reset --hard main
+          git fetch origin develop:develop
+          git reset --hard develop
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'Sync main to tc03d'
+          title: 'Sync develop to tc03d'
           labels: |
             automated pr
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: main-to-tc03d-update
+          branch: develop-to-tc03d-update
   
 
   # sync-main-to-tc01d:
