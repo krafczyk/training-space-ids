@@ -1,5 +1,6 @@
 /**
 FMRCDownloadOptions.c3typ
+Download Options for {@link HycomFMRC}s.
 */
 type FMRCDownloadOptions {
     // The maximum number of time steps to retrive in a single file: NOT IMPLEMENTED
