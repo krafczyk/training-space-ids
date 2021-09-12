@@ -3,7 +3,7 @@ def stageFMRCFiles(this):
     from datetime import datetime,timedelta
     """Stage subset and download options for a downloading current  FMRC data
     """
-    # Generate times based on timeStride
+    # Generate a list of all possible times based on timeStride
     def gentimes():
         t = this.subsetOptions.timeRange.start
         while t <= this.subsetOptions.timeRange.end:
@@ -37,7 +37,6 @@ def stageFMRCFiles(this):
 
     # Note, the status is explicitly not merged here so that the post default will kick in if needed
     # and already "downloaded" files don't get re-downloaded
-
     files = [
         c3.FMRCFile(
         **{
@@ -60,6 +59,10 @@ def stageFMRCFiles(this):
     ]
 
     c3.FMRCFile.mergeBatch(objs=files)
+
+    # Update staged field
+    update_this = c3.FMRCDataArchive(**{'id': this.id, 'staged': 'true'})
+    update_this.merge()
 
     return files
     

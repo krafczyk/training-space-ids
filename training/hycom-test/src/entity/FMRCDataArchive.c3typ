@@ -12,7 +12,7 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     // Collection of {@link FMRCFile}s associated with this archive.
     dataFiles: [FMRCFile](dataArchive,id)
     // Whether {@link FMRCFile}s have been staged for download.
-    staged: boolean post default 'false'
+    staged: boolean post default '"false"'
     // Method to stage {@link FMRCFile} records for download from {@link HycomFMRC}s.
     @py(env='hycom_1_0_0')
     stageFMRCFiles: member function(): [FMRCFile]
