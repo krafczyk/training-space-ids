@@ -61,8 +61,8 @@ def stageFMRCFiles(this):
     c3.FMRCFile.mergeBatch(objs=files)
 
     # Update staged field
-    update_this = c3.FMRCDataArchive(**{'id': this.id, 'staged': 'true'})
-    update_this.merge()
+    this.staged = True
+    this.merge()
 
     return files
     
