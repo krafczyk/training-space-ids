@@ -17,7 +17,7 @@ entity type HycomFMRC schema name "HC_FMRC" {
     // The Data archive for this FMRC containing the data files
     fmrcDataArchive: FMRCDataArchive(fmrc,id)
     // Whether data are still available in hycom catalog
-    expired: !boolean post default '"false"'
+    expired: !boolean post default false
     // update Data Archives for all FMRCs that have not expired.  Use in cron job to automate archival of FMRC data.
     // Accepts {@link FMRCSubsetOptions} for specifying the Hycom subset parameters, {@link FMRCDownloadOptions} 
     // for specifying the download and archival options and {@link FMRCDownloadJob} for specifying the 
