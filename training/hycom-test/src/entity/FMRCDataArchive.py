@@ -58,7 +58,7 @@ def stageFMRCFiles(this):
         ) for i in range(len(batches))
     ]
 
-    c3.FMRCFile.upsertBatch(objs=files)
+    c3.FMRCFile.mergeBatch(objs=files)
 
     return files
     
