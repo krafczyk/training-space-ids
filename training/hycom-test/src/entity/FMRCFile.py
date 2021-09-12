@@ -55,7 +55,7 @@ def download(this):
         meta_file = c3.File(**{'url': extPath}).readMetadata()
         updated.file = c3.File(
             **{
-                'url': extPath
+                'url': extPath,
                 'contentLength': meta_file.contentLength,
                 'contentLocation': meta_file.contentLocation,
                 'eTag': meta_file.eTag,
