@@ -13,6 +13,8 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     dataFiles: [FMRCFile](dataArchive,id)
     // Whether {@link FMRCFile}s have been staged for download.
     staged: boolean post default '"false"'
+    // Total size of the {@link FMRCFile}s in bytes.
+    //archiveSize: integer stored calc "sum(dataFiles.file.)"
     // Method to stage {@link FMRCFile} records for download from {@link HycomFMRC}s.
     @py(env='hycom_1_0_0')
     stageFMRCFiles: member function(): [FMRCFile]
