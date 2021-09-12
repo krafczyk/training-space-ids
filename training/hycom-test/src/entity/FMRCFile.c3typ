@@ -22,7 +22,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     //  FRMC file type
     fileType: !string enum('netcdf4','netcdf')
     // Status of the data download
-    status: !string enum('downloaded','not_downloaded','downloading','error') post default 'not_downloaded'
+    status: string enum('downloaded','not_downloaded','downloading','error') post default 'not_downloaded'
     // The {@link File} object for this file
     file: File
     // Download a file from the Hycom server and save to the C3 file system
