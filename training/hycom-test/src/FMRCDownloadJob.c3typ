@@ -1,5 +1,6 @@
 /**
-FMRCDownloadJob A batch job to update HycomFMRC records and download all files
+FMRCDownloadJob.c3typ
+A batch job to update {@link FMRCFile} records and download all files
 */
 type FMRCDownloadJob extends BatchJob<FMRCDownloadJob, FMRCDownloadJobOptions, FMRCDownloadJobBatch> type key 'FMRCDOWNLOAD'{
     doStart: ~ js server
