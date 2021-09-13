@@ -2,7 +2,8 @@
     "language": "Python",
     "runtimeVersion": "3.6",
     "modules": {
-      "conda.gym": "=0.17.3"
+      "conda.gym": "=0.17.3",
+      "conda.tensorflow-gpu": "=2.4.1"
     },
     "repositories": [
 	"defaults",
