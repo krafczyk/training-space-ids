@@ -50,9 +50,20 @@ def download(this):
     updated.merge()
 
     try:
-        extPath = c3.HycomUtil.downloadToExternal(url, this.fileName, 'hycom-data')
+        extPath = c3.HycomUtil.downloadToExternal(url, this.id, 'hycom-data')
         updated.status='downloaded'
-        updated.file = c3.File(**{'url': extPath})
+        meta_file = c3.File(**{'url': extPath}).readMetadata()
+        updated.file = c3.File(
+            **{
+                'url': extPath,
+                'contentLength': meta_file.contentLength,
+                'contentLocation': meta_file.contentLocation,
+                'eTag': meta_file.eTag,
+                'contentMD5': meta_file.contentMD5,
+                'contentType': meta_file.contentType,
+                'hasMetadata': True
+                }
+            )
         updated.merge()
     except Exception as e:
         updated.status = 'error'
