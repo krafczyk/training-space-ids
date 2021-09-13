@@ -3,7 +3,8 @@
     "runtimeVersion": "3.6",
     "modules": {
       "conda.gym": "=0.17.3",
-      "conda.tensorflow-gpu": "=2.4.1"
+      "conda.tensorflow-gpu": "=2.4.1",
+      "conda.tensorboardx": "=2.4"
     },
     "repositories": [
 	"defaults",
