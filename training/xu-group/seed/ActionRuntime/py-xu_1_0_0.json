@@ -2,9 +2,6 @@
     "language": "Python",
     "runtimeVersion": "3.6",
     "modules": {
-      "conda.pip": "=21.2.2",
-      "conda.numpy": "=1.15.2",
-      "conda.pandas": "=1.0.1",
       "conda.gym": "=0.17.3"
     },
     "repositories": [
