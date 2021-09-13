@@ -1,0 +1,14 @@
+{
+    "language": "Python",
+    "runtimeVersion": "3.6",
+    "modules": {
+      "conda.gym": "=0.17.3"
+    },
+    "repositories": [
+	"defaults",
+	"conda-forge"
+    ],
+    "runtime": "CPython",
+    "name": "py-xu_1_0_0",
+    "id": "py-xu_1_0_0"
+}
