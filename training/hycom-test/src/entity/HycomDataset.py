@@ -55,6 +55,7 @@ def upsertFMRCs(this):
             'dataset': this,
             'run': d['@name'],
             'urlPath': d['@urlPath'],
+            'geospatialCoverage': this.geospatialCoverage,
             'timeCoverage': {
                 'start':d['timeCoverage']['start'],
                 'end':d['timeCoverage']['end'],
