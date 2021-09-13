@@ -15,6 +15,10 @@ entity type HycomDataset schema name "HCM_DTST" {
     geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
     // The url of the dataset catalog
     catalog_url: !string
+    // A Collection of {@link HycomFMRC}s
+    frmcs: [HycomFMRC](dataset,id)
+    // The total storage footprint of archived FMRC data in Bytes
+    fmrcArchiveSize: integer stored calc 'sum(fmrcs.fmrcDataArchive.archiveSize)'
     // Use the XML catalog for Hycom FMRC data to create a Dataset entry
     @py(env="hycom_1_0_0")
     upsertHycomDatasetFromCatalog: function(url: string): HycomDataset

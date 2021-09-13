@@ -22,7 +22,7 @@ def updateFMRCData(fmrcSubsetOptions, fmrcDownloadOptions, fmrcDownloadJobOption
         fmrcSubsetOptions.timeRange = c3.TimeRange(
             **{
                 'start': fmrc.timeCoverage.start,
-                'end': fmrc.timeCoverage.start
+                'end': fmrc.timeCoverage.end
             }
         )
         return c3.FMRCDataArchive(

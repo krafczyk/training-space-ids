@@ -3,8 +3,8 @@ FMRCDownloadOptions.c3typ
 Download Options for {@link HycomFMRC}s.
 */
 type FMRCDownloadOptions {
-    // The maximum number of time steps to retrive in a single file: NOT IMPLEMENTED
-    maxTimesPerFile: int = -1
+    // The maximum number of time steps to retrive in a single file
+    maxTimesPerFile: int = 1
     // The maximum forcast depth in hours (-1 for all) Only used in {@link FMRCDownloadJob}: NOT IMPLEMENTED
     maxForecastDepth: int = -1
     // The default {@link HycomDataset} to use for updating FMRC data
