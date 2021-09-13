@@ -1,0 +1,8 @@
+{
+    "name": "hortacsu",
+    "id": "research_teams_hortacsu",
+    "path": "research_teams/hortacsu",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
