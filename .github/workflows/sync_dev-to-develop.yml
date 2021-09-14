@@ -15,7 +15,7 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     env:
-      UPDATE_BRANCH: develop-${GITHUB_REF##*/}-update
+      UPDATE_BRANCH: develop-${{ GITHUB_REF##*/ }}-update
     steps:
       - uses: actions/checkout@v2
         with:
