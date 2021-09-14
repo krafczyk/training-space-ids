@@ -1,3 +1,8 @@
+############################################################################
+#
+#  Workflow to sychronize development tag branches to develop branch
+#
+############################################################################
 name: Sync tag-branch to develop
 on:
   push:
@@ -9,6 +14,8 @@ on:
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
+    env:
+      UPDATE_BRANCH: "develop-${GITHUB_REF##*/}-update"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -16,23 +23,29 @@ jobs:
       - name: Reset Compare Branch
         run: |
           echo "Ref: ${{ github.event.push.ref }}"
-          git fetch origin ${{ github.event.push.ref }}:${{ github.event.push.ref }}
-          git reset --hard ${{ github.event.push.ref }}
+          echo "Ref:: ${GITHUB_REF##*/}"
+          echo "Update branch: ${{ env.UPDATE_BRANCH }}
+          git fetch origin "${GITHUB_REF##*/}:${GITHUB_REF##*/}"
+          git reset --hard ${GITHUB_REF##*/}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Sync ${{ github.event.push.ref }} to develop"
+          title: "Sync ${GITHUB_REF##*/} to develop"
           labels: |
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: "develop-${{ github.event.push.ref }}-update"
+          branch: ${{ env.UPDATE_BRANCH }}
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
       - name: Approve PR
+        if: "${{ steps.cpr.outputs.pull-request-number }}"
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
-          pull-request-number:  ${{ steps.cpr.outputs.pull-request-number }}
+          pull-request-number:  "${{ steps.cpr.outputs.pull-request-number }}"
           
 # jobs:
 #   sync-main-to-tc01d:
