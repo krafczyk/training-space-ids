@@ -4,7 +4,7 @@
     "connector": "remote",
     "language": "Python",
     "runtime": "CPython",
-    "runtimeVersion": "3.7",
+    "runtimeVersion": "3.6",
     "modules": {
         "conda.numpy": "",
         "conda.pip": "",
