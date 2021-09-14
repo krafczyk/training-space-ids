@@ -12,7 +12,9 @@
 	"conda.matplotlib": "",
 	"conda.tensorflow": "",
 	"conda.urllib3":"",
-	"conda.multiprocess":""
+	"conda.multiprocess":"",
+	"conda.rasterio":"",
+	"conda.tqdm":""
     },
     "repositories": [
         "defaults",
