@@ -4,7 +4,7 @@
     "connector": "remote",
     "language": "Python",
     "runtime": "CPython",
-    "runtimeVersion": "3.6",
+    "runtimeVersion": "3.7",
     "modules": {
         "conda.numpy": "",
         "conda.pip": "",
@@ -12,7 +12,7 @@
 	"conda.matplotlib": "",
 	"conda.tensorflow": "",
 	"conda.urllib3":"",
-	"conda.multiprocessing":""
+	"conda.multiprocess":""
     },
     "repositories": [
         "defaults",
