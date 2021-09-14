@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       UPDATE_BR: develop-${GITHUB_REF##*/}-update
+      REF: ${{ github.event.ref }}
     steps:
       - name: Dump GitHub context
         env:
@@ -25,7 +26,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          echo "UPDATE_BRANCH=${UPDATE_BR}" >> $GITHUB_ENV
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
           ref: develop
