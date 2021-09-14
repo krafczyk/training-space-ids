@@ -34,6 +34,8 @@ jobs:
   createPullRequest:
     needs: createSyncMatrix
     runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
     strategy:
       matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
     steps:
