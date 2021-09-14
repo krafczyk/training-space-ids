@@ -1,3 +1,8 @@
+############################################################################
+#
+#  Workflow to sychronize development tag branches to develop branch
+#
+############################################################################
 name: Sync tag-branch to develop
 on:
   push:
