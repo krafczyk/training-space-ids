@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "Ref: ${{ github.event.push.ref }}"
           echo "Ref:: ${GITHUB_REF##*/}"
-          git fetch origin "${GITHUB_REF##*/}:${GITHUB_REF##*/}
+          git fetch origin "${GITHUB_REF##*/}:${GITHUB_REF##*/}"
           git reset --hard ${GITHUB_REF##*/}
       - name: Create Pull Request
         id: cpr
