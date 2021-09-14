@@ -33,11 +33,15 @@ jobs:
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
           branch: "develop-${{ github.event.push.ref }}-update"
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
       - name: Approve PR
+        if: "${{ steps.cpr.outputs.pull-request-number }}"
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
-          pull-request-number:  ${{ steps.cpr.outputs.pull-request-number }}
+          pull-request-number:  "${{ steps.cpr.outputs.pull-request-number }}"
           
 # jobs:
 #   sync-main-to-tc01d:
