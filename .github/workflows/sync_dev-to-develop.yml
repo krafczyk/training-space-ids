@@ -66,10 +66,9 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Sync ${{ env.UPDATE_BRANCH }} to {{ matrix.syncto }}
+          title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
           labels: |
             automated pr
-            automerge
           token: ${{secrets.GITHUB_TOKEN}}
           branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
       - name: Check outputs
