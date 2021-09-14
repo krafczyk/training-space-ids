@@ -7,13 +7,7 @@
     "runtimeVersion": "3.6",
     "modules": {
         "conda.numpy": "",
-        "conda.pip": "",
-        "conda.pandas": "",
-        "conda.requests": "",
-        "conda.matplotlib": "",
-        "conda.tensorflow": "",
-	"conda.urllib3": "",
-	"conda.pillow": ""
+        "conda.pip": ""
     },
     "repositories": [
         "defaults",
