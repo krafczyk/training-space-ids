@@ -16,7 +16,7 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The url of the dataset catalog
     catalog_url: !string
     // A Collection of {@link HycomFMRC}s
-    frmcs: [HycomFMRC](dataset,id)
+    fmrcs: [HycomFMRC](dataset,id)
     // The total storage footprint of archived FMRC data in Bytes
     fmrcArchiveSize: integer stored calc 'sum(fmrcs.fmrcDataArchive.archiveSize)'
     // Use the XML catalog for Hycom FMRC data to create a Dataset entry
