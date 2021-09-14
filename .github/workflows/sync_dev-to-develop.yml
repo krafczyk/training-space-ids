@@ -15,18 +15,19 @@ jobs:
           ref: develop
       - name: Reset Compare Branch
         run: |
-          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
-          git reset --hard ${{ github.event.pull_request.head.ref }}
+          echo "Ref: ${{ github.event.push.ref }}"
+          git fetch origin ${{ github.event.push.ref }}:${{ github.event.push.ref }}
+          git reset --hard ${{ github.event.push.ref }}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Sync ${{ github.event.pull_request.head.ref }} to develop"
+          title: "Sync ${{ github.event.push.ref }} to develop"
           labels: |
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: "develop-${{ github.event.pull_request.head.ref }}-update"
+          branch: "develop-${{ github.event.push.ref }}-update"
       - name: Approve PR
         uses: hmarr/auto-approve-action@v2
         with:
