@@ -1,33 +1,32 @@
-name: Sync tc01d to develop
+name: Sync tag-branch to develop
 on:
   push:
     branches:
       - tc01d
+      - tc02d
+      - tc03d
 
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dbranch: ['tc01d','tc02d','tc03d']
     steps:
       - uses: actions/checkout@v2
         with:
           ref: develop
       - name: Reset Compare Branch
         run: |
-          git fetch origin ${{ matrix.dbranch }}:${{ matrix.dbranch }}
-          git reset --hard ${{ matrix.dbranch }}
+          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
+          git reset --hard ${{ github.event.pull_request.head.ref }}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'Sync tc01d to develop'
+          title: "Sync ${{ github.event.pull_request.head.ref }} to develop"
           labels: |
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-tc01d-update
+          branch: "develop-${{ github.event.pull_request.head.ref }}-update"
       - name: Approve PR
         uses: hmarr/auto-approve-action@v2
         with:
