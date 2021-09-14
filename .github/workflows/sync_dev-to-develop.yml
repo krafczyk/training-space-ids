@@ -12,10 +12,30 @@ on:
       - tc03d
 
 jobs:
-  createPullRequest:
-    runs-on: ubuntu-latest
+  createSyncMatrix:
+    runs-on: ubuntu-latestenv:
     env:
       REF: ${{ github.event.ref }}
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }} 
+    steps:
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+      - name: Create sync Matrix
+        if: "${{ env.UPDATE_BRANCH }} == 'tc01d'" 
+        run: |
+      - name: Create sync Matrix
+        id: set-matrix     
+        run: echo "::set-output name=matrix::{\"syncto\":[{\"tc02d\",\"tc03d\",\"develop\"]}"
+          
+    
+  createPullRequest:
+    needs: createSyncMatrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
     steps:
 #       - name: Dump GitHub context
 #         env:
@@ -29,23 +49,27 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: develop
+#       - name: Reset Compare Branch
+#         run: |
+#           echo "Ref: ${{ github.event.ref }}"
+#           echo "Ref:: ${GITHUB_REF##*/}"
+#           echo "Update branch: ${{ env.UPDATE_BRANCH }}"
+#           git fetch origin "${{ env.UPDATE_BRANCH }}:${GITHUB_REF##*/}"
+#           git reset --hard ${GITHUB_REF##*/}
       - name: Reset Compare Branch
         run: |
-          echo "Ref: ${{ github.event.ref }}"
-          echo "Ref:: ${GITHUB_REF##*/}"
-          echo "Update branch: ${{ env.UPDATE_BRANCH }}"
-          git fetch origin "${{ env.UPDATE_BRANCH }}:${GITHUB_REF##*/}"
-          git reset --hard ${GITHUB_REF##*/}
+          git fetch origin "${{ matrix.syncto }}:${{ matrix.syncto }}"
+          git reset --hard ${{ matrix.syncto }}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Sync ${{ env.UPDATE_BRANCH }} to develop
+          title: Sync ${{ env.UPDATE_BRANCH }} to {{ matrix.syncto }}
           labels: |
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ env.UPDATE_BRANCH }}-to-develop
+          branch: ${{ matrix.syncto }}-to-develop
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
