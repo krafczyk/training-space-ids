@@ -14,6 +14,8 @@ on:
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
+    env:
+      UPDATE_BRANCH: "develop-${GITHUB_REF##*/}-update"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -33,7 +35,7 @@ jobs:
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-${GITHUB_REF##*/}-update
+          branch: ${{ env.UPDATE_BRANCH }}
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
