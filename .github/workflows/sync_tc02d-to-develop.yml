@@ -1,0 +1,26 @@
+# name: Sync tc01d to develop
+# on:
+#   push:
+#     branches:
+#       - tc02d
+
+# jobs:
+#   createPullRequest:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: develop
+#       - name: Reset tc02d
+#         run: |
+#           git fetch origin tc02d:tc02d
+#           git reset --hard tc02d
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v3
+#         with:
+#           title: 'Sync tc02d to develop'
+#           labels: |
+#             automated pr
+#             automerge
+#           token: ${{secrets.GITHUB_TOKEN}}
+#           branch: develop-tc02d-update

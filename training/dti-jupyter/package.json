@@ -2,5 +2,5 @@
   "name": "dti-jupyter",
   "description": "Training application and development space for DTI project teams.",
   "author": "DTI DevOps",
-  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment", "hycom-test", "dev"]
+  "dependencies": ["standardDependencies", "machineLearning", "modelDeployment", "hycom-test", "dev", "gordon-group", "xu-group"]
 }

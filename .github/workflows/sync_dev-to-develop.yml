@@ -1,0 +1,67 @@
+############################################################################
+#
+#  Workflow to sychronize development tag branches to develop branch
+#
+############################################################################
+name: Sync tag-branch to develop
+on:
+  push:
+    branches:
+      - tc01d
+      - tc02d
+      - tc03d
+
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    env:
+      UPDATE_BRANCH: "develop-${GITHUB_REF##*/}-update"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+      - name: Reset Compare Branch
+        run: |
+          echo "Ref: ${{ github.event.push.ref }}"
+          echo "Ref:: ${GITHUB_REF##*/}"
+          echo "Update branch: ${{ env.UPDATE_BRANCH }}
+          git fetch origin "${GITHUB_REF##*/}:${GITHUB_REF##*/}"
+          git reset --hard ${GITHUB_REF##*/}
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Sync ${GITHUB_REF##*/} to develop"
+          labels: |
+            automated pr
+            automerge
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: ${{ env.UPDATE_BRANCH }}
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+      - name: Approve PR
+        if: "${{ steps.cpr.outputs.pull-request-number }}"
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+          pull-request-number:  "${{ steps.cpr.outputs.pull-request-number }}"
+          
+# jobs:
+#   sync-main-to-tc01d:
+#     runs-on: ubuntu-latest
+#     name: Syncing tc01d to develop
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Set up Node
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 12
+#       - name: Opening pull request
+#         id: pull
+#         uses: tretuna/sync-branches@1.2.0
+#         with:
+#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#           FROM_BRANCH: "tc01d"
+#           TO_BRANCH: "develop"

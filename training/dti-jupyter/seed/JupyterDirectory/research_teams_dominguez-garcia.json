@@ -1,0 +1,8 @@
+{
+    "name": "dominguez-garcia",
+    "id": "research_teams_dominguez-garcia",
+    "path": "research_teams/dominguez-garcia",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
