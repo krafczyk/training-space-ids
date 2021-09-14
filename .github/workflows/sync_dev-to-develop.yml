@@ -21,6 +21,7 @@ jobs:
       - name: Reset Compare Branch
         run: |
           echo "Ref: ${{ github.event.push.ref }}"
+          echo "Ref:: ${GITHUB_REF##*/}"
           git fetch origin ${{ github.event.push.ref }}:${{ github.event.push.ref }}
           git reset --hard ${{ github.event.push.ref }}
       - name: Create Pull Request
