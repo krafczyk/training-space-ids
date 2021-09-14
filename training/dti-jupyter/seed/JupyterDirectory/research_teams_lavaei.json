@@ -1,0 +1,8 @@
+{
+    "name": "lavaei",
+    "id": "research_teams_lavaei",
+    "path": "research_teams/lavaei",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
