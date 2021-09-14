@@ -26,7 +26,7 @@ jobs:
           ref: develop
       - name: Reset Compare Branch
         run: |
-          echo "Ref: ${{ github.event.push.refs.head }}"
+          echo "Ref: ${{ github.event.push.payload.ref }}"
           echo "Ref:: ${GITHUB_REF##*/}"
           echo "Update branch: ${{ env.UPDATE_BRANCH }}"
           git fetch origin "${GITHUB_REF##*/}:${GITHUB_REF##*/}"
