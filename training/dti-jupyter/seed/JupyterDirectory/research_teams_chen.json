@@ -1,0 +1,8 @@
+{
+    "name": "chen",
+    "id": "research_teams_chen",
+    "path": "research_teams/chen",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
