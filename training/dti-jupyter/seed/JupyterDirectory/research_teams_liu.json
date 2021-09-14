@@ -1,0 +1,8 @@
+{
+    "name": "liu",
+    "id": "research_teams_liu",
+    "path": "research_teams/liu",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

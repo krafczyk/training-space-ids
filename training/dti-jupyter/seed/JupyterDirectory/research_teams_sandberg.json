@@ -1,0 +1,8 @@
+{
+    "name": "sandberg",
+    "id": "research_teams_sandberg",
+    "path": "research_teams/sandberg",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
