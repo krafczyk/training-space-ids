@@ -15,14 +15,13 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     env:
-      UPDATE_BR: develop-${GITHUB_REF##*/}-update
       REF: ${{ github.event.ref }}
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: |
-          echo "$GITHUB_CONTEXT"
+#       - name: Dump GitHub context
+#         env:
+#           GITHUB_CONTEXT: ${{ toJson(github) }}
+#         run: |
+#           echo "$GITHUB_CONTEXT"
       - name: Set the value
         id: step_one
         run: |
@@ -41,12 +40,12 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Sync ${GITHUB_REF##*/} to develop
+          title: Sync ${{ env.UPDATE_BRANCH }} to develop
           labels: |
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ env.UPDATE_BRANCH }}
+          branch: ${{ env.UPDATE_BRANCH }}-to-develop
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
