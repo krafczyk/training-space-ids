@@ -28,7 +28,7 @@ jobs:
         run: |
       - name: Create sync Matrix
         id: set-matrix     
-        run: echo "::set-output name=matrix::{\"syncto\":[{\"tc02d\",\"tc03d\",\"develop\"]}"
+        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\",\"syncto\":\"tc03d\",\"syncto\":\"develop\"]}"
           
     
   createPullRequest:
