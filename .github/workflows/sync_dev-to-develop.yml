@@ -17,6 +17,11 @@ jobs:
     env:
       UPDATE_BR: develop-${GITHUB_REF##*/}-update
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
       - name: Set the value
         id: step_one
         run: |
