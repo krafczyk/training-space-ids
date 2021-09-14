@@ -1,0 +1,8 @@
+{
+    "name": "poolla",
+    "id": "research_teams_poolla",
+    "path": "research_teams/poolla",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

@@ -1,0 +1,8 @@
+{
+    "name": "banerjee",
+    "id": "research_teams_banerjee",
+    "path": "research_teams/banerjee",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
