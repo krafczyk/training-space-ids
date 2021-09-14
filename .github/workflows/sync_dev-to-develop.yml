@@ -48,7 +48,7 @@ jobs:
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: ${{ matrix.syncto }}
 #       - name: Reset Compare Branch
 #         run: |
 #           echo "Ref: ${{ github.event.ref }}"
@@ -58,8 +58,8 @@ jobs:
 #           git reset --hard ${GITHUB_REF##*/}
       - name: Reset Compare Branch
         run: |
-          git fetch origin "${{ matrix.syncto }}:${{ matrix.syncto }}"
-          git reset --hard ${{ matrix.syncto }}
+          git fetch origin "${{ env.UPDATE_BRANCH }}:${{ env.UPDATE_BRANCH }}"
+          git reset --hard ${{ env.UPDATE_BRANCH }}
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
@@ -69,7 +69,7 @@ jobs:
             automated pr
             automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ matrix.syncto }}-to-develop
+          branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
