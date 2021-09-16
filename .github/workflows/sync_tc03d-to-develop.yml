@@ -1,8 +1,8 @@
-# name: Sync tc01d to develop
-# on:
-#   push:
-#     branches:
-#       - tc03d
+name: Sync tc01d to develop
+on:
+  push:
+    branches:
+      - tc03d
 
 # jobs:
 #   createPullRequest:

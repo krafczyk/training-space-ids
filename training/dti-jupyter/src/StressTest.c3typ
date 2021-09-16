@@ -1,0 +1,7 @@
+/**
+ * StressTest.c3typ
+ */
+type StressTest {
+ @py(env="dataanalysis_1_0_0")
+ compute_pi: function(n: integer): string
+}
