@@ -13,13 +13,13 @@
     function scheduleBatch(batch) {
         var batchSpec = StressTestBatch.make({values: batch});
         job.scheduleBatch(batchSpec);
-     }
+     };
 
     let jobs = [];
     // Make an array of Stress Tests
     for (var i = 0; i < options.numJobs; i++) {
         jobs.push(StressTest.make());
-    }
+    };
 
     // Split the array into chunks and schedule each batch
     batches = chunk(jobs, options.batchSize);
@@ -36,6 +36,6 @@
  function processBatch(batch, job, options) {
     function runStressTest(stressTest){
         stressTest.compute_pi(options.computePi_n);
-    } 
-    batch.values.foreach(runStressTest)
+    }; 
+    batch.values.foreach(runStressTest);
  }
