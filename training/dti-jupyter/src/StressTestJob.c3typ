@@ -1,7 +1,8 @@
 /**
+StressTestJob.c3typ
 */
 
-type StressTestob extends BatchJob<StressTestJob, StressTestJobOptions, StressTestJobBatch> type key 'STRSS_TST_JB'{
+type StressTesjob extends BatchJob<StressTestJob, StressTestJobOptions, StressTestJobBatch> type key 'STRSS_TST_JB'{
     //
     doStart: ~ js server
     //
