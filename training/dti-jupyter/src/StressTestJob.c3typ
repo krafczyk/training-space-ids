@@ -1,0 +1,9 @@
+/**
+*/
+
+type StressTestob extends BatchJob<StressTestJob, StressTestJobOptions, StressTestJobBatch> type key 'STRSS_TST_JB'{
+    //
+    doStart: ~ js server
+    //
+    processBatch: ~ js server
+}
