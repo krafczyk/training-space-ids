@@ -15,7 +15,7 @@
         job.scheduleBatch(batchSpec);
      }
 
-    let jobs = [];
+    var jobs = [];
     // Make an array of Stress Tests
     for (var i = 0; i < options.numJobs; i++) {
         jobs.push(StressTest.make());
