@@ -1,0 +1,12 @@
+/**
+StressTestJobOptions.c3typ
+Options for {@link StressTestJob}
+*/
+type StressTestJobOptions {
+    // The number of times to run the job.
+    numJobs: int = 12
+    // Number of batches to submit
+    batchSize: int = 4
+    //
+    computePi_n: int = 5000
+}
