@@ -37,5 +37,5 @@
     function runStressTest(stressTest){
         stressTest.compute_pi(options.computePi_n);
     }
-    batch.values.foreach(runStressTest);
+    batch.values.forEach(runStressTest);
  }
