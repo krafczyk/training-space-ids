@@ -35,7 +35,7 @@
  */
  function processBatch(batch, job, options) {
     function runStressTest(stressTest){
-        stressTest.compute_pi(options.computePi_n);
+        StressTest.compute_pi(options.computePi_n);
     }
     batch.values.forEach(runStressTest);
  }
