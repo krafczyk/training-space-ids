@@ -11,7 +11,7 @@
 
     // Schedule a batch of jobs
     function scheduleBatch(batch) {
-        var batchSpec = StressTestBatch.make({values: batch});
+        var batchSpec = StressTestJobBatch.make({values: batch});
         job.scheduleBatch(batchSpec);
      }
 
