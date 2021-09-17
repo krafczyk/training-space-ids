@@ -22,7 +22,7 @@
     }
 
     // Split the array into chunks and schedule each batch
-    batches = chunk(jobs, options.batchSize);
+    var batches = chunk(jobs, options.batchSize);
     batches.forEach(scheduleBatch);
 
  }
