@@ -2,9 +2,9 @@ on:
   pull_request:
     branches:
     - tc02d
-    paths:
-    - 'training/**'
-    - 'test/**'
+#     paths:
+#     - 'training/**'
+#     - 'test/**'
 
 ########################################################################        
 # Settings for this workflow:
@@ -23,8 +23,24 @@ env:
   PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
 
 jobs:
+  # Gate to check for changed files within the c3repo
+  c3changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      c3repo: ${{ steps.filter.outputs.c3repo }}
+    steps:
+    # For pull requests it's not necessary to checkout the code
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          c3repo:
+            - 'training/**'
   provision:
     name: Provision to tc02d
+    needs: c3changes
+    if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
     runs-on: ubuntu-latest
     steps:
           
