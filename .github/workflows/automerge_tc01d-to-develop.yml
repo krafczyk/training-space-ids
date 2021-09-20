@@ -34,3 +34,4 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
           MERGE_METHOD: "rebase"
           MERGE_REQUIRED_APPROVALS: "1"
+          MERGE_DELETE_BRANCH: true
