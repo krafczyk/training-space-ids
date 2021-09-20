@@ -1,0 +1,27 @@
+{
+    "id": "py-dataanalysis_1_0_0" ,
+    "name": "py-dataanalysis_1_0_0",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.6",
+    "modules": {
+        "conda.tensorflow": "=2.1.0",
+        "conda.tensorflow-estimator": "=2.1.0",
+        "conda.python-dateutil": "",
+        "conda.h5py": "=2.9.0",
+        "conda.scikit-learn": "=0.23.1",
+        "conda.scipy": "=1.4.1",
+        "conda.pip": "",
+        "conda.pandas": "=1.0.1",
+        "conda.numpy": "=1.18.1",
+        "conda.matplotlib": "",
+        "conda.ipywidgets": "",
+        "conda.dill": "=0.2.8.2",
+        "pip.tensorflow-datasets": "==3.1.0"
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
