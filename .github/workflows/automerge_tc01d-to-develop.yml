@@ -23,14 +23,14 @@ on:
     branches:
       - develop
   status: {}
-jobs:
-  automerge:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Actor $GITHUB_ACTOR"
-      - name: automerge
-        uses: "pascalgn/automerge-action@v0.14.3"
-        env:
-          GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
-          MERGE_METHOD: "rebase"
-          MERGE_REQUIRED_APPROVALS: "1"
+# jobs:
+#   automerge:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Actor $GITHUB_ACTOR"
+#       - name: automerge
+#         uses: "pascalgn/automerge-action@v0.14.3"
+#         env:
+#           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+#           MERGE_METHOD: "rebase"
+#           MERGE_REQUIRED_APPROVALS: "1"
