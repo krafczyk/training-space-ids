@@ -73,6 +73,7 @@ jobs:
 #           title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
           labels: |
             automated pr
+            autoapprove
           token: ${{secrets.GITHUB_TOKEN}}
 #           branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
           branch: ${{ env.UPDATE_BRANCH }}-to-develop
