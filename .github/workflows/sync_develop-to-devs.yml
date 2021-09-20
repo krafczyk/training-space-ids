@@ -1,8 +1,9 @@
 name: Sync develop to dev branches
 on:
-  push:
-    branches:
-      - develop
+#   push:
+#     branches:
+#       - develop
+  workflow_dispatch:
 
 jobs:
   createSyncMatrix:
@@ -19,6 +20,37 @@ jobs:
       - name: Create sync Matrix
         id: set-matrix     
         run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"tc01d\"}]}"
+
+  create_develop_to_devs_prs:
+    needs: createSyncMatrix
+    runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
+    strategy:
+      matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
+    steps:
+      - name: Set the reference branch value
+        id: step_one
+        run: |
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.syncto }}
+      - name: Reset Compare Branch
+        run: |
+          git fetch origin "${{ env.UPDATE_BRANCH }}:${{ env.UPDATE_BRANCH }}"
+          git reset --hard ${{ env.UPDATE_BRANCH }}
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
+          labels: |
+            automated pr
+            automerge
+          token: ${{secrets.GITHUB_TOKEN}}
+          branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
+          delete-branch: true
         
 #   create_develop-to-tc01d-pr:
 #     runs-on: ubuntu-latest
