@@ -2,9 +2,9 @@ on:
   pull_request:
     branches:
     - tc01d
-    paths:
-    - 'training/**'
-    - 'test/**'
+#     paths:
+#     - 'training/**'
+#     - 'test/**'
 
 ########################################################################        
 # Settings for this workflow:
