@@ -1,0 +1,907 @@
+{
+    "type": "JupyterNotebook",
+    "contentJson": {
+      "cells": [
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Python Computation Stress"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:42:43.744974Z",
+              "start_time": "2021-06-15T16:42:39.313959Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Import modules\n",
+            "import decimal\n",
+            "import tensorflow as tf\n",
+            "import tensorflow_datasets as tfds\n",
+            "import matplotlib\n",
+            "import matplotlib.pyplot as plt\n",
+            "import numpy as np\n",
+            "import sklearn as skl\n",
+            "from sklearn.pipeline import Pipeline\n",
+            "from sklearn.svm import SVC\n",
+            "from sklearn.preprocessing import FunctionTransformer\n",
+            "from sklearn.linear_model import LogisticRegression"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:42:43.751797Z",
+              "start_time": "2021-06-15T16:42:43.747279Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "print(f\"Tensorflow version: {tf.__version__}\")\n",
+            "print(f\"Tensorflow Datasets version: {tfds.__version__}\")\n",
+            "print(f\"Matplotlib version: {matplotlib.__version__}\")\n",
+            "print(f\"Numpy version: {np.__version__}\")"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:42:44.122636Z",
+              "start_time": "2021-06-15T16:42:43.755972Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "print(f\"C3 Server version: {c3.Cluster.hosts()[0].serverInfo['buildCITag']}\")"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Plain Python Computation"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "start_time": "2021-06-11T18:49:10.364Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Python Computation Stress Cell\n",
+            "\n",
+            "def compute_pi(n):\n",
+            "    decimal.getcontext().prec = n + 1\n",
+            "    C = 426880 * decimal.Decimal(10005).sqrt()\n",
+            "    K = 6.\n",
+            "    M = 1.\n",
+            "    X = 1\n",
+            "    L = 13591409\n",
+            "    S = L\n",
+            "\n",
+            "    for i in range(1, n):\n",
+            "        M = M * (K ** 3 - 16 * K) / ((i + 1) ** 3)\n",
+            "        L += 545140134\n",
+            "        X *= -262537412640768000\n",
+            "        S += decimal.Decimal(M * L) / X\n",
+            "\n",
+            "        pi = C / S\n",
+            "    return pi\n",
+            "\n",
+            "compute_pi(4000)"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Data Preparation"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:42:46.602979Z",
+              "start_time": "2021-06-15T16:42:45.648160Z"
+            },
+            "scrolled": true
+          },
+          "outputs": [],
+          "source": [
+            "# Plain Tensorflow training cell\n",
+            "ds, info = tfds.load('mnist', split='train', with_info=True)\n",
+            "\n",
+            "# Make C3 logging quiet\n",
+            "import logging\n",
+            "logging.getLogger('c3.Client').propagate = False\n",
+            "\n",
+            "fig = tfds.show_examples(ds, info)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:44:02.291604Z",
+              "start_time": "2021-06-15T16:42:46.605100Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# From MNIST tensorflow tutorial\n",
+            "# Load dataset\n",
+            "(ds_train, ds_test), ds_info = tfds.load(\n",
+            "    'mnist',\n",
+            "    split=['train', 'test'],\n",
+            "    as_supervised=True,\n",
+            "    with_info=True,\n",
+            ")\n",
+            "\n",
+            "def normalize_img(image, label):\n",
+            "  \"\"\"Normalizes images: `uint8` -> `float32`.\"\"\"\n",
+            "  return tf.cast(image, tf.float32) / 255., label\n",
+            "\n",
+            "ds_train = ds_train.map(normalize_img)\n",
+            "ds_test = ds_test.map(normalize_img)\n",
+            "\n",
+            "# collect all examples and stack'em up for numpy arrays\n",
+            "X_train = []\n",
+            "Y_train = []\n",
+            "for x, y in ds_train:\n",
+            "    X_train.append(x.numpy())\n",
+            "    Y_train.append(y.numpy())\n",
+            "\n",
+            "X_train = np.stack(X_train, axis=0)\n",
+            "Y_train = np.stack(Y_train, axis=0)\n",
+            "\n",
+            "X_train = X_train.reshape((X_train.shape[0], -1))\n",
+            "\n",
+            "X_test = []\n",
+            "Y_test = []\n",
+            "for x, y in ds_test:\n",
+            "    X_test.append(x.numpy())\n",
+            "    Y_test.append(y.numpy())\n",
+            "\n",
+            "X_test = np.stack(X_test, axis=0)\n",
+            "Y_test = np.stack(Y_test, axis=0)\n",
+            "\n",
+            "X_test = X_test.reshape((X_test.shape[0], -1))\n",
+            "\n",
+            "DS_train = tf.data.Dataset.from_tensor_slices((X_train, Y_train))\n",
+            "DS_test = tf.data.Dataset.from_tensor_slices((X_test, Y_test))"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Plain Tensorflow"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:44:02.297165Z",
+              "start_time": "2021-06-15T16:44:02.293798Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# model evaluation function\n",
+            "\n",
+            "def keras_model(model, X):\n",
+            "    return model(X)\n",
+            "\n",
+            "def sklearn_model(model, X):\n",
+            "    return model.predict(X)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:44:02.313785Z",
+              "start_time": "2021-06-15T16:44:02.311008Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "batch_size = 128"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:44:02.329747Z",
+              "start_time": "2021-06-15T16:44:02.315361Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Dict \n",
+            "model_dict = {}"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:51:06.919934Z",
+              "start_time": "2021-06-15T16:44:02.331401Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Logistic Regression\n",
+            "\n",
+            "model = Pipeline([('logreg', LogisticRegression(max_iter=1000))])\n",
+            "\n",
+            "model.fit(X_train, Y_train)\n",
+            "\n",
+            "model_dict['Logistic Regression'] = (model, sklearn_model)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:26.718044Z",
+              "start_time": "2021-06-15T16:51:06.922816Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Simple sequential model\n",
+            "model = tf.keras.models.Sequential([\n",
+            "  tf.keras.layers.Dense(128,activation='relu', input_shape=(784,)),\n",
+            "  tf.keras.layers.Dense(10)\n",
+            "])\n",
+            "\n",
+            "model.compile(\n",
+            "    optimizer=tf.keras.optimizers.Adam(0.001),\n",
+            "    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+            "    metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],\n",
+            ")\n",
+            "\n",
+            "model.fit(\n",
+            "    DS_train.batch(batch_size),\n",
+            "    epochs=6,\n",
+            "    validation_data=DS_test.batch(batch_size),\n",
+            ")\n",
+            "\n",
+            "model_dict['Dense'] = (model, keras_model)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:26.819042Z",
+              "start_time": "2021-06-15T16:57:26.814685Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Support Vector Classifier\n",
+            "#\n",
+            "#model = Pipeline([('svc', SVC(kernel='poly'))])\n",
+            "#\n",
+            "## We train on fewer examples for SVC because of large memory requirements of SVC\n",
+            "#model.fit(X_train[:10000], Y_train[:10000])\n",
+            "##\n",
+            "#model_dict['SVC'] = (model, sklearn_model)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:26.833865Z",
+              "start_time": "2021-06-15T16:57:26.821161Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Simple CNN (Currently CNN model crashes the python kernel when evaluating on Cluster 2)\n",
+            "#model = tf.keras.models.Sequential([\n",
+            "#    tf.keras.layers.Reshape((28, 28, 1), input_shape=(784,)),\n",
+            "#    tf.keras.layers.Conv2D(64, kernel_size=3, activation='relu', input_shape=(28, 28, 1)),\n",
+            "#    tf.keras.layers.Flatten(),\n",
+            "#    tf.keras.layers.Dense(10)\n",
+            "#])\n",
+            "#\n",
+            "#model.compile(\n",
+            "#    optimizer=tf.keras.optimizers.Adam(0.001),\n",
+            "#    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+            "#    metrics=[tf.keras.metrics.SparseCategoricalAccuracy()]\n",
+            "#)\n",
+            "#\n",
+            "#model.fit(\n",
+            "#    DS_train.batch(batch_size),\n",
+            "#    #epochs=6,\n",
+            "#    #epochs=3,\n",
+            "#    epochs=1,\n",
+            "#    validation_data=DS_test.batch(batch_size),\n",
+            "#)\n",
+            "#\n",
+            "#model_dict['CNN'] = (model, keras_model)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:27.129366Z",
+              "start_time": "2021-06-15T16:57:26.911387Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "for model_key in model_dict:\n",
+            "    #metric = tf.keras.metrics.SparseCategoricalAccuracy()\n",
+            "    metric = tf.keras.metrics.Accuracy()\n",
+            "    model = model_dict[model_key][0]\n",
+            "    eval_function = model_dict[model_key][1]\n",
+            "    Y = eval_function(model, X_test)\n",
+            "    try:\n",
+            "        Y = Y.numpy()\n",
+            "    except:\n",
+            "        pass\n",
+            "    if len(Y.shape) > 1:\n",
+            "        # Flatten result\n",
+            "        Y = np.argmax(Y, axis=1)\n",
+            "    metric.update_state(Y_test, Y)\n",
+            "    print(f\"Model {model_key} achieves {metric.result().numpy()*100:.2f}% Accuracy\")"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Tensorflow with C3"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:37.346111Z",
+              "start_time": "2021-06-15T16:57:27.131263Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# C3 Tensorflow training cell\n",
+            "\n",
+            "# Put data onto the C3 platform\n",
+            "X_train_spec = c3.FileSourceCreateSpec(\n",
+            "    locationPrefix=\"StressTest\"\n",
+            ")\n",
+            "X_train_source_spec = c3.FileSourceSpec.createFromNumpy(X_train, X_train_spec)\n",
+            "Y_train_spec = c3.FileSourceCreateSpec(\n",
+            "    locationPrefix=\"StressTest\"\n",
+            ")\n",
+            "Y_train_source_spec = c3.FileSourceSpec.createFromNumpy(Y_train, Y_train_spec)\n",
+            "X_test_spec = c3.FileSourceCreateSpec(\n",
+            "    locationPrefix=\"StressTest\"\n",
+            ")\n",
+            "X_test_source_spec = c3.FileSourceSpec.createFromNumpy(X_test, X_test_spec)\n",
+            "Y_test_spec = c3.FileSourceCreateSpec(\n",
+            "    locationPrefix=\"StressTest\"\n",
+            ")\n",
+            "Y_test_source_spec = c3.FileSourceSpec.createFromNumpy(Y_test, Y_test_spec)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:37.350703Z",
+              "start_time": "2021-06-15T16:57:37.348014Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "pipeline_dict = {}"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:57:37.390547Z",
+              "start_time": "2021-06-15T16:57:37.352286Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Logistic Regression Pipeline\n",
+            "\n",
+            "lrPipe = c3.SklearnPipe(\n",
+            "    name = \"logisticRegression\",\n",
+            "    technique=c3.SklearnTechnique(\n",
+            "        name = \"linear_model.LogisticRegression\",\n",
+            "        # calls predict function\n",
+            "        processingFunctionName=\"predict\",\n",
+            "        hyperParameters={\"random_state\": 42}\n",
+            "    )\n",
+            ")\n",
+            "\n",
+            "logisticRegression = c3.MLSerialPipeline(\n",
+            "    name = \"lrPipeline\",\n",
+            "    steps = [\n",
+            "        c3.MLStep(\n",
+            "            name=\"lrStep\",\n",
+            "            pipe=lrPipe\n",
+            "        )\n",
+            "    ],\n",
+            "#    scoringMetrics=c3.MLScoringMetric.toScoringMetricMap(scoringMetricList=[c3.MLAccuracyMetric()])\n",
+            ")\n",
+            "pipeline_dict['Logistic Regression'] = logisticRegression"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:01.873101Z",
+              "start_time": "2021-06-15T16:57:37.392489Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Train pipeline\n",
+            "trained_logisticRegression = logisticRegression.train(\n",
+            "    input=c3.Dataset.fromNdArrayStreamable(X_train_source_spec),\n",
+            "    targetOutput=c3.Dataset.fromNdArrayStreamable(Y_train_source_spec))"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:01.878288Z",
+              "start_time": "2021-06-15T16:58:01.875232Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "pipeline_dict['Logistic Regression'] = trained_logisticRegression"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:04.961489Z",
+              "start_time": "2021-06-15T16:58:01.880485Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Dense sequential model pipeline\n",
+            "model = tf.keras.models.Sequential([\n",
+            "  tf.keras.layers.Dense(128,activation='relu', input_shape=(784,)),\n",
+            "  tf.keras.layers.Dense(10)\n",
+            "])\n",
+            "\n",
+            "model.compile(\n",
+            "    optimizer=tf.keras.optimizers.Adam(0.001),\n",
+            "    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+            "    metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],\n",
+            ")\n",
+            "\n",
+            "# Build keras pipeline\n",
+            "technique = c3.KerasTechnique(numEpochs=6, batchSize=batch_size)\n",
+            "dense_keras_pipe = c3.KerasPipe(name='denseClassifier',\n",
+            "                          technique=technique).upsertNativeModel(model, upsertModelDefOnly=False)\n",
+            "\n",
+            "# Build final pipeline\n",
+            "dense_keras_pipeline = c3.MLSerialPipeline(\n",
+            "    name = \"kerasPipeline\",\n",
+            "    steps=[\n",
+            "        c3.MLStep(name=\"classifier\",\n",
+            "                  pipe=dense_keras_pipe)],\n",
+            "#    scoringMetrics=c3.MLScoringMetric.toScoringMetricMap(scoringMetricList=[c3.MLBinaryAccuracyMetric(threshold=0.5)])\n",
+            ")"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:19.950475Z",
+              "start_time": "2021-06-15T16:58:04.963818Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Train dense pipeline\n",
+            "dense_keras_pipe_trained = dense_keras_pipeline.train(\n",
+            "    input=c3.Dataset.fromNdArrayStreamable(X_train_source_spec),\n",
+            "    targetOutput=c3.Dataset.fromNdArrayStreamable(Y_train_source_spec))"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:19.955656Z",
+              "start_time": "2021-06-15T16:58:19.952434Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Save pipeline\n",
+            "pipeline_dict['Dense'] = dense_keras_pipe_trained"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.001900Z",
+              "start_time": "2021-06-15T16:58:19.959255Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## SVC pipeline\n",
+            "#svcPipe = c3.SklearnPipe(\n",
+            "#    name = \"svcPipe\",\n",
+            "#    technique=c3.SklearnTechnique(\n",
+            "#        name = \"svm.SVC\",\n",
+            "#        # calls predict function\n",
+            "#        processingFunctionName=\"predict\",\n",
+            "#        hyperParameters={\"kernel\": \"poly\"}\n",
+            "#    )\n",
+            "#)\n",
+            "#\n",
+            "#svcPipeline = c3.MLSerialPipeline(\n",
+            "#    name = \"svcPipeline\",\n",
+            "#    steps = [\n",
+            "#        c3.MLStep(\n",
+            "#            name=\"svcStep\",\n",
+            "#            pipe=svcPipe\n",
+            "#        )\n",
+            "#    ],\n",
+            "##    scoringMetrics=c3.MLScoringMetric.toScoringMetricMap(scoringMetricList=[c3.MLAccuracyMetric()])\n",
+            "#)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.017040Z",
+              "start_time": "2021-06-15T16:58:20.004043Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Train pipeline\n",
+            "#trainedSVCPipe = svcPipe.train(\n",
+            "#    input=c3.Dataset.fromNdArrayStreamable(X_train_source_spec),\n",
+            "#    targetOutput=c3.Dataset.fromNdArrayStreamable(Y_train_source_spec))"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.029116Z",
+              "start_time": "2021-06-15T16:58:20.018922Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Save pipeline\n",
+            "#pipeline_dict['SVC'] = trainedSVCPipe"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.040065Z",
+              "start_time": "2021-06-15T16:58:20.030957Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Simple CNN \n",
+            "#model = tf.keras.models.Sequential([\n",
+            "#    tf.keras.layers.Reshape((28, 28, 1), input_shape=(784,)),\n",
+            "#    tf.keras.layers.Conv2D(64, kernel_size=3, activation='relu', input_shape=(28, 28, 1)),\n",
+            "#    tf.keras.layers.Flatten(),\n",
+            "#    tf.keras.layers.Dense(10)\n",
+            "#])\n",
+            "#\n",
+            "#model.compile(\n",
+            "#    optimizer=tf.keras.optimizers.Adam(0.001),\n",
+            "#    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+            "#    metrics=[tf.keras.metrics.SparseCategoricalAccuracy()]\n",
+            "#)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.051841Z",
+              "start_time": "2021-06-15T16:58:20.042079Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Build keras pipeline\n",
+            "#technique = c3.KerasTechnique(numEpochs=6, batchSize=batch_size)\n",
+            "#cnn_keras_pipe = c3.KerasPipe(name='cnnClassifier',\n",
+            "#                          technique=technique).upsertNativeModel(model, upsertModelDefOnly=False)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.099785Z",
+              "start_time": "2021-06-15T16:58:20.066188Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Build final pipeline\n",
+            "#cnn_keras_pipeline = c3.MLSerialPipeline(\n",
+            "#    name = \"cnnKerasPipeline\",\n",
+            "#    steps=[\n",
+            "#        c3.MLStep(name=\"classifier\",\n",
+            "#                  pipe=cnn_keras_pipe)],\n",
+            "##    scoringMetrics=c3.MLScoringMetric.toScoringMetricMap(scoringMetricList=[c3.MLBinaryAccuracyMetric(threshold=0.5)])\n",
+            "#)"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.112773Z",
+              "start_time": "2021-06-15T16:58:20.101645Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "#cnn_keras_pipe_trained = cnn_keras_pipeline.train(\n",
+            "#    input=c3.Dataset.fromNdArrayStreamable(X_train_source_spec),\n",
+            "#    targetOutput=c3.Dataset.fromNdArrayStreamable(Y_train_source_spec))"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:20.124675Z",
+              "start_time": "2021-06-15T16:58:20.114428Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "## Save pipeline\n",
+            "#pipeline_dict['CNN'] = cnn_keras_pipe_trained"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:51.986572Z",
+              "start_time": "2021-06-15T16:58:20.126482Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Summarize Trained pipelines\n",
+            "\n",
+            "scores_dict = {}\n",
+            "\n",
+            "for pipeline_name in pipeline_dict:\n",
+            "    pipeline = pipeline_dict[pipeline_name]\n",
+            "    Y_pred_res = pipeline.process(c3.Dataset.fromNdArrayStreamable(X_test_source_spec))\n",
+            "    Y_pred = c3.Dataset.toNumpy(dataset=Y_pred_res)\n",
+            "    if len(Y_pred.shape) == 2:\n",
+            "        if Y_pred.shape[1] == 10:\n",
+            "            Y_pred = np.argmax(Y_pred, axis=1)\n",
+            "        Y_pred = Y_pred.reshape(-1)\n",
+            "    num_count = sum(Y_pred == Y_test)\n",
+            "    scores_dict[pipeline_name] = num_count/Y_test.shape[0]\n",
+            "\n",
+            "for pipeline_name in scores_dict:\n",
+            "    print(f\"Pipeline {pipeline_name} achieves accuracy {scores_dict[pipeline_name]*100:.2f}%\")"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:51.990817Z",
+              "start_time": "2021-06-15T16:58:51.988173Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "#trainedLr.score(\n",
+            "#    input=c3.Dataset.fromNdArrayStreamable(X_test_source_spec),\n",
+            "#    targetOutput=c3.Dataset.fromNdArrayStreamable(Y_test_source_spec),\n",
+            "#    spec=c3.MLScoreSpec())"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Save models"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:58:54.909764Z",
+              "start_time": "2021-06-15T16:58:51.993544Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Upsert models for 'later'\n",
+            "upserted_pipelines = {}\n",
+            "\n",
+            "for pipeline_name in pipeline_dict:\n",
+            "    upserted_pipe = pipeline_dict[pipeline_name].upsert()\n",
+            "    upserted_pipelines[pipeline_name] = upserted_pipe"
+          ]
+        },
+        {
+          "cell_type": "markdown",
+          "metadata": {},
+          "source": [
+            "# Fetch trained model, and test"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "ExecuteTime": {
+              "end_time": "2021-06-15T16:59:26.300879Z",
+              "start_time": "2021-06-15T16:58:54.911507Z"
+            }
+          },
+          "outputs": [],
+          "source": [
+            "# Load C3 model Tensorflow training cell\n",
+            "# Summarize Trained pipelines\n",
+            "\n",
+            "scores_dict = {}\n",
+            "\n",
+            "for pipeline_name in upserted_pipelines:\n",
+            "    try:\n",
+            "        pipeline = c3.MLSerialPipeline.get(upserted_pipelines[pipeline_name].id)\n",
+            "    except:\n",
+            "        pass\n",
+            "    if pipeline is None:\n",
+            "        continue\n",
+            "    \n",
+            "    #pipeline = upserted_pipelines[pipeline_name]\n",
+            "    Y_pred_res = pipeline.process(c3.Dataset.fromNdArrayStreamable(X_test_source_spec))\n",
+            "    Y_pred = c3.Dataset.toNumpy(dataset=Y_pred_res)\n",
+            "    if len(Y_pred.shape) == 2:\n",
+            "        if Y_pred.shape[1] == 10:\n",
+            "            Y_pred = np.argmax(Y_pred, axis=1)\n",
+            "        Y_pred = Y_pred.reshape(-1)\n",
+            "    num_count = sum(Y_pred == Y_test)\n",
+            "    scores_dict[pipeline_name] = num_count/Y_test.shape[0]\n",
+            "\n",
+            "for pipeline_name in scores_dict:\n",
+            "    print(f\"Pipeline {pipeline_name} achieves accuracy {scores_dict[pipeline_name]*100:.2f}%\")"
+          ]
+        },
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {},
+          "outputs": [],
+          "source": []
+        }
+      ],
+      "metadata": {
+        "has_local_update": false,
+        "is_local": true,
+        "is_remote": true,
+        "kernelspec": {
+          "display_name": "py-dataanalysis",
+          "language": "Python",
+          "name": "py-dataanalysis"
+        },
+        "language_info": {
+          "codemirror_mode": {
+            "name": "ipython",
+            "version": 3
+          },
+          "file_extension": ".py",
+          "mimetype": "text/x-python",
+          "name": "python",
+          "nbconvert_exporter": "python",
+          "pygments_lexer": "ipython3",
+          "version": "3.6.13"
+        },
+        "last_sync_time": "2021-06-15T17:35:10.479182"
+      },
+      "nbformat": 4,
+      "nbformat_minor": 4
+    },
+    "name": "StressTest_Notebook.ipynb",
+    "id": "dti-util/StressTest_Notebook.ipynb",
+    "path": "dti-util/StressTest_Notebook.ipynb",
+    "jupyterContentType": "notebook",
+    "format": "json",
+    "writable": false,
+    "contentSize": 19961,
+    "typeIdent": "NTBK",
+    "acl": [
+      {
+        "canUpdate": false,
+        "canRemove": false,
+        "canModifyAcl": false,
+        "member": {
+          "id": "C3.Group.DataScience"
+        }
+      }
+    ],
+    "mlProject": "C3ai_Tutorials"
+  }
+  

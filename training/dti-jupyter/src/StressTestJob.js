@@ -11,7 +11,7 @@
 
     // Schedule a batch of jobs
     function scheduleBatch(batch) {
-        var batchSpec = StressTestBatch.make({values: batch});
+        var batchSpec = StressTestJobBatch.make({values: batch});
         job.scheduleBatch(batchSpec);
      }
 
@@ -22,7 +22,7 @@
     }
 
     // Split the array into chunks and schedule each batch
-    batches = chunk(jobs, options.batchSize);
+    var batches = chunk(jobs, options.batchSize);
     batches.forEach(scheduleBatch);
 
  }
@@ -35,7 +35,7 @@
  */
  function processBatch(batch, job, options) {
     function runStressTest(stressTest){
-        stressTest.compute_pi(options.computePi_n);
+        StressTest.compute_pi(options.computePi_n);
     }
-    batch.values.foreach(runStressTest);
+    batch.values.forEach(runStressTest);
  }
