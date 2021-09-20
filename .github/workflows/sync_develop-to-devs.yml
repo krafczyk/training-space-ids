@@ -4,7 +4,22 @@ on:
     branches:
       - develop
 
-# jobs:
+jobs:
+  createSyncMatrix:
+    runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }} 
+    steps:
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+      - name: Create sync Matrix
+        id: set-matrix     
+        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"tc01d\"}]}"
+        
 #   create_develop-to-tc01d-pr:
 #     runs-on: ubuntu-latest
 #     steps:
