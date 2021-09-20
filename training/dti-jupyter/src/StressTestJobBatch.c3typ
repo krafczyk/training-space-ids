@@ -1,0 +1,8 @@
+/**
+StressTestJobBatch
+Batch definition for {@link StressTestJob}s.
+*/
+type StressTestJobBatch {
+// Batch of {@link StressTest}s to process.
+    values: [StressTest]
+}
