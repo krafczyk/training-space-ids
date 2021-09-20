@@ -2,6 +2,8 @@
 #
 #  Workflow to sychronize development branches
 #
+#  Sync code pushed to any tag branch to the develop branch
+#
 ############################################################################
 name: Sync tag-branch to develop
 on:
@@ -12,45 +14,46 @@ on:
       - tc03d
 
 jobs:
-  createSyncMatrix:
-    runs-on: ubuntu-latest
-    env:
-      REF: ${{ github.event.ref }}
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }} 
-    steps:
-      - name: Set the value
-        id: step_one
-        run: |
-          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
-      - name: Create sync Matrix
-        if: "${{ env.UPDATE_BRANCH }} == 'tc01d'" 
-        run: |
-      - name: Create sync Matrix
-        id: set-matrix     
-        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"develop\"}]}"
+#   createSyncMatrix:
+#     runs-on: ubuntu-latest
+#     env:
+#       REF: ${{ github.event.ref }}
+#     outputs:
+#       matrix: ${{ steps.set-matrix.outputs.matrix }} 
+#     steps:
+#       - name: Set the value
+#         id: step_one
+#         run: |
+#           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+#       - name: Create sync Matrix
+#         if: "${{ env.UPDATE_BRANCH }} == 'tc01d'" 
+#         run: |
+#       - name: Create sync Matrix
+#         id: set-matrix     
+#         run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"develop\"}]}"
           
     
   createPullRequest:
-    needs: createSyncMatrix
+#     needs: createSyncMatrix
     runs-on: ubuntu-latest
     env:
       REF: ${{ github.event.ref }}
-    strategy:
-      matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
+#     strategy:
+#       matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
     steps:
 #       - name: Dump GitHub context
 #         env:
 #           GITHUB_CONTEXT: ${{ toJson(github) }}
 #         run: |
 #           echo "$GITHUB_CONTEXT"
-      - name: Set the value
+      - name: Set the referece branch value
         id: step_one
         run: |
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
-          ref: ${{ matrix.syncto }}
+#           ref: ${{ matrix.syncto }}
+          ref: develop
 #       - name: Reset Compare Branch
 #         run: |
 #           echo "Ref: ${{ github.event.ref }}"
@@ -66,11 +69,14 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
+          title: Sync ${{ env.UPDATE_BRANCH }} to develop
+#           title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
           labels: |
             automated pr
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
+#           branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
+          branch: ${{ env.UPDATE_BRANCH }}-to-develop
+          delete-branch: true
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
