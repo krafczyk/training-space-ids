@@ -1,0 +1,8 @@
+{
+    "name": "yang",
+    "id": "research_teams_yang",
+    "path": "research_teams/yang",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

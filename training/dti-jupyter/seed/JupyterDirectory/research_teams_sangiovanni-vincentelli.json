@@ -1,0 +1,8 @@
+{
+    "name": "sangiovanni-vincentelli",
+    "id": "research_teams_sangiovanni-vincentelli",
+    "path": "research_teams/sangiovanni-vincentelli",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

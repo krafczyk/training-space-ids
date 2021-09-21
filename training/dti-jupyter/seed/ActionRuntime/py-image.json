@@ -4,16 +4,18 @@
     "connector": "remote",
     "language": "Python",
     "runtime": "CPython",
-    "runtimeVersion": "3.6",
+    "runtimeVersion": "3.7",
     "modules": {
-        "conda.scipy": "=1.4.1",
+        "conda.numpy": "",
         "conda.pip": "",
-        "conda.pandas": "=1.0.1",
-        "conda.numpy": "=1.18.1",
-        "conda.matplotlib": "",
-        "conda.ipywidgets": "",
-	"conda.urllib3": "",
-	"conda.pillow": ""
+	"conda.requests":"",
+	"conda.matplotlib": "",
+	"conda.tensorflow": "",
+	"conda.urllib3":"",
+	"conda.multiprocess":"",
+	"conda.rasterio":"",
+	"conda.tqdm":"",
+	"conda.azure-storage-blob": ""
     },
     "repositories": [
         "defaults",

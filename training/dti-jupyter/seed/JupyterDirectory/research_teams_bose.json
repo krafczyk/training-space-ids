@@ -1,0 +1,8 @@
+{
+    "name": "bose",
+    "id": "research_teams_bose",
+    "path": "research_teams/bose",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

@@ -14,7 +14,40 @@ def downloadToExternal(srcUrl, fileName, extDir):
     os.remove(tmp_path)
     return extDir + '/' + fileName
 
-def buildThreddsUrl(baseurl, vars, subset):
+def nc_open(url, local_path='/tmp'):
+    """Opens a netCDF file from an external storage path
+    
+    Args:
+        url (str): URL to a netCDF file
+        local_path (str): Path to the local file
+    
+    Returns:
+        netCDF4.Dataset: A netCDF4 Dataset object
+    """
+    import netCDF4 as nc
+    import os
+    filename = os.path.basename(url) 
+    tmp_path = local_path + '/' + filename
+    c3.Client.copyFilesToLocalClient(url,'/tmp')
+    return nc.Dataset(tmp_path)
+
+def nc_close(ds, url, local_path='/tmp'):
+    """Closes a netCDF file
+    
+    Args:
+        ds (netCDF4.Dataset): A netCDF4 Dataset object
+        url (str): URL to a netCDF file
+        local_path (str): Path to the local file
+    """
+    import os
+    ds.close()
+    filename = os.path.basename(url) 
+    tmp_path = local_path + '/' + filename
+    os.remove(tmp_path)
+    return 1
+
+
+def buildThreddsUrl(baseurl, vars, subset, time_start, time_end):
     """Builds a Thredds URL for a set of variables and options
     
     Args:
@@ -44,7 +77,7 @@ def buildThreddsUrl(baseurl, vars, subset):
         options ['time'] = time_start
     else:
         options['time_start'] = time_start
-        options['time_end'] =time_end
+        options['time_end'] = time_end
 
     vars = [('var',v) for v in vars]
     url1 = urlencode(vars,{'d':2})
