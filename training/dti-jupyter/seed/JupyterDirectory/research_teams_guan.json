@@ -1,0 +1,8 @@
+{
+    "name": "guan",
+    "id": "research_teams_guan",
+    "path": "research_teams/guan",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

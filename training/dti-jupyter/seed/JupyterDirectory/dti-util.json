@@ -1,7 +1,7 @@
 {
-    "name": "dti-tutorials",
-    "id": "dti-tutorials",
-    "path": "dti-tutorials",
+    "name": "dti-util",
+    "id": "dti-util",
+    "path": "dti-util",
     "jupyterContentType": "directory",
     "format": "json",
     "writable": false
