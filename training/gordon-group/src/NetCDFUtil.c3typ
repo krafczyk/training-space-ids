@@ -3,10 +3,10 @@
 * Utility box to deal with NetCDF files.
 **/
 type NetCDFUtil {
-    // open file
+    // Open NetCDF file from external source
     @py(env='gordon_1_0_0')
-    netcdfOpenFile: inline function(url: !string, localPath: string = '/tmp'): any
-    // close file
+    openFile: inline function(url: !string, localPath: string = '/tmp'): any
+    // Close NetCDF file
     @py(env='gordon_1_0_0')
-    netcdfCloseFile: inline function(ds: !any, url: !string, localPath: string = '/tmp'): integer
+    closeFile: inline function(ds: !any, url: !string, localPath: string = '/tmp'): integer
 }
