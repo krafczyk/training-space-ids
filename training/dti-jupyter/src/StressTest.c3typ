@@ -1,5 +1,6 @@
 /**
  * StressTest.c3typ
+ 
  */
 type StressTest {
  // compute_pi CPU stress test
