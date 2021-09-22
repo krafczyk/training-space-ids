@@ -15,7 +15,8 @@
 	"conda.multiprocess":"",
 	"conda.rasterio":"",
 	"conda.tqdm":"",
-	"conda.azure-storage-blob": ""
+	"conda.azure-storage-blob": "",
+	"conda.gdal":""
     },
     "repositories": [
         "defaults",
