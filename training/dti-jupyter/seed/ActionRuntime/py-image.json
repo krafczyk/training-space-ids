@@ -10,7 +10,7 @@
         "conda.pip": "",
 	"conda.requests":"",
 	"conda.matplotlib": "",
-	"conda.tensorflow": "",
+	"conda.tensorflow-gpu": "=2.4.1",
 	"conda.urllib3":"",
 	"conda.multiprocess":"",
 	"conda.rasterio":"",
