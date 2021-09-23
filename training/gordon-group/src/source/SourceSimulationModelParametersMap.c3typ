@@ -1,8 +1,8 @@
 /**
-* SimulationModelParametersMap.c3typ
+* SourceSimulationModelParametersMap.c3typ
 * The source for {@link SimulationModelParameters} data
 */
-type SimulationModelParametersMap mixes Source {
+type SourceSimulationModelParametersMap mixes Source {
     acure_bl_nuc: double
     acure_ait_width: double
     acure_cloud_ph: double
