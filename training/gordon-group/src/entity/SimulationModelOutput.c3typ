@@ -1,0 +1,21 @@
+/**
+* SimulationModelOutput.c3typ
+* A single output taken from a single [SimulationSample](type:SimulationSample)
+*/
+@db(datastore='Cassandra',
+    partitionKeyField='parent',
+    persistenceORder='start',
+    persistDuplicates=false,
+    compactType=true,
+    shortIdReservationRange=100000)
+entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeries> schema name 'SMLTN_MDL_TPT' {
+    // The Latitude of this output
+    @ts(treatment='avg')
+    latitude: double
+    // The Longitude of this output
+    @ts(treatment='avg')
+    longitude: double
+    // The measured property
+    @ts(treatment='avg')
+    propertyX: double
+}
