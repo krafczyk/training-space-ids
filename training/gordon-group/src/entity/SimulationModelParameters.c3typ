@@ -62,5 +62,4 @@ entity type SimulationModelParameters schema name "SMLTN_MDL_PRMTRS" {
     ai: !double
     m_ci: !double
     a_ent_1_rp: !double
-    acure_pcalc_index: !int
 }
