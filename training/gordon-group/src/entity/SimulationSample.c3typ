@@ -1,0 +1,10 @@
+/**
+* SimulationSample.c3typ
+* One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble)
+*/
+entity type SimulationSample schema name "SMLTN_SMPL" {
+    // The parameters for this simulation
+    parameters: !SimulationModelParameters
+    // The Timeseries output for this simulation
+    output: !SimulationModelOutputSeries
+}
