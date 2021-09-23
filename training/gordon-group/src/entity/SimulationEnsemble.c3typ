@@ -1,0 +1,10 @@
+/**
+* SimulationEnsemble.c3typ
+* The entire collection of all {@link SimulationSample}s
+*/
+entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
+    // The collection of all parameters
+    parameters: ![SimulationModelParameters]
+    // The collection of all outputs in timeseries
+    outputs: ![SimulationModelOutputSeries]
+}
