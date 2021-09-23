@@ -11,6 +11,8 @@
 	"conda.requests":"",
 	"conda.matplotlib": "",
 	"conda.tensorflow-gpu": "=2.4.1",
+	"pip.cupy-cuda101":"",
+	"pip.torch":"==1.9.0",
 	"conda.urllib3":"",
 	"conda.multiprocess":"",
 	"conda.rasterio":"",
