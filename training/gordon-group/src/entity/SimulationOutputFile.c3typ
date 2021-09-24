@@ -1,7 +1,7 @@
 /**
 SimulationOutputFile.c3typ
 */
-entity type SimulationOutputFile schema name SMLTN_OTPT_FLS {
+entity type SimulationOutputFile schema name 'SMLTN_OTPT_FLS' {
     // The {@link SimulationSample} that theses files belong to.
     simulationSample: !SimulationSample
     // The simulation timestamp
