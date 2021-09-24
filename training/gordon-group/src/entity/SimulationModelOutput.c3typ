@@ -2,7 +2,7 @@
 * SimulationModelOutput.c3typ
 * A single output taken from a single [SimulationSample](type:SimulationSample)
 */
-@db(datastore='Cassandra',
+@db(datastore='cassandra',
     partitionKeyField='parent',
     persistenceOrder='start',
     persistDuplicates=false,
