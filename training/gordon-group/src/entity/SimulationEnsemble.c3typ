@@ -11,6 +11,6 @@ entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
     sampleKey: !string
     // The collection of all outputs in timeseries
     samples: [SimulationSample](ensemble, id)
-    // Method to load external files as {@link SimulationOutputFile} records.
-    loadOutputFiles: member function(externalPath: !string) any  
+    // Method to create records for external files as {@link SimulationOutputFile} records.
+    createSimulationOutputFiles: member function(externalPath: !string): any  
 }

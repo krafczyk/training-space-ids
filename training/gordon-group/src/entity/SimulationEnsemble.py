@@ -1,5 +1,5 @@
 
-def loadOutputFiles(this):
+def createSimulationOutputFiles(this):
     """
      - Create SimulationOutPutFile records if they don't exist
      - Load the output files into the SimulationOutputFile records
