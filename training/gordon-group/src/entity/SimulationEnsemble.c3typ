@@ -3,8 +3,8 @@
 * The entire collection of all {@link SimulationSample}s
 */
 entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
-    // The collection of all parameters
-    parameters: [SimulationSample](parameters)
+    // The name of this ensemble
+    name: !string
     // The collection of all outputs in timeseries
-    outputs: [SimulationSample](output)
+    samples: [SimulationSample](ensemble, id)
 }

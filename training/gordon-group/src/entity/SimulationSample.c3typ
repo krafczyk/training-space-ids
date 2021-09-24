@@ -3,6 +3,8 @@
 * One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble)
 */
 entity type SimulationSample schema name "SMLTN_SMPL" {
+    // The {@link SimulationEnsemble} that this sample belongs to
+    ensemble: !SimulationEnsemble
     // The parameters for this simulation
     parameters: !SimulationModelParameters
     // The Timeseries output for this simulation
