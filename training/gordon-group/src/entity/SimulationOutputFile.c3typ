@@ -12,7 +12,3 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FLS' {
     @py(env='gordon_1_0_0')
     upsertFile: function() int
 }
-
-c3.(**{
-'file': c3.File(**{'url':})
-})
