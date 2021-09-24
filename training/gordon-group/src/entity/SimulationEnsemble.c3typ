@@ -3,8 +3,6 @@
 * The entire collection of all {@link SimulationSample}s
 */
 entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
-    // Use an integer id
-    id: !integer
     // The name of this ensemble
     name: !string
     // The key name for the {@link SimulationSample}s in this ensemble
