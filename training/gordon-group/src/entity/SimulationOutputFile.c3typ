@@ -10,5 +10,5 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FLS' {
     file: File
     // Method to process and load data from this file into {@link SimulationModelOutput}
     @py(env='gordon_1_0_0')
-    upsertFile: member function() int
+    upsertFile: member function(): int
 }
