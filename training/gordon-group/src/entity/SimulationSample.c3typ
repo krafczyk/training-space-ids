@@ -10,7 +10,5 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
     // The Timeseries output for this simulation
     output: !SimulationModelOutputSeries
     // the collection of {@link SimulationOutputFile}s for this simulation sample
-    files: [SimulationOutputFile](simulationSample, id)
-
-
+    outputFiles: [SimulationOutputFile](simulationSample, id)
 }
