@@ -6,5 +6,5 @@ entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
     // The collection of all parameters
     parameters: [SimulationSample](parameters)
     // The collection of all outputs in timeseries
-    outputs: [SimulationSample](outputs)
+    outputs: [SimulationSample](output)
 }
