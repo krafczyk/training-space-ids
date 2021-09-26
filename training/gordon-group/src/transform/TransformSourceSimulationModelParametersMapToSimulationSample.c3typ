@@ -7,7 +7,7 @@ type TransformSourceSimulationModelParametersMapToSimulationSample mixes Simulat
   //
   simId: ~ expression "acure_pcalc_index"
   //
-  sampleKey ~ expression "sample_key"
+  sampleKey: ~ expression "sample_key"
   // The ensemble for this sample - reference to the {@link SimulationEnsemble} type.
   ensemble: ~ expression {id: "ensemble_id"}
   // The model parameters for this sample - reference to the {@link SimulationModelParameters} type.
