@@ -4,6 +4,10 @@ TransformSourceSimulationModelParametersMapToSimulationSample.c3typ
 type TransformSourceSimulationModelParametersMapToSimulationSample mixes SimulationSample transforms SourceSimulationModelParametersMap {
   //
   id: ~ expression "concat(ensemble_name,'_',sample_key,'_',acure_pcalc_index)"
+  //
+  simId: ~ expression "acure_pcalc_index"
+  //
+  sampleKey ~ expression "sample_key"
   // The ensemble for this sample - reference to the {@link SimulationEnsemble} type.
   ensemble: ~ expression {id: "ensemble_id"}
   // The model parameters for this sample - reference to the {@link SimulationModelParameters} type.
