@@ -6,6 +6,8 @@ type TransformSourceSimulationModelParametersMapToSimulationModelParameters mixe
     // the id of the simulation
     //id: ~ expression "acure_pcalc_index"
     id: ~ expression "concat(ensemble_name,'_',sample_key,'_',acure_pcalc_index)"
+    // The ensemble for this set of model parameters - reference to the {@link SimulationEnsemble} type.
+    ensemble: ~ expression {id: "ensemble_id"}
     // the remaining parameters (all doubles for now)
     acure_bl_nuc: ~ expression "acure_bl_nuc"
     acure_ait_width: ~ expression "acure_ait_width"
