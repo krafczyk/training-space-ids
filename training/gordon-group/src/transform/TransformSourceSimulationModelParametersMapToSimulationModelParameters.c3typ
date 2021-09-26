@@ -4,7 +4,8 @@
 */
 type TransformSourceSimulationModelParametersMapToSimulationModelParameters mixes SimulationModelParameters transforms SourceSimulationModelParametersMap {
     // the id of the simulation
-    id: ~ expression "acure_pcalc_index"
+    //id: ~ expression "acure_pcalc_index"
+    id: ~ expression "concat(ensemble_name,'_',sample_key,'_',acure_pcalc_index)"
     // the remaining parameters (all doubles for now)
     acure_bl_nuc: ~ expression "acure_bl_nuc"
     acure_ait_width: ~ expression "acure_ait_width"
