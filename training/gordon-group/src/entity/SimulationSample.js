@@ -22,11 +22,16 @@ function afterCreate(objs) {
   
     function createFiles(obj) {
       var d = obj.sampleKey;
-      d += String(obj.simId).padStart(3,'0');
-      var d2=extDir + '/' + obj.ensemble.name +'/'+d;
+      d += padStart(String(obj.simId),3,'0');
+      //d += String(obj.simId).padStart(3,'0');
+
+      var d2 = extDir + '/' + obj.ensemble.name +'/'+d;
       var files = FileSystem.inst().listFiles(d2).files;
       return files.map(createSimOutFiles);
   
+      function padStart(text, length, pad) {
+        return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
+      }
   
       function createSimOutFiles(file){
       return SimulationOutputFile.make(
