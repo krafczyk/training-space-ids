@@ -10,8 +10,8 @@
  */
  //var objs = SimulationSample.fetch({'include':"this,ensemble.name"}).objs
 function afterCreate(objs) {
-    const extDir = 'gordon-group';
-    let files = objs.map(createFiles);
+    var extDir = 'gordon-group';
+    var files = objs.map(createFiles);
     //let simOutFiles = files.map(getSimOutFiles)
     files.forEach(upsertBatch);
     return;
@@ -21,12 +21,10 @@ function afterCreate(objs) {
     }
   
     function createFiles(obj) {
-      let d = obj.sampleKey;
+      var d = obj.sampleKey;
       d += String(obj.simId).padStart(3,'0');
-      let d2=extDir + '/' + obj.ensemble.name +'/'+d;
-      //document.write(d2)
-      let files = FileSystem.inst().listFiles(d2).files;
-      //document.write(files)
+      var d2=extDir + '/' + obj.ensemble.name +'/'+d;
+      var files = FileSystem.inst().listFiles(d2).files;
       return files.map(createSimOutFiles);
   
   
