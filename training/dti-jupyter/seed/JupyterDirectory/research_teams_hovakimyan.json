@@ -1,0 +1,8 @@
+{
+    "name": "hovakimyan",
+    "id": "research_teams_hovakimyan",
+    "path": "research_teams/hovakimyan",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
