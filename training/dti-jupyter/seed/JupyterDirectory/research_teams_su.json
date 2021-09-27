@@ -1,0 +1,8 @@
+{
+    "name": "su",
+    "id": "research_teams_su",
+    "path": "research_teams/su",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }

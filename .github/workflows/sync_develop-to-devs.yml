@@ -1,118 +1,165 @@
 name: Sync develop to dev branches
 on:
-  push:
-    branches:
-      - develop
+#   push:
+#     branches:
+#       - develop
+  workflow_dispatch:
 
 jobs:
-  create_develop-to-tc01d-pr:
+  createSyncMatrix:
     runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }} 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: tc01d
-      - name: Reset develop
+      - name: Set the value
+        id: step_one
         run: |
-          git fetch origin develop:develop
-          git reset --hard develop
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: 'Sync develop to tc01d'
-          labels: |
-            automated pr
-          token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-to-tc01d-update
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+      - name: Create sync Matrix
+        id: set-matrix     
+        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"tc01d\"}]}"
 
-  create_develop-to-tc02d-pr:
+  create_develop_to_devs_prs:
+    needs: createSyncMatrix
     runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
+    strategy:
+      matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
     steps:
+      - name: Set the reference branch value
+        id: step_one
+        run: |
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
-          ref: tc02d
-      - name: Reset promotion branch
+          ref: ${{ matrix.syncto }}
+      - name: Reset Compare Branch
         run: |
-          git fetch origin develop:develop
-          git reset --hard develop
+          git fetch origin "${{ env.UPDATE_BRANCH }}:${{ env.UPDATE_BRANCH }}"
+          git reset --hard ${{ env.UPDATE_BRANCH }}
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'Sync develop to tc02d'
+          title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
           labels: |
             automated pr
+            automerge
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-to-tc02d-update
+          branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
+          delete-branch: true
+        
+#   create_develop-to-tc01d-pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: tc01d
+#       - name: Reset develop
+#         run: |
+#           git fetch origin develop:develop
+#           git reset --hard develop
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v3
+#         with:
+#           title: 'Sync develop to tc01d'
+#           labels: |
+#             automated pr
+#           token: ${{secrets.GITHUB_TOKEN}}
+#           branch: develop-to-tc01d-update
 
-  create_develop-tc03d-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: tc03d
-      - name: Reset promotion branch
-        run: |
-          git fetch origin develop:develop
-          git reset --hard develop
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: 'Sync develop to tc03d'
-          labels: |
-            automated pr
-          token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-to-tc03d-update
+#   create_develop-to-tc02d-pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: tc02d
+#       - name: Reset promotion branch
+#         run: |
+#           git fetch origin develop:develop
+#           git reset --hard develop
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v3
+#         with:
+#           title: 'Sync develop to tc02d'
+#           labels: |
+#             automated pr
+#           token: ${{secrets.GITHUB_TOKEN}}
+#           branch: develop-to-tc02d-update
+
+#   create_develop-tc03d-pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: tc03d
+#       - name: Reset promotion branch
+#         run: |
+#           git fetch origin develop:develop
+#           git reset --hard develop
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v3
+#         with:
+#           title: 'Sync develop to tc03d'
+#           labels: |
+#             automated pr
+#           token: ${{secrets.GITHUB_TOKEN}}
+#           branch: develop-to-tc03d-update
   
 
-  # sync-main-to-tc01d:
-  #   runs-on: ubuntu-latest
-  #   name: Syncing main to tc01d
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Set up Node
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 12
-  #     - name: Opening pull request
-  #       id: pull
-  #       uses: tretuna/sync-branches@1.2.0
-  #       with:
-  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  #         FROM_BRANCH: "main"
-  #         TO_BRANCH: "tc01d"
+#   # sync-main-to-tc01d:
+#   #   runs-on: ubuntu-latest
+#   #   name: Syncing main to tc01d
+#   #   steps:
+#   #     - name: Checkout
+#   #       uses: actions/checkout@v2
+#   #     - name: Set up Node
+#   #       uses: actions/setup-node@v1
+#   #       with:
+#   #         node-version: 12
+#   #     - name: Opening pull request
+#   #       id: pull
+#   #       uses: tretuna/sync-branches@1.2.0
+#   #       with:
+#   #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#   #         FROM_BRANCH: "main"
+#   #         TO_BRANCH: "tc01d"
 
-  # sync-main-to-tc02d:
-  #   runs-on: ubuntu-latest
-  #   name: Syncing main to tc01d
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Set up Node
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 12
-  #     - name: Opening pull request
-  #       id: pull
-  #       uses: tretuna/sync-branches@1.2.0
-  #       with:
-  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  #         FROM_BRANCH: "main"
-  #         TO_BRANCH: "tc02d"
+#   # sync-main-to-tc02d:
+#   #   runs-on: ubuntu-latest
+#   #   name: Syncing main to tc01d
+#   #   steps:
+#   #     - name: Checkout
+#   #       uses: actions/checkout@v2
+#   #     - name: Set up Node
+#   #       uses: actions/setup-node@v1
+#   #       with:
+#   #         node-version: 12
+#   #     - name: Opening pull request
+#   #       id: pull
+#   #       uses: tretuna/sync-branches@1.2.0
+#   #       with:
+#   #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#   #         FROM_BRANCH: "main"
+#   #         TO_BRANCH: "tc02d"
 
-  # sync-main-to-tc03d:
-  #   runs-on: ubuntu-latest
-  #   name: Syncing main to tc01d
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Set up Node
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 12
-  #     - name: Opening pull request
-  #       id: pull
-  #       uses: tretuna/sync-branches@1.2.0
-  #       with:
-  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  #         FROM_BRANCH: "main"
-  #         TO_BRANCH: "tc03d"
+#   # sync-main-to-tc03d:
+#   #   runs-on: ubuntu-latest
+#   #   name: Syncing main to tc01d
+#   #   steps:
+#   #     - name: Checkout
+#   #       uses: actions/checkout@v2
+#   #     - name: Set up Node
+#   #       uses: actions/setup-node@v1
+#   #       with:
+#   #         node-version: 12
+#   #     - name: Opening pull request
+#   #       id: pull
+#   #       uses: tretuna/sync-branches@1.2.0
+#   #       with:
+#   #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#   #         FROM_BRANCH: "main"
+#   #         TO_BRANCH: "tc03d"

@@ -1,0 +1,8 @@
+{
+    "name": "levine",
+    "id": "research_teams_levine",
+    "path": "research_teams/levine",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": true
+  }
