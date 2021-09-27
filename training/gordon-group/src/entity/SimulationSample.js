@@ -13,21 +13,21 @@ function afterCreate(objs) {
     const extDir = 'gordon-group';
     let files = objs.map(createFiles);
     //let simOutFiles = files.map(getSimOutFiles)
-    files.forEach(upsertBatch)
+    files.forEach(upsertBatch);
     return;
   
     function upsertBatch(batch) {
-        SimulationOutputFile.upsertBatch(batch)
+        SimulationOutputFile.upsertBatch(batch);
     }
   
     function createFiles(obj) {
-      let d = obj.sampleKey
+      let d = obj.sampleKey;
       d += String(obj.simId).padStart(3,'0');
-      let d2=extDir + '/' + obj.ensemble.name +'/'+d
+      let d2=extDir + '/' + obj.ensemble.name +'/'+d;
       //document.write(d2)
-      let files = FileSystem.inst().listFiles(d2).files
+      let files = FileSystem.inst().listFiles(d2).files;
       //document.write(files)
-      return files.map(createSimOutFiles)
+      return files.map(createSimOutFiles);
   
   
       function createSimOutFiles(file){
@@ -40,7 +40,7 @@ function afterCreate(objs) {
           }
           )
       }
-      )
+      );
     }
     }
   }  
