@@ -15,4 +15,7 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
     output: SimulationModelOutputSeries
     // the collection of {@link SimulationOutputFile}s for this simulation sample
     outputFiles: [SimulationOutputFile](simulationSample, id)
+    // Callback to create the {SimulationOutputFile}s.
+    @dependency(include = "id,simID,sampleKey")
+    afterCreate: ~ js server
 }
