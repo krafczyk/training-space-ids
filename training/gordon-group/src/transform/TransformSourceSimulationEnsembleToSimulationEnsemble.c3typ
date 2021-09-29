@@ -2,7 +2,7 @@
 * TransformSourceSimulationEnsembleToSimulationEnsemble.c3typ
 * Transforms {@link SourceSimulationEnsemble} to {@link SimulationEnsemble}
 */
-type TransformSourceSimulationModelParametersMapToSimulationEnsemble  mixes SimulationEnsemble transforms SourceSimulationModelParametersMap {
+type TransformSourceSimulationEnsembleToSimulationEnsemble mixes SimulationEnsemble transforms SourceSimulationEnsemble {
   // The id of this simulation ensemble
   id: ~ expression "ensemble_id"
   // The name of this simulation ensemble
