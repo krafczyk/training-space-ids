@@ -6,7 +6,7 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FLS' {
     simulationSample: !SimulationSample
     // The simulation timestamp
     time: datetime
-    // The simulation output file.
+    // The simulation output file
     file: File
     // processed
     processed: boolean post default "false"
