@@ -3,12 +3,11 @@
 * Transforms data from {@link SourceSimulationModelParametersMap} to {@SimulationModelParameters}
 */
 type TransformSourceSimulationModelParametersMapToSimulationModelParameters mixes SimulationModelParameters transforms SourceSimulationModelParametersMap {
-    // the id of the simulation
-    //id: ~ expression "acure_pcalc_index"
-    id: ~ expression "concat(ensemble_name,'_',sample_key,'_',acure_pcalc_index)"
-    // The ensemble for this set of model parameters - reference to the {@link SimulationEnsemble} type.
-    ensemble: ~ expression {id: "ensemble_id"}
-    // the remaining parameters (all doubles for now)
+    // The id of the simulation
+    id: ~ expression "concat(ensemble_name,'_No_',acure_pcalc_index)"
+    // The {@link SimulationEnsemble} for this set of model parameters
+    ensemble: ~ expression {name: "ensemble_name"}
+    // The remaining parameters (all doubles for now)
     acure_bl_nuc: ~ expression "acure_bl_nuc"
     acure_ait_width: ~ expression "acure_ait_width"
     acure_cloud_ph: ~ expression "acure_cloud_ph" 

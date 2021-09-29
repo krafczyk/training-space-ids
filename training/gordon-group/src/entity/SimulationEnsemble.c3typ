@@ -5,9 +5,9 @@
 entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
     // The name of this ensemble
     name: !string
-    // The key name for the {@link SimulationSample}s in this ensemble
-    sampleKey: !string
-    // The {#link SimulationModelParameters} for this ensemble
+    // The base path for the {@link SimulationSample}s in this ensemble
+    prePathToFiles: !string
+    // The {@link SimulationModelParameters} for this ensemble
     modelParameters: [SimulationModelParameters](ensemble, id)
     // The collection of all outputs in timeseries
     samples: [SimulationSample](ensemble, id)
