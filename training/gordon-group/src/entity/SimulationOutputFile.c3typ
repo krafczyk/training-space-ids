@@ -4,10 +4,10 @@ SimulationOutputFile.c3typ
 entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     // The {@link SimulationSample} that theses files belong to.
     simulationSample: !SimulationSample
-    // The simulation timestamp
-    time: datetime
+    // The date for this file (comes with the file name)
+    dateTag: !datetime
     // The simulation output file
-    file: File
+    file: !File
     // processed
     processed: boolean post default "false"
     // Method to process and load data from this file into {@link SimulationModelOutput}
