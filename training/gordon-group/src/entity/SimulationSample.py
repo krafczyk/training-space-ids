@@ -1,4 +1,4 @@
-def upsertFiles():
+def upsertFiles(this):
     """
     Upserts the NetCDF files from a SimulationSample instance to the SimulationOutputFile persisted table.
 
