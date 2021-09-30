@@ -12,7 +12,8 @@
  * @return List of any errors that were encountered.
  */
 
- //var objs = SimulationSample.fetch({'include':"this,ensemble.name"}).objs
+var objs = SimulationSample.fetch({'include':"this,ensemble.name"}).objs
+
 function afterCreate(objs) {
     var extDir = 'gordon-group';
     var files = objs.map(createFiles);
