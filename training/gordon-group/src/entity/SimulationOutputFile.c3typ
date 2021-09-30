@@ -7,7 +7,7 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FLS' {
     // The simulation timestamp
     time: datetime
     // The simulation output file
-    file: File
+    file: AzureFile
     // processed
     processed: boolean post default "false"
     // Method to process and load data from this file into {@link SimulationModelOutput}

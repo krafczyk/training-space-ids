@@ -10,7 +10,7 @@ entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
     // The {@link SimulationModelParameters} for this ensemble
     modelParameters: [SimulationModelParameters](ensemble, id)
     // The collection of all outputs in timeseries
-    samples: [SimulationSample](ensemble, id)
+    samples: [SimulationSample](ensemble)
     // Method to create records for external files as {@link SimulationOutputFile} records.
     createSimulationOutputFiles: member function(externalPath: !string): any  
 }
