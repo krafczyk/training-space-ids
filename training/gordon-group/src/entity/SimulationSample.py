@@ -22,7 +22,7 @@ def upsertFiles(this):
             })
             date_str = file.url[-11:-3]
             date_dt = datetime.strptime(date_str, '%Y%m%d')
-            SimOoutFileObjs.append(c3.SimulationOutputFile(**{
+            SimOutFileObjs.append(c3.SimulationOutputFile(**{
                 "simulationSample": this,
                 "file": file_obj,
                 "dateTag": date_dt

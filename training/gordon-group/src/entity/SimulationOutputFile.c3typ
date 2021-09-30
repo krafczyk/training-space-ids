@@ -5,7 +5,7 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     // The {@link SimulationSample} that theses files belong to.
     simulationSample: !SimulationSample
     // The date for this file (comes with the file name)
-    dateTag: !datetime
+    dateTag: datetime
     // The simulation output file
     file: !File
     // processed
