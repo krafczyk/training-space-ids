@@ -13,7 +13,16 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
     output: SimulationModelOutputSeries
     // the collection of {@link SimulationOutputFile}s for this simulation sample
     outputFiles: [SimulationOutputFile](simulationSample, id)
-    // Callback to create the {SimulationOutputFile}s.
-    @dependency(include = "this,ensemble.name")
-    afterCreate: ~ js server
+
+    // METHODS
+    // Upserts files corresponding to this {@SimulationSample} to {@SimulationOutputFile}
+    @py(env='gordon_1_0_0')
+    upsertFiles: member function(): int
+
+
+
+
+    // Callback to create the {SimulationOutputFile}s. => Bruno doesn't know how to do this
+    // @dependency(include = "this,ensemble.name")
+    // afterCreate: ~ js server
 }
