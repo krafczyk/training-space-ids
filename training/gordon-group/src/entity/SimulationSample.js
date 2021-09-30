@@ -12,12 +12,10 @@
  * @return List of any errors that were encountered.
  */
 
-var objs = SimulationSample.fetch({'include':"this,ensemble.name"}).objs
+// THIS IS NOT WORKING YET
 
 function afterCreate(objs) {
-    var extDir = 'gordon-group';
     var files = objs.map(createFiles);
-    //let simOutFiles = files.map(getSimOutFiles)
     files.forEach(upsertBatch);
     return;
   
@@ -26,14 +24,13 @@ function afterCreate(objs) {
     }
   
     function createFiles(obj) {
-      var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + obj.ensemble.name + '/';
-      var prePathToAllFiles = ensemblePath + obj.ensemble.prePathToFiles;
+      var ensemble = SimulationEnsemble.fetch({
+                      filter: Filter.eq("id",obj.ensemble.id) 
+                    }).objs[0]
+      var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+      var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
       var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
-      //var d = obj.sampleKey;
-      //d += padStart(String(obj.simulationNumber),3,'0');
-      //d += String(obj.simId).padStart(3,'0');
 
-      //var d2 = extDir + '/' + obj.ensemble.name +'/'+d;
       var files = FileSystem.inst().listFiles(pathToSample).files;
       return files.map(createSimOutFiles);
   
