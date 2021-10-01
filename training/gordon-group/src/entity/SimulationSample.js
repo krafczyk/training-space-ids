@@ -27,7 +27,7 @@ function afterCreate(objs) {
       var ensemble = SimulationEnsemble.fetch({
                       filter: Filter.eq("id",obj.ensemble.id) 
                     }).objs[0]
-      var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+      var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + obj.ensemble.name + '/';
       var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
       var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
 
