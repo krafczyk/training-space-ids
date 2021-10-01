@@ -34,7 +34,7 @@ function afterCreate(objs) {
 
     var sampleFiles = FileSystem.inst().listFiles(pathToSample).files;
     // Remove non-NetCDF files from list
-    for (let i = 0; i < sampleFiles.length; i++) {
+    for (var i = 0; i < sampleFiles.length; i++) {
       var sf = sampleFiles[i];
       if (sf.url.slice(-3) !== ".nc") {
         sampleFiles.splice(i,1);
