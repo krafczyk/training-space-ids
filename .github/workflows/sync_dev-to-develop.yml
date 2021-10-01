@@ -57,21 +57,3 @@ jobs:
           PULL_REQUEST: "${{ steps.cpr.outputs.pr_number }}"
           MERGE_REQUIRED_APPROVALS: "1"
           
-# jobs:
-#   sync-main-to-tc01d:
-#     runs-on: ubuntu-latest
-#     name: Syncing tc01d to develop
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-#       - name: Set up Node
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 12
-#       - name: Opening pull request
-#         id: pull
-#         uses: tretuna/sync-branches@1.2.0
-#         with:
-#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#           FROM_BRANCH: "tc01d"
-#           TO_BRANCH: "develop"
