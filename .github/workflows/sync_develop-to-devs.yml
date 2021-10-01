@@ -47,7 +47,7 @@ jobs:
           source_branch: "develop"
           destination_branch: "${{ matrix.syncto }}"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_label: "automated pr"
+          pr_label: "automated pr,automerge"
           pr_title: "Sync develop to ${{ matrix.syncto }}"
           
       - name: Check outputs
