@@ -1,5 +1,5 @@
 name: Development Task
-description: Add a anticipated development task
+description: "Add a anticipated development task"
 labels: ["development"]
 body:
   - type: markdown
@@ -10,11 +10,11 @@ body:
     id: 
     attributes:
       label: Description
-      description: Description of the task at hand.
+      description: "Description of the task at hand."
       placeholder: |
         ## Description
         
-      value: "
+      value: |
         ## Description
         
         
