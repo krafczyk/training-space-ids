@@ -34,7 +34,7 @@ jobs:
           destination_branch: "develop"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "automated pr"
-          pr_title: "Pulling `${{ env.UPDATE_BRANCH }}` into `develop`"
+          pr_title: "Pulling ${{ env.UPDATE_BRANCH }} into develop"
           
       - name: Check outputs
         run: |
@@ -47,15 +47,15 @@ jobs:
           github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
           pull-request-number:  "${{ steps.cpr.outputs.pr_number }}"
           
-#       - name: Automerge PR
-#         if: "${{ steps.cpr.outputs.pull-request-number }}"
-#         uses: "pascalgn/automerge-action@v0.14.3"
-#         env:
-#           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
-#           MERGE_METHOD: "rebase"
-#           MERGE_DELETE_BRANCH: true
-#           PULL_REQUEST: "${{ steps.cpr.outputs.pull-request-number }}"
-#           MERGE_REQUIRED_APPROVALS: "1"
+      - name: Automerge PR
+        if: "${{ steps.cpr.outputs.pull-request-number }}"
+        uses: "pascalgn/automerge-action@v0.14.3"
+        env:
+          GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+          MERGE_METHOD: "merge"
+          MERGE_DELETE_BRANCH: false
+          PULL_REQUEST: "${{ steps.cpr.outputs.pr_number }}"
+          MERGE_REQUIRED_APPROVALS: "1"
           
 # jobs:
 #   sync-main-to-tc01d:
