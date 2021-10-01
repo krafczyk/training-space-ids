@@ -1,4 +1,4 @@
-def netcdfOpenFile(url, localPath='/tmp'):
+def openFile(url, localPath='/tmp'):
     """
     Opens a NetCDF file from an external storage path (e.g. Azure blob)
 
@@ -17,7 +17,7 @@ def netcdfOpenFile(url, localPath='/tmp'):
     return nc.Dataset(tmp_path)
 
 
-def netcdfCloseFile(ds, url, localPath='/tmp'):
+def closeFile(ds, url, localPath='/tmp'):
     """
     Closes a NetCDF file.
 
