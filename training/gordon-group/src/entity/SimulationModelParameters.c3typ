@@ -3,6 +3,7 @@
 * A set of parameters that are model-input for a {@link Simulation}
 */
 entity type SimulationModelParameters schema name "SMLTN_MDL_PRMTRS" {
+    ensemble: SimulationEnsemble
     acure_bl_nuc: !double
     acure_ait_width: !double
     acure_cloud_ph: !double
