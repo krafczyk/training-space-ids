@@ -4,7 +4,7 @@
 #
 ##########################################################################
 
-name: automerge_tc01d-to-develop
+name: automerge
 on:
   pull_request:
     types:
