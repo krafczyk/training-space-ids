@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '30 9 * * *'
+    - cron:  '30 9,21 * * *'
 
 jobs:
   createPullRequest:
@@ -14,10 +14,17 @@ jobs:
           git fetch origin develop:develop
           git reset --hard develop
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
           title: 'Sync develop to main'
           labels: |
             automated pr
           token: ${{secrets.GITHUB_TOKEN}}
-          branch: develop-to--update
+          branch: develop-to-main-update
+      - name: Approve PR
+        if: "${{ steps.cpr.outputs.pull-request-number }}"
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+          pull-request-number:  "${{ steps.cpr.outputs.pull-request-number }}"

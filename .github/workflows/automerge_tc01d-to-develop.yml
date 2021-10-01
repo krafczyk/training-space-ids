@@ -1,3 +1,9 @@
+##########################################################################
+#
+#  Will auto-merge pull request with the label "automerge"
+#
+##########################################################################
+
 name: automerge_tc01d-to-develop
 on:
   pull_request:
@@ -12,16 +18,25 @@ on:
       - unlocked
     branches:
       - develop
+      - tc01d
+      - tc02d
+      - tc03d
   pull_request_review:
     types:
       - submitted
     branches:
       - develop
+      - tc01d
+      - tc02d
+      - tc03d
   check_suite:
     types:
       - completed
     branches:
       - develop
+      - tc01d
+      - tc02d
+      - tc03d
   status: {}
 jobs:
   automerge:
@@ -32,6 +47,6 @@ jobs:
         uses: "pascalgn/automerge-action@v0.14.3"
         env:
           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
-          MERGE_METHOD: "rebase"
+          MERGE_METHOD: "merge"
           MERGE_REQUIRED_APPROVALS: "1"
           MERGE_DELETE_BRANCH: true
