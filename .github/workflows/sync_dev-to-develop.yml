@@ -50,9 +50,10 @@ jobs:
         id: step_one
         run: |
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
-#       - uses: actions/checkout@v2
-#         with:
-# #           ref: ${{ matrix.syncto }}
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.UPDATE_BRANCH }}
+#           ref: ${{ matrix.syncto }}
 #           ref: develop
 # #       - name: Reset Compare Branch
 # #         run: |
