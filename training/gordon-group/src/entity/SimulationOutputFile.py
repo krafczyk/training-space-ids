@@ -38,7 +38,7 @@ def upsertFile(this):
                 'latitude': df['latitude'].iloc[i],
                 'propertyX': df['propertyX'].iloc[i],
                 'start': df['datetime'].iloc[i],
-                'parent': this.simulationSample
+                'parent': this.simulationSample.id
             })
             for i in range(len(df))
         ]
