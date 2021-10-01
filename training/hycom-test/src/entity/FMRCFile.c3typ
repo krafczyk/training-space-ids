@@ -27,5 +27,5 @@ entity type FMRCFile schema name "FRMC_FL" {
     file: File
     // Download a file from the Hycom server and save to the C3 file system
     @py(env=hycom_1_0_0)
-    download: member function(): File
+    download: member function(extDir: !string): File
 }
