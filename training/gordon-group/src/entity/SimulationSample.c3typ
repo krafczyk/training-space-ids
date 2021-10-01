@@ -1,0 +1,26 @@
+/**
+* SimulationSample.c3typ
+* One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble).
+*/
+entity type SimulationSample schema name "SMLTN_SMPL" {
+    // The number of this simulation within its {@link SimulationEnsemble}
+    simulationNumber: !int
+    // The {@link SimulationEnsemble} that this sample belongs to
+    ensemble: !SimulationEnsemble
+    // The parameters for this simulation
+    parameters: !SimulationModelParameters
+    // The Timeseries output for this simulation
+    output: SimulationModelOutputSeries
+    // the collection of {@link SimulationOutputFile}s for this simulation sample
+    outputFiles: [SimulationOutputFile](simulationSample, id)
+
+    // METHODS
+    // Upserts files corresponding to this {@SimulationSample} to {@SimulationOutputFile}
+    // This needs a little bit of work yet...
+    @py(env='gordon_1_0_0')
+    upsertFiles: member function(): int
+
+    // Callback to create the {SimulationOutputFile}s. => Bruno doesn't know how to do this
+    @dependency(include = "this,ensemble.name")
+    afterCreate: ~ js server
+}
