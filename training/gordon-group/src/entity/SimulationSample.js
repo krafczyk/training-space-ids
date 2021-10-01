@@ -31,7 +31,7 @@ function afterCreate(objs) {
       var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
       var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
 
-      var files = FileSystem.inst().listFiles(pathToSample).files;
+      let files = FileSystem.inst().listFiles(pathToSample).files;
       return files.map(createSimOutFiles);
   
       function padStart(text, length, pad) {
