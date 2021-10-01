@@ -12,9 +12,6 @@
  * @return List of any errors that were encountered.
  */
 
-// THIS WORKS WHEN IN THE CONSOLE
-//var objs = SimulationSample.fetch().objs.slice(10,15); 
-
 function afterCreate(objs) {
   var files = objs.map(createFiles);
   files.forEach(upsertBatch);

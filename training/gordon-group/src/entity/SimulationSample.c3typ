@@ -15,12 +15,7 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
     outputFiles: [SimulationOutputFile](simulationSample, id)
 
     // METHODS
-    // Upserts files corresponding to this {@SimulationSample} to {@SimulationOutputFile}
-    // This needs a little bit of work yet...
-    //@py(env='gordon_1_0_0')
-    //upsertFiles: member function(): int
-
-    // Callback to create the {SimulationOutputFile}s. => Bruno doesn't know how to do this
+    // Callback to create the {@link SimulationOutputFile}s whenever a {@link SimulationSample} is upserted. 
     @dependency(include = "this,ensemble.name")
     afterCreate: ~ js server
 }
