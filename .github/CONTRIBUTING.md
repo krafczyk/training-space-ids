@@ -34,7 +34,7 @@ Install the C3 command line application:
 ```
 mkdir c3cli
 cd c3cli
-c3py get-c3cli
+c3py get-c3cli --url <vanity url> --tag <tag> --tenant <tenant>
 tar xzf cli.tar.gz
 ./c3 install
 ```
