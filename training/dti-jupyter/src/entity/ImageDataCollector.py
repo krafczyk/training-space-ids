@@ -1,4 +1,19 @@
 ## funcions ##
+
+def download(this):
+
+    return -1
+
+def preprocess(this):
+
+    return -1
+
+def predict(this):
+
+    return -1
+
+
+
 def get_metadata_from_url(this, input_url):
     
     import io
@@ -17,3 +32,4 @@ def get_metadata_from_url(this, input_url):
     #print("hello world!")
 
     return [this.image_width, this.image_height]
+
