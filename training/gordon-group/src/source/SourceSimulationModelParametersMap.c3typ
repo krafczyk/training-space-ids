@@ -3,6 +3,9 @@
 * The source for {@link SimulationModelParameters} data
 */
 type SourceSimulationModelParametersMap mixes Source {
+    ensemble_name: string
+    sample_key: string
+    ensemble_id: int
     acure_bl_nuc: double
     acure_ait_width: double
     acure_cloud_ph: double
