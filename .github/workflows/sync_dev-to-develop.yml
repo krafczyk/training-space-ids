@@ -34,6 +34,7 @@ jobs:
           destination_branch: "develop"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "automated pr"
+          pr_title: "Pulling `${{ env.UPDATE_BRANCH }}` into `develop`"
           
       - name: Check outputs
         run: |
