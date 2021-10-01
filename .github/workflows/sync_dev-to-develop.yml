@@ -13,80 +13,39 @@ on:
       - tc02d
       - tc03d
 
-jobs:
-#   createSyncMatrix:
-#     runs-on: ubuntu-latest
-#     env:
-#       REF: ${{ github.event.ref }}
-#     outputs:
-#       matrix: ${{ steps.set-matrix.outputs.matrix }} 
-#     steps:
-#       - name: Set the value
-#         id: step_one
-#         run: |
-#           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
-#       - name: Create sync Matrix
-#         if: "${{ env.UPDATE_BRANCH }} == 'tc01d'" 
-#         run: |
-#       - name: Create sync Matrix
-#         id: set-matrix     
-#         run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"develop\"}]}"
-          
+jobs:    
     
   createPullRequest:
-#     needs: createSyncMatrix
     runs-on: ubuntu-latest
     env:
       REF: ${{ github.event.ref }}
-#     strategy:
-#       matrix: ${{fromJSON(needs.createSyncMatrix.outputs.matrix)}}
     steps:
-#       - name: Dump GitHub context
-#         env:
-#           GITHUB_CONTEXT: ${{ toJson(github) }}
-#         run: |
-#           echo "$GITHUB_CONTEXT"
       - name: Set the referece branch value
         id: step_one
         run: |
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+          
       - uses: actions/checkout@v2
-#         with:
-# #           ref: ${{ matrix.syncto }}
-#           ref: develop
-# #       - name: Reset Compare Branch
-# #         run: |
-# #           git fetch origin "${{ env.UPDATE_BRANCH }}:${{ env.UPDATE_BRANCH }}"
-# #           git reset --hard ${{ env.UPDATE_BRANCH }}
-#       - name: Create Pull Request
-#         id: cpr
-#         uses: peter-evans/create-pull-request@v3
-#         with:
-#           title: Sync ${{ env.UPDATE_BRANCH }} to develop
-# #           title: Sync ${{ env.UPDATE_BRANCH }} to ${{ matrix.syncto }}
-#           labels: |
-#             automated pr
-#           token: ${{secrets.GITHUB_TOKEN}}
-# #           branch: ${{ env.UPDATE_BRANCH }}-to-${{ matrix.syncto }}
-# #           branch: ${{ env.UPDATE_BRANCH }}-to-develop
-#           branch: ${{ env.UPDATE_BRANCH }}
-#           delete-branch: false
+      
       - name: Create Pull Request
         id: cpr
-      - uses: repo-sync/pull-request@v2
+        uses: repo-sync/pull-request@v2
         with:
           destination_branch: "develop"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "automated pr"
+          
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+          
       - name: Approve PR
         if: "${{ steps.cpr.outputs.pr_number }}"
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
           pull-request-number:  "${{ steps.cpr.outputs.pr_number }}"
+          
 #       - name: Automerge PR
 #         if: "${{ steps.cpr.outputs.pull-request-number }}"
 #         uses: "pascalgn/automerge-action@v0.14.3"
