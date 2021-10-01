@@ -22,5 +22,5 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
 
     // Callback to create the {SimulationOutputFile}s. => Bruno doesn't know how to do this
     @dependency(include = "this,ensemble.name")
-    afterCreate: function(objs: ![SimulationSample]): js server
+    afterCreate: ~ js server
 }
