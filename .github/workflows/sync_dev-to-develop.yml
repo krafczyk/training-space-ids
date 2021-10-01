@@ -52,9 +52,8 @@ jobs:
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
-          ref: ${{ env.UPDATE_BRANCH }}
 #           ref: ${{ matrix.syncto }}
-#           ref: develop
+          ref: develop
 # #       - name: Reset Compare Branch
 # #         run: |
 # #           git fetch origin "${{ env.UPDATE_BRANCH }}:${{ env.UPDATE_BRANCH }}"
