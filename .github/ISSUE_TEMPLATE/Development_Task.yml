@@ -22,7 +22,7 @@ body:
         - [ ]
         
         ## References
-* [Contributing](https://github.com/c3aidti/training-space-ids/blob/920cac4820ee5921217500969b15407b4e19755d/.github/CONTRIBUTING.md)
+        * [Contributing](https://github.com/c3aidti/training-space-ids/blob/920cac4820ee5921217500969b15407b4e19755d/.github/CONTRIBUTING.md)
         
     validations:
       required: true
