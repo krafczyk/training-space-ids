@@ -11,11 +11,15 @@ body:
     attributes:
       label: Description
       description: "Description of the task at hand."
-      placeholder: |
-        ## Description
+#      placeholder: |
+#        ## Description
         
       value: |
         ## Description
+        
+        ## Steps To Complete
+        - [ ] 
+        - [ ]
         
         
         
