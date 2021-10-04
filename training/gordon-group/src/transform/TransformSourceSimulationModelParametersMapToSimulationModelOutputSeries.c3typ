@@ -6,5 +6,5 @@ type TransformSourceSimulationModelParametersMapToSimulationModelOutputSeries mi
     // The id of this timeseries
     id: ~ expression "concat('SMOS_EnsNo_', ensemble_id, '_SimNo_', acure_pcalc_index)"
     // The {@link SimulationSample} this timeseries belongs to
-    simulationSample: ~ expression {id: "concat(ensemble_name,'_No_',acure_pcalc_index)"}
+    simulationSample: ~ expression {id: "concat('EnsNo_',ensemble_id,'_SimNo_',acure_pcalc_index)"}
 }
