@@ -27,7 +27,16 @@ def get_metadata_from_url(this, input_url):
         temp_img = url.read()
         pil_im = Image.open(io.BytesIO(temp_img), 'r')
     ## assign the image info into the C3 Type ##
-    this.image_width, this.image_height = pil_im.size
+    iw, ih = pil_im.size
+
+    ## update the ImageDataCollector by creating and merging
+    updates = c3.ImageDataCollector(
+            **{
+                "id": this.id,
+                "image_width": iw,
+                "image_height": ih
+                })
+    updates.merge()
 
     #print("hello world!")
 
