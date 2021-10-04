@@ -47,6 +47,7 @@ def upsertFile(this):
         c3.SimulationModelOutput.upsertBatch(output_records)
 
         this.processed = True
+        c3.SimulationOutputFile.merge(this)
         return True
     else:
         return False
