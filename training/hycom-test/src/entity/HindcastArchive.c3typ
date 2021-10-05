@@ -3,7 +3,7 @@
 */
 entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
-    dataset !HycomDataset
+    dataset: !HycomDataset
     //
     name: !string
     //
@@ -15,7 +15,6 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     geospatialCoverage: GeospatialCoverage
     // Utility method to download a file from the archive
-    @py(env=hycom_1_0_0)
-    downloadFile: function(fmrcSubsetOptions: !FMRCSubsetOptions): 
+    downloadFile: function(fmrcSubsetOptions: !FMRCSubsetOptions): string py server 
 
 }
