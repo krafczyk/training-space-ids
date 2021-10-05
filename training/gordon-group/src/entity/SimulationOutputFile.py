@@ -1,4 +1,4 @@
-def upsertFile(this):
+def upsertData(this):
     """
     Function to Open files in the SimulationOutputFile table and then populate SimulationModelOutput and SimulationModelOutputSeries data.
     

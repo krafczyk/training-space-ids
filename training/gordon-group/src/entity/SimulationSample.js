@@ -25,6 +25,7 @@ function afterCreate(objs) {
     var ensemble = SimulationEnsemble.fetch({
                       filter: Filter.eq("id",obj.ensemble.id) 
                     }).objs[0]
+    // AZURE DIRECTORY PATH HERE: change 'gordon-group; to whatever you need
     var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
     var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
     var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
@@ -59,4 +60,8 @@ function afterCreate(objs) {
       });
     }
   }
-}  
+};
+
+function upsertSampleData(this) {
+  this.outputFiles.forEach(upsertData);
+}

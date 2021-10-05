@@ -16,6 +16,9 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
 
     // METHODS
     // Callback to create the {@link SimulationOutputFile}s whenever a {@link SimulationSample} is upserted. 
-    @dependency(include = "this,ensemble.name")
+    @dependency(include = "this, ensemble.name")
     afterCreate: ~ js server
+    // Upsert data into {@link SimulationModelOutput} for all {@link SimulationOutputFile}s corresponding to this {@link SimulationSample}
+    @dependecy(include = "this, outputFiles")
+    upsertSampleData: member function(): int js server
 }
