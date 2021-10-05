@@ -13,7 +13,7 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 
 	planet_url: !string
 
-	preprocessed_url: !string
+	preprocessed_url: string
 
 	is_preprocessed: !int
 
