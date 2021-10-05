@@ -2,7 +2,7 @@
 * SimulationSample.c3typ
 * One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble).
 */
-entity type SimulationSample schema name "SMLTN_SMPL" {
+entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
     // The number of this simulation within its {@link SimulationEnsemble}
     simulationNumber: !int
     // The {@link SimulationEnsemble} that this sample belongs to
