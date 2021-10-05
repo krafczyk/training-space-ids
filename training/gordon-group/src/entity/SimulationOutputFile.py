@@ -32,13 +32,14 @@ def upsertData(this):
         df.drop(columns=['time'], inplace=True)
 
         # create list of SimulationModelOutput objs
+        parent_id = "SMOS_" + this.simulationSample.id
         output_records = [
             c3.SimulationModelOutput(**{
                 'longitude': df['longitude'].iloc[i],
                 'latitude': df['latitude'].iloc[i],
                 'propertyX': df['propertyX'].iloc[i],
                 'start': df['datetime'].iloc[i],
-                'parent': this.simulationSample.id
+                'parent': parent_id
             })
             for i in range(len(df))
         ]
