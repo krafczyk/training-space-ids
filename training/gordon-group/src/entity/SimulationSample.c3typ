@@ -2,7 +2,7 @@
 * SimulationSample.c3typ
 * One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble).
 */
-entity type SimulationSample schema name "SMLTN_SMPL" {
+entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
     // The number of this simulation within its {@link SimulationEnsemble}
     simulationNumber: !int
     // The {@link SimulationEnsemble} that this sample belongs to
@@ -15,12 +15,10 @@ entity type SimulationSample schema name "SMLTN_SMPL" {
     outputFiles: [SimulationOutputFile](simulationSample, id)
 
     // METHODS
-    // Upserts files corresponding to this {@SimulationSample} to {@SimulationOutputFile}
-    // This needs a little bit of work yet...
-    @py(env='gordon_1_0_0')
-    upsertFiles: member function(): int
-
-    // Callback to create the {SimulationOutputFile}s. => Bruno doesn't know how to do this
-    @dependency(include = "this,ensemble.name")
+    // Callback to create the {@link SimulationOutputFile}s whenever a {@link SimulationSample} is upserted. 
+    @dependency(include = "this, ensemble.name")
     afterCreate: ~ js server
+    // Upsert data into {@link SimulationModelOutput} for all {@link SimulationOutputFile}s corresponding to this {@link SimulationSample}
+    @dependency(include = "this, outputFiles")
+    upsertSampleData: member function(): int js server
 }

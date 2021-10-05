@@ -1,3 +1,0 @@
-#
-def upsertFile(this):
-    pass
