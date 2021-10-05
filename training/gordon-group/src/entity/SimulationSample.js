@@ -75,8 +75,6 @@ function afterCreate(objs) {
  * @return Number of files that were processed
  */
 
-
-
 function upsertSampleData() {
   var results = this.outputFiles.map(upsert);
 
