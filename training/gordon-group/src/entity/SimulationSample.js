@@ -62,7 +62,14 @@ function afterCreate(objs) {
   }
 };
 
-function upsertSampleData(this) {
+function upsertSampleData() {
   // irrelevant change
-  this.outputFiles.forEach(upsertData);
-}
+  this.outputFiles.forEach(upsert);
+
+  function upsert(file) {
+    var actual_file = SimulationOutputFile.get(file.id);
+    return actual_file.upsertData();
+  };
+
+  return 0;
+};
