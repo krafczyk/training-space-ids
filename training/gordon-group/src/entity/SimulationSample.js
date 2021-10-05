@@ -63,5 +63,6 @@ function afterCreate(objs) {
 };
 
 function upsertSampleData(this) {
+  // irrelevant change
   this.outputFiles.forEach(upsertData);
 }
