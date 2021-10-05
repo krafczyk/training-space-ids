@@ -1,0 +1,38 @@
+{
+    "id" : "download-fmrc-cron",
+    "name" : "download and updat FMRC data",
+    "description" : "Download latest Hycom FMRC simulation data",
+    "action" : {
+      "typeName" : "HycomFMRC",
+      "actionName" : "updateFMRCData",
+    },
+    "inputs": {
+        "fmrcSubsetOptions": {
+            "timeStride":  1,
+            "vars": "surf_el,salinity,water_temp,water_u,water_v",
+            "disableLLSubset": "on",
+            "disableProjSubset": "on",
+            "horizStride": 1,
+            "vertStride": 1,
+            "addLatLon": "false",
+            "accept": "netcdf4"
+        },
+        "fmrcDownloadOptions": {
+            "externalDir": "hycom-data",
+            "maxTimesPerFile": 1,
+            "maxForecastDepth": -1,
+            "defaultHycomDatasetId": "GOMu0.04_901m000_FMRC_1.0.1"
+        },
+        "fmrcDownloadJobOptions": {
+            "batchSize": 4,
+            "limit": -1
+        }
+    },
+    "concurrent": false,
+    "inactive": false,
+    "scheduleDef" : {
+      "startTime": null,
+      "endTime": null,
+      "cronExpression" : "10,22 15 * * * ?"
+    }
+  }
