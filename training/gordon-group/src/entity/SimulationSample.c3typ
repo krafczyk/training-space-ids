@@ -10,7 +10,7 @@ entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
     // The parameters for this simulation
     parameters: !SimulationModelParameters
     // The Timeseries output for this simulation
-    output: [SimulationModelOutputSeries](simulationSample)
+    output: [SimulationModelOutputSeries](simulationSample,id)
     // the collection of {@link SimulationOutputFile}s for this simulation sample
     outputFiles: [SimulationOutputFile](simulationSample, id)
 
