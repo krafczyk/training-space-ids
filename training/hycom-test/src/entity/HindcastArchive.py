@@ -23,9 +23,11 @@ def downloadLocal(this, hycomSubsetOptions, localDir):
 
     if time_start == time_end:
         options ['time'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
+        filename = this.id + '-' + time_start.strftime("%Y%m%d%H%M%S") + '.nc'
     else:
         options['time_start'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
         options['time_end'] = time_end.strftime("%Y-%m-%dT%H:%M:%SZ")
+        filename = this.id + '-' + time_start.strftime("%Y%m%d%H%M%S") + '-' + time_end.strftime("%Y%m%d%H%M%S") + '.nc'
 
     # Construt query url
     vars_list = hycomSubsetOptions.vars.split(',')
@@ -36,6 +38,6 @@ def downloadLocal(this, hycomSubsetOptions, localDir):
     
     print(url)
 
-    localPath = c3.HycomUtil.downloadToLocal(url, this.id + ".nc", localDir)
+    localPath = c3.HycomUtil.downloadToLocal(url, filename, localDir)
     
     return localPath
