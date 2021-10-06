@@ -1,6 +1,6 @@
 {
-    "id": "py-image-download" ,
-    "name": "py-image-download",
+    "id": "py-image_download" ,
+    "name": "py-image_download",
     "connector": "remote",
     "language": "Python",
     "runtime": "CPython",
