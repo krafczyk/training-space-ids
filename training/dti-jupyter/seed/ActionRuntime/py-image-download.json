@@ -1,0 +1,18 @@
+{
+    "id": "py-image-download" ,
+    "name": "py-image-download",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.7",
+    "modules": {
+        "conda.numpy": "",
+        "conda.pip": "",
+	"conda.requests":"",
+	"conda.azure-storage-blob": ""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
