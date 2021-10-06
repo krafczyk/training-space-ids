@@ -1,3 +1,5 @@
+from urllib.parse import urlencode,urljoin
+
 def downloadLocal(this, hycomSubsetOptions, localDir):
 
     url_path = this.urlPath
