@@ -16,6 +16,6 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
     // Utility method to download a file from the archive
     @py(env="hycom_1_0_0")
-    downloadLocal: member function(hycomSubsetOptions: !HycomSubsetOptions, localDir: string): string
+    downloadLocal: member inline function(hycomSubsetOptions: !HycomSubsetOptions, localDir: string): string
 
 }
