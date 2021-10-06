@@ -12,39 +12,80 @@
  * @return List of any errors that were encountered.
  */
 
-// THIS IS NOT WORKING YET
-
 function afterCreate(objs) {
-    var files = objs.map(createFiles);
-    files.forEach(upsertBatch);
-    return;
+  var files = objs.map(createFiles);
+  files.forEach(upsertBatch);
+  return;
   
-    function upsertBatch(batch) {
-        SimulationOutputFile.upsertBatch(batch);
-    }
+  function upsertBatch(batch) {
+    SimulationOutputFile.upsertBatch(batch);
+  }
   
-    function createFiles(obj) {
-      var ensemble = SimulationEnsemble.fetch({
+  function createFiles(obj) {
+    var ensemble = SimulationEnsemble.fetch({
                       filter: Filter.eq("id",obj.ensemble.id) 
                     }).objs[0]
-      var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + obj.ensemble.name + '/';
-      var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
-      var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
+    // AZURE DIRECTORY PATH HERE: change 'gordon-group; to whatever you need
+    var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+    var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
+    var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
 
-      var files = FileSystem.inst().listFiles(pathToSample).files;
-      return files.map(createSimOutFiles);
-  
-      function padStart(text, length, pad) {
-        return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
+    var sampleFiles = FileSystem.inst().listFiles(pathToSample).files;
+    // Remove non-NetCDF files from list
+    for (var i = 0; i < sampleFiles.length; i++) {
+      var sf = sampleFiles[i];
+      if (sf.url.slice(-3) !== ".nc") {
+        sampleFiles.splice(i,1);
       }
+    }
+    return sampleFiles.map(createSimOutFiles);
   
-      function createSimOutFiles(file){
-        return SimulationOutputFile.make({
+    function padStart(text, length, pad) {
+      return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
+    }
+  
+    function createSimOutFiles(file) {
+      var year = file.url.slice(-11,-7);
+      var month = file.url.slice(-7,-5);
+      var day = file.url.slice(-5,-3);
+      var date_str = year + "-" + month + "-" + day;
+      return SimulationOutputFile.make({
                   "simulationSample": obj,
                   "file": File.make({
                           "url": file.url
-                          })
-                  });
-      }
+                  }),
+                  "dateTag": DateTime.make({
+                          "value": date_str
+                  })
+      });
     }
-  }  
+  }
+};
+
+
+
+
+
+/**
+ * Function to upsert SimulationModelOutput with data from all SimulationOutputFiles
+ * corresponding to this Simulation Sample
+ * @param this, outputFiles
+ *  List of SimulationOutputFiles corresponding to this SimulationSample. 
+ *
+ * @return Number of files that were processed
+ */
+
+function upsertSampleData() {
+  var results = this.outputFiles.map(upsert);
+
+  function upsert(file) {
+    var actual_file = SimulationOutputFile.get(file.id);
+    return actual_file.upsertData();
+  };
+
+  var total = results.reduce(function (previousValue, currentValue) {
+    return previousValue + currentValue;
+  }, 0)
+
+  return total;
+};
