@@ -1,9 +1,8 @@
 /**
-FMRCSubsetOptions.c3typ
-Download Options for a (@link HycomFMRC).
+HycomSubsetOptions.c3typ
+Download Options for a {@link FMRCDataArchive} and {HindcastArchive}).
 */
-@depricated(finalVersion "soon", details "Need to rename to be generic for both FMRC and Hindcast data--still used for FMRC-related")
-type FMRCSubsetOptions {
+type HycomSubsetOptions {
     // The time interval for the subset.
     timeRange: TimeRange
     // time stride for the subset.
