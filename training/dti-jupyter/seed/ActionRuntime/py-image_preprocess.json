@@ -1,0 +1,23 @@
+{
+    "id": "py-image_preprocess" ,
+    "name": "py-image_preprocess",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.7",
+    "modules": {
+        "conda.numpy": "",
+        "conda.pip": "",
+	"conda.requests":"",
+	"conda.urllib3":"",
+	"conda.multiprocess":"",
+	"conda.rasterio":"",
+	"conda.tqdm":"",
+	"conda.azure-storage-blob": "",
+	"conda.gdal":""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
