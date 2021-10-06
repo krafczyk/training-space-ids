@@ -13,8 +13,8 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     timeCoverage: TimeRange
     //
-    geospatialCoverage: GeospatialCoverage
+    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
     // Utility method to download a file from the archive
-    downloadFile: function(fmrcSubsetOptions: !FMRCSubsetOptions): string py server 
+    downloadLocal: function(hycomSubsetOptions: !HycomSubsetOptions, localDir: string): string py server 
 
 }
