@@ -2,7 +2,7 @@
 FMRCSubsetOptions.c3typ
 Download Options for a (@link HycomFMRC).
 */
-@depricated(finalVersion "soon", details "Need to rename to be generic for both FMRC and Hindcast data--still used for FMRC-related")
+@depricated(finalVersion='soon', details='Need to rename to be generic for both FMRC and Hindcast data--still used for FMRC-related')
 type FMRCSubsetOptions {
     // The time interval for the subset.
     timeRange: TimeRange
