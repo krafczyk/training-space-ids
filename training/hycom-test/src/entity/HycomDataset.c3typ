@@ -4,7 +4,7 @@ A collection of datasets from the HYCOM Thredds server.
 */
 entity type HycomDataset schema name "HCM_DTST" {
     // Version of the dataset
-    hycom_version: !string
+    hycomVersion: string
     // Name of the dataset
     name: !string
     // Description of the dataset
@@ -14,7 +14,7 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The resolution of the dataset in degrees LAT/LON
     geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
     // The url of the dataset catalog
-    catalog_url: string
+    catalogUrl: string
     // A Collection of {@link HycomFMRC}s
     // NOTE: It might not be appropriate to put this collection here since not all record in this type will have FMRC data
     fmrcs: [HycomFMRC](dataset,id)
