@@ -13,7 +13,7 @@ entity type HycomFMRC schema name "HC_FMRC" {
     // The time coverage of this forecast run
     timeCoverage: !TimeRange
     // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
-    geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
+    //geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
     // The Data archive for this FMRC containing the data files
     fmrcDataArchive: FMRCDataArchive(fmrc,id)
     // Whether data are still available in hycom catalog

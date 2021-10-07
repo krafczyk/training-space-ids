@@ -44,7 +44,7 @@ def upsertHycomDatasetFromCatalog(url=None):
 
 
 def upsertFMRCs(this):
-    url = this.catalog_url
+    url = this.fmrcCatalogUrl
     with requests.get(url) as r:
         doc = xmltodict.parse(r.text)
     
@@ -55,7 +55,7 @@ def upsertFMRCs(this):
             'dataset': this,
             'run': d['@name'],
             'urlPath': d['@urlPath'],
-            'geospatialCoverage': this.geospatialCoverage,
+#            'geospatialCoverage': this.geospatialCoverage,
             'timeCoverage': {
                 'start':d['timeCoverage']['start'],
                 'end':d['timeCoverage']['end'],
