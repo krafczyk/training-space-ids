@@ -80,7 +80,7 @@ def createThreddsUrl(urlPath, subsetOptions):
     
     # Handle time coverage separately
     time_start = subsetOptions.timeRange.start
-    time_end = subsetOptions.timeRange.start
+    time_end = subsetOptions.timeRange.end
 
     if time_start == time_end:
         options ['time'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
