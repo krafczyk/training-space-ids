@@ -1,3 +1,5 @@
+from urllib.parse import urlencode,urljoin
+
 def downloadToLocal(srcUrl, fileName, localDir="/tmp"):
     """
     """
@@ -60,40 +62,37 @@ def nc_close(ds, url, local_path='/tmp'):
     return 1
 
 
-def buildThreddsUrl(baseurl, vars, subset, time_start, time_end):
-    """Builds a Thredds URL for a set of variables and options
+# 
+def createThreddsUrl(urlPath, subsetOptions):
     
-    Args:
-        baseurl (str): base url for the Thredds server + URL path for a run
-        vars (list): list of variable names to include in data files
-        subset (object): A FMRCSubsetOptions object
+    baseurl = urljoin('https://ncss.hycom.org/thredds/ncss/grid',urlPath)
 
-    Returns:
-        str: Thredds URL
-    """
-    from urllib.parse import urlencode,urljoin
-    # Convert FMRCSubsetOptions object to a dictionary
+    # Convert part of subsetOptions object to a dictionary
     options = {
-        'disableLLSubset': subset.disableLLSubset,
-        'disableProjSubset': subset.disableProjSubset,
-        'horizStride': subset.horizStride,
-        'timeStride': subset.timeStride,
-        'vertStride': subset.vertStride,
-        'addLatLon': subset.addLatLon,
-        'accept': subset.accept
+        'disableLLSubset': subsetOptions.disableLLSubset,
+        'disableProjSubset': subsetOptions.disableProjSubset,
+        'horizStride': subsetOptions.horizStride,
+        'timeStride': subsetOptions.timeStride,
+        'vertStride': subsetOptions.vertStride,
+        'addLatLon': subsetOptions.addLatLon,
+        'accept': subsetOptions.accept
         }
-
-    time_start = subset.timeRange.start
-    time_end = subset.timeRange.end
+    
+    # Handle time coverage separately
+    time_start = subsetOptions.timeRange.start
+    time_end = subsetOptions.timeRange.start
 
     if time_start == time_end:
-        options ['time'] = time_start
+        options ['time'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
     else:
-        options['time_start'] = time_start
-        options['time_end'] = time_end
+        options['time_start'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
+        options['time_end'] = time_end.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    vars = [('var',v) for v in vars]
-    url1 = urlencode(vars,{'d':2})
+    # Construct query url
+    vars_list = subsetOptions.vars.split(',')
+    vvars = [('var',v) for v in vars_list]
+    url1 = urlencode(vvars,{'d':2})
     url2 = urlencode(options)
-    url = urljoin(baseurl,url1+'&'+url2)
+    url = baseurl + '?' + url1 + '&' + url2
+    
     return url
