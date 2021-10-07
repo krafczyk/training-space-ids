@@ -5,6 +5,7 @@
         "hycomVersion": "1.0.1", 
         "description": "HYCOM + NCODA Gulf of Mexico 1/25° Analysis (NRL)",
         "catalogUrl": "https://tds.hycom.org/thredds/catalogs/GOMu0.04/expt_90.1m000.xml",
+        "fmrcCatalogUrl": "https://tds.hycom.org/thredds/catalog/GOMu0.04/expt_90.1m000/FMRC/runs/catalog.xml",
         "geospatialCoverage": {
             "start": {
                 "latitude": 18.1200008392334,

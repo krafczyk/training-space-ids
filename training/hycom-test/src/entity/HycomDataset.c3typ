@@ -15,6 +15,8 @@ entity type HycomDataset schema name "HCM_DTST" {
     geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
     // The url of the dataset catalog
     catalogUrl: string
+    // the url of the FMRC catalog for this dataset
+    fmrcCatalogUrl: string
     // A Collection of {@link HycomFMRC}s
     // NOTE: It might not be appropriate to put this collection here since not all record in this type will have FMRC data
     fmrcs: [HycomFMRC](dataset,id)
