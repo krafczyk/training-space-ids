@@ -2,7 +2,7 @@
 HycomHindcast.c3typ - HYCOM Hindcast C3 type file
 Each entry represents an Hindast data set on Hycom
 */
-entity type HycomHindcast schema name 'HCM_ HNDCST' {
+entity type HycomHindcast schema name 'HCM_HNDCST' {
     // The {@link HycomDataset} for this data set
     dataset: !HycomDataset
     // The name of this data set
