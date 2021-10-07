@@ -12,9 +12,10 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.44
+  DTI_PROVISIONER_VERSION: main
   TAG: 'tc01'
   TENANT: 'dti-jupyter'
+  DOMAIN: 'c3dti.ai'
   PACKAGE: 'dti-jupyter'
   C3REPO: 'training'
 ########################################################################
@@ -57,6 +58,7 @@ jobs:
         with:
           tenant: ${{ env.TENANT }}
           tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
           package: ${{ env.PACKAGE }}
           c3repo: ${{ env.C3REPO }}
           
@@ -80,6 +82,7 @@ jobs:
         with:
           tenant: ${{ env.TENANT }}
           tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
           package: ${{ env.PACKAGE }}
           c3repo: ${{ env.C3REPO }}
           do_provision: 'no' 
