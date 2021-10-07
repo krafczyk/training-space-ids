@@ -1,3 +1,5 @@
+from urllib.parse import urlencode,urljoin
+
 def downloadToLocal(srcUrl, fileName, localDir="/tmp"):
     """
     """
