@@ -75,17 +75,17 @@ jobs:
 #           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
 #           path: dti-provisioner
           
-#       - name: Get key
-#         uses: ./dti-provisioner
-#         env:
-#           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
-#         with:
-#           tenant: ${{ env.TENANT }}
-#           tag: ${{ env.TAG }}
-#           domain: ${{ env.DOMAIN }}
-#           package: ${{ env.PACKAGE }}
-#           c3repo: ${{ env.C3REPO }}
-#           do_provision: 'no' 
+      - name: Get key
+        uses: ./dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+        with:
+          tenant: ${{ env.TENANT }}
+          tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
+          package: ${{ env.PACKAGE }}
+          c3repo: ${{ env.C3REPO }}
+          do_provision: 'no' 
           
 #       - name: Check out c3python
 #         uses: actions/checkout@v2

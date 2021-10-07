@@ -36,7 +36,7 @@ def downloadLocal(this, hycomSubsetOptions, localDir):
     url2 = urlencode(options)
     url = baseurl + '?' + url1 + '&' + url2
     
-    print(url)
+    #print(url)
 
     localPath = c3.HycomUtil.downloadToLocal(url, filename, localDir)
     
