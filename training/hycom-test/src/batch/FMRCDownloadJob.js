@@ -9,8 +9,8 @@
     var batch = []
 
     var dataset = FMRCFile.fetchObjStream({
-        include: '[this, dataArchive.fmrc,dataArchive.fmrc.expired,dataArchive.downloadOptions]',
-        filter: "status != 'downloaded' && dataArchive.fmrc.expired=='false'",
+        include: '[this, fmrc.expired]',
+        filter: "status != 'downloaded' && fmrc.expired=='false'",
         limit: options.limit,
     });
     while(dataset.hasNext()) {
