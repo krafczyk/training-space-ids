@@ -79,7 +79,7 @@ def upsertFMRCs(this):
         c3.HycomFMRC.mergeBatch(updates)
     return frmcs
 
-def updateFMRCData(this, fmrcSubsetOptions, fmrcDownloadOptions, fmrcDownloadJobOptions):
+def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJobOptions):
     """Update FMRC data
         - update FMRCs from Catalog
         For each FMRC:
@@ -98,7 +98,7 @@ def updateFMRCData(this, fmrcSubsetOptions, fmrcDownloadOptions, fmrcDownloadJob
     """
     def make_data_archive(fmrc):
         #print(fmrc)
-        fmrcSubsetOptions.timeRange = c3.TimeRange(
+        hycomSubsetOptions.timeRange = c3.TimeRange(
             **{
                 'start': fmrc.timeCoverage.start,
                 'end': fmrc.timeCoverage.end
@@ -108,7 +108,7 @@ def updateFMRCData(this, fmrcSubsetOptions, fmrcDownloadOptions, fmrcDownloadJob
             **{
                 'id': fmrc.id,
                 'fmrc': fmrc,
-                'subsetOptions': fmrcSubsetOptions.toJson(),
+                'subsetOptions': hycomSubsetOptions.toJson(),
                 'downloadOptions': fmrcDownloadOptions.toJson()
             }
         )

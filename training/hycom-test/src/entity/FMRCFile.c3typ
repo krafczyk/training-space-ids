@@ -14,9 +14,9 @@ entity type FMRCFile schema name "FRMC_FL" {
     // TimeStride units for this file
     timeStrideUOM: Unit post default "{id:'hour'}"
     // Geospatial coverage for this file
-    geospatialCoverage: !GeospatialCoverage
+    //geospatialCoverage: !GeospatialCoverage
     // Geospatial resolution for this file
-    geospatialResolution: GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
+    //geospatialResolution: GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
     // the varaibles contained in this file    
     vars: !string
     //  FRMC file type

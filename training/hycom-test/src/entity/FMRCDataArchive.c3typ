@@ -6,7 +6,7 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     // The {@link HycomFMRC} associated with this archive.
     fmrc: !HycomFMRC
     // The {@link FMRCSubsetOptions} options for this archive.
-    subsetOptions: !FMRCSubsetOptions
+    subsetOptions: !HycomSubsetOptions
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: !FMRCDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
