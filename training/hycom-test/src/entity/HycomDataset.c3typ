@@ -31,5 +31,5 @@ entity type HycomDataset schema name "HCM_DTST" {
     upsertFMRCs: member function(): [HycomFMRC]
     //
     @py(env="hycom_1_0_0")
-    updateFMRCData: member function(fmrcSubsetOptions: !HycomSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
 }
