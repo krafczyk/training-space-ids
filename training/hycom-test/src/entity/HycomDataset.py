@@ -118,12 +118,23 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
     
     # Loop on unexpired FMRCs and create data archive entries
     valid_fmrcs = c3.HycomFMRC.fetch(spec={'filter':"expired==false"}).objs
-    for fmrc in valid_fmrcs:
-        da = make_data_archive(fmrc)
-        da.upsert()
-        #print(da)
-        da.stageFMRCFiles()
-        
+    # for fmrc in valid_fmrcs:
+    #     da = make_data_archive(fmrc)
+    #     da.upsert()
+    #     #print(da)
+    #     da.stageFMRCFiles()
+    
+    updates = [ c3.HycomFMRC(
+        **{
+            'id': fmrc.id,
+            'subsetOptions': hycomSubsetOptions.toJson(),
+            'downloadOptions': fmrcDownloadOptions.toJson()
+            }
+        ) for fmrc in valid_fmrcs
+      ]
+    
+    c3.HycomFMRC.mergeBatch(updates)
+
     # Submit Batch Job to Download all files
     job = c3.FMRCDownloadJob(**{'options': fmrcDownloadJobOptions.toJson()}).upsert()
     job.start()

@@ -12,6 +12,14 @@ entity type HycomFMRC schema name "HC_FMRC" {
     urlPath: !string
     // The time coverage of this forecast run
     timeCoverage: !TimeRange
+
+    // The {@link HycomSubsetOptions} options for this archive.
+    subsetOptions: !HycomSubsetOptions
+    // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
+    downloadOptions: !FMRCDownloadOptions
+    // Collection of {@link FMRCFile}s associated with this archive.
+    fmrcFiles: [FMRCFile](fmrc,id)
+
     // The geospatial extent of the forecast run.  Defaults to the dataset's full extent.
     //geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
     // The Data archive for this FMRC containing the data files
