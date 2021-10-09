@@ -14,9 +14,9 @@ entity type HycomFMRC schema name "HC_FMRC" {
     timeCoverage: !TimeRange
 
     // The {@link HycomSubsetOptions} options for this archive.
-    subsetOptions: !HycomSubsetOptions
+    subsetOptions: HycomSubsetOptions
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
-    downloadOptions: !FMRCDownloadOptions
+    downloadOptions: FMRCDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
     fmrcFiles: [FMRCFile](fmrc,id)
 
