@@ -31,9 +31,9 @@ def stageFMRCFiles(this):
     
     file_ext = '.nc'  # hardcoded netcdf extension
     # make sure we have the geospatialCoverage
-    gsc = c3.FMRCDataArchive(id=this.id).get(include="fmrc.geospatialCoverage").fmrc.geospatialCoverage
-    if gsc is None:
-        raise Exception("Missing geospatialCoverage")
+    #gsc = c3.FMRCDataArchive(id=this.id).get(include="fmrc.geospatialCoverage").fmrc.geospatialCoverage
+    #if gsc is None:
+    #    raise Exception("Missing geospatialCoverage")
 
     # Note, the status is explicitly not merged here so that the post default will kick in if needed
     # and already "downloaded" files don't get re-downloaded
@@ -51,7 +51,7 @@ def stageFMRCFiles(this):
                 'end': batches[i][-1]
             },
             'timeStride': this.subsetOptions.timeStride,
-            'geospatialCoverage': gsc,
+            #'geospatialCoverage': gsc,
             'vars': this.subsetOptions.vars,
             'fileType': this.subsetOptions.accept
         }
