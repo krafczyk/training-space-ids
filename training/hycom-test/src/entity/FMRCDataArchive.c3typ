@@ -10,7 +10,7 @@ entity type FMRCDataArchive schema name 'FMRC_DT_ARCHV' {
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: !FMRCDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
-    dataFiles: [FMRCFile](dataArchive,id)
+    //dataFiles: [FMRCFile](dataArchive,id)
     // Whether {@link FMRCFile}s have been staged for download.
     // Commented out due to unknown "extraneous property" error
     //staged: boolean post default false
