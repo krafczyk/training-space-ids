@@ -23,9 +23,6 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The total storage footprint of archived FMRC data in Bytes
     // This field could be refactored into the HycomFMRC type.
     fmrcArchiveSize: long integer stored calc 'sum(fmrcs.fmrcDataArchive.archiveSize)'
-    // Use the XML catalog for Hycom FMRC data to create a Dataset entry
-    //@py(env="hycom_1_0_0")
-    //upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
     // Use the XML catalog for Hycom FMRC data to create records for each available run collection
     @py(env="hycom_1_0_0")
     upsertFMRCs: member function(): [HycomFMRC]
