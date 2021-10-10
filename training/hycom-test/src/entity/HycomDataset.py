@@ -96,22 +96,22 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
         [Returns]
         c3.BatchJob
     """
-    def make_data_archive(fmrc):
-        #print(fmrc)
-        hycomSubsetOptions.timeRange = c3.TimeRange(
-            **{
-                'start': fmrc.timeCoverage.start,
-                'end': fmrc.timeCoverage.end
-            }
-        )
-        return c3.FMRCDataArchive(
-            **{
-                'id': fmrc.id,
-                'fmrc': fmrc,
-                'subsetOptions': hycomSubsetOptions.toJson(),
-                'downloadOptions': fmrcDownloadOptions.toJson()
-            }
-        )
+    # def make_data_archive(fmrc):
+    #     #print(fmrc)
+    #     hycomSubsetOptions.timeRange = c3.TimeRange(
+    #         **{
+    #             'start': fmrc.timeCoverage.start,
+    #             'end': fmrc.timeCoverage.end
+    #         }
+    #     )
+    #     return c3.FMRCDataArchive(
+    #         **{
+    #             'id': fmrc.id,
+    #             'fmrc': fmrc,
+    #             'subsetOptions': hycomSubsetOptions.toJson(),
+    #             'downloadOptions': fmrcDownloadOptions.toJson()
+    #         }
+    #     )
     
     # Update FMRCs from catalog
     this.upsertFMRCs()
@@ -134,6 +134,9 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
       ]
     
     c3.HycomFMRC.mergeBatch(updates)
+
+    for fmrc in valid_fmrcs:
+        fmrc.stageFMRCFiles()
 
     # Submit Batch Job to Download all files
     job = c3.FMRCDownloadJob(**{'options': fmrcDownloadJobOptions.toJson()}).upsert()
