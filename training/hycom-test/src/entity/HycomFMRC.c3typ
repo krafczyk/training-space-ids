@@ -33,6 +33,6 @@ entity type HycomFMRC schema name "HC_FMRC" {
     //@py(env=hycom_1_0_0)
     //updateFMRCData: function(hycomSubsetOptions: !FMRCSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
     @py(env='hycom_1_0_0')
-    @dependency(include = "this")
+    @dependency(include = "this,subsetOptions.timeRange")
     stageFMRCFiles: member function(): [FMRCFile]
 }
