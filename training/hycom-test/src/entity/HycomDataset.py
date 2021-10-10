@@ -123,20 +123,10 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
     #     da.upsert()
     #     #print(da)
     #     da.stageFMRCFiles()
-    
-    updates = [ c3.HycomFMRC(
-        **{
-            'id': fmrc.id,
-            'subsetOptions': hycomSubsetOptions.toJson(),
-            'downloadOptions': fmrcDownloadOptions.toJson()
-            }
-        ) for fmrc in valid_fmrcs
-      ]
-    
-    c3.HycomFMRC.mergeBatch(updates)
+
 
     for fmrc in valid_fmrcs:
-        fmrc.stageFMRCFiles()
+        fmrc.stageFMRCFiles(hycomSubsetOptions, fmrcDownloadOptions)
 
     # Submit Batch Job to Download all files
     job = c3.FMRCDownloadJob(**{'options': fmrcDownloadJobOptions.toJson()}).upsert()

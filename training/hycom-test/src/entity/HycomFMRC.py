@@ -1,25 +1,25 @@
 """Python Methods  for HycomFMRC type"""
 
-def stageFMRCFiles(this):
+def stageFMRCFiles(this, subsetOptions, downloadOptions):
     from datetime import datetime,timedelta
     """Stage subset and download options for a downloading current  FMRC data
     """
     # Generate a list of all possible times based on timeStride
     def gentimes():
-        t = this.subsetOptions.timeRange.start
-        while t <= this.subsetOptions.timeRange.end:
+        t = subsetOptions.timeRange.start
+        while t <= subsetOptions.timeRange.end:
             yield t
-            t += timedelta(hours=this.subsetOptions.timeStride)
+            t += timedelta(hours=subsetOptions.timeStride)
     
     times = list(gentimes())
 
     # Generate batches of timestamps to include in each file
     max_batch = len(times)
-    if ( this.downloadOptions.maxTimesPerFile < 0 or
-        this.downloadOptions.maxTimesPerFile > max_batch):
+    if ( downloadOptions.maxTimesPerFile < 0 or
+        downloadOptions.maxTimesPerFile > max_batch):
         batch_size = max_batch
     else:
-        batch_size = this.downloadOptions.maxTimesPerFile
+        batch_size = downloadOptions.maxTimesPerFile
     
     def genbatches(l,n):
         for i in range(0, len(l), n): 
@@ -51,13 +51,22 @@ def stageFMRCFiles(this):
                 'start': batches[i][0],
                 'end': batches[i][-1]
             },
-            'timeStride': this.subsetOptions.timeStride,
+            'timeStride': subsetOptions.timeStride,
             #'geospatialCoverage': ,
-            'vars': this.subsetOptions.vars,
-            'fileType': this.subsetOptions.accept
+            'vars': subsetOptions.vars,
+            'fileType': subsetOptions.accept
         }
         ) for i in range(len(batches))
     ]
+
+    update = c3.HycomFMRC (
+        **{
+            'id': this.id,
+            'subsetOptions': subsetOptions,
+            'downloadOptions': downloadOptions,
+        }
+    )
+    update.merge()
 
     c3.FMRCFile.mergeBatch(objs=files)
 
