@@ -126,6 +126,12 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
 
 
     for fmrc in valid_fmrcs:
+        hycomSubsetOptions.timeRange = c3.TimeRange(
+            **{
+                'start': fmrc.timeCoverage.start,
+                'end': fmrc.timeCoverage.end
+            }
+        )
         fmrc.stageFMRCFiles(hycomSubsetOptions, fmrcDownloadOptions)
 
     # Submit Batch Job to Download all files
