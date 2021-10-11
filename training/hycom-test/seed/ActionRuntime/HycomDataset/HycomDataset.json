@@ -17,8 +17,8 @@
               }
         },
         "geospatialResolution": {
-            "latResolution": 0.04,
-            "lonResolution": 0.04
+            "latResolution": 0.03999900817871094,
+            "lonResolution": 0.03997802734375
         }
 
     }

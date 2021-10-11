@@ -2,7 +2,7 @@
 HycomDataset.c3typ
 A collection of datasets from the HYCOM Thredds server.
 */
-entity type HycomDataset schema name "HCM_DTST" {
+entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     // Version of the dataset
     hycomVersion: string
     // Name of the dataset
@@ -12,7 +12,7 @@ entity type HycomDataset schema name "HCM_DTST" {
     // The geospatial coverage of the dataset in degrees LAT/LON
     geospatialCoverage: !GeospatialCoverage
     // The resolution of the dataset in degrees LAT/LON
-    geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
+    geospatialResolution: GeospatialResolution post default "{latResolution: 0.03999900817871094, lonResolution: 0.03997802734375}"
     // The url of the dataset catalog
     catalogUrl: string
     // the url of the FMRC catalog for this dataset

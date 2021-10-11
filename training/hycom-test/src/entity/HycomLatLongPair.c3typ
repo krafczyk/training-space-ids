@@ -1,0 +1,21 @@
+/**
+HycomLatLongPair.c3typ
+
+*/
+entity type HycomLatLongPair mixes MetricEvaluatable, SeedData  schema name 'LT_LNG_PR' {
+    // The longitude index
+    i: integer
+    // The latitude index
+    j: integer
+    // The latitude value
+    lat: double
+    // The longitude value
+    lng: double
+    // The LatLong pair
+    pair: LatLong
+    //
+    surfaceHindcastData: [SurfaceHindcastDataSeries]
+    //
+    //subsurfaceHindcasatData: [SubsurfaceHindcastDataSeries]
+
+}
