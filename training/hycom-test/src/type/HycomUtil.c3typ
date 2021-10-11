@@ -16,5 +16,5 @@ type HycomUtil {
     @py(env='hycom_1_0_0')
     nc_close: inline function(ds: !any, url: !string, local_path: string = '/tmp'): integer
     @py(env='hycom_1_0_0')
-    createThreddsUrl: inline function(urlPath: !string, subsetOptions: any): string
+    createThreddsUrl: inline function(urlPath: !string, subsetOptions: !HycomSubsetOptions): string
 }

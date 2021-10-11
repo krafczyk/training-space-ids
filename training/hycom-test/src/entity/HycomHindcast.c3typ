@@ -1,0 +1,22 @@
+/**
+HycomHindcast.c3typ - HYCOM Hindcast C3 type file
+Each entry represents an Hindast data set on Hycom
+*/
+entity type HycomHindcast schema name 'HCM_HNDCST' {
+    // The {@link HycomDataset} for this data set
+    dataset: !HycomDataset
+    // The name of this data set
+    name: !string
+    // Longer descriptions of this data set
+    description: !string
+    // The ulrPath from which file downloads are made
+    urlPath: !string
+    // Time coverage of this data set
+    timeCoverage: TimeRange
+    //
+    //geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
+    // Utility method to download a file from the archive
+    // @py(env="hycom_1_0_0")
+    // downloadLocal: member function(hycomSubsetOptions: !HycomSubsetOptions, localDir: string): string
+
+}
