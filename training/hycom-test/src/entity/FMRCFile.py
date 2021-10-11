@@ -8,7 +8,7 @@ def download(this, extDir):
     # Get the URL for the thredds server. Substiture computed timeCoverage for
     # tinmeRange
     fileSubset = c3.HycomSubsetOptions(**this.fmrc.subsetOptions.toJson())
-    fileSubset.timeRange = this.timeRange
+    fileSubset.timeRange = this.timeCoverage
     url = c3.HycomUtil.createThreddsUrl(this.fmrc.urlPath, fileSubset)
 
     # Create a fresh instance to avoid version errors or other bs
