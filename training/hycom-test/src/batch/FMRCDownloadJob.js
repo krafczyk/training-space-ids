@@ -9,7 +9,7 @@
     var batch = []
 
     var dataset = FMRCFile.fetchObjStream({
-        include: '[this, fmrc.expired,fmrc.downloadOptions,fmrc.subsetOptions]',
+        include: '[this, fmrc.expired,fmrc.downloadOptions,fmrc.subsetOptions,fmrc.urlPath,fmrc.timeCoverage]',
         filter: "status != 'downloaded' && fmrc.expired=='false'",
         limit: options.limit,
     });
