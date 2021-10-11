@@ -14,7 +14,7 @@ entity type HycomLatLongPair mixes MetricEvaluatable, SeedData  schema name 'LT_
     // The LatLong pair
     pair: LatLong
     //
-    surfaceHindcastData: [SurfaceHindcastDataSeries]
+    //surfaceHindcastData: [SurfaceHindcastDataSeries]
     //
     //subsurfaceHindcasatData: [SubsurfaceHindcastDataSeries]
 
