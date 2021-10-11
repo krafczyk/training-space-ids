@@ -43,9 +43,9 @@ def stageFMRCFiles(this, subsetOptions, downloadOptions):
         **{
             'fmrc': this,
             'id': (
-                this.fmrc.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext 
-                if this.downloadOptions.maxTimesPerFile == 1 else
-                this.fmrc.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + '-' + batches[i][-1].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext
+                this.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext 
+                if downloadOptions.maxTimesPerFile == 1 else
+                this.run + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + '-' + batches[i][-1].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext
             ),
             'timeCoverage': {
                 'start': batches[i][0],
