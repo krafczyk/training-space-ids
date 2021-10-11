@@ -9,7 +9,9 @@
         "conda.numpy": "",
         "conda.pip": "",
 	"conda.requests":"",
-	"conda.azure-storage-blob": ""
+	"conda.azure-storage-blob": "",
+	"conda.urllib3":"",
+	"conda.tqdm":""
     },
     "repositories": [
         "defaults",
