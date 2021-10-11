@@ -6,7 +6,7 @@ def download(this, extDir):
     """Download this particular FMRCFile from the Thredds server
     """
     # Get the URL for the thredds server
-    url = c3.HycomUtil.createThreddsUrl(this.dataArchive.fmrc.urlPath)
+    url = c3.HycomUtil.createThreddsUrl(this.fmrc.urlPath)
 
     # Create a fresh instance to avoid version errors or other bs
     updated = c3.FMRCFile(**{'id':this.id})
