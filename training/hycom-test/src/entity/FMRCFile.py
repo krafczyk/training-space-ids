@@ -5,8 +5,11 @@ from urllib.parse import urlencode,urljoin
 def download(this, extDir):
     """Download this particular FMRCFile from the Thredds server
     """
-    # Get the URL for the thredds server
-    url = c3.HycomUtil.createThreddsUrl(this.fmrc.urlPath, this.fmrc.subsetOptions)
+    # Get the URL for the thredds server. Substiture computed timeCoverage for
+    # tinmeRange
+    fileSubset = c3.HycomSubsetOptions = (**this.fmrc.subsetOptions.toJson())
+    fileSubset.timeRange = this.timeRange
+    url = c3.HycomUtil.createThreddsUrl(this.fmrc.urlPath, fileSubset)
 
     # Create a fresh instance to avoid version errors or other bs
     updated = c3.FMRCFile(**{'id':this.id})
