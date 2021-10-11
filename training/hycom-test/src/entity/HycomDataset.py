@@ -2,46 +2,6 @@ import requests
 import xmltodict
 
 
-# def upsertHycomDatasetFromCatalog(url=None):
-#     """
-#     Query Hycom catalog and create HycomDataset object.
-#     should add try/except for bad request
-#     """
-#     with requests.get(url) as r:
-#         doc = xmltodict.parse(r.text)
-
-#     name = doc['catalog']['@name']
-#     version = doc['catalog']['@version']
-#     id = name.rpartition('/')[2]+'_'+version
-#     lat_start = float(doc['catalog']['dataset']['metadata']['geospatialCoverage']['northsouth']['start'])
-#     lat_size = float(doc['catalog']['dataset']['metadata']['geospatialCoverage']['northsouth']['size'])
-#     lon_start = float(doc['catalog']['dataset']['metadata']['geospatialCoverage']['eastwest']['start'])
-#     lon_size = float(doc['catalog']['dataset']['metadata']['geospatialCoverage']['eastwest']['size'])
-    
-#     dataset_spec = {
-#         'id': id,
-#         'name': id,
-#         'description': name,
-#         'hycom_version': version,
-#         'geospatialCoverage': {
-#             'start': {
-#                 'latitude': lat_start,
-#                 'longitude': lon_start
-#             },
-#             'end': {
-#                 'latitude': lat_start + lat_size,
-#                 'longitude': lon_start + lon_size
-#             }
-#         },
-#         'catalog_url': url
-        
-#     }
-#     dataset = c3.HycomDataset(**dataset_spec)
-#     dataset.upsert()
-#     #print(dataset_spec)
-#     return dataset
-    
-
 
 def upsertFMRCs(this):
     url = this.fmrcCatalogUrl
@@ -83,7 +43,6 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
     """Update FMRC data
         - update FMRCs from Catalog
         For each FMRC:
-          - Create FMRCDataArchive entries
           - Stage FMRCFiles
 
         - download each FMRCFile as a batch job
@@ -96,34 +55,12 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
         [Returns]
         c3.BatchJob
     """
-    # def make_data_archive(fmrc):
-    #     #print(fmrc)
-    #     hycomSubsetOptions.timeRange = c3.TimeRange(
-    #         **{
-    #             'start': fmrc.timeCoverage.start,
-    #             'end': fmrc.timeCoverage.end
-    #         }
-    #     )
-    #     return c3.FMRCDataArchive(
-    #         **{
-    #             'id': fmrc.id,
-    #             'fmrc': fmrc,
-    #             'subsetOptions': hycomSubsetOptions.toJson(),
-    #             'downloadOptions': fmrcDownloadOptions.toJson()
-    #         }
-    #     )
     
     # Update FMRCs from catalog
     this.upsertFMRCs()
     
     # Loop on unexpired FMRCs and create data archive entries
     valid_fmrcs = c3.HycomFMRC.fetch(spec={'filter':"expired==false"}).objs
-    # for fmrc in valid_fmrcs:
-    #     da = make_data_archive(fmrc)
-    #     da.upsert()
-    #     #print(da)
-    #     da.stageFMRCFiles()
-
 
     for fmrc in valid_fmrcs:
         hycomSubsetOptions.timeRange = c3.TimeRange(
