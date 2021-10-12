@@ -1,0 +1,12 @@
+/**
+HycomXGrid.c3typ
+*/
+entity type HycomXGrid mixes SeedData schema name 'HCM_X_GRD' {
+    //
+    dataset: !HycomDataset
+    //
+    index: !integer
+    //
+    longitude: !double
+    
+}

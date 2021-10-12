@@ -7,6 +7,10 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     hycomVersion: string
     // Name of the dataset
     name: !string
+    //
+    expirement: !string
+    // Region of interest (used to tag LatLong pair data)
+    region: !string
     // Description of the dataset
     description: string    
     // The geospatial coverage of the dataset in degrees LAT/LON
@@ -17,6 +21,8 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     catalogUrl: string
     // the url of the FMRC catalog for this dataset
     fmrcCatalogUrl: string
+    //
+    xGrid: [HycomXGrid](dataset, id)
     // A Collection of {@link HycomFMRC}s
     // NOTE: It might not be appropriate to put this collection here since not all record in this type will have FMRC data
     fmrcs: [HycomFMRC](dataset,id)
@@ -32,4 +38,8 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     // {@link FMRCDownloadJob} batch options.
     @py(env="hycom_1_0_0")
     updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    //
+    @py(env="hycom_1_0_0")
+    afterCreate: ~
+    
 }
