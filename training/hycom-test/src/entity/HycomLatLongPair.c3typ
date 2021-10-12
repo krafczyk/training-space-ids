@@ -10,7 +10,7 @@ entity type HycomLatLongPair mixes MetricEvaluatable, SeedData  schema name 'LT_
     // The latitude value
     lat: double
     // The longitude value
-    lng: double
+    lon: double
     // The LatLong pair
     pair: LatLong
     //
