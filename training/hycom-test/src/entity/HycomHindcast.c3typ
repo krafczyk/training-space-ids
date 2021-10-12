@@ -18,7 +18,7 @@ entity type HycomHindcast schema name 'HCM_HNDCST' {
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: HycomDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
-    files: [HindcastFile](fmrc,id)
+    files: [HindcastFile](hindcast,id)
     // Storage footprint of the files for this FMRC
     archiveSize: long integer stored calc 'sum(fmrcFiles.file.contentLength)'
     // Whether data are still available in hycom catalog
