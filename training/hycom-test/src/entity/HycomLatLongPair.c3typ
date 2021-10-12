@@ -2,7 +2,7 @@
 HycomLatLongPair.c3typ
 
 */
-entity type HycomLatLongPair mixes MetricEvaluatable, SeedData  schema name 'LT_LNG_PR' {
+entity type HycomLatLongPair mixes MetricEvaluatable schema name 'LT_LNG_PR' {
     // The longitude index
     i: integer
     // The latitude index
