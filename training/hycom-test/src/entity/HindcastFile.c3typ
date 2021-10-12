@@ -1,10 +1,8 @@
 /**
 HindcastFile.c3typ
-Files comprising a {@link FMRCDataArchive}.
 */
 entity type HindcastFile schema name "HNDCST_FL" {
-    // The {@link HycomFRMC} that these files belong to.
-    //dataArchive: !FMRCDataArchive
+    // The {@link HycomHindcast} that these files belong to.
     hindcast: !HycomHindcast
     //  FRMC file name
     fileName: string post default 'id'
@@ -26,3 +24,4 @@ entity type HindcastFile schema name "HNDCST_FL" {
     @dependency(include = "this,hindcast.subsetOptions,hindcast.urlPath")
     @py(env=hycom_1_0_0)
     download: member function(extDir: !string): File
+}
