@@ -1,0 +1,10 @@
+/**
+*/
+entity type HycomYGrid mixes SeedData schema name 'HCM_Y_GRD' {
+    //
+    dataset: !HycomDataset
+    //
+    index: !integer
+    //
+    latitude: !double
+}
