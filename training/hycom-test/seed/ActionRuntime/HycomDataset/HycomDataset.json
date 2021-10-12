@@ -2,6 +2,8 @@
     {
         "id": "GOMu0.04/expt_90.1m000",
         "name": "GOMu0.04/expt_90.1m000",
+        "region": "GOMu0.04",
+        "expirement": "90.1m000",
         "hycomVersion": "1.0.1", 
         "description": "HYCOM + NCODA Gulf of Mexico 1/25° Analysis (NRL)",
         "catalogUrl": "https://tds.hycom.org/thredds/catalogs/GOMu0.04/expt_90.1m000.xml",
@@ -17,8 +19,8 @@
               }
         },
         "geospatialResolution": {
-            "latResolution": 0.04,
-            "lonResolution": 0.04
+            "latResolution": 0.03999900817871094,
+            "lonResolution": 0.03997802734375
         }
 
     }

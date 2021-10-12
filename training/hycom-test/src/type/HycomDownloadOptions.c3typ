@@ -1,8 +1,8 @@
 /**
-FMRCDownloadOptions.c3typ
+HycomDownloadOptions.c3typ
 Download Options for {@link HycomFMRC}s.
 */
-type FMRCDownloadOptions {
+type HycomDownloadOptions {
     // The external directory to download to.
     externalDir: string = 'hycom-data'
     // The maximum number of time steps to retrive in a single file
