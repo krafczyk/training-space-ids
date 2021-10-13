@@ -2,7 +2,7 @@
 HycomSubsetOptions.c3typ
 Download Options for a {@link FMRCDataArchive} and {HindcastArchive}).
 */
-type HycomSubsetOptions mixes Type {
+type HycomSubsetOptions  {
     // The time interval for the subset.
     timeRange: TimeRange
     // time stride for the subset.
