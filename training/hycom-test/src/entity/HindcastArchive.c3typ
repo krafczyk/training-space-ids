@@ -1,0 +1,21 @@
+/**
+HindcastArchive.c3typ
+An archive of {@link HindcastFile}s for a particular choice of C3 of {@link HycomSubsetOption}s
+and {@link HycomDownloadOption}s.
+*/
+entity type HindcastArchive schema name 'HNDCST_ARCHV' {
+    //
+    description: string
+    // The {@link HycomSubsetOption}s used to generate this archive.
+    subsetOptions: HycomSubsetOptions
+    // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
+    downloadOptions: HycomDownloadOptions
+    // Collection of {@link FMRCFile}s associated with this archive.
+    files: [HindcastFile](hindcastArchive,id)
+    //
+    archiveSize: long integer stored calc 'sum(files.file.contentLength)'
+    //
+    fileCount: long integer stored calc 'count(files.file)'
+    //
+    downloadedCount: long integer stored calc 'sum(files.file.(status=="downloaded"))'
+}

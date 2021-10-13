@@ -13,19 +13,12 @@ entity type HycomHindcast schema name 'HCM_HNDCST' {
     urlPath: !string
     // Time coverage of this data set
     timeCoverage: TimeRange
-    //
-    subsetOptions: HycomSubsetOptions
+    // 
+    //subsetOptions: HycomSubsetOptions
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset
-    downloadOptions: HycomDownloadOptions
+    //downloadOptions: HycomDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
-    files: [HindcastFile](hindcast,id)
+    //files: [HindcastFile](hindcast,id)
     // Storage footprint of the files for this FMRC
-    archiveSize: long integer stored calc 'sum(fmrcFiles.file.contentLength)'
-    // Whether data are still available in hycom catalog
-    expired: !boolean post default false
-    //geospatialCoverage: GeospatialCoverage post default 'dataset.geospatialCoverage'
-    // Utility method to download a file from the archive
-    // @py(env="hycom_1_0_0")
-    // downloadLocal: member function(hycomSubsetOptions: !HycomSubsetOptions, localDir: string): string
-
+    //archiveSize: long integer stored calc 'sum(fmrcFiles.file.contentLength)'
 }
