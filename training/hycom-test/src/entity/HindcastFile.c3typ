@@ -5,7 +5,7 @@ entity type HindcastFile schema name "HNDCST_FL" {
     // The {@link HycomHindcast} that these files belong to.
     hindcastArchive: !HindcastArchive
     //
-    subsetOptions: !HindcastSubsetOptions
+    subsetOptions: !HycomSubsetOptions
     //  FRMC file name
     //fileName: string post default 'id'
     // Time coverage for this file
