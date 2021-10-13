@@ -69,7 +69,6 @@ def createThreddsUrl(urlPath, subsetOptions):
 
     # Convert part of subsetOptions object to a dictionary
     options = {
-        'disableLLSubset': subsetOptions.disableLLSubset,
         'disableProjSubset': subsetOptions.disableProjSubset,
         'horizStride': subsetOptions.horizStride,
         'timeStride': subsetOptions.timeStride,
@@ -87,6 +86,14 @@ def createThreddsUrl(urlPath, subsetOptions):
     else:
         options['time_start'] = time_start.strftime("%Y-%m-%dT%H:%M:%SZ")
         options['time_end'] = time_end.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    if subsetOptions.disableLLSubset == "on":
+        options['disableLLSubset'] = "on"
+    else:
+        options['north'] = subsetOptions.geospatialCoverage.end.latitude
+        options['south'] = subsetOptions.geospatialCoverage.start.latitude
+        options['east'] = subsetOptions.geospatialCoverage.end.longitude
+        options['west'] = subsetOptions.geospatialCoverage.start.longitude
 
     # Construct query url
     vars_list = subsetOptions.vars.split(',')

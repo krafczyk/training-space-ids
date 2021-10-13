@@ -2,29 +2,44 @@
 HycomDataset.c3typ
 A collection of datasets from the HYCOM Thredds server.
 */
-entity type HycomDataset schema name "HCM_DTST" {
+entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     // Version of the dataset
-    hycom_version: !string
+    hycomVersion: string
     // Name of the dataset
     name: !string
+    //
+    expirement: !string
+    // Region of interest (used to tag LatLong pair data)
+    region: !string
     // Description of the dataset
     description: string    
     // The geospatial coverage of the dataset in degrees LAT/LON
     geospatialCoverage: !GeospatialCoverage
     // The resolution of the dataset in degrees LAT/LON
-    geospatialResolution: GeospatialResolution post default "{latResolution: 0.04, lonResolution: 0.04}"
+    geospatialResolution: GeospatialResolution post default "{latResolution: 0.03999900817871094, lonResolution: 0.03997802734375}"
     // The url of the dataset catalog
-    catalog_url: string
+    catalogUrl: string
+    // the url of the FMRC catalog for this dataset
+    fmrcCatalogUrl: string
+    //
+    xGrid: [HycomXGrid](dataset, id)
     // A Collection of {@link HycomFMRC}s
     // NOTE: It might not be appropriate to put this collection here since not all record in this type will have FMRC data
     fmrcs: [HycomFMRC](dataset,id)
     // The total storage footprint of archived FMRC data in Bytes
     // This field could be refactored into the HycomFMRC type.
-    fmrcArchiveSize: long integer stored calc 'sum(fmrcs.fmrcDataArchive.archiveSize)'
-    // Use the XML catalog for Hycom FMRC data to create a Dataset entry
-    @py(env="hycom_1_0_0")
-    upsertHycomDatasetFromCatalog: function(url: string): HycomDataset
+    fmrcArchiveSize: long integer stored calc 'sum(fmrcs.fmrcArchiveSize)' post default 0
     // Use the XML catalog for Hycom FMRC data to create records for each available run collection
     @py(env="hycom_1_0_0")
     upsertFMRCs: member function(): [HycomFMRC]
+    // update Data Archives for all FMRCs that have not expired.  Use in cron job to automate archival of FMRC data.
+    // Accepts {@link HycomSubsetOptions} for specifying the Hycom subset parameters, {@link FMRCDownloadOptions} 
+    // for specifying the download and archival options and {@link FMRCDownloadJob} for specifying the 
+    // {@link FMRCDownloadJob} batch options.
+    @py(env="hycom_1_0_0")
+    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    //
+    @py(env="hycom_1_0_0")
+    afterCreate: ~
+    
 }
