@@ -17,7 +17,7 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
     //
-    fileCount: long integer stored calc 'count(files.file)' post default 0
+    fileCount: long integer stored calc 'count(files)' post default 0
     //
     downloadedCount: long integer stored calc 'sum(files.file.(status=="downloaded"))' post default 0
 }
