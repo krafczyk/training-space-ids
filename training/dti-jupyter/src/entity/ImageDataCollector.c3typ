@@ -25,7 +25,7 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 
 	// python methods
 	@py(env="image_download")
-	download: member function(): [string] py server
+	download: member function(): native py server
 
 	@py(env="image_preprocess")
 	preprocess: member function(): int py server
