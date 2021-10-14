@@ -22,5 +22,6 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     downloadedCount: long integer stored calc 'sum(files.file.(status=="downloaded"))' post default 0
     //
     @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
 }
