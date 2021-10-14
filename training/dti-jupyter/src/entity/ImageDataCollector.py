@@ -2,7 +2,33 @@
 
 def download(this):
 
-    return -1
+    import os, requests, json, uuid
+    from requests.auth import HTTPBasicAuth
+    import urllib.request
+    from tqdm import tqdm
+    from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+
+    # authentication
+    BASE_URL = 'https://api.planet.com/basemaps/v1/mosaics/'
+    API_KEY = "8fb5d85cdcfc40f6b4b9d3f44227142b" # [from Yihong]
+    auth = HTTPBasicAuth(API_KEY, '')
+
+    # request the planet images
+    res = requests.get(url=url, auth=auth, params={'bbox':bbox, '_page_size':99999})
+    out = json.loads(res.text)
+
+    # download all images into container
+    connect_str = "DefaultEndpointsProtocol=https;AccountName=yifangidsimagedatatest;AccountKey=U94rgN17/BHzZuF6TNVItpqLj5NH7Y5/G/ZloFZi21aVMIsthULdPH1KuySuZZznGoZDOTApGXMw2nmnnFvlJQ==;EndpointSuffix=core.windows.net"
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    container_client = blob_service_client.get_container_client("images-planet")
+    
+    blob_images = container_client.list_blobs()
+    current_images = []
+    for b in blob_images:
+        current_images.append(b.name)
+        print(b.name)
+
+    return current_images
 
 def preprocess(this):
 
