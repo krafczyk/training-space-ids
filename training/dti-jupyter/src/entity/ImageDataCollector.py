@@ -13,6 +13,11 @@ def download(this):
     API_KEY = "8fb5d85cdcfc40f6b4b9d3f44227142b" # [from Yihong]
     auth = HTTPBasicAuth(API_KEY, '')
 
+    # setup the planet auth
+    mosaic_id = '56f00cc2-6be4-4315-9603-c75d6afab225' # should probablity convert to args
+    url = f'https://api.planet.com/basemaps/v1/mosaics/{mosaic_id}/quads'
+    bbox = '-91.51307900019566, 36.970297999852846, -87.49519900023363, 42.50848099959849' 
+
     # request the planet images
     res = requests.get(url=url, auth=auth, params={'bbox':bbox, '_page_size':99999})
     out = json.loads(res.text)
