@@ -31,6 +31,4 @@ entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeri
     mass_OC_Aitins: double
     @ts(treatment='avg')
     mass_OC_cor: double
-    @ts(treatment='avg')
-    mass_OC_nuc: double
 }
