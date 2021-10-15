@@ -2,18 +2,7 @@ import requests
 import xmltodict
 
 def afterCreate(objs):
-    def genlong():
-        x = gom_dataset.geospatialCoverage.start.longitude
-        while x <= gom_dataset.geospatialCoverage.end.longitude:
-            yield x
-            x += gom_dataset.geospatialResolution.lonResolution
-    def genlat():
-        y = gom_dataset.geospatialCoverage.start.latitude
-        while y <= gom_dataset.geospatialCoverage.end.latitude:
-            yield y
-            y += gom_dataset.geospatialResolution.latResolution
-            
-    for obj in objs:
+    pass
 
 
 def upsertFMRCs(this):
