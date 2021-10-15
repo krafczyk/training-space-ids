@@ -20,8 +20,10 @@ def upsertData(this):
         df['time'] = sample.variables['time'][:]
         df['longitude'] = sample.variables['longitude'][:]
         df['latitude'] = sample.variables['latitude'][:]
-        df['propertyX'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
-
+        df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
+        df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_Aitken_mode_dry_aerosol_in_air'][:] 
+        df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_Aitken_mode_dry_aerosol_in_air'][:] 
+        df['mass_BC_cor'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
         # a little gymnastic to get Datetime objs
         zero_time = datetime(1970,1,1,0,0)
         transformed_times = []
@@ -37,7 +39,10 @@ def upsertData(this):
             c3.SimulationModelOutput(**{
                 'longitude': df['longitude'].iloc[i],
                 'latitude': df['latitude'].iloc[i],
-                'propertyX': df['propertyX'].iloc[i],
+                'mass_BC_acc': df['mass_BC_acc'].iloc[i],
+                'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
+                'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
+                'mass_BC_cor': df['mass_BC_cor'].iloc[i],
                 'start': df['datetime'].iloc[i],
                 'parent': parent_id
             })
