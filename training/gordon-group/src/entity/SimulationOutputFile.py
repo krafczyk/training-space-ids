@@ -21,8 +21,8 @@ def upsertData(this):
         df['longitude'] = sample.variables['longitude'][:]
         df['latitude'] = sample.variables['latitude'][:]
         df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
-        df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_Aitken_mode_dry_aerosol_in_air'][:] 
-        df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_Aitken_mode_dry_aerosol_in_air'][:] 
+        df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
+        df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
         df['mass_BC_cor'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
         # a little gymnastic to get Datetime objs
         zero_time = datetime(1970,1,1,0,0)
