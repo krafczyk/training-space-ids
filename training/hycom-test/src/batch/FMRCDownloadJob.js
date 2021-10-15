@@ -33,7 +33,7 @@
  */
 function processBatch(batch, job, options){
 
-    batch.values.foreach(function(file) {
+    batch.values.forEach(function(file) {
         file.download(file.fmrc.downloadOptions.externalDir)
     });
 
