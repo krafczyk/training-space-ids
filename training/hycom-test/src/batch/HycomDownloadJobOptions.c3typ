@@ -3,7 +3,7 @@ HycomDownloadOptions.c3typ
 Options for {@link FMRCDownloadJob}s and {@link HindcastDownloadJob}s.
 */
 type HycomDownloadJobOptions {
-    // Number of download batches to submit
+    // Number of download batches to submit.
     batchSize: int = 4
     // Limit on total # of files. Default set to limit server cutoff.
     limit: int = 300
