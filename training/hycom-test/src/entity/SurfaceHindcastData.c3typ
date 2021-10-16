@@ -10,5 +10,8 @@ entity type SurfaceHindcastData mixes TimedDataPoint<SurfaceHindcastDataSeries> 
     // Timestamp that this hindcast is for
     for: !datetime
     // 
-    value: double
+    @ts(treatment='avg')
+    water_u: double
+    @ts(treatment='avg')
+    water_v: double
 }
