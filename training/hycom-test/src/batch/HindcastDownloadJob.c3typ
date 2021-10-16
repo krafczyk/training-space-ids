@@ -1,0 +1,8 @@
+/**
+HindcastDownloadJob.c3typ
+A batch job to update {@link HindcastFile} records and download all files
+*/
+type HindcastDownloadJob extends BatchJob<HindcastDownloadJob, HycomDownloadJobOptions, HindcastDownloadJobBatch> type key 'HindcastDOWNLOAD'{
+    doStart: ~ js server
+    processBatch: ~ js server
+}
