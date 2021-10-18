@@ -1,23 +1,15 @@
-"""Python Methods for the FMRCFile Type
-"""
-from urllib.parse import urlencode,urljoin
-
-def download(this, extDir):
-    """Download this particular FMRCFile from the Thredds server
-    """
-    # Get the URL for the thredds server. Substiture computed timeCoverage for
-    # tinmeRange
-    fileSubset = c3.HycomSubsetOptions(**this.fmrc.subsetOptions.toJson())
-    fileSubset.timeRange = this.timeCoverage
-    url = c3.HycomUtil.createThreddsUrl(this.fmrc.urlPath, fileSubset)
-
+def download(this):
+    url = c3.HycomUtil.createThreddsUrl(this.hindcastArchive.hindcast.urlPath, this.subsetOptions)
+    #print(url)
     # Create a fresh instance to avoid version errors or other bs
-    updated = c3.FMRCFile(**{'id':this.id})
+    updated = c3.HindcastFile(**{'id':this.id})
     updated.status = 'downloading'
     updated.merge()
-
+    
+    download_path = this.hindcastArchive.downloadOptions.externalDir + '/hindcast/' + this.hindcastArchive.id
+    
     try:
-        extPath = c3.HycomUtil.downloadToExternal(url, this.id, extDir)
+        extPath = c3.HycomUtil.downloadToExternal(url, this.name, download_path)
         updated.status='downloaded'
         meta_file = c3.File(**{'url': extPath}).readMetadata()
         updated.file = c3.File(

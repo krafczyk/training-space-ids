@@ -1,0 +1,6 @@
+/**
+*/
+entity type SurfaceHindcastDataSeries mixes TimedDataHeader<SurfaceHindcastData> schema name 'SRFC_HNDCST_DT_SRS' {
+    //
+    latLongPair: !HycomLatLongPair
+}

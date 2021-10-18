@@ -4,6 +4,5 @@ A batch job to update {@link FMRCFile} records and download all files
 */
 type FMRCDownloadJob extends BatchJob<FMRCDownloadJob, FMRCDownloadJobOptions, FMRCDownloadJobBatch> type key 'FMRCDOWNLOAD'{
     doStart: ~ js server
-    @py(env='hycom_1_0_0')
-    processBatch: ~
+    processBatch: ~ js server
 }
