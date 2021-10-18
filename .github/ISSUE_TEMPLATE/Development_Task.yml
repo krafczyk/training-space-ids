@@ -1,0 +1,28 @@
+name: Development Task
+description: "Add a anticipated development task"
+labels: ["development"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Form for general development tasks.
+  - type: textarea
+    id: 
+    attributes:
+      label: Description
+      description: "Description of the task at hand."
+#      placeholder: |
+#        ## Description
+        
+      value: |
+        ## Description
+        
+        ## Steps To Complete
+        - [ ] 
+        - [ ]
+        
+        ## References
+        * [Contributing](https://github.com/c3aidti/training-space-ids/blob/920cac4820ee5921217500969b15407b4e19755d/.github/CONTRIBUTING.md)
+        
+    validations:
+      required: true
