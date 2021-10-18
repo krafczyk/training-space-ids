@@ -47,6 +47,10 @@ def upsertData(this):
             'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
             'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
             'mass_BC_cor': df['mass_BC_cor'].iloc[i],
+            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
+            'mass_OC_Ait': df['mass_OC_Ait'].iloc[i],
+            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
+            'mass_OC_cor': df['mass_OC_cor'].iloc[i],
             'start': df['datetime'].iloc[i],
             'parent': parent_id
         })
