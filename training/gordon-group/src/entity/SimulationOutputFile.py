@@ -11,54 +11,54 @@ def upsertData(this):
     from datetime import datetime, timedelta
     import pandas as pd
 
-    if(this.processed == False):
-        # open file
-        sample = c3.NetCDFUtil.openFile(this.file.url)
-        
-        # cast it to dataframe
-        df = pd.DataFrame()
-        df['time'] = sample.variables['time'][:]
-        df['longitude'] = sample.variables['longitude'][:]
-        df['latitude'] = sample.variables['latitude'][:]
-        df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
-        df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
-        df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
-        df['mass_BC_cor'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
-        df['mass_OC_acc'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
-        df['mass_OC_Ait'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
-        df['mass_OC_Aitins'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
-        df['mass_OC_cor'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
-        # a little gymnastic to get Datetime objs
-        zero_time = datetime(1970,1,1,0,0)
-        transformed_times = []
-        for time in df['time']:
-            target_time = zero_time + timedelta(hours=time)
-            transformed_times.append(target_time)
-        df['datetime'] = transformed_times
-        df.drop(columns=['time'], inplace=True)
+    #if(this.processed == False):
+    # open file
+    sample = c3.NetCDFUtil.openFile(this.file.url)
+    
+    # cast it to dataframe
+    df = pd.DataFrame()
+    df['time'] = sample.variables['time'][:]
+    df['longitude'] = sample.variables['longitude'][:]
+    df['latitude'] = sample.variables['latitude'][:]
+    df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
+    df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
+    df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
+    df['mass_BC_cor'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
+    df['mass_OC_acc'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
+    df['mass_OC_Ait'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
+    df['mass_OC_Aitins'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
+    df['mass_OC_cor'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
+    # a little gymnastic to get Datetime objs
+    zero_time = datetime(1970,1,1,0,0)
+    transformed_times = []
+    for time in df['time']:
+        target_time = zero_time + timedelta(hours=time)
+        transformed_times.append(target_time)
+    df['datetime'] = transformed_times
+    df.drop(columns=['time'], inplace=True)
 
-        # create list of SimulationModelOutput objs
-        parent_id = "SMOS_" + this.simulationSample.id
-        output_records = [
-            c3.SimulationModelOutput(**{
-                'longitude': df['longitude'].iloc[i],
-                'latitude': df['latitude'].iloc[i],
-                'mass_BC_acc': df['mass_BC_acc'].iloc[i],
-                'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
-                'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
-                'mass_BC_cor': df['mass_BC_cor'].iloc[i],
-                'start': df['datetime'].iloc[i],
-                'parent': parent_id
-            })
-            for i in range(len(df))
-        ]
+    # create list of SimulationModelOutput objs
+    parent_id = "SMOS_" + this.simulationSample.id
+    output_records = [
+        c3.SimulationModelOutput(**{
+            'longitude': df['longitude'].iloc[i],
+            'latitude': df['latitude'].iloc[i],
+            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
+            'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
+            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
+            'mass_BC_cor': df['mass_BC_cor'].iloc[i],
+            'start': df['datetime'].iloc[i],
+            'parent': parent_id
+        })
+        for i in range(len(df))
+    ]
 
-        # upsert this batch
-        c3.SimulationModelOutput.upsertBatch(output_records)
+    # upsert this batch
+    c3.SimulationModelOutput.upsertBatch(output_records)
 
-        this.processed = True
-        c3.SimulationOutputFile.merge(this)
-        return True
-    else:
-        return False
+    this.processed = True
+    c3.SimulationOutputFile.merge(this)
+    return True
+    #else:
+    #    return False
     
