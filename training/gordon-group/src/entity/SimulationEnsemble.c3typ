@@ -11,6 +11,11 @@ entity type SimulationEnsemble schema name "SMLTN_NSMBL" {
     modelParameters: [SimulationModelParameters](ensemble, id)
     // The collection of all outputs in timeseries
     samples: [SimulationSample](ensemble)
-    // Method to create records for external files as {@link SimulationOutputFile} records.
-    createSimulationOutputFiles: member function(externalPath: !string): any  
+
+    // METHODS
+    // This clears all seeded data
+    removeAllSeededData: function() : int js server
+    // Upsert data into {@link SimulationModelOutput} for all {@link SimulationOutputFile}s corresponding to all the {@link SimulationSample}s in this {@link SimulationEnsemble}
+    @dependency(include = "this, samples")
+    upsertEnsembleData: member function(): int js server
 }

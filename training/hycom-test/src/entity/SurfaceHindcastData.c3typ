@@ -1,0 +1,17 @@
+/**
+SurfaceHindcastData.c3typ
+*/
+@db(datastore='cassandra',
+    partitionKeyField='parent',
+    persistenceOrder='start',
+    persistDuplicates=false,
+    compactType=true)
+entity type SurfaceHindcastData mixes TimedDataPoint<SurfaceHindcastDataSeries> schema name 'SRFC_HNDCST_DATA' {
+    // Timestamp that this hindcast is for
+    for: !datetime
+    // 
+    @ts(treatment='avg')
+    water_u: double
+    @ts(treatment='avg')
+    water_v: double
+}

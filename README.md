@@ -1,6 +1,6 @@
 # training-space-ids
 
-C3 DTI training and development repo.  
+C3 DTI training and development repository.  
 Developers, for detailed information for contributing to this repository, see: **[CONTRIBUTING](https://github.com/c3aidti/training-space-ids/blob/main/.github/CONTRIBUTING.md)**.  Below is a basic overview.
 
 ### Branches and Tags
@@ -14,4 +14,7 @@ C3 "tags" are specific deployments of the C3AI suite that have a DNS endpoint.  
 ### Workflows
 Coming soon: info on automated provisioning workflows.
 
+### Finding Help
+We recommend that developers create Issues that represent bits of their projects goals/milestones, which can then be broken into subtasks, as well as to report bugs and ask for help/guidance. For an explicit example, check out [this issue](https://github.com/c3aidti/training-space-ids/issues/300). There are many features that can be explored to nourish a collaborative environment, including tags and projects. We encourage trying these out. 
+Issues that have general interest can be seen [here](https://github.com/c3aidti/training-space-ids/issues?q=is%3Aissue+label%3A%22general+interest%22+).   
 

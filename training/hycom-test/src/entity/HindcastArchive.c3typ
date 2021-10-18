@@ -1,0 +1,27 @@
+/**
+HindcastArchive.c3typ
+An archive of {@link HindcastFile}s for a particular choice of C3 of {@link HycomSubsetOption}s
+and {@link HycomDownloadOption}s.
+*/
+entity type HindcastArchive schema name 'HNDCST_ARCHV' {
+    // Referecne to the {@link HycomHindcast} that this archive is for.
+    hindcast: !HycomHindcast
+    //
+    description: string
+    // The {@link HycomSubsetOption}s used to generate this archive.
+    subsetOptions: HycomSubsetOptions
+    // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
+    downloadOptions: HycomDownloadOptions
+    // Collection of {@link FMRCFile}s associated with this archive.
+    files: [HindcastFile](hindcastArchive,id)
+    //
+    archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
+    //
+    fileCount: long integer stored calc 'count(files)' post default 0
+    //
+    downloadedFileCount: long integer stored calc 'sum(files.(status=="downloaded"))' post default 0
+    //
+    @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
+    stageFiles: member function(): ObjList
+}

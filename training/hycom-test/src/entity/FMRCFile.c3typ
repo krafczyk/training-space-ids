@@ -4,7 +4,8 @@ Files comprising a {@link FMRCDataArchive}.
 */
 entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
-    dataArchive: !FMRCDataArchive
+    //dataArchive: !FMRCDataArchive
+    fmrc: !HycomFMRC
     //  FRMC file name
     fileName: string post default 'id'
     // Time coverage for this file
@@ -13,10 +14,6 @@ entity type FMRCFile schema name "FRMC_FL" {
     timeStride: !int
     // TimeStride units for this file
     timeStrideUOM: Unit post default "{id:'hour'}"
-    // Geospatial coverage for this file
-    geospatialCoverage: !GeospatialCoverage
-    // Geospatial resolution for this file
-    geospatialResolution: GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
     // the varaibles contained in this file    
     vars: !string
     //  FRMC file type
@@ -26,6 +23,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     // The {@link File} object for this file
     file: File
     // Download a file from the Hycom server and save to the C3 file system
+    @dependency(include = "this,fmrc.subsetOptions,fmrc.urlPath")
     @py(env=hycom_1_0_0)
     download: member function(extDir: !string): File
 }
