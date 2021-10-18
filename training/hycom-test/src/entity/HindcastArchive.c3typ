@@ -17,9 +17,9 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
     //
-    fileCount: long integer stored calc 'count(files)' post default 0
+    stagedFileCount: long integer stored calc 'count(files)' post default 0
     //
-    downloadedFileCount: long integer stored calc 'sum(files.(status=="downloaded"))' post default 0
+    downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
     //
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
