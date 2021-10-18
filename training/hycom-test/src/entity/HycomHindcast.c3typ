@@ -13,6 +13,10 @@ entity type HycomHindcast schema name 'HCM_HNDCST' {
     urlPath: !string
     // Time coverage of this data set
     timeCoverage: TimeRange
+    //
+    hindcastArchives: [HindcastArchive](hindcast, id)
+    //
+    archiveSize: long integer stored calc 'sum(hindcastArchives.archiveSize)' post default 0
     // 
     //subsetOptions: HycomSubsetOptions
     // The {@link FMRCDownloadOptions} for how to retrive the files that make up the dataset

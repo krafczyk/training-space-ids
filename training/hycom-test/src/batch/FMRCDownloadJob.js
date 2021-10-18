@@ -25,3 +25,16 @@
         }
     }
 }
+/**
+ * 
+ * @param {FMRCDownloadJobBatch} batch 
+ * @param {FMRCDownloadJob} job 
+ * @param {FMRCDownloadJobOptions} options 
+ */
+function processBatch(batch, job, options){
+
+    batch.values.forEach(function(file) {
+        file.download(file.fmrc.downloadOptions.externalDir)
+    });
+
+}
