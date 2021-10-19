@@ -1,0 +1,30 @@
+/**
+HindcastFile.c3typ
+*/
+entity type HindcastFile schema name "HNDCST_FL" {
+    // The {@link HycomHindcast} that these files belong to.
+    hindcastArchive: !HindcastArchive
+    //
+    subsetOptions: !HycomSubsetOptions
+    //  FRMC file name
+    //fileName: string post default 'id'
+    // Time coverage for this file
+    //timeCoverage: !TimeRange
+    // Time stride for this file
+    //timeStride: !int
+    // TimeStride units for this file
+    //timeStrideUOM: Unit post default "{id:'hour'}"
+    // the varaibles contained in this file    
+    //vars: !string
+    //  FRMC file type
+    //fileType: !string enum('netcdf4','netcdf')
+    // Status of the data download
+    status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
+    // The {@link File} object for this file
+    file: File
+    // Download a file from the Hycom server and save to the C3 file system
+    //@dependency(include = "this,hindcast.subsetOptions,hindcast.urlPath")
+    @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions")
+    download: member function(): File
+}

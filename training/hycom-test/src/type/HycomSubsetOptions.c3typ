@@ -1,8 +1,8 @@
 /**
-FMRCSubsetOptions.c3typ
-Download Options for a (@link HycomFMRC).
+HycomSubsetOptions.c3typ
+Download Options for a {@link FMRCDataArchive} and {HindcastArchive}).
 */
-type FMRCSubsetOptions {
+type HycomSubsetOptions  {
     // The time interval for the subset.
     timeRange: TimeRange
     // time stride for the subset.
@@ -11,6 +11,17 @@ type FMRCSubsetOptions {
     vars: string = 'surf_el,salinity,water_temp,water_u,water_v'
     // The spatial region subsetting.
     disableLLSubset: string enum('on', 'off') = 'on'
+    // Geographic subsetting.
+    geospatialCoverage: GeospatialCoverage = {
+        "start": {
+            "latitude": 18.1200008392334,
+            "longitude": -98
+            },
+        "end": {
+            "latitude": 31.920000076293945,
+            "longitude": -76.4000244140625
+            }
+        }
     // 
     disableProjSubset: string enum('on', 'off') = 'on'
     // Horizontal stride for the subset.
