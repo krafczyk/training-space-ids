@@ -28,6 +28,6 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     @dependency(include="this,hindcast.name")
     afterCreate: ~ js server
     //
-    @dependency(include="this,hindcast.name")
-    afterUpdate: ~ js server
+    // @dependency(include="this,hindcast.name")
+    // afterUpdate: ~ js server
 }
