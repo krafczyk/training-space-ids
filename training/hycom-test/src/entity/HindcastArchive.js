@@ -2,13 +2,13 @@
  * 
  */
 function afterCreate(objs) {
-    objs.foreach(function(archv) {
+    objs.forEach(function(archv) {
        archv.stageFiles() 
     });
 };
 
 function afterUpdate(objs) {
-    objs.foreach(function(archv) {
+    objs.forEach(function(archv) {
        archv.stageFiles() 
     });
 };
