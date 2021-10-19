@@ -24,4 +24,10 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
+    //
+    @dependency(include="this,hindcast.name")
+    afterCreate: ~ js server
+    //
+    @dependency(include="this,hindcast.name")
+    afterUpdate: ~ js server
 }
