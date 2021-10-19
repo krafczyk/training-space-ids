@@ -1,0 +1,6 @@
+{
+  "name" : "dti-energy",
+  "description" : "Main application for DTI Energy Research",
+  "author" : "dadams@illinois.edu",
+  "dependencies" : [ "standardDependencies" ]
+}
