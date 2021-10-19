@@ -47,14 +47,16 @@ def stageFiles(this):
                 "end": batches[i][-1]
             }
         )
-        file = c3.HindcastFile(
-            **{
-                "hindcastArchive": this,
-                "name": (
+        name = (
                     this.hindcast.name + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext 
                     if this.downloadOptions.maxTimesPerFile == 1 else
                     this.hindcast.name + '-' + batches[i][0].strftime("%Y-%m-%dT%H:%M:%SZ") + '-' + batches[i][-1].strftime("%Y-%m-%dT%H:%M:%SZ") + file_ext
-                ),
+                )
+        file = c3.HindcastFile(
+            **{
+                "id": this.id + '/' + name,
+                "hindcastArchive": this,
+                "name": name,
                 "subsetOptions" : so
             }
         )

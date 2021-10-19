@@ -8,7 +8,9 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     hindcast: !HycomHindcast
     //
     description: string
-    // The {@link HycomSubsetOption}s used to generate this archive.
+    // The {@link HycomSubsetOption}s used to generate this archive.  Can be updated.  Updates will
+    // trigger additional files to be staged
+    @callback(onchange = "stageFiles")
     subsetOptions: HycomSubsetOptions
     // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: HycomDownloadOptions
@@ -27,7 +29,4 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     @dependency(include="this,hindcast.name")
     afterCreate: ~ js server
-    //
-    // @dependency(include="this,hindcast.name")
-    // afterUpdate: ~ js server
 }
