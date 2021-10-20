@@ -39,7 +39,7 @@ def upsertData(this):
 
     # create list of SimulationModelOutput objs
     parent_id = "SMOS_" + this.simulationSample.id
-    versionTag= -1 * c3.DateTime.now().getMillis()
+    versionTag= -1 * DateTime.now().getMillis()
     output_records = [
         c3.SimulationModelOutput(**{
             'longitude': df['longitude'].iloc[i],
