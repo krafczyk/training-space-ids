@@ -6,7 +6,8 @@
     partitionKeyField='parent',
     persistenceOrder='start',
     persistDuplicates=false,
-    compactType=true)
+    compactType=true,
+    unique=['parent, start'])
 entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeries> schema name 'SMLTN_MDL_TPT' {
     // The Latitude of this output
     @ts(treatment='avg')
