@@ -4,7 +4,7 @@
 */
 @db(datastore='cassandra',
     partitionKeyField='parent',
-    persistenceOrder='start',
+    persistenceOrder=['start, dataVersion'],
     persistDuplicates=false,
     compactType=true,
     unique=['parent, start'])
