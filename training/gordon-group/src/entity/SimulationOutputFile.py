@@ -52,7 +52,8 @@ def upsertData(this):
             'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
             'mass_OC_cor': df['mass_OC_cor'].iloc[i],
             'start': df['datetime'].iloc[i],
-            'parent': parent_id
+            'parent': parent_id,
+            dataVersion: -1 * c3.DateTime.now().getMillis()
         })
         for i in range(len(df))
     ]
