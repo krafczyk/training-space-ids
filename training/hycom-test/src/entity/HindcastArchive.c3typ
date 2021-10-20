@@ -29,7 +29,7 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
     // Update the timeRang of the subset options for this archive
-    update: member function(timeRange: !TimeRange): js server
+    //update: member function(timeRange: !TimeRange): js server
     @dependency(include="this,hindcast.name")
     afterCreate: ~ js server
 }
