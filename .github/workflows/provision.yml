@@ -37,13 +37,13 @@ on:
 # Modify the following settings to match target C3 tag and local 
 # c3repo and package names. 
 ########################################################################
-env:
-  DTI_PROVISIONER_VERSION: main
-  TAG: ${{ github.event.inputs.tag }}
-  TENANT: ${{ github.event.inputs.tenant }}
-  DOMAIN: ${{ github.event.inputs.domain }}
-  C3REPO: ${{ github.event.inputs.c3repo }}
-  PACKAGE: ${{ github.event.inputs.package }}
+# env:
+#   DTI_PROVISIONER_VERSION: main
+#   TAG: ${{ github.event.inputs.tag }}
+#   TENANT: ${{ github.event.inputs.tenant }}
+#   DOMAIN: ${{ github.event.inputs.domain }}
+#   C3REPO: ${{ github.event.inputs.c3repo }}
+#   PACKAGE: ${{ github.event.inputs.package }}
 ########################################################################
 # You should not need to edit below here, unless altering the workflow
 ########################################################################
@@ -64,7 +64,7 @@ jobs:
           c3repo:
             - 'c3training/**'
   provision:
-    name: Provision to ${{ env.TAG }}
+    name: Provision to ${{ inputs.tag }}
     needs: c3changes
     if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
-          ref: ${{ github.event.inputs.version }}
+          ref: ${{ inputs.version }}
           token: ${{ secrets.token }}
           path: dti-provisioner
           
@@ -97,8 +97,8 @@ jobs:
         env:
           GPG_PASS: ${{ secrets.gpg }}
         with:
-          tenant: ${{ github.event.inputs.tenant }}
-          tag: ${{ github.event.inputs.tag }}
-          domain: ${{ github.event.inputs.domain }}
-          package: ${{ github.event.inputs.package }}
-          c3repo: ${{ github.event.inputs.c3repo }}
+          tenant: ${{ inputs.tenant }}
+          tag: ${{ inputs.tag }}
+          domain: ${{ inputs.domain }}
+          package: ${{ inputs.package }}
+          c3repo: ${{ inputs.c3repo }}
