@@ -11,7 +11,6 @@ def upsertData(this):
     from datetime import datetime, timedelta
     import pandas as pd
 
-    #if(this.processed == False):
     # open file
     sample = c3.NetCDFUtil.openFile(this.file.url)
     
@@ -38,11 +37,16 @@ def upsertData(this):
     df['datetime'] = transformed_times
     df.drop(columns=['time'], inplace=True)
 
-    # create list of SimulationModelOutput objs
     parent_id = "SMOS_" + this.simulationSample.id
+    df['parent'] = parent_id
+
     now_time = datetime.now()
     diff_time = (now_time - zero_time)
     versionTag= -1 * diff_time.total_seconds()
+    df['versionTag'] = versionTag
+
+#    output_records = df.to_dict(orient="records")
+    # create list of SimulationModelOutput objs
     output_records = [
         c3.SimulationModelOutput(**{
             'longitude': df['longitude'].iloc[i],
@@ -69,6 +73,4 @@ def upsertData(this):
     this.processed = True
     c3.SimulationOutputFile.merge(this)
     return True
-    #else:
-    #    return False
     
