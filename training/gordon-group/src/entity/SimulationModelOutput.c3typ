@@ -7,8 +7,7 @@
     persistenceOrder='start, dataVersion',
     persistDuplicates=false,
     compactType=true,
-    unique=['parent, start'],
-    versionHistory=true)
+    unique=['parent, start'])
 entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeries> schema name 'SMLTN_MDL_TPT' {
     // The Latitude of this output
     @ts(treatment='avg')

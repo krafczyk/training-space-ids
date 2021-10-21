@@ -37,29 +37,39 @@ def upsertData(this):
     df['datetime'] = transformed_times
     df.drop(columns=['time'], inplace=True)
 
-    # create list of SimulationModelOutput objs
     parent_id = "SMOS_" + this.simulationSample.id
+    df['parent'] = parent_id
+
     now_time = datetime.now()
     diff_time = (now_time - zero_time)
     versionTag= -1 * diff_time.total_seconds()
-    output_records = [
-        c3.SimulationModelOutput(**{
-            'longitude': df['longitude'].iloc[i],
-            'latitude': df['latitude'].iloc[i],
-            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
-            'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
-            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
-            'mass_BC_cor': df['mass_BC_cor'].iloc[i],
-            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
-            'mass_OC_Ait': df['mass_OC_Ait'].iloc[i],
-            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
-            'mass_OC_cor': df['mass_OC_cor'].iloc[i],
-            'start': df['datetime'].iloc[i],
-            'parent': parent_id,
-            'dataVersion': versionTag
-        })
-        for i in range(len(df))
-    ]
+    df['versionTag'] = versionTag
+
+    output_records = df.to_dict(orient="records")
+
+    # create list of SimulationModelOutput objs
+#    parent_id = "SMOS_" + this.simulationSample.id
+#    now_time = datetime.now()
+#    diff_time = (now_time - zero_time)
+#    versionTag= -1 * diff_time.total_seconds()
+#    output_records = [
+#        c3.SimulationModelOutput(**{
+#            'longitude': df['longitude'].iloc[i],
+#            'latitude': df['latitude'].iloc[i],
+#            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
+#            'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
+#            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
+#            'mass_BC_cor': df['mass_BC_cor'].iloc[i],
+#            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
+#            'mass_OC_Ait': df['mass_OC_Ait'].iloc[i],
+#            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
+#            'mass_OC_cor': df['mass_OC_cor'].iloc[i],
+#            'start': df['datetime'].iloc[i],
+#            'parent': parent_id,
+#            'dataVersion': versionTag
+#        })
+#        for i in range(len(df))
+#    ]
 
     # upsert this batch
     c3.SimulationModelOutput.upsertBatch(output_records)
