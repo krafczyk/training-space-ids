@@ -8,7 +8,7 @@ function doStart(job, options) {
     var batch = [];
 
     var dataset = SimulationOutputFile.fetchObjStream({
-        filter: 'processed == false',
+//        filter: 'processed == false',
         limit: -1
     });
 
