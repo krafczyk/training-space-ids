@@ -21,6 +21,11 @@ on:
         description: 'Name of package to be provisioned'
         required: true
         type: string
+      version:
+        description: 'dti-provisioner version'
+        required: false
+        type: string
+        default: 'main'
 
 ########################################################################        
 # Settings for this workflow:
@@ -79,7 +84,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
-          ref: ${{ env.DTI_PROVISIONER_VERSION }}
+          ref: ${{ github.event.inputs.version }}
           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
           path: dti-provisioner
           
