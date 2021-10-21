@@ -42,7 +42,6 @@ on:
 ########################################################################
 # You should not need to edit below here, unless altering the workflow
 ########################################################################
-  PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
 
 jobs:
   # Gate to check for changed files within the c3repo
