@@ -21,6 +21,10 @@ on:
         description: 'Name of package to be provisioned'
         required: true
         type: string
+      options:
+        description: 'Additional options to pass to the C3CLI (eg: -E, -r)'
+        required: false
+        type: string
       version:
         description: 'dti-provisioner version'
         required: false
@@ -102,3 +106,4 @@ jobs:
           domain: ${{ inputs.domain }}
           package: ${{ inputs.package }}
           c3repo: ${{ inputs.c3repo }}
+          options: ${{ inputs.options }}
