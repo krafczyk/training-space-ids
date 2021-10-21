@@ -17,7 +17,7 @@ entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeri
     longitude: double
     @ts(treatment='avg')
     altitude: double
-     @ts(treatment='avg')
+    @ts(treatment='avg')
     model_level_number: int
 
     // Simulated atmosphere properties
@@ -54,21 +54,21 @@ entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeri
     @ts(treatment='avg')
     mass_SU_cor: double
     @ts(treatment='avg')
-    mass_BC_acc: double
-    @ts(treatment='avg')
     mass_BC_Ait: double
     @ts(treatment='avg')
-    mass_BC_Aitins: double
+    mass_BC_acc: double
     @ts(treatment='avg')
     mass_BC_cor: double
     @ts(treatment='avg')
-    mass_OC_acc: double
+    mass_BC_Aitins: double
     @ts(treatment='avg')
     mass_OC_Ait: double
     @ts(treatment='avg')
-    mass_OC_Aitins: double
+    mass_OC_acc: double
     @ts(treatment='avg')
     mass_OC_cor: double
+    @ts(treatment='avg')
+    mass_OC_Aitins: double
     @ts(treatment='avg')
     mass_SS_acc: double
     @ts(treatment='avg')

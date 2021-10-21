@@ -37,7 +37,6 @@ def upsertData(this):
     df['mass_SU_cor'] = sample.variables['mass_fraction_of_sulfuric_acid_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
     df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
     df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
-    df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
     df['mass_BC_cor'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_coarse_mode_dry_aerosol_in_air'][:] 
     df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:]
     df['mass_OC_Ait'] = sample.variables['mass_fraction_of_particulate_organic_matter_in_soluble_aitken_mode_dry_aerosol_in_air'][:]  
@@ -85,14 +84,14 @@ def upsertData(this):
             'mass_SU_Ait': df['mass_SU_Ait'].iloc[i],
             'mass_SU_acc': df['mass_SU_acc'].iloc[i],
             'mass_SU_cor': df['mass_SU_cor'].iloc[i],
-            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
             'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
-            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
+            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
             'mass_BC_cor': df['mass_BC_cor'].iloc[i],
-            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
+            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
             'mass_OC_Ait': df['mass_OC_Ait'].iloc[i],
-            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
+            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
             'mass_OC_cor': df['mass_OC_cor'].iloc[i],
+            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
             'mass_SS_acc': df['mass_SS_acc'].iloc[i],
             'mass_SS_cor': df['mass_SS_cor'].iloc[i],
             'start': df['datetime'].iloc[i],
