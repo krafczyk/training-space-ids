@@ -26,7 +26,7 @@ def upsertData(this):
     df['cloud_flag'] = sample.variables['m01s38i478'][:]
     df['cdnc_x_cloud_flag'] = sample.variables['m01s38i479'][:]
     df['ambient_extinction_550'] = sample.variables['m01s02i530_550nm'][:]
-    df['ambient_scattering_550'] = sample.varibales['m01s02i532_550nm'][:]
+    df['ambient_scattering_550'] = sample.variables['m01s02i532_550nm'][:]
     df['num_nuc'] = sample.variables['number_of_particles_per_air_molecule_of_soluble_nucleation_mode_aerosol_in_air'][:]
     df['num_Ait'] = sample.variables['number_of_particles_per_air_molecule_of_soluble_aitken_mode_aerosol_in_air'][:]
     df['num_acc'] = sample.variables['number_of_particles_per_air_molecule_of_soluble_accumulation_mode_aerosol_in_air'][:]
