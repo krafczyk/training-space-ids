@@ -3,7 +3,7 @@ HycomYGrid.c3typ
 The base truth table for the Hycom GOM latitudinal grid. 
 */
 // Define a single column index on both the "index" and "latitude" columns.
-@db(index = "index", "longitude")
+@db(index=["index", "longitude"])
 entity type HycomYGrid mixes SeedData schema name 'HCM_Y_GRD' {
     // Reference to {@link HycomDataset}
     dataset: !HycomDataset
