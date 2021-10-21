@@ -55,7 +55,7 @@ jobs:
           c3repo:
             - 'c3training/**'
   provision:
-    name: Provision to ${{ env.TAG }}
+    name: Provision to ${{ github.event.inputs.tag }}
     needs: c3changes
     if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
     runs-on: ubuntu-latest
@@ -88,8 +88,8 @@ jobs:
         env:
           GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
         with:
-          tenant: ${{ env.TENANT }}
-          tag: ${{ env.TAG }}
-          domain: ${{ env.DOMAIN }}
-          package: ${{ env.PACKAGE }}
-          c3repo: ${{ env.C3REPO }}
+          tenant: ${{ github.event.inputs.tenant }}
+          tag: ${{ github.event.inputs.tag }}
+          domain: ${{ github.event.inputs.domain }}
+          package: ${{ github.event.inputs.package }}
+          c3repo: ${{ github.event.inputs.c3repo }}
