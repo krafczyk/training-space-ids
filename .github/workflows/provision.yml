@@ -26,6 +26,11 @@ on:
         required: false
         type: string
         default: 'main'
+    secrets:
+      token:
+        required: true
+      gpg:
+        required: true
 
 ########################################################################        
 # Settings for this workflow:
