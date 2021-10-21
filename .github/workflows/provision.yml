@@ -1,0 +1,90 @@
+on:
+  workflow_call:
+    inputs:
+      tenant:
+        description: 'Target C3 Tenant'     
+        required: true
+      tag:
+        description: 'target C3 Tag'
+        required: true
+      domain:
+        description: 'Web domain for tag'
+        required: true
+      c3repo:
+        description: 'Repo directory containing package'
+        required: true
+      package:
+        description: 'Name of package to be provisioned'
+        required: true
+
+########################################################################        
+# Settings for this workflow:
+# Modify the following settings to match target C3 tag and local 
+# c3repo and package names. 
+########################################################################
+env:
+  DTI_PROVISIONER_VERSION: main
+  TAG: ${{ github.event.inputs.tag }}
+  TENANT: ${{ github.event.inputs.tenant }}
+  DOMAIN: ${{ github.event.inputs.domain }}
+  C3REPO: ${{ github.event.inputs.c3repo }}
+  PACKAGE: ${{ github.event.inputs.package }}
+########################################################################
+# You should not need to edit below here, unless altering the workflow
+########################################################################
+  PYTHON_VERSION: 3.9 # For running pytest "locally", not for C3 env.
+
+jobs:
+  # Gate to check for changed files within the c3repo
+  c3changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      c3repo: ${{ steps.filter.outputs.c3repo }}
+    steps:
+    # For pull requests it's not necessary to checkout the code
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          c3repo:
+            - 'c3training/**'
+  provision:
+    name: Provision to ${{ env.TAG }}
+    needs: c3changes
+    if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+          
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+        
+      - name: Check out C3 CLI
+        uses: actions/checkout@v2  
+        with:
+          repository: c3aidti/C3-CLI
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }}
+          path: c3cli
+          
+      - name: Install C3 CLI Environment
+        run: |
+          ./c3cli/c3 install
+        
+      - name: Checkout DTI Provisioner repo
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/dti-provisioner
+          ref: ${{ env.DTI_PROVISIONER_VERSION }}
+          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+          path: dti-provisioner
+          
+      - name: Run Provisioner
+        uses: ./dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+        with:
+          tenant: ${{ env.TENANT }}
+          tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
+          package: ${{ env.PACKAGE }}
+          c3repo: ${{ env.C3REPO }}
