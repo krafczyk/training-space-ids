@@ -16,6 +16,8 @@ entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeri
     // The Longitude of this output
     @ts(treatment='avg')
     longitude: double
+    @ts(treatment='avg')
+    altitude: double
     // The measured properties
     @ts(treatment='avg')
     mass_BC_acc: double

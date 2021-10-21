@@ -20,6 +20,7 @@ def upsertData(this):
     df['time'] = sample.variables['time'][:]
     df['longitude'] = sample.variables['longitude'][:]
     df['latitude'] = sample.variables['latitude'][:]
+    df['altitude'] = sample.variables['altitude'][:]
     df['mass_BC_acc'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_accumulation_mode_dry_aerosol_in_air'][:]
     df['mass_BC_Ait'] = sample.variables['mass_fraction_of_black_carbon_in_soluble_aitken_mode_dry_aerosol_in_air'][:] 
     df['mass_BC_Aitins'] = sample.variables['mass_fraction_of_black_carbon_in_insoluble_aitken_mode_dry_aerosol_in_air'][:] 
@@ -46,6 +47,7 @@ def upsertData(this):
         c3.SimulationModelOutput(**{
             'longitude': df['longitude'].iloc[i],
             'latitude': df['latitude'].iloc[i],
+            'altitude': df['altitude'].iloc[i],
             'mass_BC_acc': df['mass_BC_acc'].iloc[i],
             'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
             'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
