@@ -72,7 +72,7 @@ jobs:
         uses: actions/checkout@v2  
         with:
           repository: c3aidti/C3-CLI
-          token: ${{ secrets.DTI_DEVOPS_TOKEN }}
+          token: ${{ secrets.token }}
           path: c3cli
           
       - name: Install C3 CLI Environment
@@ -84,13 +84,13 @@ jobs:
         with:
           repository: c3aidti/dti-provisioner
           ref: ${{ github.event.inputs.version }}
-          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+          token: ${{ secrets.token }}
           path: dti-provisioner
           
       - name: Run Provisioner
         uses: ./dti-provisioner
         env:
-          GPG_PASS: ${{ secrets.DTI_DEVOPS_GPG }}
+          GPG_PASS: ${{ secrets.gpg }}
         with:
           tenant: ${{ github.event.inputs.tenant }}
           tag: ${{ github.event.inputs.tag }}
