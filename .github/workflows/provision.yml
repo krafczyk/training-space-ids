@@ -4,18 +4,23 @@ on:
       tenant:
         description: 'Target C3 Tenant'     
         required: true
+        type: string
       tag:
         description: 'target C3 Tag'
         required: true
+        type: string
       domain:
         description: 'Web domain for tag'
         required: true
+        type: string
       c3repo:
         description: 'Repo directory containing package'
         required: true
+        type: string
       package:
         description: 'Name of package to be provisioned'
         required: true
+        type: string
 
 ########################################################################        
 # Settings for this workflow:
