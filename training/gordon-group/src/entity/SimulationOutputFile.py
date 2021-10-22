@@ -100,10 +100,10 @@ def upsertData(this):
 #        })
 #        for i in range(len(df))
 #    ]
-    made_records = [c3.SimulationModelOutput(**record) for record in output_records] 
+    #made_records = [c3.SimulationModelOutput(**record) for record in output_records] 
 
     # upsert this batch
-    c3.SimulationModelOutput.upsertBatch(made_records)
+    c3.SimulationModelOutput.upsertBatch(this=output_records)
 
     this.processed = True
     c3.SimulationOutputFile.merge(this)
