@@ -8,7 +8,11 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     hindcast: !HycomHindcast
     //
     description: string
-    // The {@link HycomSubsetOption}s used to generate this archive.
+    // The {@link HycomSubsetOption}s used to generate this archive.  Can be updated.  Updates will
+    // trigger additional files to be staged.  Only updates to the timeRange field of the subset are supported.
+    // Care should be taken not to cahnge fileds other than timeRange in the subset options.  Use the "update"
+    // method on this type to ensure only timeRange is modified.
+    @callback(onchange = "stageFiles")
     subsetOptions: HycomSubsetOptions
     // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: HycomDownloadOptions
@@ -17,11 +21,15 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     //
     archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
     //
-    fileCount: long integer stored calc 'count(files)' post default 0
+    stagedFileCount: long integer stored calc 'count(files)' post default 0
     //
-    downloadedFileCount: long integer stored calc 'sum(files.(status=="downloaded"))' post default 0
+    downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
     //
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
+    // Update the timeRang of the subset options for this archive
+    //update: member function(timeRange: !TimeRange): js server
+    @dependency(include="this,hindcast.name")
+    afterCreate: ~ js server
 }
