@@ -63,44 +63,6 @@ def upsertData(this):
     df['dataVersion'] = versionTag
 
     output_records = df.to_dict(orient="records")
-    # create list of SimulationModelOutput objs
-#    output_records = [
-#        c3.SimulationModelOutput(**{
-#            'longitude': df['longitude'].iloc[i],
-#            'latitude': df['latitude'].iloc[i],
-#            'altitude': df['altitude'].iloc[i],
-#            'model_level_number': df['model_level_number'].iloc[i],
-#            'air_potential_temperature': df['air_potential_temperature'].iloc[i],
-#            'air_pressure': df['air_pressure'].iloc[i],
-#            'cloud_flag': df['cloud_flag'].iloc[i],
-#            'cdnc_x_cloud_flag': df['cdnc_x_cloud_flag'].iloc[i],
-#            'ambient_extinction_550': df['ambient_extinction_550'].iloc[i],
-#            'ambient_scattering_550': df['ambient_scattering_550'].iloc[i],
-#            'num_nuc': df['num_nuc'].iloc[i],
-#            'num_Ait': df['num_Ait'].iloc[i],
-#            'num_acc': df['num_acc'].iloc[i],
-#            'num_cor': df['num_cor'].iloc[i],
-#            'num_Aitins': df['num_Aitins'].iloc[i],   
-#            'mass_SU_Ait': df['mass_SU_Ait'].iloc[i],
-#            'mass_SU_acc': df['mass_SU_acc'].iloc[i],
-#            'mass_SU_cor': df['mass_SU_cor'].iloc[i],
-#            'mass_BC_Ait': df['mass_BC_Ait'].iloc[i],
-#            'mass_BC_acc': df['mass_BC_acc'].iloc[i],
-#            'mass_BC_cor': df['mass_BC_cor'].iloc[i],
-#            'mass_BC_Aitins': df['mass_BC_Aitins'].iloc[i],
-#            'mass_OC_Ait': df['mass_OC_Ait'].iloc[i],
-#            'mass_OC_acc': df['mass_OC_acc'].iloc[i],
-#            'mass_OC_cor': df['mass_OC_cor'].iloc[i],
-#            'mass_OC_Aitins': df['mass_OC_Aitins'].iloc[i],
-#            'mass_SS_acc': df['mass_SS_acc'].iloc[i],
-#            'mass_SS_cor': df['mass_SS_cor'].iloc[i],
-#            'start': df['datetime'].iloc[i],
-#            'parent': parent_id,
-#            'dataVersion': versionTag
-#        })
-#        for i in range(len(df))
-#    ]
-    #made_records = [c3.SimulationModelOutput(**record) for record in output_records] 
 
     # upsert this batch
     c3.SimulationModelOutput.upsertBatch(objs=output_records)
