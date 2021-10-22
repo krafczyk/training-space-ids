@@ -51,7 +51,7 @@ def upsertData(this):
     for time in df['time']:
         target_time = zero_time + timedelta(hours=time)
         transformed_times.append(target_time)
-    df['datetime'] = transformed_times
+    df['start'] = transformed_times
     df.drop(columns=['time'], inplace=True)
 
     parent_id = "SMOS_" + this.simulationSample.id
