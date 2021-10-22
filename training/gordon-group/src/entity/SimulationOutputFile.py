@@ -60,7 +60,7 @@ def upsertData(this):
     now_time = datetime.now()
     diff_time = (now_time - zero_time)
     versionTag= -1 * diff_time.total_seconds()
-    df['versionTag'] = versionTag
+    df['dataVersion'] = versionTag
 
     output_records = df.to_dict(orient="records")
     # create list of SimulationModelOutput objs
