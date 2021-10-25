@@ -29,7 +29,7 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     // The total storage footprint of archived FMRC data in Bytes
     // This field could be refactored into the HycomFMRC type.
     fmrcArchiveSize: long integer stored calc 'sum(fmrcs.fmrcArchiveSize)' post default 0
-    //
+    // Colleaction of {@link HycomHindcast}s
     hindcasts: [HycomHindcast](dataset,id)
     //
     hindcastArchiveSize: long integer stored calc 'sum(hindcasts.archiveSize)' post default 0

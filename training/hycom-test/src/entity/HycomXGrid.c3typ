@@ -1,12 +1,15 @@
 /**
 HycomXGrid.c3typ
+The base truth table for the Hycom GOM longitudinal grid
 */
+// // Define a single column index on both the "index" and "longitude" columns.
+@db(index=["index","longitude"])
 entity type HycomXGrid mixes SeedData schema name 'HCM_X_GRD' {
-    //
+    // Reference to the {@link HycomDataset}
     dataset: !HycomDataset
-    //
+    // Index for mapping to the Hycom computational grid
     index: !integer
-    //
+    // Longitude of the grid point
     longitude: !double
     
 }
