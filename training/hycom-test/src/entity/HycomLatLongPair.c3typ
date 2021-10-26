@@ -16,8 +16,8 @@ entity type HycomLatLongPair mixes MetricEvaluatable schema name 'LT_LNG_PR' {
     // The LatLong pair values
     pair: LatLong
     // The collection of {@link SurfaceHindcastDataSeries} records
+    @db(order='ascending(i),ascending(j)')
     surfaceHindcastData: [SurfaceHindcastDataSeries](latLongPair)
-    //
     //subsurfaceHindcasatData: [SubsurfaceHindcastDataSeries]
 
 }
