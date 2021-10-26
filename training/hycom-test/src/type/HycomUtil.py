@@ -72,11 +72,14 @@ def createThreddsUrl(urlPath, subsetOptions):
         'disableProjSubset': subsetOptions.disableProjSubset,
         'horizStride': subsetOptions.horizStride,
         'timeStride': subsetOptions.timeStride,
-        'vertStride': subsetOptions.vertStride,
         'addLatLon': subsetOptions.addLatLon,
         'accept': subsetOptions.accept
         }
-    
+    if subsetOptions.vertCoord == -1:
+        options['vertStride'] = subsetOptions.vertStride
+    else:
+        options['vertCoord'] = subsetOptions.vertCord
+
     # Handle time coverage separately
     time_start = subsetOptions.timeRange.start
     time_end = subsetOptions.timeRange.end
