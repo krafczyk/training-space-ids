@@ -27,6 +27,6 @@ entity type HindcastFile schema name "HNDCST_FL" {
     // Download a file from the Hycom server and save to the C3 file system
     //@dependency(include = "this,hindcast.subsetOptions,hindcast.urlPath")
     @py(env=hycom_1_0_0)
-    @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions")
+    @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions,hindcastArchive.SubsetOptions")
     download: member function(): File
 }

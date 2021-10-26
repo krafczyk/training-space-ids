@@ -78,7 +78,7 @@ def createThreddsUrl(urlPath, subsetOptions):
     if subsetOptions.vertCoord == -1:
         options['vertStride'] = subsetOptions.vertStride
     else:
-        options['vertCoord'] = subsetOptions.vertCord
+        options['vertCoord'] = subsetOptions.vertCoord
 
     # Handle time coverage separately
     time_start = subsetOptions.timeRange.start
