@@ -19,9 +19,9 @@ entity type HindcastFile schema name "HNDCST_FL" {
     //  FRMC file type
     //fileType: !string enum('netcdf4','netcdf')
     //
-    start: datetime
+    start: !datetime
     //
-    end: datetime
+    end: !datetime
     // Status of the data download
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
     // Whether the file has bee processed
