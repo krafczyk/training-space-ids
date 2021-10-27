@@ -5,8 +5,6 @@ HycomLatLongPair.c3typ
 // 2 multi-column indices, one for the ij pairs another for lat-lon pairs
 @db(index=["i,j","lat,lon"])
 entity type HycomLatLongPair mixes MetricEvaluatable schema name 'LT_LNG_PR' {
-    //
-    id: !integer
     // The longitude index
     i: !integer
     // The latitude index
