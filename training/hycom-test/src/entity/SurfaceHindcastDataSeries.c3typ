@@ -2,6 +2,8 @@
 */
 entity type SurfaceHindcastDataSeries mixes TimedDataHeader<SurfaceHindcastData> schema name 'SRFC_HNDCST_DT_SRS' {
     //
+    id: !integer
+    //
     latLongPair: !HycomLatLongPair
     //
     grain: ~ post default 'HOUR'
