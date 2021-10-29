@@ -8,7 +8,7 @@ SurfaceHindcastData.c3typ
     compactType=true)
 entity type SurfaceHindcastData mixes TimedDataPoint<SurfaceHindcastDataSeries> schema name 'SRFC_HNDCST_DATA' {
     // Timestamp that this hindcast is for
-    for: !datetime
+    //for: !datetime
     // 
     @ts(treatment='avg')
     water_u: double
