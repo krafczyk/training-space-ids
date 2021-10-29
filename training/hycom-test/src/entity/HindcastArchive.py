@@ -57,6 +57,8 @@ def stageFiles(this):
                 "id": this.id + '/' + name,
                 "hindcastArchive": this,
                 "name": name,
+                "start": batches[i][0],
+                "end": batches[i][-1],
                 "subsetOptions" : so
             }
         )
