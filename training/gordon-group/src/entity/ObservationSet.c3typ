@@ -1,0 +1,18 @@
+/**
+* ObservationSet.c3typ
+* One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble).
+*/
+entity type ObservationSet mixes MetricEvaluatable schema name "OBS_SET" {
+    // The Timeseries output for this simulation: A collection of {@link SimulationModelOutputSeries}
+    output: [ObservationOutputSeries](observationSet,id)
+    // the collection of {@link ObservationFile}s for this simulation sample
+    outputFiles: [ObservationOutputFile](observationSet, id)
+
+    // METHODS
+    // Callback to create the {@link ObservationOutputFile}s whenever a {@link ObservationSet} is upserted. 
+    @dependency(include = "this, observation.name")
+    afterCreate: ~ js server
+    // Upsert data into {@link SimulationModelOutput} for all {@link ObservationOutputFile}s corresponding to this {@link ObservationSet}
+    @dependency(include = "this, outputFiles")
+    upsertSampleData: member function(): int js server
+}
