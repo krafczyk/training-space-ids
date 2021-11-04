@@ -9,6 +9,8 @@
       "conda.pivottablejs": "=0.9.0",
       "conda.numpy": "=1.15.2",
       "conda.pandas": "=1.0.1",
+      "conda.jax": "=0.2.22",
+      "conda.ffmpeg": "=4.2.2",
       "conda.python-dateutil": "=2.8.2",
       "pip.xmltodict": ""
     },
