@@ -33,4 +33,9 @@ entity type HindcastFile schema name "HNDCST_FL" {
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions,hindcastArchive.SubsetOptions")
     download: member function(): File
+    // Process a File to extract and upsert data
+    @py(env=hycom_1_0_0)
+    @dependency(include="this")
+    process: member function(chunkSize: int = 23400, maxConcurrency: int = 8): int
+}
 }
