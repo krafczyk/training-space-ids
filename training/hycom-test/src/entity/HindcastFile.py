@@ -116,8 +116,15 @@ def process(this,chunkSize=23400,maxConcurrency=8):
             
         print(f"Loading {xsz*ysz} records, chunkSize: {chunkSize}, maxConcurrency: {maxConcurrency}")
         _ = c3.Client.executeConcurrently(upsertFunc,[(x,) for x in chunk(genRecords,chunkSize)],maxConcurrency)
-            
+
         it += 1
+
+        update = c3.HindcastFile(
+            **{
+                "id": this.id,
+                "stepsProcessed": it
+            }
+        ).merge()
 
     # close the file
     c3.HycomUtil.nc_close(ds=hycom_file, url=this.file.url)
