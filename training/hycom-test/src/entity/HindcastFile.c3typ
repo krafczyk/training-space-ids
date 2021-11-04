@@ -26,6 +26,8 @@ entity type HindcastFile schema name "HNDCST_FL" {
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
     // Whether the file has bee processed
     processed: boolean post default "false"
+    // the thredds url for this file
+    threddsUrl: string
     // The {@link File} object for this file
     file: File
     // Download a file from the Hycom server and save to the C3 file system

@@ -4,6 +4,7 @@ def download(this):
     # Create a fresh instance to avoid version errors or other bs
     updated = c3.HindcastFile(**{'id':this.id})
     updated.status = 'downloading'
+    updated.threddsUrl = url
     updated.merge()
     
     download_path = this.hindcastArchive.downloadOptions.externalDir + '/hindcast/' + this.hindcastArchive.id
@@ -128,5 +129,5 @@ def process(this,chunkSize=23400,maxConcurrency=8):
         }
     ).merge()
     total = len(times)*xsz*ysz
-    
+
     return total
