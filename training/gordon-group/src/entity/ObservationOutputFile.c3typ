@@ -2,6 +2,8 @@
 ObservationOutputFile.c3typ
 */
 entity type ObservationOutputFile schema name 'OBS_OTPT_FL' {
+    // The {@link ObservationSet} to which this file belongs
+    observationSet: !ObservationSet
     // The date for this file (comes with the file name)
     dateTag: datetime
     // The observation output file
