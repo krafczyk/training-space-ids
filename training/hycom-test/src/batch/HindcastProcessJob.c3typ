@@ -1,0 +1,8 @@
+/**
+HindcastProcessJob.c3typ
+A batch job to process {@link HindcastFile} records and upsert data contents
+*/
+type HindcastProcessJob extends BatchJob<HindcastProcessJob, HycomProcessJobOptions, HindcastProcessJobBatch> type key 'HindcastPROCESS'{
+    doStart: ~ js server
+    processBatch: ~ js server
+}

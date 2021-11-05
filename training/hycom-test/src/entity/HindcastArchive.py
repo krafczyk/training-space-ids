@@ -64,4 +64,4 @@ def stageFiles(this):
         )
 
         files.append(file)
-    return c3.HindcastFile.upsertBatch(files)
+    return c3.HindcastFile.mergeBatch(files)
