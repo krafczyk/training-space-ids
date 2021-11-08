@@ -23,10 +23,11 @@
     
     function createObsFiles(obj) {
       // AZURE DIRECTORY PATH HERE: change 'gordon-group; to whatever you need
-      var observationPath = FileSystem.inst().rootUrl() + 'gordon-group/' + observationSet.name + '/';
-      var prePathToAllFiles = observationPath + observationSet.prePathToFiles;
+      //FileSystem.inst().listFiles("azure://aircraft-observations/").files
+      //var observationPath = FileSystem.inst().rootUrl() + 'gordon-group/' + observationSet.name + '/';
+      //var prePathToAllFiles = observationPath + observationSet.prePathToFiles;
   
-      var observationFiles = FileSystem.inst().listFiles(prePathToAllFiles).files;
+      var observationFiles = FileSystem.inst().listFiles("azure://aircraft-observations/").files;
       // Remove non-NetCDF files from list
       for (var i = 0; i < observationFiles.length; i++) {
         var sf = observationFiles[i];
