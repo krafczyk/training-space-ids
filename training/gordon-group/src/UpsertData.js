@@ -11,11 +11,25 @@ function doStart(job, options) {
 //        filter: 'processed == false',
         limit: -1
     });
+    var datasetObs = ObservationOutputFile.fetchObjStream({
+        //        filter: 'processed == false',
+        limit: -1
+    });
 
     while(dataset.hasNext()) {
         batch.push(dataset.next());
 
         if (dataset.length >= options.batchSize || !dataset.hasNext()) {
+            var batchSpec = UpsertDataBatch.make({values: batch});
+            job.scheduleBatch(batchSpec);
+            
+            batch = [];
+        }
+    }
+    while(datasetObs.hasNext()) {
+        batch.push(datasetObs.next());
+
+        if (datasetObs.length >= options.batchSize || !dataset.hasNext()) {
             var batchSpec = UpsertDataBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             

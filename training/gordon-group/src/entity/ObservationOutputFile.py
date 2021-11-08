@@ -43,7 +43,7 @@ def upsertORACLESData(this):
     output_records = df.to_dict(orient="records")
 
     # upsert this batch
-    c3.ObservationModelOutput.upsertBatch(objs=output_records)
+    c3.ObservationOutput.upsertBatch(objs=output_records)
 
     this.processed = True
     c3.ObservationOutputFile.merge(this)

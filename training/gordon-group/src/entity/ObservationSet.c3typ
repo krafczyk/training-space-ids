@@ -14,5 +14,5 @@ entity type ObservationSet mixes MetricEvaluatable schema name "OBS_SET" {
     afterCreate: ~ js server
     // Upsert data into {@link SimulationModelOutput} for all {@link ObservationOutputFile}s corresponding to this {@link ObservationSet}
     @dependency(include = "this, outputFiles")
-    upsertSampleData: member function(): int js server
+    upsertObservationData: member function(): int js server
 }
