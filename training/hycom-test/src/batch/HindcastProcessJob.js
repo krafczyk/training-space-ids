@@ -11,7 +11,7 @@
     var dataset = HindcastFile.fetchObjStream({
         include: '[this]',
         filter: "processed == false",
-        limit: options.limit,
+        limit: options.limit
     });
     while(dataset.hasNext()) {
         batch.push(dataset.next());
