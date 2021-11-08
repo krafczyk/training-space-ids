@@ -1,7 +1,7 @@
 /**
  * UpsertData.js
  * Implementation of UpsertData.c3typ
- * @param {UpsertData} job
+ * @param {UpsertObsData} job
  * @param {UpsertDataOptions} options
  */
  function doStart(job, options) {
@@ -28,7 +28,7 @@
 
 /**
  * @param {UpsertObsDataBatch} batch
- * @param {UpsertData} job
+ * @param {UpsertObsData} job
  * @param {UpsertDataOptions} options
  */
 function processBatch(batch, job, options) {
