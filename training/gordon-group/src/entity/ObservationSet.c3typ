@@ -8,7 +8,7 @@ entity type ObservationSet mixes MetricEvaluatable schema name "OBS_ST" {
     // The base path to find the corresponding {@link ObservationOutputFile}s
     prePathToFiles: !string
     // The version for this set
-    version: !string
+    versionTag: !string
     // The Timeseries output for these observations, ie a collection of {@link ObservationOutputSeries}
     output: [ObservationOutputSeries](observationSet,id)
     // the collection of {@link ObservationFile}s for these observations

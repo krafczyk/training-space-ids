@@ -8,7 +8,7 @@ type TransformSourceObservationSetToObservationSet mixes ObservationSet transfor
     // The name of this set
     name: ~ expression "observation_set_name"
     // The version of this set
-    version: ~ expression "observation_set_version"
+    versionTag: ~ expression "observation_set_version"
     // The path to files on this set
     prePathToFiles: ~ expression "key_to_files"
 }
