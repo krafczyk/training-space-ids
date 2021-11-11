@@ -22,32 +22,30 @@
     }
     
     function createObsFiles(obj) {
-      // AZURE DIRECTORY PATH HERE: change 'gordon-group; to whatever you need
-      //FileSystem.inst().listFiles("azure://aircraft-observations/").files
-      //var observationPath = FileSystem.inst().rootUrl() + 'gordon-group/' + observationSet.name + '/';
-      //var prePathToAllFiles = observationPath + observationSet.prePathToFiles;
+      // AZURE DIRECTORY PATH HERE
+      var prePathToFiles = 'azure://' + obj.prePathToFiles + '/';
+      var name = 'mrg1_P3';
+      var pathToFiles = prePathToFiles + name;
   
-      var observationFiles = FileSystem.inst().listFiles("azure://aircraft-observations/").files;
-      // Remove non-NetCDF files from list
+      var observationFiles = FileSystem.inst().listFiles(pathToFiles).files;
+      // Remove non-NetCDF files from list and filter correct versionTag
       for (var i = 0; i < observationFiles.length; i++) {
-        var sf = observationFiles[i];
-        if (sf.url.slice(-3) !== ".nc") {
+        var of = observationFiles[i];
+        if (of.url.slice(-3) !== ".nc") {
+          observationFiles.splice(i,1);
+        } else if (of.url.slice(-6,-3) !== obj.versionTag) {
           observationFiles.splice(i,1);
         }
       }
       return observationFiles.map(createObsOutFiles);
     
-      function padStart(text, length, pad) {
-        return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
-      }
-    
       function createObsOutFiles(file) {
-        var year = file.url.slice(-11,-7);
-        var month = file.url.slice(-7,-5);
-        var day = file.url.slice(-5,-3);
+        var year = file.url.slice(-15,-11);
+        var month = file.url.slice(-11,-9);
+        var day = file.url.slice(-9,-7);
         var date_str = year + "-" + month + "-" + day;
         return ObservationOutputFile.make({
-                    "observation": obj,
+                    "observationSet": obj,
                     "file": File.make({
                             "url": file.url
                     }),
