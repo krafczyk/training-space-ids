@@ -1,0 +1,24 @@
+/**
+* ObservationOutput.c3typ
+* A single output taken from a single [Observation](type:Observation)
+*/
+@db(datastore='cassandra',
+    partitionKeyField='parent',
+    persistenceOrder='start, dataVersion',
+    persistDuplicates=false,
+    compactType=true,
+    unique=['parent, start'])
+entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> schema name 'OBS_TPT' {
+    // The Latitude of this output
+    @ts(treatment='avg')
+    latitude: double
+    // The Longitude of this output
+    @ts(treatment='avg')
+    longitude: double
+    @ts(treatment='avg')
+    altitude: double
+    @ts(treatment='avg')
+    total_BC: double
+
+   
+}
