@@ -12,7 +12,7 @@
  * @return List of any errors that were encountered.
  */
 
- function afterCreateObs(objs) {
+ function afterCreate(objs) {
     var files = objs.map(createObsFiles);
     files.forEach(upsertBatch);
     return;
