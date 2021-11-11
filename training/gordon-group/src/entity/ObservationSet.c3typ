@@ -16,8 +16,8 @@ entity type ObservationSet mixes MetricEvaluatable schema name "OBS_ST" {
 
     // METHODS
     // Callback to create the {@link ObservationOutputFile}s whenever a {@link ObservationSet} is upserted. 
-    //@dependency(include = "this, observation.name")
-    //afterCreate: ~ js server
+    @dependency(include = "this, observation.name")
+    afterCreate: ~ js server
     // Upsert data into {@link ObservationOutput} for all {@link ObservationOutputFile}s corresponding to this {@link ObservationSet}
     //@dependency(include = "this, outputFiles")
     //upsertObservationData: member function(): int js server
