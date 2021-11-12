@@ -91,6 +91,7 @@ def process(this,chunkSize=23400,maxConcurrency=8):
                         id = 'HNDCST_SRFC_' + str(i) + '-' + str(j)
                     ).toJson(),
                     'name': 'water_u',
+                    #Note: there seems to be an issue with i_j indexing as the results are exactly transposed
                     'water_u': water_u[i,j],
                     'water_v': water_v[i,j]
                 }
