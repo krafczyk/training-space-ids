@@ -18,7 +18,5 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     @ts(treatment='avg')
     altitude: double
     @ts(treatment='avg')
-    total_BC: double
-
-   
+    total_BC: double   
 }
