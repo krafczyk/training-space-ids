@@ -4,7 +4,7 @@
 */
 type TransformSourceObservationSetToObservationOutputSeries mixes ObservationOutputSeries transforms SourceObservationSet {
     // The id of this timeseries
-    id: ~ expression "concat('OOS_SetNo_', observation_set_id, '_Ver_', observation_set_version)"
+    id: ~ expression "concat('OOS_SetName_', observation_set_name, '_Ver_', observation_set_version)"
     // The {@link ObservationSet} this timeseries belongs to
-    simulationSample: ~ expression {id: "observation_set_id"}
+    observationSet: ~ expression {id: "observation_set_id"}
 }
