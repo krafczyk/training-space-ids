@@ -16,8 +16,8 @@ def upsertORACLESData(this):
     
     # cast it to dataframe
     df = pd.DataFrame()
-    df['time'] = sample.variables['time'][:]
-    df['time'] = pd.to_datetime(df['time'],unit='s')
+    df['start'] = sample.variables['time'][:]
+    df['start'] = pd.to_datetime(df['start'],unit='s')
     df['longitude'] = sample.variables['Longitude'][:]
     df['latitude'] = sample.variables['Latitude'][:]
     df['altitude'] = sample.variables['GPS_Altitude'][:]
