@@ -32,7 +32,7 @@ def upsertORACLESData(this):
     #df['start'] = transformed_times
     #df.drop(columns=['time'], inplace=True)
 
-    parent_id = "ORACLES_Day_" + this.flight.id
+    parent_id = "OOS_SetName_" + this.observationSet.name + '_Ver_' + this.observationSet.versionTag
     df['parent'] = parent_id
 
     now_time = datetime.now()
