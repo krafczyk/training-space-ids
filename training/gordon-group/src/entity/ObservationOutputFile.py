@@ -1,9 +1,9 @@
 def upsertORACLESData(this):
     """
-    Function to Open files in the ObservationFile table and then populate ObservationOutput data.
+    Function to Open files in the ObservationOutputFile table and then populate ObservationOutput data.
     
     - Arguments:
-        -this: an instance of SimulationOutputFile
+        -this: an instance of ObservationOutputFile
 
     - Returns:
         -bool: True if file was processed, false if file has already been processed
