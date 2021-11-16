@@ -23,18 +23,12 @@ def upsertORACLESData(this):
     df['altitude'] = sample.variables['GPS_Altitude'][:]
     df['total_BC'] = sample.variables['rBC_massConc'][:]
     
-    # a little gymnastic to get Datetime objs
-    #zero_time = datetime(1970,1,1,0,0)
-    #transformed_times = []
-    #for time in df['time']:
-    #    target_time = zero_time + timedelta(hours=time)
-    #    transformed_times.append(target_time)
-    #df['start'] = transformed_times
-    #df.drop(columns=['time'], inplace=True)
 
-    parent_id = "OOS_SetName_" + this.observationSet.name + '_Ver_' + this.observationSet.versionTag
+    obsSet = c3.ObservationSet.get(this.observationSet.id)
+    parent_id = "OOS_SetName_" + obsSet.name + "_Ver_" + obsSet.versionTag
     df['parent'] = parent_id
 
+    zero_time = datetime(1970,1,1,0,0)
     now_time = datetime.now()
     diff_time = (now_time - zero_time)
     versionTag= -1 * diff_time.total_seconds()
