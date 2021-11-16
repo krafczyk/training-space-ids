@@ -1,0 +1,10 @@
+/**
+* TransformSourceObservationSetToObservationOutputSeries.c3typ
+* I'll let you guess what does one does
+*/
+type TransformSourceObservationSetToObservationOutputSeries mixes ObservationOutputSeries transforms SourceObservationSet {
+    // The id of this timeseries
+    id: ~ expression "concat('OOS_SetNo_', observation_set_id, '_Ver_', observation_set_version)"
+    // The {@link ObservationSet} this timeseries belongs to
+    simulationSample: ~ expression {id: "observation_set_id"}
+}
