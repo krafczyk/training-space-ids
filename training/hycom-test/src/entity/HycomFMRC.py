@@ -68,7 +68,7 @@ def stageFMRCFiles(this, subsetOptions, downloadOptions):
 
     files_merged = c3.FMRCFile.mergeBatch(files)
 
-    return len(files_merged)
+    return files_merged
 
     # # Note, the status is explicitly not merged here so that the post default will kick in if needed
     # # and already "downloaded" files don't get re-downloaded
