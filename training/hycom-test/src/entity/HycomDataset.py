@@ -41,7 +41,7 @@ def upsertFMRCs(this):
         c3.HycomFMRC.mergeBatch(updates)
     return frmcs
 
-def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJobOptions):
+def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJobOptions):
     """Update FMRC data
         - update FMRCs from Catalog
         For each FMRC:
@@ -71,7 +71,15 @@ def updateFMRCData(this, hycomSubsetOptions, fmrcDownloadOptions, fmrcDownloadJo
                 'end': fmrc.timeCoverage.end
             }
         )
-        fmrc.stageFMRCFiles(hycomSubsetOptions, fmrcDownloadOptions)
+        # Bundle all times for the entire FMRC in to 1 file:
+        if hycomDownloadOptions.maxTimesPerFile == -1:
+            def gentimes(start,end,stride):
+                t = start
+                while t <= end:
+                    yield t
+                    t += timedelta(hours=stride)
+            hycomDownloadOptions.maxTimesPerFile = len(list(gentimes(fmrc.timeCoverage.start,fmrc.timeCoverage.end,1)))
+        fmrc.stageFMRCFiles(hycomSubsetOptions, hycomDownloadOptions)
 
     # Submit Batch Job to Download all files
     job = c3.FMRCDownloadJob(**{'options': fmrcDownloadJobOptions.toJson()}).upsert()

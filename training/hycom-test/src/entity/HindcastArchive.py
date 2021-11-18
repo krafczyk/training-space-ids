@@ -1,32 +1,7 @@
 from datetime import timedelta
 def stageFiles(this):
     # Use downloadOptions to create a modified subsetOptions object
-    
-    # Make this a util function
-    # # Generate a list of all possible times based on timeStride
-    # def getFileBatches(start, end, stride, timesPerFile):
-    #     def gentimes():
-    #         t = start
-    #         while t <= end:
-    #             yield t
-    #             t += timedelta(hours=stride)
-
-    #     times = list(gentimes())
-
-    #     # Generate batches of timestamps to include in each file
-    #     max_batch = len(times)
-    #     if ( timesPerFile < 0 or
-    #         timesPerFile > max_batch):
-    #         batch_size = max_batch
-    #     else:
-    #         batch_size = timesPerFile
-
-    #     def genbatches(l,n):
-    #         for i in range(0, len(l), n): 
-    #             yield l[i:i + n]
-
-    #     return list(genbatches(times, batch_size))
-    
+    # Generate a list of all possible times based on timeStride
     batches = c3.HycomUtil.getFileBatches(
         this.subsetOptions.timeRange.start,
         this.subsetOptions.timeRange.end,
