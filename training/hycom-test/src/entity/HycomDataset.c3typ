@@ -40,7 +40,7 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     // for specifying the download and archival options and {@link FMRCDownloadJob} for specifying the 
     // {@link FMRCDownloadJob} batch options.
     @py(env="hycom_1_0_0")
-    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , fmrcDownloadOptions: !FMRCDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , hycomDownloadOptions: !HycomDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
     //
     @py(env="hycom_1_0_0")
     afterCreate: ~
