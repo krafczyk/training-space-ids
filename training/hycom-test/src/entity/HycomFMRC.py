@@ -61,6 +61,7 @@ def stageFMRCFiles(this, subsetOptions, downloadOptions):
                 'fmrc': this,
                 'name': name,
                 'subsetOptions': so,
+                'nSteps': downloadOptions.maxTimesPerFile
 
             }
         )

@@ -65,6 +65,12 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
     # Loop on unexpired FMRCs and create data archive entries
     valid_fmrcs = c3.HycomFMRC.fetch(spec={'filter':"expired==false"}).objs
 
+    def gentimes(start,end,stride):
+        t = start
+        while t <= end:
+            yield t
+            t += timedelta(hours=stride)
+
     for fmrc in valid_fmrcs:
         so = hycomSubsetOptions
         do = hycomDownloadOptions
@@ -76,11 +82,6 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
         )
         # Bundle all times for the entire FMRC in to 1 file:
         if hycomDownloadOptions.maxTimesPerFile == -1:
-            def gentimes(start,end,stride):
-                t = start
-                while t <= end:
-                    yield t
-                    t += timedelta(hours=stride)
             do.maxTimesPerFile = len(list(gentimes(fmrc.timeCoverage.start,fmrc.timeCoverage.end,1)))
         fmrc.stageFMRCFiles(so, do)
 
