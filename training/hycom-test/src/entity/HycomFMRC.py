@@ -43,7 +43,7 @@ def stageFMRCFiles(this, subsetOptions, downloadOptions):
     for i in range(len(batches)):
         # Make a copy of the SubsetOptions for the Archive then adjust
         # the timeRange for this file
-        so = c3.HycomSubsetOptions(**this.subsetOptions.toJson())
+        so = c3.HycomSubsetOptions(**subsetOptions.toJson())
         so.timeRange = c3.TimeRange( 
             **{
                 "start": batches[i][0],
