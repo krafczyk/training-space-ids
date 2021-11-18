@@ -66,7 +66,9 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
     valid_fmrcs = c3.HycomFMRC.fetch(spec={'filter':"expired==false"}).objs
 
     for fmrc in valid_fmrcs:
-        hycomSubsetOptions.timeRange = c3.TimeRange(
+        so = hycomSubsetOptions
+        do = hycomDownloadOptions
+        so.timeRange = c3.TimeRange(
             **{
                 'start': fmrc.timeCoverage.start,
                 'end': fmrc.timeCoverage.end
@@ -79,8 +81,8 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
                 while t <= end:
                     yield t
                     t += timedelta(hours=stride)
-            hycomDownloadOptions.maxTimesPerFile = len(list(gentimes(fmrc.timeCoverage.start,fmrc.timeCoverage.end,1)))
-        fmrc.stageFMRCFiles(hycomSubsetOptions, hycomDownloadOptions)
+            do.maxTimesPerFile = len(list(gentimes(fmrc.timeCoverage.start,fmrc.timeCoverage.end,1)))
+        fmrc.stageFMRCFiles(so, do)
 
     # Submit Batch Job to Download all files
     job = c3.FMRCDownloadJob(**{'options': fmrcDownloadJobOptions.toJson()}).upsert()
