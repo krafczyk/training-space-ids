@@ -22,9 +22,7 @@ function afterCreate(objs) {
   }
     
   function createFiles(obj) {
-      // AZURE DIRECTORY PATH HERE
-    //var prePathToFiles = 'azure://' + obj.prePathToFiles + '/';
-    //var name = 'mrg1_P3';
+    // AZURE DIRECTORY PATH HERE
     var pathToFiles = 'azure://' + obj.prePathToFiles + '/' + obj.name;
   
     var observationFiles = FileSystem.inst().listFiles(pathToFiles).files;
@@ -62,10 +60,10 @@ function afterCreate(objs) {
   
   
 /**
-* Function to upsert SimulationModelOutput with data from all SimulationOutputFiles
+* Function to upsert ObservationOutput with data from all ObservaitonOutputFiles
 * corresponding to this Simulation Sample
 * @param this, outputFiles
-*  List of SimulationOutputFiles corresponding to this SimulationSample. 
+*  List of ObservationOutputFiles corresponding to this ObservationSet. 
 *
 * @return Number of files that were processed
 */
