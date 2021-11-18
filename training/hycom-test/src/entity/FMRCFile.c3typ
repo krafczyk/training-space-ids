@@ -33,5 +33,5 @@ entity type FMRCFile schema name "FRMC_FL" {
     // Download a file from the Hycom server and save to the C3 file system
     @dependency(include = "this,fmrc.subsetOptions,fmrc.urlPath")
     @py(env=hycom_1_0_0)
-    download: member function(extDir: !string): File
+    download: member function(): File
 }
