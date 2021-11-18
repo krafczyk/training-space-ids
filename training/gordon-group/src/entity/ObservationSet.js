@@ -23,12 +23,12 @@ function afterCreate(objs) {
     
   function createFiles(obj) {
       // AZURE DIRECTORY PATH HERE
-    var prePathToFiles = 'azure://' + obj.prePathToFiles + '/';
-    var name = 'mrg1_P3';
-    var pathToFiles = prePathToFiles + name;
+    //var prePathToFiles = 'azure://' + obj.prePathToFiles + '/';
+    //var name = 'mrg1_P3';
+    var pathToFiles = 'azure://' + obj.prePathToFiles + '/' + obj.name;
   
     var observationFiles = FileSystem.inst().listFiles(pathToFiles).files;
-      // Remove non-NetCDF files from list and filter correct versionTag
+    // Remove non-NetCDF files from list and filter correct versionTag
     for (var i = 0; i < observationFiles.length; i++) {
       var of = observationFiles[i];
       if (of.url.slice(-3) !== ".nc") {
