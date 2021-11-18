@@ -24,5 +24,5 @@ entity type HycomFMRC schema name "HC_FMRC" {
     expired: !boolean post default false
     //
     @py(env='hycom_1_0_0')
-    stageFMRCFiles: member function(subsetOptions: HycomSubsetOptions, downloadOptions: FMRCDownloadOptions): integer
+    stageFMRCFiles: member function(subsetOptions: HycomSubsetOptions, downloadOptions: HycomDownloadOptions): integer
 }
