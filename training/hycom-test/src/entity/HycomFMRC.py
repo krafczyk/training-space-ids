@@ -1,32 +1,9 @@
 """Python Methods  for HycomFMRC type"""
+from datetime import datetime,timedelta
 
 def stageFMRCFiles(this, subsetOptions, downloadOptions):
-    from datetime import datetime,timedelta
     """Stage subset and download options for a downloading current  FMRC data
     """
-    # # Generate a list of all possible times based on timeStride
-    # def gentimes():
-    #     t = subsetOptions.timeRange.start
-    #     while t <= subsetOptions.timeRange.end:
-    #         yield t
-    #         t += timedelta(hours=subsetOptions.timeStride)
-    
-    # times = list(gentimes())
-
-    # # Generate batches of timestamps to include in each file
-    # max_batch = len(times)
-    # if ( downloadOptions.maxTimesPerFile < 0 or
-    #     downloadOptions.maxTimesPerFile > max_batch):
-    #     batch_size = max_batch
-    # else:
-    #     batch_size = downloadOptions.maxTimesPerFile
-    
-    # def genbatches(l,n):
-    #     for i in range(0, len(l), n): 
-    #         yield l[i:i + n]
-
-    # batches = list(genbatches(times, batch_size))
-
     batches = c3.HycomUtil.getFileBatches(
         subsetOptions.timeRange.start,
         subsetOptions.timeRange.end,
@@ -61,15 +38,12 @@ def stageFMRCFiles(this, subsetOptions, downloadOptions):
                 'fmrc': this,
                 'name': name,
                 'subsetOptions': so,
-                'nSteps': downloadOptions.maxTimesPerFile
-
+                'downloadOptions': downloadOptions
             }
         )
         files.append(file)
 
-    files_merged = c3.FMRCFile.mergeBatch(files)
-
-    return files_merged
+    return c3.FMRCFile.mergeBatch(files)
 
     # # Note, the status is explicitly not merged here so that the post default will kick in if needed
     # # and already "downloaded" files don't get re-downloaded

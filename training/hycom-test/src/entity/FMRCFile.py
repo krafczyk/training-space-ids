@@ -17,7 +17,7 @@ def download(this):
     updated.threddsUrl = url
     updated.merge()
 
-    download_path = this.fmrc.downloadOptions.externalDir + '/fmrc/' + this.id
+    download_path = this.downloadOptions.externalDir + '/fmrc/' + this.id
 
     try:
         extPath = c3.HycomUtil.downloadToExternal(url, this.id, download_path)
