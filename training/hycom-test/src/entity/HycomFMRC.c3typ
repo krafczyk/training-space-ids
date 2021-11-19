@@ -12,7 +12,7 @@ entity type HycomFMRC schema name "HC_FMRC" {
     // The urlPath for subsequent data download
     urlPath: !string
     // The runDate of the forecast run
-    runDate: datetime
+    runDate: !datetime
     // The time coverage of this forecast run
     timeCoverage: !TimeRange
     // Collection of {@link FMRCFile}s associated with this archive.
