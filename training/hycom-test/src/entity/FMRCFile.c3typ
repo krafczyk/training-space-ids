@@ -6,24 +6,10 @@ entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
     //dataArchive: !FMRCDataArchive
     fmrc: !HycomFMRC
-    //  FRMC file name
-    //fileName: string post default 'id'
-    // Time coverage for this file
-    //timeCoverage: !TimeRange
-    // Time stride for this file
-    //timeStride: !int
-    // TimeStride units for this file
-    //timeStrideUOM: Unit post default "{id:'hour'}"
-    // the varaibles contained in this file    
-    //vars: !string
-    // The Subsetoptions used to download this file
+    // The {@link HycomSubsetoption}s used to download this file
     subsetOptions: !HycomSubsetOptions
-    //
+    // The {@link HycomDownloadOptions}
     downloadOptions: HycomDownloadOptions
-    // Number of timesteps in file
-    //nSteps: integer
-    //  FRMC file type
-    //fileType: !string enum('netcdf4','netcdf')
     // Status of the data download
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
     // the thredds url for this file

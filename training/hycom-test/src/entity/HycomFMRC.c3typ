@@ -3,6 +3,7 @@ HycomFMRC.c3typ
 A collection of Hycom Forcast Model Runs.  Each record is a single
 FMR from the Hycom website catalog.xml
 */
+@db(index=["runDate"])
 entity type HycomFMRC schema name "HC_FMRC" {
     // The name of the {@link HycomDataset} that this FMRC is based on
     dataset: !HycomDataset
@@ -10,12 +11,10 @@ entity type HycomFMRC schema name "HC_FMRC" {
     run: !string
     // The urlPath for subsequent data download
     urlPath: !string
+    // The runDate of the forecast run
+    runDate: !datetime
     // The time coverage of this forecast run
     timeCoverage: !TimeRange
-    // The {@link HycomSubsetOptions} options for this archive.
-    //subsetOptions: HycomSubsetOptions
-    //The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
-    //downloadOptions: HycomDownloadOptions
     // Collection of {@link FMRCFile}s associated with this archive.
     fmrcFiles: [FMRCFile](fmrc,id)
     // Storage footprint of the files for this FMRC
