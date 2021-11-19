@@ -17,7 +17,7 @@
       "pip.Babel": "==2.9.1",
       "pip.backcall": "==0.2.0",
       "pip.bleach": "==4.1.0",
-      "pip.casadi": "==3.5.5.post2",
+      "pip.casadi": "==3.5.5",
       "pip.certifi": "==2021.10.8",
       "pip.cffi": "==1.15.0",
       "pip.cftime": "==1.5.1",
