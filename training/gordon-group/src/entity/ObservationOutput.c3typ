@@ -18,6 +18,7 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     @ts(treatment='avg')
     altitude: double
     @ts(treatment='avg')
+<<<<<<< HEAD
     total_BC: double
     @ts(treatment='avg')
     temperature: double
@@ -43,4 +44,7 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     UHSASdNdlogd_bin1: double
      @ts(treatment='avg')
 
+=======
+    total_BC: double   
+>>>>>>> 0f8254fb8456b50d09ac49ae092943ed2ca9943b
 }
