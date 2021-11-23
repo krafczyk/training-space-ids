@@ -19,6 +19,28 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     altitude: double
     @ts(treatment='avg')
     total_BC: double
+    @ts(treatment='avg')
+    temperature: double
+    @ts(treatment='avg')
+    SSA_front: double
+    @ts(treatment='avg')
+    SSA_rear: double
+    @ts(treatment='avg')
+    scat530: double
+    @ts(treatment='avg')
+    NO3: double
+    @ts(treatment='avg')
+    total_SO4: double
+    @ts(treatment='avg')
+    total_ORG: double
+    @ts(treatment='avg')
+    CNgt10: double
+    @ts(treatment='avg')
+    total_Cl: double
+    @ts(treatment='avg')
+    UHSASdNdlogd_bin0: double
+    @ts(treatment='avg')
+    UHSASdNdlogd_bin1: double
+     @ts(treatment='avg')
 
-   
 }
