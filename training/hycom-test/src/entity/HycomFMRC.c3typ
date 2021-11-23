@@ -7,11 +7,11 @@ FMR from the Hycom website catalog.xml
 entity type HycomFMRC schema name "HC_FMRC" {
     // The name of the {@link HycomDataset} that this FMRC is based on
     dataset: !HycomDataset
-    // Run Id indicating the date of the forecast run
+    // The Hycom runId indicating the date of the forecast run
     run: !string
     // The urlPath for subsequent data download
     urlPath: !string
-    // The runDate of the forecast run
+    // The date of the forecast run
     runDate: !datetime
     // The time coverage of this forecast run
     timeCoverage: !TimeRange
@@ -21,7 +21,16 @@ entity type HycomFMRC schema name "HC_FMRC" {
     fmrcArchiveSize: long integer stored calc 'sum(fmrcFiles.file.contentLength)'
     // Whether data are still available in hycom catalog
     expired: !boolean post default false
-    //
+    /**
+    * 
+    * Create {@link FMRCFile} records for this FMRC.  These records are subsequently used by {@link FMRCFile#download} 
+    * to download the data.
+    *
+    * @param subsetOptions
+    *     The {@link HycomSubsetOptions} to use when creating the {@link FMRCFile}s.
+    * @param downloadOptions
+    *     The {@link HycomDownloadOptions} to use when creating the {@link FMRCFile}s.
+    */
     @py(env='hycom_1_0_0')
     stageFMRCFiles: member function(subsetOptions: HycomSubsetOptions, downloadOptions: HycomDownloadOptions): ObjList
 }

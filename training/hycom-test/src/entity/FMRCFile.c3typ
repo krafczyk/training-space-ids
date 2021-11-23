@@ -4,7 +4,6 @@ Files comprising a {@link FMRCDataArchive}.
 */
 entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
-    //dataArchive: !FMRCDataArchive
     fmrc: !HycomFMRC
     // The {@link HycomSubsetoption}s used to download this file
     subsetOptions: !HycomSubsetOptions
