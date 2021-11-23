@@ -18,13 +18,27 @@ entity type HindcastFile schema name "HNDCST_FL" {
     //vars: !string
     //  FRMC file type
     //fileType: !string enum('netcdf4','netcdf')
+    //
+    start: !datetime
+    //
+    end: !datetime
     // Status of the data download
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
+    // Whether the file has bee processed
+    processed: boolean post default "false"
+    // Number of time steps processed
+    stepsProcessed: int post default "0"
+    // the thredds url for this file
+    threddsUrl: string
     // The {@link File} object for this file
     file: File
     // Download a file from the Hycom server and save to the C3 file system
     //@dependency(include = "this,hindcast.subsetOptions,hindcast.urlPath")
     @py(env=hycom_1_0_0)
-    @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions")
+    @dependency(include="this,hindcastArchive,hindcastArchive.hindcast,hindcastArchive.hindcast.urlPath,hindcastArchive.downloadOptions,hindcastArchive.SubsetOptions")
     download: member function(): File
+    // Process a File to extract and upsert data
+    @py(env=hycom_1_0_0)
+    @dependency(include="this")
+    process: member function(chunkSize: int = 23400, maxConcurrency: int = 8): int
 }
