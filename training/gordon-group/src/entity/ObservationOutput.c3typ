@@ -41,6 +41,5 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     UHSASdNdlogd_bin0: double
     @ts(treatment='avg')
     UHSASdNdlogd_bin1: double
-     @ts(treatment='avg')
 
 }
