@@ -1,40 +1,70 @@
 def upsertORACLESData(this):
     """
-    Function to Open files in the ObservationFile table and then populate ObservationOutput data.
+    Function to Open files in the ObservationOutputFile table and then populate ObservationOutput data.
     
     - Arguments:
-        -this: an instance of SimulationOutputFile
+        -this: an instance of ObservationOutputFile
 
     - Returns:
         -bool: True if file was processed, false if file has already been processed
     """
-    from datetime import datetime, timedelta
+    from datetime import datetime
     import pandas as pd
 
-    # open file
-    sample = c3.NetCDFUtil.openFile(this.file.url)
+    class ObsVars:
+        nc_variables = ['time', 'Longitude', 'Latitude', 'GPS_Altitude', 
+                        'rBC_massConc', 'Static_Air_Temp', 'Lambda_Avg_SSA_Front',
+                        'Lambda_Avg_SSA_Rear', 'TSI_Scat530', 'NO3', 'SO4', 'ORG',
+                        'CNgt10', 'Chl', 'UHSASdNdlogd']
     
-    # cast it to dataframe
-    df = pd.DataFrame()
-    df['time'] = sample.variables['time'][:]
-    df['time'] = pd.to_datetime(df['time'],unit='s')
-    df['longitude'] = sample.variables['Longitude'][:]
-    df['latitude'] = sample.variables['Latitude'][:]
-    df['altitude'] = sample.variables['GPS_Altitude'][:]
-    df['total_BC'] = sample.variables['rBC_massConc'][:]
-    
-    # a little gymnastic to get Datetime objs
-    #zero_time = datetime(1970,1,1,0,0)
-    #transformed_times = []
-    #for time in df['time']:
-    #    target_time = zero_time + timedelta(hours=time)
-    #    transformed_times.append(target_time)
-    #df['start'] = transformed_times
-    #df.drop(columns=['time'], inplace=True)
+        variables_map = {'time':'start', 
+                'Longitude':'longitude', 
+                'Latitude':'latitude', 
+                'GPS_Altitude':'altitude',
+                'rBC_massConc':'total_BC', 
+                'Static_Air_Temp':'temperature', 
+               'Lambda_Avg_SSA_Front':'SSA_front', 
+                'Lambda_Avg_SSA_Rear':'SSA_rear', 
+                'TSI_Scat530':'scat530', 
+                'NO3':'NO3', 
+                'SO4':'total_SO4', 
+                'ORG':'total_ORG', 
+                'CNgt10':'CNgt10', 
+                'Chl':'total_Cl', 
+                'UHSASdNdlogd':'UHSASdNdlogd'}
 
-    parent_id = "ORACLES_Day_" + this.flight.id
+        def get_df_from_c3_file(c3file):
+            """
+            Opens file, grab variables in the variables_map and returns pandas DataFrame
+            """
+            source = c3.NetCDFUtil.openFile(c3file.file.url)
+            df = pd.DataFrame()
+    
+            for nc_var in ObsVars.nc_variables:
+                c3_var = ObsVars.variables_map[nc_var]
+                if nc_var == 'time':
+                    df[c3_var] = source.variables[nc_var][:]
+                    df[c3_var] = pd.to_datetime(df[c3_var],unit='s')
+                elif nc_var == 'UHSASdNdlogd':
+                    for i in range(0,1):
+                        name = c3_var + "_bin" + str(i)
+                        try:
+                            df[name] = source.variables[nc_var][:,i]
+                        except:
+                            pass
+                else:
+                    try:
+                        df[c3_var] = source.variables[nc_var][:]
+                    except:
+                        pass
+            return df
+
+    df = ObsVars.get_df_from_c3_file(this)
+    obsSet = c3.ObservationSet.get(this.observationSet.id)
+    parent_id = "OOS_SetName_" + obsSet.name + "_Ver_" + obsSet.versionTag
     df['parent'] = parent_id
 
+    zero_time = datetime(1970,1,1,0,0)
     now_time = datetime.now()
     diff_time = (now_time - zero_time)
     versionTag= -1 * diff_time.total_seconds()
