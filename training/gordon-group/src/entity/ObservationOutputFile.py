@@ -11,32 +11,11 @@ def upsertORACLESData(this):
     from datetime import datetime
     import pandas as pd
 
-    # open file
-#    sample = c3.NetCDFUtil.openFile(this.file.url)
-#    
-#    # cast it to dataframe
-#    df = pd.DataFrame()
-#    df['start'] = sample.variables['time'][:]
-#    df['start'] = pd.to_datetime(df['start'],unit='s')
-#    df['longitude'] = sample.variables['Longitude'][:]
-#    df['latitude'] = sample.variables['Latitude'][:]
-#    df['altitude'] = sample.variables['GPS_Altitude'][:]
-#    df['total_BC'] = sample.variables['rBC_massConc'][:]
-#    df['temperature'] = sample.variables['Static_Air_Temp'][:]
-#    df['SSA_front'] = sample.variables['Lambda_Avg_SSA_Front'][:]
-#    df['SSA_rear'] = sample.variables['Lambda_Avg_SSA_Rear'][:]
-#    df['scat530'] = sample.variables['TSI_Scat530'][:]
-#    df['NO3'] = sample.variables['NO3'][:]
-#    df['total_SO4'] = sample.variables['SO4'][:]
-#    df['total_ORG'] = sample.variables['ORG'][:]
-#    df['CNgt10'] = sample.variables['CNgt10'][:]
-#    df['total_Cl'] = sample.variables['Chl'][:]
-#    for i in range(0,1):
-#        df['UHSASdNdlogd_bin'+str(i)] = sample.variables['UHSASdNdlogd'[:,i]
-
     class ObsVars:
         nc_variables = ['time', 'Longitude', 'Latitude', 'GPS_Altitude', 
-                        'rBC_massConc', 'Static_Air_Temp', 'Lambda_Avg_SSA_Front', 'Lambda_Avg_SSA_Rear', 'TSI_Scat530', 'NO3', 'SO4', 'ORG', 'CNgt10', 'Chl', 'UHSASdNdlogd']
+                        'rBC_massConc', 'Static_Air_Temp', 'Lambda_Avg_SSA_Front',
+                        'Lambda_Avg_SSA_Rear', 'TSI_Scat530', 'NO3', 'SO4', 'ORG',
+                        'CNgt10', 'Chl', 'UHSASdNdlogd']
     
         variables_map = {'time':'start', 
                 'Longitude':'longitude', 
