@@ -12,9 +12,10 @@ on:
 # c3repo and package names. 
 ########################################################################
 env:
-  DTI_PROVISIONER_VERSION: v1.44
+  DTI_PROVISIONER_VERSION: main
   TAG: 'tc01'
   TENANT: 'dti-jupyter'
+  DOMAIN: 'c3dti.ai'
   PACKAGE: 'dti-jupyter'
   C3REPO: 'training'
 ########################################################################
@@ -57,21 +58,22 @@ jobs:
         with:
           tenant: ${{ env.TENANT }}
           tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
           package: ${{ env.PACKAGE }}
           c3repo: ${{ env.C3REPO }}
           
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    needs: provision
-    steps:
-      - name: Check out dti-provisioner
-        uses: actions/checkout@v2
-        with:
-          repository: c3aidti/dti-provisioner
-          ref: ${{ env.DTI_PROVISIONER_VERSION }}
-          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
-          path: dti-provisioner
+#   test:
+#     name: Test
+#     runs-on: ubuntu-latest
+#     needs: provision
+#     steps:
+#       - name: Check out dti-provisioner
+#         uses: actions/checkout@v2
+#         with:
+#           repository: c3aidti/dti-provisioner
+#           ref: ${{ env.DTI_PROVISIONER_VERSION }}
+#           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+#           path: dti-provisioner
           
       - name: Get key
         uses: ./dti-provisioner
@@ -80,34 +82,35 @@ jobs:
         with:
           tenant: ${{ env.TENANT }}
           tag: ${{ env.TAG }}
+          domain: ${{ env.DOMAIN }}
           package: ${{ env.PACKAGE }}
           c3repo: ${{ env.C3REPO }}
           do_provision: 'no' 
           
-      - name: Check out c3python
-        uses: actions/checkout@v2
-        with:
-          repository: c3aidti/c3python
-          token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
-          path: c3python
+#       - name: Check out c3python
+#         uses: actions/checkout@v2
+#         with:
+#           repository: c3aidti/c3python
+#           token: ${{ secrets.DTI_DEVOPS_TOKEN }} # stored in GitHub secrets
+#           path: c3python
           
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest
-          pip install ./c3python
+#       - name: Set up Python ${{ env.PYTHON_VERSION }}
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: ${{ env.PYTHON_VERSION }}
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install pytest
+#           pip install ./c3python
           
-      - name: Checkout this repo
-        uses: actions/checkout@v2
+#       - name: Checkout this repo
+#         uses: actions/checkout@v2
           
-      - name: Run Python tests
-        env:
-          URL: "https://${{ env.TAG }}-${{ env.TENANT }}.c3dti.ai"
-          TENANT: ${{ env.TENANT }}
-          TAG: ${{ env.TAG }}
-        run: |
-          pytest -v
+#       - name: Run Python tests
+#         env:
+#           URL: "https://${{ env.TAG }}-${{ env.TENANT }}.c3dti.ai"
+#           TENANT: ${{ env.TENANT }}
+#           TAG: ${{ env.TAG }}
+#         run: |
+#           pytest -v

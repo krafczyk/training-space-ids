@@ -9,8 +9,8 @@
     var batch = []
 
     var dataset = FMRCFile.fetchObjStream({
-        include: '[this, dataArchive.fmrc,dataArchive.fmrc.expired,dataArchive.downloadOptions]',
-        filter: "status != 'downloaded' && dataArchive.fmrc.expired=='false'",
+        include: '[this, fmrc.expired,fmrc.urlPath]',
+        filter: "status != 'downloaded' && fmrc.expired=='false'",
         limit: options.limit,
     });
     while(dataset.hasNext()) {
@@ -24,4 +24,17 @@
             batch = [];
         }
     }
+}
+/**
+ * 
+ * @param {FMRCDownloadJobBatch} batch 
+ * @param {FMRCDownloadJob} job 
+ * @param {FMRCDownloadJobOptions} options 
+ */
+function processBatch(batch, job, options){
+
+    batch.values.forEach(function(file) {
+        file.download()
+    });
+
 }

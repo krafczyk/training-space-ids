@@ -4,7 +4,7 @@
 #
 ##########################################################################
 
-name: automerge_tc01d-to-develop
+name: automerge
 on:
   pull_request:
     types:
@@ -49,4 +49,4 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
           MERGE_METHOD: "merge"
           MERGE_REQUIRED_APPROVALS: "1"
-          MERGE_DELETE_BRANCH: true
+          MERGE_DELETE_BRANCH: false

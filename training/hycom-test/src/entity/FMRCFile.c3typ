@@ -1,31 +1,22 @@
 /**
 FRMCFile.c3typ
-Files comprising a {@link FMRCDataArchive}.
+Files comprising a {@link HycomFMRC} archive.
 */
 entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
-    dataArchive: !FMRCDataArchive
-    //  FRMC file name
-    fileName: string post default 'id'
-    // Time coverage for this file
-    timeCoverage: !TimeRange
-    // Time stride for this file
-    timeStride: !int
-    // TimeStride units for this file
-    timeStrideUOM: Unit post default "{id:'hour'}"
-    // Geospatial coverage for this file
-    geospatialCoverage: !GeospatialCoverage
-    // Geospatial resolution for this file
-    geospatialResolution: GeospatialResolution post default 'dataArchive.fmrc.dataset.geospatialResolution'
-    // the varaibles contained in this file    
-    vars: !string
-    //  FRMC file type
-    fileType: !string enum('netcdf4','netcdf')
+    fmrc: !HycomFMRC
+    // The {@link HycomSubsetoption}s used to download this file
+    subsetOptions: !HycomSubsetOptions
+    // The {@link HycomDownloadOptions}
+    downloadOptions: HycomDownloadOptions
     // Status of the data download
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
+    // The thredds url used to download this file.
+    threddsUrl: string
     // The {@link File} object for this file
     file: File
     // Download a file from the Hycom server and save to the C3 file system
+    @dependency(include = "this,fmrc.subsetOptions,fmrc.urlPath")
     @py(env=hycom_1_0_0)
-    download: member function(extDir: !string): File
+    download: member function(): File
 }
