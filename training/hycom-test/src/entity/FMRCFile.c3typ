@@ -1,6 +1,6 @@
 /**
 FRMCFile.c3typ
-Files comprising a {@link FMRCDataArchive}.
+Files comprising a {@link HycomFMRC} archive.
 */
 entity type FMRCFile schema name "FRMC_FL" {
     // The {@link HycomFRMC} that these files belong to.
