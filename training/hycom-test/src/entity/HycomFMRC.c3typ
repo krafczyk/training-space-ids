@@ -1,7 +1,7 @@
 /**
 HycomFMRC.c3typ
 A collection of Hycom Forcast Model Runs.  Each record is a single
-FMR from the Hycom website catalog.xml
+FMRC from the Hycom website catalog.xml
 */
 @db(index=["runDate"])
 entity type HycomFMRC schema name "HC_FMRC" {
