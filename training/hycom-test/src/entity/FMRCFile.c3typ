@@ -11,7 +11,7 @@ entity type FMRCFile schema name "FRMC_FL" {
     downloadOptions: HycomDownloadOptions
     // Status of the data download
     status: string enum('downloaded','not_downloaded','downloading','error') post default '"not_downloaded"'
-    // the thredds url for this file
+    // The thredds url used to download this file.
     threddsUrl: string
     // The {@link File} object for this file
     file: File
