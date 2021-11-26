@@ -1,5 +1,10 @@
 on:
   workflow_call:
+  ########################################################################        
+  # Settings for this workflow:
+  # Use the following settings to match target C3 tag and local 
+  # c3repo and package names. 
+  ########################################################################
     inputs:
       tenant:
         description: 'Target C3 Tenant'     
@@ -36,22 +41,6 @@ on:
       gpg:
         required: true
 
-########################################################################        
-# Settings for this workflow:
-# Modify the following settings to match target C3 tag and local 
-# c3repo and package names. 
-########################################################################
-# env:
-#   DTI_PROVISIONER_VERSION: main
-#   TAG: ${{ github.event.inputs.tag }}
-#   TENANT: ${{ github.event.inputs.tenant }}
-#   DOMAIN: ${{ github.event.inputs.domain }}
-#   C3REPO: ${{ github.event.inputs.c3repo }}
-#   PACKAGE: ${{ github.event.inputs.package }}
-########################################################################
-# You should not need to edit below here, unless altering the workflow
-########################################################################
-
 jobs:
   # Gate to check for changed files within the c3repo
   c3changes:
@@ -67,7 +56,6 @@ jobs:
         filters: |
           c3repo:
             - "${{ inputs.c3repo }}/**"
-#            - 'c3training/**'
   provision:
     name: Provision to ${{ inputs.tag }}
     needs: c3changes
