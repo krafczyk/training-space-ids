@@ -1,8 +1,13 @@
 /**
 */
+@db(index=["i,j"])
 entity type SurfaceHindcastDataSeries mixes TimedDataHeader<SurfaceHindcastData> schema name 'SRFC_HNDCST_DT_SRS' {
     //
     latLongPair: !HycomLatLongPair
+    //
+    i: !integer stored calc 'latLongPair.i'
+    //
+    j: !integer stored calc 'latLongPair.j'
     //
     grain: ~ post default 'HOUR'
 }
