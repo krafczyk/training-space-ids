@@ -28,6 +28,8 @@ type HycomSubsetOptions  {
     horizStride: int = 1
     // Vertical stride for the subset.
     vertStride: int = 1
+    //
+    vertCoord: int = -1
     // Whether to include lat lon data
     addLatLon: string enum('true', 'false') = 'false'
     // file format
