@@ -19,7 +19,7 @@ jobs:
           echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
       - name: Create sync Matrix
         id: set-matrix     
-        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"tc01d\"}]}"
+        run: echo "::set-output name=matrix::{\"include\":[{\"syncto\":\"tc01d\"},{\"syncto\":\"tc02d\"},{\"syncto\":\"tc03d\"},{\"syncto\":\"tc04d\"},{\"syncto\":\"tc05d\"}]}"
 
   create_develop_to_devs_prs:
     needs: createSyncMatrix
