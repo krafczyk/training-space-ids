@@ -1,0 +1,11 @@
+[
+{
+    "type": "SimpleMetric",
+    "name": "TestAverageWaterU",
+    "expression": "avg(avg(normalized.data.water_u))",
+    "description": "Calculates average surface X-velocity for the given interval",
+    "id": "TestAverageWaterU_HycomLatLongPair",
+    "srcType": {"type": "TypeRef", "typeName": "HycomLatLongPair"},
+    "path": "surfaceHindcastData"
+}
+]
