@@ -1,0 +1,7 @@
+{
+    "id": "StressTestProfile" ,
+    "name": "StressTestProfile",
+    "cpuCount": 1,
+    "memoryMb": 10240,
+    "diskGb": 512
+}
