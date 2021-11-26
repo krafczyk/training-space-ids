@@ -1,13 +1,13 @@
 /**
  * UpsertData.js
  * Implementation of UpsertData.c3typ
- * @param {UpsertData} job
+ * @param {UpsertObsData} job
  * @param {UpsertDataOptions} options
  */
-function doStart(job, options) {
+ function doStart(job, options) {
     var batch = [];
 
-    var dataset = SimulationOutputFile.fetchObjStream({
+    var dataset = ObservationOutputFile.fetchObjStream({
 //        filter: 'processed == false',
         limit: -1
     });
@@ -16,7 +16,7 @@ function doStart(job, options) {
         batch.push(dataset.next());
 
         if (dataset.length >= options.batchSize || !dataset.hasNext()) {
-            var batchSpec = UpsertDataBatch.make({values: batch});
+            var batchSpec = UpsertObsDataBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
             batch = [];
@@ -27,12 +27,12 @@ function doStart(job, options) {
 
 
 /**
- * @param {UpsertDataBatch} batch
- * @param {UpsertData} job
+ * @param {UpsertObsDataBatch} batch
+ * @param {UpsertObsData} job
  * @param {UpsertDataOptions} options
  */
 function processBatch(batch, job, options) {
     batch.values.forEach(function(file) {
-        file.upsertData();
+        file.upsertORACLESData();
     });
 }
