@@ -1,0 +1,8 @@
+/**
+* ObservationOutputSeries.c3typ
+* A series of observations 
+*/
+entity type ObservationOutputSeries mixes TimedDataHeader<ObservationOutput> schema name "OBS_TPT_SRS" {
+    // The [ObservationSet](type:ObservationSet) from which values were taken.
+    observationSet: ObservationSet
+}
