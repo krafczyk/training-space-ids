@@ -22,13 +22,11 @@ function afterCreate(objs) {
   }
     
   function createFiles(obj) {
-      // AZURE DIRECTORY PATH HERE
-    var prePathToFiles = 'azure://' + obj.prePathToFiles + '/';
-    var name = 'mrg1_P3';
-    var pathToFiles = prePathToFiles + name;
+    // AZURE DIRECTORY PATH HERE
+    var pathToFiles = 'azure://' + obj.prePathToFiles + '/' + obj.name;
   
     var observationFiles = FileSystem.inst().listFiles(pathToFiles).files;
-      // Remove non-NetCDF files from list and filter correct versionTag
+    // Remove non-NetCDF files from list and filter correct versionTag
     for (var i = 0; i < observationFiles.length; i++) {
       var of = observationFiles[i];
       if (of.url.slice(-3) !== ".nc") {
@@ -62,10 +60,10 @@ function afterCreate(objs) {
   
   
 /**
-* Function to upsert SimulationModelOutput with data from all SimulationOutputFiles
+* Function to upsert ObservationOutput with data from all ObservaitonOutputFiles
 * corresponding to this Simulation Sample
 * @param this, outputFiles
-*  List of SimulationOutputFiles corresponding to this SimulationSample. 
+*  List of ObservationOutputFiles corresponding to this ObservationSet. 
 *
 * @return Number of files that were processed
 */
