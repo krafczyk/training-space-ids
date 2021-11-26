@@ -1,0 +1,14 @@
+/**
+HycomProcessOptions.c3typ
+Options for {@link HindcastProcessJob}s and {@link FMRCProcessJob}s.
+*/
+type HycomProcessJobOptions {
+    // Number of {@link HindcastFile}s to process per batch.
+    batchSize: int = 1
+    // Limit on total # of files in the job.
+    limit: int = -1
+    //
+    chunkSize: int = 23400
+    //
+    maxConcurrency: int = 8
+}
