@@ -1,0 +1,32 @@
+{
+    "id" : "download-fmrc-cron",
+    "name" : "download-fmrc-cron",
+    "description" : "update HycomFMRCs and download files",
+    "action" : {
+      "typeName" : "HycomDataset",
+      "actionName" : "updateFMRCData",
+    },
+    "inputs": {
+        "this": c3.HycomDataset.get("GOMu0.04/expt_90.1m000"),
+        "subsetOptions": c3.HycomSubsetOptions.make({
+            "vars": "water_u,water_v",
+            "disableLLSubset": "on",
+            "vertCoord": 4
+        }),
+        "downloadOptions": c3.HycomDownloadOptions.make({
+            "externalDir": "hycom-data",
+            "maxTimesPerFile": -1
+        }),
+        "fmrcDownloadJobOptions": c3.FMRCDownloadJobOptions.make({
+            "batchSize": 5,
+            "limit": -1
+        })
+    },
+    "concurrent": false,
+    "inactive": false,
+    "scheduleDef" : {
+      "startTime": null,
+      "endTime": null,
+      "cronExpression" : "0 0 4,12 * * ?"
+    }
+  }
