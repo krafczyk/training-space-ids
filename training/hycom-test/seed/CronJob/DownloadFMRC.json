@@ -7,20 +7,26 @@
       "actionName" : "updateFMRCData",
     },
     "inputs": {
-        "this": c3.HycomDataset.get("GOMu0.04/expt_90.1m000"),
-        "subsetOptions": c3.HycomSubsetOptions.make({
+        "this": {
+            "type": "HycomDataset",
+            "id": "GOMu0.04/expt_90.1m000"
+        },
+        "subsetOptions": {
+            "type": "HycomSubsetOptions",
             "vars": "water_u,water_v",
             "disableLLSubset": "on",
             "vertCoord": 4
-        }),
-        "downloadOptions": c3.HycomDownloadOptions.make({
+        },
+        "downloadOptions": {
+            "type": "HycomDownloadOptions",
             "externalDir": "hycom-data",
             "maxTimesPerFile": -1
-        }),
-        "fmrcDownloadJobOptions": c3.FMRCDownloadJobOptions.make({
+        },
+        "fmrcDownloadJobOptions": {
+            "type": "FMRCDownloadJobOptions",
             "batchSize": 5,
             "limit": -1
-        })
+        }
     },
     "concurrent": false,
     "inactive": false,
