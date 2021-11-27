@@ -9,7 +9,7 @@
     var batch = []
 
     var dataset = FMRCFile.fetchObjStream({
-        include: '[this, fmrc.expired,fmrc.downloadOptions,fmrc.subsetOptions,fmrc.urlPath,fmrc.timeCoverage]',
+        include: '[this, fmrc.expired,fmrc.urlPath]',
         filter: "status != 'downloaded' && fmrc.expired=='false'",
         limit: options.limit,
     });
@@ -34,7 +34,7 @@
 function processBatch(batch, job, options){
 
     batch.values.forEach(function(file) {
-        file.download(file.fmrc.downloadOptions.externalDir)
+        file.download()
     });
 
 }

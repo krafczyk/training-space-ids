@@ -69,11 +69,14 @@ def process(this,chunkSize=23400,maxConcurrency=8):
             t += timedelta(hours=stride)
     
     times = list(gentimes(this.start,this.end,this.subsetOptions.timeStride))
+
+    # Need to verify that the file contains the requested times
+    
     #print (f"Processing {len(times)} timeSteps:")
     #t1 = [times[24]]
 
     # Loop over timesteps
-    # Use a generator to instatiate types in batches
+    # Use a generator to instantiate types in batches
     actions = []
     it = 0
     def idx(i,j):

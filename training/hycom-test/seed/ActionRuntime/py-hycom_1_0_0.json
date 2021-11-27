@@ -11,6 +11,7 @@
       "conda.pandas": "=1.1.5",
       "conda.jax": "=0.2.22",
       "conda.ffmpeg": "=4.2.2",
+      "conda.cartopy": "=0.18.0",
       "conda.python-dateutil": "=2.8.2",
       "pip.xmltodict": ""
     },

@@ -1,6 +1,0 @@
-{
-    "c3.rootPackage": "dti-jupyter",
-    "c3.connection.vanityUrl": "https://tc01d-dev.c3dti.ai",
-    "c3.connection.tenantTag": "dev/tc01d",
-    "c3.connection.userName": "dadams@illinois.edu"
-}

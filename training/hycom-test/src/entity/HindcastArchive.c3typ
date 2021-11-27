@@ -20,15 +20,19 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     files: [HindcastFile](hindcastArchive,id)
     // Calculated storage size for this archive
     archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
-    //
+    // The number of files that have been staged for download for this archive
     stagedFileCount: long integer stored calc 'count(files)' post default 0
-    //
+    // The number of staged files that have been downloaded for this archive
     downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
-    //
+    /**
+    Stage Files for download to this archive based on the subsetOptions using rules defines in the
+    downloadOptions.
+    */
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
-    // Update the timeRang of the subset options for this archive
+    // Update the timeRange of the subset options for this archive.  Note that the new timeRange
+    // must intersect the original timeRange of the subset options.
     //update: member function(timeRange: !TimeRange): js server
     @dependency(include="this,hindcast.name")
     afterCreate: ~ js server
