@@ -4,7 +4,7 @@
     "description" : "update HycomFMRCs and download files",
     "action" : {
       "typeName" : "HycomDataset",
-      "actionName" : "updateFMRCData",
+      "actionName" : "updateFMRCData"
     },
     "inputs": {
         "this": {
