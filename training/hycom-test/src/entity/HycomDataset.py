@@ -73,8 +73,8 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
             t += timedelta(hours=stride)
 
     for fmrc in valid_fmrcs:
-        so = hycomSubsetOptions
-        do = hycomDownloadOptions
+        so = c3.HycomSubsetOptions(**hycomSubsetOptions.toJson())
+        do = c3.HycomDownloadOptions(**hycomDownloadOptions.toJson())
         so.timeRange = c3.TimeRange(
             **{
                 'start': fmrc.timeCoverage.start,
