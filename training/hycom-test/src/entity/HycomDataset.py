@@ -43,7 +43,7 @@ def upsertFMRCs(this):
         c3.HycomFMRC.mergeBatch(updates)
     return frmcs
 
-def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJobOptions):
+def updateFMRCData(hycomDatasetId, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJobOptions):
     """Update FMRC data
         - update FMRCs from Catalog
         For each FMRC:
@@ -59,6 +59,8 @@ def updateFMRCData(this, hycomSubsetOptions, hycomDownloadOptions, fmrcDownloadJ
         [Returns]
         c3.BatchJob
     """
+    # Made a static function to pass id in so it will work better as a CronJob
+    this = c3.HycomDataset.get(hycomDatasetId)
     
     # Update FMRCs from catalog
     this.upsertFMRCs()

@@ -7,10 +7,7 @@
       "actionName" : "updateFMRCData"
     },
     "inputs": {
-        "this": {
-            "type": "HycomDataset",
-            "id": "GOMu0.04/expt_90.1m000"
-        },
+        "hycomDatasetId": "GOMu0.04/expt_90.1m000",
         "hycomSubsetOptions": {
             "type": "HycomSubsetOptions",
             "vars": "water_u,water_v",
