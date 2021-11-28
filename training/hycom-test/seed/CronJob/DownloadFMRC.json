@@ -11,13 +11,13 @@
             "type": "HycomDataset",
             "id": "GOMu0.04/expt_90.1m000"
         },
-        "subsetOptions": {
+        "hycomSubsetOptions": {
             "type": "HycomSubsetOptions",
             "vars": "water_u,water_v",
             "disableLLSubset": "on",
             "vertCoord": 4
         },
-        "downloadOptions": {
+        "hycomDownloadOptions": {
             "type": "HycomDownloadOptions",
             "externalDir": "hycom-data",
             "maxTimesPerFile": -1
