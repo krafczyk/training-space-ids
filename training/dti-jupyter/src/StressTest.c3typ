@@ -1,6 +1,6 @@
 /**
  * StressTest.c3typ
- 
+ *     Testing type to deploy c3 workflows
  */
 type StressTest {
  // compute_pi CPU stress test
