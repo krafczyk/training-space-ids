@@ -50,6 +50,7 @@ jobs:
       c3repo: ${{ steps.filter.outputs.c3repo }}
     steps:
       - run: echo "Event name " ${{ github.event_name }}
+      - run: echo "Ref name " $GITHUB_REF_NAME
       - name: Checkout this repo
         # For pull requests it's not necessary to checkout the code
         if: ${{ github.event_name != 'pull_request' }}
@@ -58,6 +59,7 @@ jobs:
         id: filter
         with:
           filters: |
+            base: $GITHUB_REF_NAME
             c3repo:
               - "${{ inputs.c3repo }}/**"
   provision:
