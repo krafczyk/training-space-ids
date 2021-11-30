@@ -1,3 +1,5 @@
+Seed data for fmrc download cronjob, needs to be added via console to prevent distribution to multiple tags
+'''json
 {
     "id" : "download-fmrc-cron",
     "name" : "download-fmrc-cron",
@@ -33,3 +35,4 @@
       "cronExpression" : "0 0 4,12 * * ?"
     }
   }
+  '''
