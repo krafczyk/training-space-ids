@@ -1,4 +1,5 @@
 from urllib.parse import urlencode,urljoin
+from datetime import timedelta
 
 def downloadToLocal(srcUrl, fileName, localDir="/tmp"):
     """
@@ -72,11 +73,14 @@ def createThreddsUrl(urlPath, subsetOptions):
         'disableProjSubset': subsetOptions.disableProjSubset,
         'horizStride': subsetOptions.horizStride,
         'timeStride': subsetOptions.timeStride,
-        'vertStride': subsetOptions.vertStride,
         'addLatLon': subsetOptions.addLatLon,
         'accept': subsetOptions.accept
         }
-    
+    if subsetOptions.vertCoord == -1:
+        options['vertStride'] = subsetOptions.vertStride
+    else:
+        options['vertCoord'] = subsetOptions.vertCoord
+
     # Handle time coverage separately
     time_start = subsetOptions.timeRange.start
     time_end = subsetOptions.timeRange.end
@@ -103,3 +107,26 @@ def createThreddsUrl(urlPath, subsetOptions):
     url = baseurl + '?' + url1 + '&' + url2
     
     return url
+
+def getFileBatches(start, end, stride, timesPerFile):
+        def gentimes():
+            t = start
+            while t <= end:
+                yield t
+                t += timedelta(hours=stride)
+
+        times = list(gentimes())
+
+        # Generate batches of timestamps to include in each file
+        max_batch = len(times)
+        if ( timesPerFile < 0 or
+            timesPerFile > max_batch):
+            batch_size = max_batch
+        else:
+            batch_size = timesPerFile
+
+        def genbatches(l,n):
+            for i in range(0, len(l), n): 
+                yield l[i:i + n]
+
+        return list(genbatches(times, batch_size))
