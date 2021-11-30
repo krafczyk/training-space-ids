@@ -3,7 +3,9 @@ HycomUtil
 Utility functions for Hycom Package
 */
 type HycomUtil {
-    // Download a file to a local directory
+    /**
+    * Download a file to a local directory
+    */
     @py(env='hycom_1_0_0')
     downloadToLocal: inline function(srcUrl: !string, fileName: !string, localDir: !string): string
     /**
