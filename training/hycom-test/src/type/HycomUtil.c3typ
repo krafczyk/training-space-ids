@@ -13,7 +13,9 @@ type HycomUtil {
     @py(env='hycom_1_0_0')
     nc_open: inline function(url: !string, local_path: string = '/tmp'): any
     @py(env='hycom_1_0_0')
-    // Close netCDF obk\ject and remove local copy
+    /**
+    * Close netCDF object and remove local copy
+    */
     nc_close: inline function(ds: !any, url: !string, local_path: string = '/tmp'): integer
     /** 
     * Generate the URL used to query the Thredds server
