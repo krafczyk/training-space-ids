@@ -49,7 +49,10 @@ jobs:
     outputs:
       c3repo: ${{ steps.filter.outputs.c3repo }}
     steps:
-    # For pull requests it's not necessary to checkout the code
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      # For pull requests it's not necessary to checkout the code
+      if: ${{ github.event_name }} != 'pull_request'
     - uses: dorny/paths-filter@v2
       id: filter
       with:
