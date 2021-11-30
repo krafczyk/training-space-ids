@@ -20,7 +20,9 @@ type HycomUtil {
     */
     @py(env='hycom_1_0_0')
     createThreddsUrl: inline function(urlPath: !string, subsetOptions: !HycomSubsetOptions): string
-    // Generate batches of timestamps to include in each file
+    /**
+    * Generate batches of timestamps to include in each file
+    */
     @py(env='hycom_1_0_0')
     getFileBatches: inline function(start: datetime, end: datetime, stride: integer, timesPerFile: integer): any
 }
