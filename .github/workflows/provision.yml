@@ -49,17 +49,17 @@ jobs:
     outputs:
       c3repo: ${{ steps.filter.outputs.c3repo }}
     steps:
-    - run: echo "Event name: "${{ github.event_name }}
-    - name: Checkout this repo
-      # For pull requests it's not necessary to checkout the code
-      if: ${{ github.event_name }} != 'pull_request'
-      uses: actions/checkout@v2
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          c3repo:
-            - "${{ inputs.c3repo }}/**"
+      - run: echo "Event name " ${{ github.event_name }}
+      - name: Checkout this repo
+        # For pull requests it's not necessary to checkout the code
+        if: ${{ github.event_name }} != 'pull_request'
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            c3repo:
+              - "${{ inputs.c3repo }}/**"
   provision:
     name: Provision to ${{ inputs.tag }}
     needs: c3changes
