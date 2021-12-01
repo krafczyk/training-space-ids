@@ -20,6 +20,7 @@ jobs:
     with:
       tenant: 'dev'
       tag: 'tc05d'
+      branch: 'tc05d'
       domain: 'c3dti.ai'
       package: 'dti-jupyter'
       c3repo: 'training'
