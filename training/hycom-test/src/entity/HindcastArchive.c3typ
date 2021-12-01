@@ -30,10 +30,15 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     */
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
-    stageFiles: member function(): ObjList
-    // Update the timeRange of the subset options for this archive.  Note that the new timeRange
-    // must intersect the original timeRange of the subset options.
-    //update: member function(timeRange: !TimeRange): js server
+    stageFiles: inline member function(): ObjList
+    /**
+    *  Update the timeRange of the subset options for this archive.  
+    *  The new timeRange must intersect the original timeRange of the subset options.
+    */
+    @py(env=hycom_1_0_0)
+    updateTimeRange: inline member function(timeRange: !TimeRange): HindcastArchive
+    /**
+    */
     @dependency(include="this,hindcast.name")
     afterCreate: ~ js server
 }
