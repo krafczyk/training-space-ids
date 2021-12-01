@@ -12,6 +12,9 @@ on:
       - tc01d
       - tc02d
       - tc03d
+      - tc04d
+      - tc05d
+      - qa01d
 
 jobs:    
     
