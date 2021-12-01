@@ -14,6 +14,10 @@ on:
         description: 'target C3 Tag'
         required: true
         type: string
+      branch:
+        description: 'Base branch to compare changes'
+        required: true
+        type: string
       domain:
         description: 'Web domain for tag'
         required: true
@@ -59,20 +63,21 @@ jobs:
         id: filter
         with:
           filters: |
-            base: $GITHUB_REF_NAME
+            base: ${{ inputs.branch }}
             c3repo:
               - "${{ inputs.c3repo }}/**"
   provision:
     name: Provision to ${{ inputs.tag }}
     needs: c3changes
-    if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
     runs-on: ubuntu-latest
     steps:
           
       - name: Checkout this repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         uses: actions/checkout@v2
         
       - name: Check out C3 CLI
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         uses: actions/checkout@v2  
         with:
           repository: c3aidti/C3-CLI
@@ -80,10 +85,12 @@ jobs:
           path: c3cli
           
       - name: Install C3 CLI Environment
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         run: |
           ./c3cli/c3 install
         
       - name: Checkout DTI Provisioner repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
@@ -92,6 +99,7 @@ jobs:
           path: dti-provisioner
           
       - name: Run Provisioner
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         uses: ./dti-provisioner
         env:
           GPG_PASS: ${{ secrets.gpg }}
