@@ -32,8 +32,18 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     @dependency(include="this,hindcast.name")
     stageFiles: member function(): ObjList
     /**
-    *  Update the timeRange of the subset options for this archive.  
+    *  Update the timeRange of the subset options for this archive and stage files.  
     *  The new timeRange must intersect the original timeRange of the subset options.
+    * @example
+    * ```
+    * # Extend the Archive by 1 day
+    * archv = c3.HindcastArchive.get(id)
+    * new = c3.TimeRange(
+    *     start = archv.subsetOptions.timeRange.start,
+    *     end = archv.subsetOptions.timeRange.end + timedelta(days=1)
+    * )
+    * archv.updateTimeRange(new)
+    * ```
     */
     @py(env=hycom_1_0_0)
     @dependency(include="this,hindcast.name")
