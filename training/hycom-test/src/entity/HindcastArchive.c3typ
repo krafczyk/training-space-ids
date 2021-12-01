@@ -36,6 +36,7 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     *  The new timeRange must intersect the original timeRange of the subset options.
     */
     @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
     updateTimeRange: inline member function(timeRange: !TimeRange): HindcastArchive
     /**
     */
