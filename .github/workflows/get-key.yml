@@ -1,0 +1,73 @@
+on:
+  workflow_call:
+  ########################################################################        
+  # Settings for this workflow:
+  # Use the following settings to match target C3 tag and local 
+  # c3repo and package names. 
+  ########################################################################
+    inputs:
+      tenant:
+        description: 'Target C3 Tenant'     
+        required: true
+        type: string
+      tag:
+        description: 'target C3 Tag'
+        required: true
+        type: string
+      domain:
+        description: 'Web domain for tag'
+        required: true
+        type: string
+      version:
+        description: 'dti-provisioner version'
+        required: false
+        type: string
+        default: 'main'
+    secrets:
+      token:
+        required: true
+      gpg:
+        required: true
+        
+ get-key:
+    name: Provision to ${{ inputs.tag }}
+    needs: c3changes
+    runs-on: ubuntu-latest
+    steps:
+          
+      - name: Checkout this repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2
+        
+      - name: Check out C3 CLI
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2  
+        with:
+          repository: c3aidti/C3-CLI
+          token: ${{ secrets.token }}
+          path: c3cli
+          
+      - name: Install C3 CLI Environment
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        run: |
+          ./c3cli/c3 install
+        
+      - name: Checkout DTI Provisioner repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/dti-provisioner
+          ref: ${{ inputs.version }}
+          token: ${{ secrets.token }}
+          path: dti-provisioner
+          
+      - name: Run Provisioner
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: ./dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.gpg }}
+        with:
+          tenant: ${{ inputs.tenant }}
+          tag: ${{ inputs.tag }}
+          domain: ${{ inputs.domain }}
+          do_provision: 'no' 
