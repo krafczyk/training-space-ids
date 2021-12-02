@@ -6,5 +6,5 @@ entity type ObservationOutputSeries mixes TimedDataHeader<ObservationOutput> sch
     // The [ObservationSet](type:ObservationSet) from which values were taken.
     observationSet: ObservationSet
     // The granularity of this timeseries (default is >= QUARTER_HOUR)
-    grain: "SECOND"
+    grain: string = 'SECOND'
 }
