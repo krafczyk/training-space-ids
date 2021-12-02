@@ -22,6 +22,10 @@ entity type ObservationOutput mixes TimedDataPoint<ObservationOutputSeries> sche
     @ts(treatment='avg')
     temperature: double
     @ts(treatment='avg')
+    pressure: double
+    @ts(treatment='avg')
+    dewpoint: double
+    @ts(treatment='avg')
     SSA_front: double
     @ts(treatment='avg')
     SSA_rear: double

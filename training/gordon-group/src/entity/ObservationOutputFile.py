@@ -13,7 +13,7 @@ def upsertORACLESData(this):
 
     class ObsVars:
         nc_variables = ['time', 'Longitude', 'Latitude', 'GPS_Altitude', 
-                        'rBC_massConc', 'Static_Air_Temp', 'Lambda_Avg_SSA_Front',
+                        'rBC_massConc', 'Static_Air_Temp', 'Static_Pressure','Dew_Point','Lambda_Avg_SSA_Front',
                         'Lambda_Avg_SSA_Rear', 'TSI_Scat530', 'NO3', 'SO4', 'ORG',
                         'CNgt10', 'Chl', 'UHSASdNdlogd']
     
@@ -23,7 +23,9 @@ def upsertORACLESData(this):
                 'GPS_Altitude':'altitude',
                 'rBC_massConc':'total_BC', 
                 'Static_Air_Temp':'temperature', 
-               'Lambda_Avg_SSA_Front':'SSA_front', 
+                'Static_Pressure':'pressure', 
+                'Dew_Point':'dewpoint', 
+                'Lambda_Avg_SSA_Front':'SSA_front', 
                 'Lambda_Avg_SSA_Rear':'SSA_rear', 
                 'TSI_Scat530':'scat530', 
                 'NO3':'NO3', 
