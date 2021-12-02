@@ -33,26 +33,8 @@ jobs:
     name: get key for https://${{ inputs.tag }}-${{ inputs.tenant }}.${{ inputs.domain }}
     runs-on: ubuntu-latest
     steps:
-          
-      - name: Checkout this repo
-        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
-        uses: actions/checkout@v2
-        
-      - name: Check out C3 CLI
-        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
-        uses: actions/checkout@v2  
-        with:
-          repository: c3aidti/C3-CLI
-          token: ${{ secrets.token }}
-          path: c3cli
-          
-      - name: Install C3 CLI Environment
-        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
-        run: |
-          ./c3cli/c3 install
         
       - name: Checkout DTI Provisioner repo
-        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
         uses: actions/checkout@v2
         with:
           repository: c3aidti/dti-provisioner
@@ -60,8 +42,7 @@ jobs:
           token: ${{ secrets.token }}
           path: dti-provisioner
           
-      - name: Run Provisioner
-        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+      - name: Get Key
         uses: ./dti-provisioner
         env:
           GPG_PASS: ${{ secrets.gpg }}
