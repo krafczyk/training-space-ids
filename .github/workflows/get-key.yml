@@ -30,7 +30,7 @@ on:
         required: true
 jobs:   
   get-key:
-    name: Provision to ${{ inputs.tag }}
+    name: get key for https://${{ inputs.tag }}-${{ inputs.tenant }}.${{ inputs.domain }}
     runs-on: ubuntu-latest
     steps:
           
