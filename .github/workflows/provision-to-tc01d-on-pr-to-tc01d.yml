@@ -25,7 +25,7 @@ jobs:
       package: 'dti-jupyter'
       c3repo: 'training'
       options: ''
-      version: 'add-ttag'
+      version: 'main'
     secrets:
       token: ${{ secrets.DTI_DEVOPS_TOKEN }}
       gpg: ${{ secrets.DTI_DEVOPS_GPG }}
