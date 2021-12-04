@@ -4,15 +4,11 @@ An archive of {@link HindcastFile}s for a particular choice of C3 of {@link Hyco
 and {@link HycomDownloadOption}s.
 */
 entity type HindcastArchive schema name 'HNDCST_ARCHV' {
-    // Referecne to the {@link HycomHindcast} that this archive is for.
+    // Reference to the {@link HycomHindcast} that this archive is for.
     hindcast: !HycomHindcast
-    //
+    // A description for this archive definition.
     description: string
-    // The {@link HycomSubsetOption}s used to generate this archive.  Can be updated.  Updates will
-    // trigger additional files to be staged.  Only updates to the timeRange field of the subset are supported.
-    // Care should be taken not to cahnge fileds other than timeRange in the subset options.  Use the "update"
-    // method on this type to ensure only timeRange is modified.
-    @callback(onchange = "stageFiles")
+    // The {@link HycomSubsetOption}s used to generate this archive.
     subsetOptions: HycomSubsetOptions
     // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
     downloadOptions: HycomDownloadOptions
@@ -25,7 +21,7 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     // The number of staged files that have been downloaded for this archive
     downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
     /**
-    Stage Files for download to this archive based on the subsetOptions using rules defines in the
+    Stage Files for download to this archive based on the subsetOptions using rules defined in the
     downloadOptions.
     */
     @py(env=hycom_1_0_0)
@@ -36,6 +32,7 @@ entity type HindcastArchive schema name 'HNDCST_ARCHV' {
     *  The new timeRange must intersect the original timeRange of the subset options.
     * @example
     * ```
+    * from datetime import timedelta
     * # Extend the Archive by 1 day
     * archv = c3.HindcastArchive.get(id)
     * new = c3.TimeRange(
