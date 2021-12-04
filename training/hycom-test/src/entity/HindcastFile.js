@@ -4,5 +4,5 @@ function beforeRemove(objs) {
          hf.file.delete()
        }
     });
-    return objs;
+    return ObjList.make({"objs": objs});
 };
