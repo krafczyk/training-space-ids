@@ -4,4 +4,5 @@ function beforeRemove(objs) {
          hf.file.delete()
        }
     });
+    return objs;
 };
