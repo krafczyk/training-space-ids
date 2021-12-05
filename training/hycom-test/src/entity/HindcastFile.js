@@ -4,5 +4,6 @@ function beforeRemove(objs) {
          hf.file.delete()
        }
     });
-    return ObjList.make({"objs": objs});
+    return c3Make("ObjList<HindcastFile>",{objs: objs})
+    ;
 };
