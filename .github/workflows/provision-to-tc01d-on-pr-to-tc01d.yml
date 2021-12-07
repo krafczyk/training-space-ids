@@ -20,10 +20,11 @@ jobs:
     with:
       tenant: 'dev'
       tag: 'tc01d'
+      branch: 'tc01d'
       domain: 'c3dti.ai'
       package: 'dti-jupyter'
       c3repo: 'training'
-      options: ''
+      options: ${{ github.event.inputs.options }}
       version: 'main'
     secrets:
       token: ${{ secrets.DTI_DEVOPS_TOKEN }}

@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches:
-    - tc04d
+    - qa01d
   workflow_dispatch:
     inputs:
       options:
@@ -18,10 +18,10 @@ jobs:
   call-provisioner:
     uses: c3aidti/training-space-ids/.github/workflows/provision.yml@main
     with:
-      tenant: 'dev'
-      tag: 'tc04d'
-      branch: 'tc04d'
-      domain: 'c3dti.ai'
+      tenant: 'dti-qa'
+      tag: 'qa01d'
+      branch: 'qa01d'
+      domain: 'sboxazdti.c3aids.cloud'
       package: 'dti-jupyter'
       c3repo: 'training'
       options: ${{ github.event.inputs.options }}
