@@ -33,4 +33,8 @@ type HycomUtil {
     */
     @py(env='hycom_1_0_0')
     getFileBatches: inline function(start: datetime, end: datetime, stride: integer, timesPerFile: integer): any
+    /**
+    */
+    @py(env='ocean_sim_cpu_test')
+    testenv: function(): any
 }
