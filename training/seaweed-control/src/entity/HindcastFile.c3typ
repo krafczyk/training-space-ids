@@ -37,7 +37,7 @@ entity type HindcastFile schema name "HNDCST_FL" {
     @dependency(include="this")
     process: member function(chunkSize: int = 23400, maxConcurrency: int = 8): int
     /**
-    * Callback to delete underlying file
+    * Callback to delete underlying file when removing a row.
     */
     beforeRemove: ~ js server
 }
