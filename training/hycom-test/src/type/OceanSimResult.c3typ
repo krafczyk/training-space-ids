@@ -1,0 +1,7 @@
+/**
+* OceanSimResult.c3typ
+*/
+type OceanSimResult {
+    //
+    someResult: string
+}
