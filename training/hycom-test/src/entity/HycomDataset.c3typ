@@ -37,6 +37,8 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     /**
     * Update Data Archives for all FMRCs that have not expired.  Can be used in a {@link CronJob} to automate archival of FMRC data.
     * 
+    * @param hycomDatasetId
+    *     The id of the HycomDataset to update
     * @param hycomSubsetOptions 
     *     Specifies the {@link HycomSubsetOptions} used to stage and download the files.
     * @param hycomDownloadOptions
@@ -47,6 +49,6 @@ entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
     *     The FMRC download BatchJob 
     */
     @py(env="hycom_1_0_0")
-    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , hycomDownloadOptions: !HycomDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    updateFMRCData: function(hycomDatasetId: !string, hycomSubsetOptions: !HycomSubsetOptions , hycomDownloadOptions: !HycomDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
     
 }

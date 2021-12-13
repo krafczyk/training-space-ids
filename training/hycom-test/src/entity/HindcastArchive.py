@@ -1,4 +1,5 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
+
 def stageFiles(this):
     # Use downloadOptions to create a modified subsetOptions object
     # Generate a list of all possible times based on timeStride
@@ -40,3 +41,26 @@ def stageFiles(this):
 
         files.append(file)
     return c3.HindcastFile.mergeBatch(files)
+
+def updateTimeRange(this,timeRange):
+    tr1 = this.subsetOptions.timeRange
+    tr2 = timeRange
+    # check that requested time intersects with original
+    if (
+        not (((tr1.start <= tr2.start <= tr1.end) or 
+        (tr2.start <= tr1.start <= tr2.end)) and 
+        ((tr2.end >= tr1.end) and
+        (tr2.start <= tr1.start)))
+    ):
+        raise ValueError('The requested updated timeRange does not encompass the original.')
+    print("good") 
+        
+    # check that the requested time does not fall out of range for the archive year
+    
+    # update the subset options
+    new_archv = c3.HindcastArchive(**this.toJson())
+    new_archv.subsetOptions.timeRange = timeRange
+    new_archv.merge(spec={'mergeInclude': 'subsetOptions'})
+
+    new_archv.stageFiles()
+    return new_archv

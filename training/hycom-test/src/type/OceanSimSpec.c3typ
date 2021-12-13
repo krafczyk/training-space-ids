@@ -1,0 +1,7 @@
+/**
+OceanSimSpec.c3typ
+*/
+type OceanSimSpec {
+    //
+    someSpec: string
+}
