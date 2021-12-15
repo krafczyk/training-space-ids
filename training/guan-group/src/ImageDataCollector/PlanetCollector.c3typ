@@ -1,0 +1,31 @@
+/**
+ * ImageDataCollector.c3typ
+ * Collect image data for research group using C3 AI Suite.
+ *
+ * update 9/24: fields and methods are coming from workflow:
+ * https://docs.google.com/drawings/d/1UMbfh2cwRt-jVCeoGbQ9BLBLxgGWdo2zvFB0VB9ICGQ/edit?usp=sharing
+ * 
+ **/
+entity type PlanetCollector schema name "PLANET_CLLCTR"{
+
+	// Base url for Planet Images
+	base_url: !string
+	mosaic_url: !string
+	api_key: !string
+
+	// latlong start and end equvalent bbox
+	start_lat: !double
+	start_lon: !double
+	// latlong start and end equvalent bbox
+	end_lat: !double
+	end_lon: !double
+
+	// collection field of the planet image files
+	raw_image_collector: [PlanetRawFile](planet_collection, id)
+
+	//python method:
+	@py(env="image_download")
+	@dependency(include="this")
+	stage_planet_raw: member function(): any
+
+}
