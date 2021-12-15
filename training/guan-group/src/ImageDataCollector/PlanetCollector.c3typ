@@ -21,7 +21,7 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	end_lon: !double
 
 	// collection field of the planet image files
-	raw_image_collector: [PlanetRawFile](planet_collection, id)
+	raw_image_collector: [PlanetRawFile](planet_collector,id)
 
 	//python method:
 	@py(env="image_download")
