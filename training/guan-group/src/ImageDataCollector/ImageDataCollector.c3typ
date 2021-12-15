@@ -10,22 +10,29 @@ entity type ImageDataCollector schema name "IMG_DAT_CLLCTR"{
 
 	// imporant image properties
 	id: !string
-
+	// the url of raw image from planet API
 	planet_url: !string
-
-	preprocessed_url: string
-
-	is_preprocessed: !int
+	// the {@link File} object for the raw image
+	raw_image_file: File
+	// the {@link File} object for the preprocessed image
+	preprocessed_image_file: File
+	// the status: including 'empty' (default),'downloading','raw','preprocessed'
+	status: string enum('empty','downloading','raw','preprocessed') post default '"empty"'
 
 	// this is an optional field only useful whenever the image contains pre-marked tags for training
 	special_tag: string
 
+	// some basic image informaiton
 	image_width: int
 	image_height: int
 
 	// python methods
+	/**
+	* Download the file from planet API into the C3 File System.
+	*/
 	@py(env="image_download")
-	download: member function(): native py server
+	@dependency(include="this")
+	download: member function(): string py server
 
 	@py(env="image_preprocess")
 	preprocess: member function(): int py server

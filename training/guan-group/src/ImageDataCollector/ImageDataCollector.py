@@ -8,6 +8,9 @@ def download(this):
     from tqdm import tqdm
     from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
+    
+    
+    '''
     # authentication
     BASE_URL = 'https://api.planet.com/basemaps/v1/mosaics/'
     API_KEY = "8fb5d85cdcfc40f6b4b9d3f44227142b" # [from Yihong]
@@ -34,6 +37,8 @@ def download(this):
         print(b.name)
 
     return current_images
+    '''
+    
 
 def preprocess(this):
 
