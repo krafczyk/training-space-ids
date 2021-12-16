@@ -14,7 +14,7 @@ def stage_planet_raw(this):
     ## create the auth ##
     auth = HTTPBasicAuth(this.api_key, '')
     ## create the full path of the url ##
-    url = f'{this.base_url}{mosaic_id}/quads'
+    url = f'{this.base_url}{this.mosaic_id}/quads'
     ## create bbox: pattern lon, lat, lon, lat ##
     bbox = str(this.start_lon) + ", " + str(this.start_lat) + ", " + str(this.end_lon) + ", " + str(this.end_lat)
     
