@@ -29,12 +29,12 @@ def stage_planet_raw(this):
         PRF = c3.PlanetRawFile(
             **{
                 "id": this.id + '_' + i['id'],
-                "planet_collector": this,
+                "planet_collector": this.id,
                 "name": i['id'],
                 "query_url": i['_links']['download']
             }
         )
         all_files.append(PRF)
 
-    return c3.PlanetRawFile.mergeBatch(all_files)
+    return c3.PlanetRawFile.mergeBatch(objs=all_files)
     
