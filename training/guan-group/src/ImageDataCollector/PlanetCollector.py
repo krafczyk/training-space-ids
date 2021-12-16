@@ -6,7 +6,6 @@ def stage_planet_raw(this):
     from requests.auth import HTTPBasicAuth
     import urllib.request
     from tqdm import tqdm
-    import c3
 
     ## batches = c3.PlanetRawFile
     ## use batches to upsert the file using "mergeBatch"

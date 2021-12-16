@@ -10,7 +10,7 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 
 	// Base url for Planet Images
 	base_url: !string
-	mosaic_url: !string
+	mosaic_id: !string
 	api_key: !string
 
 	// latlong start and end equvalent bbox
