@@ -23,10 +23,10 @@ def stage_planet_raw(this):
     ## json the result ##
     out = json.loads(res.text)
 
-    ## insert new PlanetRawFile ##
+    ## insert new PlanetFile ##
     all_files = []
     for i in tqdm(out['items']):
-        PRF = c3.PlanetRawFile(
+        PRF = c3.PlanetFile(
             **{
                 "id": this.id + '_' + i['id'],
                 "planet_collector": this.id,
@@ -36,5 +36,5 @@ def stage_planet_raw(this):
         )
         all_files.append(PRF)
 
-    return c3.PlanetRawFile.mergeBatch(objs=all_files)
+    return c3.PlanetFile.mergeBatch(objs=all_files)
     
