@@ -2,6 +2,9 @@
 
 def download_raw_image(this):
 
+    if(this.status != 'created'):
+        raise RuntimeError('The file is already downloaded the raw file')
+
     def downloadToExternal(srcUrl, fileName, extDir):
         """
         The function is getting from C3.ai community
@@ -30,14 +33,14 @@ def download_raw_image(this):
 
     # create the download #
     try:
-        extPath = downloadToExternal(url, this.name, download_path)
+        extPath = downloadToExternal(url, this.name + '.tif', download_path)
         updated.status = 'raw'
         updated.raw_image_file = c3.File(**{'url': extPath}).readMetadata()
         updated.external_raw_path = download_path
         updated.merge()
     except Exception as e:
         updated.status = 'error'
-        updated.merge
+        updated.merge()
         raise e
 
     return updated.external_raw_path
