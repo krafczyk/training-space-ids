@@ -2,15 +2,16 @@
 
 def download_raw_image(this):
 
+    import os, requests, json, uuid
+    from requests.auth import HTTPBasicAuth
+    import urllib.request
+    from tqdm import tqdm
+
+    # if the file is already downloaded #
     if(this.status != 'created'):
         raise RuntimeError('The file is already downloaded the raw file')
 
     def downloadToExternal(srcUrl, fileName, extDir):
-        """
-        The function is getting from C3.ai community
-        """
-        import os
-        import requests
         tmp_path = "/tmp/" + fileName
         with requests.get(srcUrl, stream=True) as r:
             r.raise_for_status()
@@ -22,6 +23,7 @@ def download_raw_image(this):
         os.remove(tmp_path)
         return extDir + '/' + fileName
 
+    # create the url for the original source from #
     url = this.query_url
 
     # create a fresh instance to avoid weird errors #
@@ -36,7 +38,7 @@ def download_raw_image(this):
         extPath = downloadToExternal(url, this.name + '.tif', download_path)
         updated.status = 'raw'
         updated.raw_image_file = c3.File(**{'url': extPath}).readMetadata()
-        updated.external_raw_path = download_path
+        updated.external_raw_path = extPath
         updated.merge()
     except Exception as e:
         updated.status = 'error'
