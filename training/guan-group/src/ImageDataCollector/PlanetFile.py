@@ -18,7 +18,7 @@ def download_raw_image(this):
             with open(tmp_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
-        c3.Client.uploadLocalClientFiles(tmp_path, extDir, {"peekForMetadata": True})
+        c3.Client.uploadLocalClientFiles(localPath=tmp_path, dstUrlOrEncodedPath=extDir, spec={"peekForMetadata": True})
         #c3.Logger.info("file {} downloaded to {}".format(fileName, extDir + fileName))
         os.remove(tmp_path)
         return extDir + '/' + fileName
