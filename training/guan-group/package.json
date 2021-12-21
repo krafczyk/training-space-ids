@@ -1,0 +1,7 @@
+{
+    "name": "guan-group",
+    "description": "Test application for Guan's image data and analysis.",
+    "author": "DTI DevOps",
+    "dependencies": ["standardDependencies"]
+  }
+  

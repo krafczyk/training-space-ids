@@ -1,0 +1,26 @@
+
+
+
+entity type PlanetFile schema name "PLANET_RAW_F"{
+
+    // foreign key
+    planet_collector: !PlanetCollector
+
+    raw_image_file: anyof(File)
+    processed_image_file: anyof(File)
+
+    query_url: !string
+
+    // the external path will be a combination of "~/yifang_guan/planet_collection/<filename>.tif"
+    external_raw_path: string
+    external_processed_path: string
+
+    status: string enum('created','downloading','raw','preprocessed','error') post default '"created"'
+
+    // TODO some other fields for image metedata
+
+    @py(env="image_download")
+    @dependency(include="this")
+    download_raw_image: member function(): any
+
+}
