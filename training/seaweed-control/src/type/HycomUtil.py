@@ -130,3 +130,7 @@ def getFileBatches(start, end, stride, timesPerFile):
                 yield l[i:i + n]
 
         return list(genbatches(times, batch_size))
+
+def testenv():
+    import hj_reachability
+    import ocean_simulation_navigator

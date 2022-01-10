@@ -19,4 +19,8 @@ entity type FMRCFile schema name "FRMC_FL" {
     @dependency(include = "this,fmrc.subsetOptions,fmrc.urlPath")
     @py(env=hycom_1_0_0)
     download: member function(): File
+    /**
+    * Callback to delete underlying file when removing a row.
+    */
+    beforeRemove: ~ js server
 }

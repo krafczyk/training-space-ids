@@ -1,0 +1,7 @@
+{
+    "name": "seaweed-control",
+    "description": "Control algorithms for navigating floating seaweed farms on the open ocean.",
+    "author": "DTI DevOps",
+    "dependencies": ["standardDependencies"]
+  }
+  

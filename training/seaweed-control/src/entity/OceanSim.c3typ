@@ -1,0 +1,31 @@
+/**
+* OceanSim.c3typ
+*   Type that defines a Seaweed ocean simulator
+*/
+entity type OceanSim schema name 'OCNSIM' {
+    // The input specification for an ocean simulation run
+    oceanSimSpec: OceanSimSpec
+    // The output of an ocean simulation run
+    oceanSimResult: OceanSimResult
+
+    /**
+    * Load data for an ocean simulation run
+    */
+    @py(env='ocean_sim_cpu_test')
+    loadData: inline function(): int
+    /**
+    * Start an ocean simulation run
+    */
+    @py(env='ocean_sim_cpu_test')
+    startSim: inline function(spec: !OceanSimSpec, restart: boolean = false): int
+    /**
+    * Manage an ocean Simulation run
+    */
+    @py(env='ocean_sim_cpu_test')
+    runSim: inline function(spec: !OceanSimSpec): OceanSimResult
+    /**
+    * Call runSim from a GPU runtime
+    */
+    @py(env='ocean_sim_gpu_test')
+    runSimGPU: inline function(spec: !OceanSimSpec): OceanSimResult
+}
