@@ -46,3 +46,32 @@ def download_raw_image(this):
         raise e
 
     return updated.external_raw_path
+
+
+def preprocess_raw_image(this):
+
+    # import gdal and couple other libraries #
+    import os
+    import gdal
+
+    ## a series checking for this C3 Class and see if it is ready for preprocessing #
+    
+    # test 1: status check #
+    if(this.status != 'raw'):
+        raise RuntimeError('The file is not ready to preprocess')
+    
+    # test 2: raw image file path check #
+    updated = c3.PlanetFile(**{'id':this.id})
+    if(this.external_raw_path != None):
+        try:
+            updated.status = 'preprocessing'
+            updated.external_processed_path = updated.external_raw_path.replace('.tif', '-warp.tif')
+            gdal.Warp(updated.external_raw_path.replace, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            updated.merge()
+        except Exception as e:
+            updated.status = 'error'
+            updated.merge()
+            raise e
+
+    return updated.external_processed_path
+    

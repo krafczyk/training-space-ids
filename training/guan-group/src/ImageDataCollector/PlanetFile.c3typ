@@ -15,12 +15,16 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     external_raw_path: string
     external_processed_path: string
 
-    status: string enum('created','downloading','raw','preprocessed','error') post default '"created"'
+    status: string enum('created','downloading','raw','preprocessing','preprocessed', 'predicting', 'predicted','error') post default '"created"'
 
     // TODO some other fields for image metedata
 
     @py(env="image_download")
     @dependency(include="this")
     download_raw_image: member function(): any
+
+    @py(env="image_preprocess")
+    @dependency(include="this")
+    preprocess_raw_image: member function(): any
 
 }
