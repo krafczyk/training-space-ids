@@ -31,14 +31,14 @@ def download_raw_image(this):
     updated.status = 'downloading'
 
     # get the download path #
-    download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + ''
+    defined_download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + ''
 
     # create the download #
     try:
-        extPath = downloadToExternal(url, this.name + '.tif', download_path)
+        extPath = downloadToExternal(url, this.name + '.tif', defined_download_path)
         updated.status = 'raw'
         updated.raw_image_file = c3.File(**{'url': extPath}).readMetadata()
-        updated.external_raw_path = extPath
+        updated.external_raw_path = updated.raw_image_file.url
         updated.merge()
     except Exception as e:
         updated.status = 'error'
