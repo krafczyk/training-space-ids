@@ -31,7 +31,7 @@ def download_raw_image(this):
     updated.status = 'downloading'
 
     # get the download path #
-    download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + '/'
+    download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + ''
 
     # create the download #
     try:
@@ -65,7 +65,7 @@ def preprocess_raw_image(this):
     if(this.external_raw_path != None):
         try:
             updated.status = 'preprocessing'
-            updated.external_processed_path = updated.external_raw_path.replace('.tif', '-warp.tif')
+            updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
             gdal.Warp(updated.external_raw_path.replace, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
             updated.merge()
         except Exception as e:

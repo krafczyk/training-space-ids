@@ -17,8 +17,7 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
 
     status: string enum('created','downloading','raw','preprocessing','preprocessed', 'predicting', 'predicted','error') post default '"created"'
 
-    // TODO some other fields for image metedata
-
+    // Python functions that will do the work
     @py(env="image_download")
     @dependency(include="this")
     download_raw_image: member function(): any
@@ -26,5 +25,10 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     @py(env="image_preprocess")
     @dependency(include="this")
     preprocess_raw_image: member function(): any
+
+    /**
+    * Callback to delete underlying file when removing a row.
+    */
+    beforeRemove: ~ js server
 
 }
