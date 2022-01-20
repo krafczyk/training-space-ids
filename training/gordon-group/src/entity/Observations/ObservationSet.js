@@ -83,3 +83,17 @@ function upsertObservationData() {
   return total;
 };
   
+
+
+/**
+ * removeAllSeededData()
+ * Removes all seeded data for this project.
+ */
+ function removeAllSeededData() {
+  ObservationSet.removeAll();
+  ObservationOutput.removeAll();
+  ObservationOutputFile.removeAll();
+  ObservationOutputSeries.removeAll();
+
+  return 0;
+}
