@@ -11,6 +11,8 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
 
     query_url: !string
 
+    // possible may need a storage place for np.ndarray/tf.tensor
+
     // the external path will be a combination of "~/yifang_guan/planet_collection/<filename>.tif"
     external_raw_path: string
     external_processed_path: string
@@ -25,6 +27,10 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     @py(env="image_preprocess")
     @dependency(include="this")
     preprocess_raw_image: member function(): any
+
+    @py(env="image")
+    @dependency(include="this")
+    predict_image: member function(): any
 
     /**
     * Callback to delete underlying file when removing a row.
