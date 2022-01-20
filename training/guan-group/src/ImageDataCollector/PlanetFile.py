@@ -64,6 +64,7 @@ def preprocess_raw_image(this):
     updated = c3.PlanetFile(**{'id':this.id})
     if(this.external_raw_path != None):
         try:
+            print(updated.external_processed_path, updated.external_raw_path)
             updated.status = 'preprocessing'
             updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
             ## TODO: need to get the processed_image_file attached into this new file ##
