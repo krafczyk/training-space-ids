@@ -76,4 +76,10 @@ def preprocess_raw_image(this):
             raise e
 
     return updated.external_processed_path
+
+def predict_image(this):
+
+    
+
+    return None
     
