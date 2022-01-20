@@ -31,11 +31,11 @@ def download_raw_image(this):
     updated.status = 'downloading'
 
     # get the download path #
-    download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + '/'
+    defined_download_path = 'yifang_guan/planet_collection/raw/' + this.planet_collector.id + ''
 
     # create the download #
     try:
-        extPath = downloadToExternal(url, this.name + '.tif', download_path)
+        extPath = downloadToExternal(url, this.name + '.tif', defined_download_path)
         updated.status = 'raw'
         updated.raw_image_file = c3.File(**{'url': extPath}).readMetadata()
         updated.external_raw_path = extPath
@@ -46,3 +46,33 @@ def download_raw_image(this):
         raise e
 
     return updated.external_raw_path
+
+
+def preprocess_raw_image(this):
+
+    # import gdal and couple other libraries #
+    import os
+    import gdal
+
+    ## a series checking for this C3 Class and see if it is ready for preprocessing #
+    
+    # test 1: status check #
+    if(this.status != 'raw'):
+        raise RuntimeError('The file is not ready to preprocess')
+    
+    # test 2: raw image file path check #
+    updated = c3.PlanetFile(**{'id':this.id})
+    if(this.external_raw_path != None):
+        try:
+            updated.status = 'preprocessing'
+            updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
+            ## TODO: need to get the processed_image_file attached into this new file ##
+            gdal.Warp(updated.external_raw_path, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            updated.merge()
+        except Exception as e:
+            updated.status = 'error'
+            updated.merge()
+            raise e
+
+    return updated.external_processed_path
+    
