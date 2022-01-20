@@ -15,7 +15,7 @@
     while(dataset.hasNext()) {
         batch.push(dataset.next());
 
-        if (dataset.length >= options.batchSize || !dataset.hasNext()) {
+        if (batch.length >= options.batchSize || !dataset.hasNext()) {
             var batchSpec = UpsertObsDataBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
