@@ -48,7 +48,7 @@ def upsertORACLESData(this):
                     df[c3_var] = source.variables[nc_var][:]
                     df[c3_var] = pd.to_datetime(df[c3_var],unit='s')
                 elif nc_var == 'UHSASdNdlogd':
-                    for i in range(0,1):
+                    for i in range(0,99):
                         name = c3_var + "_bin" + str(i)
                         try:
                             df[name] = source.variables[nc_var][:,i]
