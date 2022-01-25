@@ -68,7 +68,8 @@ def preprocess_raw_image(this):
             updated.status = 'preprocessing'
             updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
             ## TODO: need to get the processed_image_file attached into this new file ##
-            gdal.Warp(updated.external_raw_path, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            gdal.Warp(updated.external_processed_path, updated.external_raw_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            updated.processed_image_file = c3.File(**{'url': updated.external_processed_path}).readMetadata()
             updated.merge()
         except Exception as e:
             updated.status = 'error'
