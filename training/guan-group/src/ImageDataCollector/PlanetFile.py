@@ -67,7 +67,7 @@ def preprocess_raw_image(this):
             print(updated.external_processed_path, updated.external_raw_path)
             updated.status = 'preprocessing'
             updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
-            gdal_raw_fp = updated.raw_image_file.contentLocation
+            gdal_raw_fp = this.raw_image_file.contentLocation
             gdal_preprocessed_fp = gdal_raw_fp.replace('.tif', '-warp.tif')
             ## using the full path ##
             gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
