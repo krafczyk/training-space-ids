@@ -70,8 +70,10 @@ def preprocess_raw_image(this):
             gdal_raw_fp = this.raw_image_file.contentLocation
             gdal_preprocessed_fp = gdal_raw_fp.replace('.tif', '-warp.tif')
             ## using the full path ##
-            gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
-            updated.processed_image_file = c3.File(**{'url': updated.external_processed_path}).readMetadata()
+            ## gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            ## change to the testing step, TODO: change it back! ##
+            gdal.open(updated.external_processed_path)
+            ## updated.processed_image_file = c3.File(**{'url': updated.external_processed_path}).readMetadata()
             updated.merge()
         except Exception as e:
             updated.status = 'error'

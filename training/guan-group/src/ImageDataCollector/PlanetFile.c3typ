@@ -24,7 +24,7 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     @dependency(include="this")
     download_raw_image: member function(): any
 
-    @py(env="image_preprocess")
+    @py(env="image")
     @dependency(include="this")
     preprocess_raw_image: member function(): any
 
