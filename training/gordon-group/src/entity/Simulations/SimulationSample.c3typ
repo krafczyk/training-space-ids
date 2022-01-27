@@ -3,6 +3,7 @@
 * One single simulation taken from the entire [SimulationEnsemble](type:SimulationEnsemble).
 */
 entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
+    // ATTRIBUTES
     // The number of this simulation within its {@link SimulationEnsemble}
     simulationNumber: !int
     // The {@link SimulationEnsemble} that this sample belongs to
@@ -13,6 +14,11 @@ entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
     output: [SimulationModelOutputSeries](simulationSample,id)
     // the collection of {@link SimulationOutputFile}s for this simulation sample
     outputFiles: [SimulationOutputFile](simulationSample, id)
+
+    // Temperature unit of measure
+    temperatureUOM: Unit post default "{id: 'degrees_celsius'}"
+
+
 
     // METHODS
     // Callback to create the {@link SimulationOutputFile}s whenever a {@link SimulationSample} is upserted. 
