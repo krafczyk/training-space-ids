@@ -95,7 +95,8 @@ def preprocess_raw_image(this):
             gdal_preprocessed_fp = gdal_raw_fp.replace('.tif', '-warp.tif')
             ## using the full path ##
             ## gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
-            gdal.Warp(tmp_local, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            # gdal.Warp(tmp_local, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            gdal.open(tmp_local)
             updated.merge()
         except Exception as e:
             updated.status = 'error'
