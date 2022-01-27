@@ -59,7 +59,31 @@ def preprocess_raw_image(this):
     # test 1: status check #
     if(this.status != 'raw'):
         raise RuntimeError('The file is not ready to preprocess')
-    
+
+    def get_encoded_path(path):
+        """
+        Trim local fs url to absolute path
+        e.g. from "file:///tmp/d.txt" to "/tmp/d.txt"
+        """
+        if path.startswith("file://"):
+            return path[7:]
+        return path
+
+    def local_file(base_path):
+        """
+        Downloads file locally
+        :param base_path: string to remote file system url
+        :return: temp_path: string to local file system path
+        """
+        file = c3.LocalFileSystem.makeTmpFile().url
+        c3.Client.copyFilesToLocalClient(srcUrlOrEncodedPath=base_path, localPath=file)
+        temp_path = os.path.join(get_encoded_path(file), os.path.basename(base_path))
+        return temp_path
+
+    ## creating the tmp file in the space
+    tmp_url = this.raw_image_file.url
+    tmp_local = local_file(tmp_url)
+
     # test 2: raw image file path check #
     updated = c3.PlanetFile(**{'id':this.id})
     if(this.external_raw_path != None):
@@ -67,7 +91,7 @@ def preprocess_raw_image(this):
             updated.status = 'preprocessing'
             updated.external_processed_path = this.external_raw_path.replace('.tif', '-warp.tif')
             ## TODO: need to get the processed_image_file attached into this new file ##
-            gdal.Warp(updated.external_raw_path, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
+            gdal.Warp(tmp_local, updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
             updated.merge()
         except Exception as e:
             updated.status = 'error'
