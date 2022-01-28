@@ -54,6 +54,10 @@ def preprocess_raw_image(this):
     import os
     import gdal
 
+    ## changing the GDAL env path to find proj package ##
+    os.environ['PROJ_LIB'] = os.getenv('HOME') + '/.conda/envs/py-image/share/proj'
+    os.environ['GDAL_DATA'] = os.getenv('HOME') + '/.conda/envs/py-image/share'
+
     ## a series checking for this C3 Class and see if it is ready for preprocessing #
     
     # test 1: status check #
