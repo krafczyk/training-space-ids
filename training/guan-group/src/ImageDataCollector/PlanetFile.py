@@ -52,11 +52,13 @@ def preprocess_raw_image(this):
 
     # import gdal and couple other libraries #
     import os
-    import gdal
+    from osgeo import gdal
+    import osgeo
 
     ## changing the GDAL env path to find proj package ##
-    os.environ['PROJ_LIB'] = '/home/c3/.conda/envs/py-image/share/proj'
-    os.environ['GDAL_DATA'] = '/home/c3/.conda/envs/py-image/share'
+    root = '/'.join(osgeo.__path__[0].split('/')[0:-4])
+    os.environ['PROJ_LIB'] = root + '/share/proj'
+    os.environ['GDAL_DATA'] = root + '/share'
 
     ## a series checking for this C3 Class and see if it is ready for preprocessing #
     
