@@ -100,8 +100,8 @@ def preprocess_raw_image(this):
             ## using the full path ##
             ## gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
             ds = gdal.Open(tmp_local)
-            gdal.Warp(srcDSOrSrcDSTab=ds, destNameOrDestDS=updated.external_processed_path, dstSRS='EPSG:32616', xRes=3, yRes=3)
-            
+            options = gdal.WarpOptions(srcSRS='EPSG:3857', dstSRS = 'EPSG:32616', yRes=3, xRes=3)
+            gdal.Warp(srcDSOrSrcDSTab=ds, destNameOrDestDS=updated.external_processed_path, options=options)
             updated.merge()
         except Exception as e:
             updated.status = 'error'
