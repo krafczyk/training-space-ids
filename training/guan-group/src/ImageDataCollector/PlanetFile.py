@@ -98,10 +98,15 @@ def preprocess_raw_image(this):
             gdal_raw_fp = this.raw_image_file.contentLocation
             gdal_preprocessed_fp = gdal_raw_fp.replace('.tif', '-warp.tif')
             ## using the full path ##
+            file_name = os.path.basename(updated.external_processed_path)
+            folder_name = os.path.dirname(updated.external_processed_path)
             ## gdal.Warp(gdal_preprocessed_fp, gdal_raw_fp, dstSRS='EPSG:32616', xRes=3, yRes=3)
             ds = gdal.Open(tmp_local)
             options = gdal.WarpOptions(srcSRS='EPSG:3857', dstSRS = 'EPSG:32616', yRes=3, xRes=3)
-            gdal.Warp(srcDSOrSrcDSTab=ds, destNameOrDestDS=updated.external_processed_path, options=options)
+            tmp_path = "/tmp/" + file_name
+            gdal.Warp(srcDSOrSrcDSTab=ds, destNameOrDestDS=tmp_path, options=options)
+            c3.Client.uploadLocalClientFiles(localPath=tmp_path, dstUrlOrEncodedPath=folder_name, spec={"peekForMetadata": True})
+            updated.processed_image_file = c3.File(**{'url': updated.external_processed_path}).readMetadata()
             updated.merge()
         except Exception as e:
             updated.status = 'error'
