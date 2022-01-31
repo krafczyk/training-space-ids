@@ -120,6 +120,6 @@ def preprocess_raw_image(this):
 def predict_image(this):
 
     
-    print("testing")
+    # print("testing")
     return None
     
