@@ -1,0 +1,13 @@
+
+/**
+PlanetJobBatch
+Batch definition for {@link PlanetJob}s.
+*/
+type PlanetJobBatch {
+    // Batch of {@link PlanetFile} to process.
+    values: [PlanetFile]
+}
+
+
+
+
