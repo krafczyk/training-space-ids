@@ -8,5 +8,5 @@ type PlanetJobOptions {
     // Filter on {@link PlanetFile) to run
     filter: string = "status != 'predicted'"
     // Limit on total #(mostly for testing)
-    limit: int = -1
+    limit: int = 10
 }
