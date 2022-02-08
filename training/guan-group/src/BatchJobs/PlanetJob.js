@@ -30,6 +30,24 @@
  function processBatch(batch, job, options){
 
     batch.values.forEach(function(oPlanet) {
-        // TODO: Write the logic for processing 
+        // Write the logic for processing
+        if(oPlanet.status == "created"){
+            oPlanet.download_raw_image()
+            oPlanet.preprocess_raw_image()
+            //oPlanet.predict_image()
+        }
+        else if(oPlanet.status == "raw"){
+            oPlanet.preprocess_raw_image()
+            //oPlanet.predict_image()
+        }
+        else if(oPlanet.status == "preprocessed"){
+            //oPlanet.predict_image()
+        }
+        else if(oPlanet.status == "error"){
+            print("This Planet File contains error")
+        }
+        else{
+            print("this Planet File is under process")
+        }
     });
 }
