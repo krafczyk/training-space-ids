@@ -1,0 +1,9 @@
+
+/**
+PlanetJob.c3typ
+A batch job to operate methods in {@link PlanetFile} 
+*/
+type PlanetJob extends BatchJob<PlanetJob, PlanetJobOptions, PlanetJobBatch> type key 'PLANET_JOB'{
+    doStart: ~ js server
+    processBatch: ~ js server
+}

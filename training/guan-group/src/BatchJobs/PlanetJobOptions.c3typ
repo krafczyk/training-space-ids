@@ -1,0 +1,12 @@
+/**
+PlanetJobOptions.c3typ
+Options for {@link PlanetJob}
+*/
+type PlanetJobOptions {
+    // Number of {@link PlanetFile) jobs to run in a single batch
+    batchSize: int = 1
+    // Filter on {@link PlanetFile) to run
+    filter: string = "status != 'predicted'"
+    // Limit on total #(mostly for testing)
+    limit: int = 10
+}
