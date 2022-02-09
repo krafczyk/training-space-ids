@@ -109,6 +109,7 @@ def preprocess_raw_image(this):
             gdal.Warp(srcDSOrSrcDSTab=ds, destNameOrDestDS=tmp_path, options=options)
             c3.Client.uploadLocalClientFiles(localPath=tmp_path, dstUrlOrEncodedPath=folder_name, spec={"peekForMetadata": True})
             updated.processed_image_file = c3.File(**{'url': updated.external_processed_path}).readMetadata()
+            updated.status = 'preprocessed'
             updated.merge()
         except Exception as e:
             updated.status = 'error'
