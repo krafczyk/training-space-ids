@@ -9,6 +9,10 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     raw_image_file: anyof(File)
     processed_image_file: anyof(File)
 
+    // prediction output
+    npy_result: anyof(File)
+    tif_result: anyof(File)
+
     query_url: !string
 
     // possible may need a storage place for np.ndarray/tf.tensor
@@ -16,6 +20,10 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     // the external path will be a combination of "~/yifang_guan/planet_collection/<filename>.tif"
     external_raw_path: string
     external_processed_path: string
+
+    // external prediction path
+    external_npy_path: string
+    external_pred_path: string
 
     status: string enum('created','downloading','raw','preprocessing','preprocessed', 'predicting', 'predicted', 'error') post default '"created"'
 
