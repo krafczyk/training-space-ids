@@ -35,21 +35,30 @@
             oPlanet.download_raw_image()
             print("going to download")
             //oPlanet.predict_image()
+            oPlanet = PlanetFile.get(oPlanet.id)
         }
-        else if(oPlanet.status == "raw"){
+        
+        if(oPlanet.status == "raw"){
             oPlanet.preprocess_raw_image()
             print("going to preprocess")
             //oPlanet.predict_image()
+            oPlanet = PlanetFile.get(oPlanet.id)
         }
-        else if(oPlanet.status == "preprocessed"){
+        
+        if(oPlanet.status == "preprocessed"){
             //oPlanet.predict_image()
             print("going to predict")
+            oPlanet = PlanetFile.get(oPlanet.id)
         }
-        else if(oPlanet.status == "error"){
+        
+        if(oPlanet.status == "error"){
             print("This Planet File contains error")
         }
-        else{
+
+        if(oPlanet.status == "downloading" || oPlanet.status == "preprocessing" || oPlanet.status == "predicting" ){
             print("this Planet File is under process")
         }
+
+        // TODO: potentially can write it into a method in PlanetFile.batch_status_check()
     });
 }
