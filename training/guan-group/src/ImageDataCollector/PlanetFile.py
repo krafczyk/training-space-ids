@@ -306,7 +306,7 @@ def predict_image(this):
             
             # !TODO: this part is not tested
             # save npy file    
-            file_name = os.path.basename(updated.external_processed_path)
+            file_name = os.path.basename(this.external_processed_path)
             npy_path = "/tmp/" + file_name.replace('-warp.tif', 'npy')
             np.save(npy_path, combined_cut)
             
@@ -323,14 +323,14 @@ def predict_image(this):
                 dest.write(np.expand_dims(combined_cut, 0))
             
             # upload result
-            updated.external_npy_path = updated.external_processed_path.replace("-warp.tif", "npy")
+            updated.external_npy_path = this.external_processed_path.replace("-warp.tif", "npy")
             c3.Client.uploadLocalClientFiles(
                 localPath=npy_path, 
                 dstUrlOrEncodedPath=os.path.dirname(updated.external_npy_path), 
                 spec={"peekForMetadata": True})
             updated.npy_result = c3.File(**{'url': updated.external_npy_path}).readMetadata()
 
-            updated.external_pred_path = updated.external_processed_path.replace("warp", "pred")
+            updated.external_pred_path = this.external_processed_path.replace("warp", "pred")
             c3.Client.uploadLocalClientFiles(
                 localPath=npy_path.replace('npy', '-pred.tif'), 
                 dstUrlOrEncodedPath=os.path.dirname(updated.external_pred_path), 
