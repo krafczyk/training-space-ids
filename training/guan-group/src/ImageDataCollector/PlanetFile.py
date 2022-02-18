@@ -337,7 +337,7 @@ def predict_image(this):
                 spec={"peekForMetadata": True})
             updated.tif_result = c3.File(**{'url': updated.external_pred_path}).readMetadata()
             
-            updated.status = 'preprocessed'
+            updated.status = 'predicted'
             updated.merge()
         
         except Exception as e:
