@@ -306,8 +306,8 @@ def predict_image(this):
             
             # !TODO: this part is not tested
             # save npy file    
-            file_name = os.path.basename(updated.external_processed_path)
-            npy_path = "/tmp/" + file_name.replace('-warp.tif', 'npy')
+            file_name = os.path.basename(this.external_processed_path)
+            npy_path = "/tmp/" + file_name.replace('-warp.tif', '.npy')
             np.save(npy_path, combined_cut)
             
             # save tif files
@@ -319,25 +319,25 @@ def predict_image(this):
             combined_cut[combined_cut > 0.5] = 1
             combined_cut[combined_cut < 1] = 0
             combined_cut = combined_cut.astype(np.uint8)
-            with rasterio.open(npy_path.replace('npy', '-pred.tif'), 'w', **meta) as dest:
+            with rasterio.open(npy_path.replace('.npy', '-pred.tif'), 'w', **meta) as dest:
                 dest.write(np.expand_dims(combined_cut, 0))
             
             # upload result
-            updated.external_npy_path = updated.external_processed_path.replace("-warp.tif", "npy")
+            updated.external_npy_path = this.external_processed_path.replace("-warp.tif", ".npy")
             c3.Client.uploadLocalClientFiles(
                 localPath=npy_path, 
                 dstUrlOrEncodedPath=os.path.dirname(updated.external_npy_path), 
                 spec={"peekForMetadata": True})
             updated.npy_result = c3.File(**{'url': updated.external_npy_path}).readMetadata()
 
-            updated.external_pred_path = updated.external_processed_path.replace("warp", "pred")
+            updated.external_pred_path = this.external_processed_path.replace("warp", "pred")
             c3.Client.uploadLocalClientFiles(
-                localPath=npy_path.replace('npy', '-pred.tif'), 
+                localPath=npy_path.replace('.npy', '-pred.tif'), 
                 dstUrlOrEncodedPath=os.path.dirname(updated.external_pred_path), 
                 spec={"peekForMetadata": True})
             updated.tif_result = c3.File(**{'url': updated.external_pred_path}).readMetadata()
             
-            updated.status = 'preprocessed'
+            updated.status = 'predicted'
             updated.merge()
         
         except Exception as e:
