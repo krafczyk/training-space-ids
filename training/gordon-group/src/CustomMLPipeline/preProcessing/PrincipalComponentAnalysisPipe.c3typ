@@ -7,6 +7,11 @@ entity type PrincipalComponentAnalysisPipe extends MLLeafPipe<Dataset, Dataset> 
     technique: !PrincipalComponentAnalysisTechnique
 
     // train method (pre compute 'fillers' for usage when process() is called)
+    // this calls the fit() method of sklearn PCA
     @py(env='gordon-ML_1_0_0')
     train: ~
+    // process method to actually transform data
+    // this calls the transform() method of sklearn PCA
+    @py(env='gordon-ML_1_0_0')
+    process: ~
 }

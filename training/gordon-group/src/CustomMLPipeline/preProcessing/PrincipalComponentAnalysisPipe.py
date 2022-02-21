@@ -17,7 +17,6 @@ def train(this, input, targetOutput, spec):
     pca.fit(data)
 
     # serialize this training
-    #this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=data))
     this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=pca))
 
     return this
