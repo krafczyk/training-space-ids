@@ -2,7 +2,8 @@
     "language": "Python",
     "runtimeVersion": "3.9",
     "modules": {
-      "conda.scikit-learn":"=1.0.2"
+      "conda.scikit-learn":"=1.0.2",
+      "conda.pandas":"=1.4.1"
     },
     "repositories": [
       "https://repo.continuum.io/pkgs/main",
