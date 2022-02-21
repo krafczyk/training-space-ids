@@ -13,7 +13,7 @@ def train(this, input, targetOutput, spec):
 
     # call pca
     pca = PCA(n_components=nComps)
-    pca.fit_transform(data)
+    data = pca.fit_transform(data)
 
     # serialize this training
     this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=data))
