@@ -1,8 +1,8 @@
 /**
-* PrincipalComponentAnalysis.c3typ
+* PrincipalComponentAnalysisPipe.c3typ
 * Performs Scikit-Learn's PCA for a set of features.
 */
-entity type PrincipalComponentAnalysis extends MLLeafPipe<Dataset, Dataset> type key 'PCA' {
+entity type PrincipalComponentAnalysisPipe extends MLLeafPipe<Dataset, Dataset> type key 'PCA' {
     // the technique used for this pipe
     technique: !PrincipalComponentAnalysisTechnique
 

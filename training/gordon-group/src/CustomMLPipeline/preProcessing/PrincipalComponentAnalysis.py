@@ -1,6 +1,7 @@
 def train(this, input):
     """
-    Performs Scikit-Learn PCA.
+    Performs Scikit-Learn's PCA.
+    https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
     """
     from sklearn.decomposition import PCA
 
