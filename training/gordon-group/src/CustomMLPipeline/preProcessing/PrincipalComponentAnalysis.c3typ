@@ -1,0 +1,12 @@
+/**
+* PrincipalComponentAnalysis.c3typ
+* Performs Scikit-Learn's PCA for a set of features.
+*/
+entity type PrincipalComponentAnalysis extends MLLeafPipe<Dataset, Dataset> type key 'PCA' {
+    // the technique used for this pipe
+    technique: !PrincipalComponentAnalysisTechnique
+
+    // train method (pre compute 'fillers' for usage when process() is called)
+    @py(env='gordon-ML_1_0_0')
+    train: ~
+}
