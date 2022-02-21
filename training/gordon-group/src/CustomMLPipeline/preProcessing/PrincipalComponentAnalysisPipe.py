@@ -23,7 +23,7 @@ def train(this, input, targetOutput, spec):
     return this
 
 
-def process(this, input):
+def process(this, input, spec):
     """
     Performs Scikit-Learn's PCA transform().
     https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
