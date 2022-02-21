@@ -345,4 +345,4 @@ def predict_image(this):
             updated.merge()
             raise e
 
-    return (updated.external_npy_path, updated.external_pred_path)
+    return updated
