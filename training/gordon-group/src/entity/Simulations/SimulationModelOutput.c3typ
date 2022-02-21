@@ -21,7 +21,7 @@ entity type SimulationModelOutput mixes TimedDataPoint<SimulationModelOutputSeri
     model_level_number: int
 
     // Simulated atmosphere properties
-    @ts(treatment='avg')
+    @ts(treatment='avg', unitPath="parent.simulationSample.temperatureUOM")
     air_potential_temperature: double
     @ts(treatment='avg')
     air_pressure: double
