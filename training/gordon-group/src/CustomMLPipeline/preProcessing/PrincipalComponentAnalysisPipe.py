@@ -1,4 +1,4 @@
-def train(this, input):
+def train(this, input, targetOutput, spec):
     """
     Performs Scikit-Learn's PCA.
     https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
