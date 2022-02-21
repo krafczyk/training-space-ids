@@ -2,7 +2,7 @@
 * PrincipalComponentAnalysisTechnique.c3typ
 * Defines hyper parameters for PCA.
 */
-type PrincipalComponentAnalysisTechnique mixes MLtechnique {
+type PrincipalComponentAnalysisTechnique mixes MLTechnique {
     // the number of PCA components
     nComponents: integer
 }
