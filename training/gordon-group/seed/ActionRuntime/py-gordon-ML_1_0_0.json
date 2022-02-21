@@ -1,9 +1,11 @@
 {
     "language": "Python",
-    "runtimeVersion": "3.9",
+    "runtimeVersion": "3.8.10",
     "modules": {
       "conda.scikit-learn":"=1.0.2",
       "conda.pandas":"=1.4.1",
+      "conda.numpy":"=1.22.2",
+      "conda.scipy":"1.8.0",
       "conda.dill":"=0.3.4"
     },
     "repositories": [
