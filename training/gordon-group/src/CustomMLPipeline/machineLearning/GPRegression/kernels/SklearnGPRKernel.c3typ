@@ -9,7 +9,7 @@ type SklearnGPRKernel {
     // the kernel parameters
     hyperParameters: [double]
     // the pickled kernel
-    pickledKernel: PythonSerialization
+    pickledKernel: string
 
     // build method to be overridden later
     build: member function(): any
