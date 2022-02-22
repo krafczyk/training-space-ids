@@ -1,6 +1,6 @@
 def build(this):
 
-    from sklearn.gaussian_process.kernel import ConstantKernel
+    from sklearn.gaussian_process.kernels import ConstantKernel
 
     this.name = 'Constant'
     kernel = ConstantKernel(this.constantValue)
