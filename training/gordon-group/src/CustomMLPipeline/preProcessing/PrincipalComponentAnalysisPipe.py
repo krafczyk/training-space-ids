@@ -33,3 +33,11 @@ def process(this, input, spec):
     data = pca.transform(data)
 
     return c3.Dataset.fromPython(pythonData=data)
+
+
+def isProcessable(this):
+    """"
+    Guarantees that process() can only be called after train()
+    """
+
+    return this.isTrained()
