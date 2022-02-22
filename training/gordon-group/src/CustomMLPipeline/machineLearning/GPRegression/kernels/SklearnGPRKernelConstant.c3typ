@@ -3,7 +3,7 @@
 * Scikit-Learn Gaussian Process Constant Kernel.
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.ConstantKernel.html#sklearn.gaussian_process.kernels.ConstantKernel
 */
-type SklearnGPRKernelConstant mixes SklearnGPRKernel {
+entity type SklearnGPRKernelConstant extends SklearnGPRKernel type key "SKLRN_GPR_KRNL_CNSTNT" {
     // Constant value that defines the kernel value
     constantValue: !double
 
