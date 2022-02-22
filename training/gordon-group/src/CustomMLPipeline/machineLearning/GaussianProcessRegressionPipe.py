@@ -31,3 +31,11 @@ def process(this, input, spec):
     X = c3.Dataset.toNumpy(dataset=input)
 
     return c3.Dataset.fromPython(pythonData=gp.predict(X))
+
+
+def isProcessable(this):
+    """"
+    Guarantees that process() can only be called after train()
+    """
+
+    return this.isTrained()

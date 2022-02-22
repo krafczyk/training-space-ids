@@ -14,4 +14,7 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // process data, ie predictions
     @py(env='gordon-ML_1_0_0')
     process: ~
+    // guarantee that process() is only allowed after train()
+    @py(env='gordon-ML_1_0_0')
+    isProcessable: ~
 }
