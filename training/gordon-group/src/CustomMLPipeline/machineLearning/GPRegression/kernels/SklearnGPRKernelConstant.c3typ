@@ -3,14 +3,11 @@
 * Scikit-Learn Gaussian Process Constant Kernel.
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.ConstantKernel.html#sklearn.gaussian_process.kernels.ConstantKernel
 */
-entity type SklearnGPRKernelConstant extends SklearnGPRKernel type key "SKLRN_GPR_KRNL_CNSTNT" {
+type SklearnGPRKernelConstant mixes SklearnGPRKernel type key "SKLRN_GPR_KRNL_CNSTNT" {
     // Constant value that defines the kernel value
     constantValue: !double
 
     // METHODS
     @py(env='gordon-ML_1_0_0')
     build: ~
-    // call build when this type is created
-    @dependency(include = "this")
-    afterCreate: ~ js server
 }
