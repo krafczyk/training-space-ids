@@ -3,11 +3,11 @@
 * Stepping stone for Scikit-Learn Gaussian Process kernels.
 * See: https://scikit-learn.org/stable/modules/classes.html#module-sklearn.gaussian_process
 */
-extendable entity type SklearnGPRKernel schema name "SKLRN_GPR_KRNL" {
+extendable entity type SklearnGPRKernel schema name "SKL_GPR_KRNL" {
     // the name of the kernel
     name: string enum('Constant', 'DotProduct', 'ExpSineSquared', 'Matern', 'RBF', 'RationalQuadratic', 'White')
     // the kernel parameters
-    hyperParameters: [double] schema name 'HPRPRMTRS'
+    hyperParameters: [double] schema suffix 'HPRS'
     // the pickled kernel
     pickledKernel: string
 
