@@ -6,5 +6,6 @@ def build(this):
     kernel = ConstantKernel(this.constantValue)
 
     this.pickledKernel = c3.PythonSerialization.serialize(obj=kernel)
+    c3.SklearnGPRKernelConstant.merge(this)
 
     return
