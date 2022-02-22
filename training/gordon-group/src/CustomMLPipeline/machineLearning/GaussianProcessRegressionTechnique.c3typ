@@ -1,0 +1,8 @@
+/**
+* GaussianProcessRegressionTechnique.c3typ
+* Defines hyper parameters for GP Regression.
+*/
+type GaussianProcessRegressionTechnique mixes MLTechnique {
+    // random seed
+    randomState: integer
+}
