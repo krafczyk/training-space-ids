@@ -7,4 +7,4 @@ def build(this):
 
     this.pickledKernel = c3.PythonSerialization.serialize(obj=kernel)
 
-    return this
+    return
