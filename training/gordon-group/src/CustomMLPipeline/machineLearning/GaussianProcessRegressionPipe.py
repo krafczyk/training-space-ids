@@ -17,3 +17,17 @@ def train(this, input, targetOutput, spec):
     this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=gp))
 
     return this
+
+
+def process(this, input)
+    """
+    Performs Scikit-Learn's GaussianProcessRegressor's predict().
+    https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html
+    """
+    # unpickle the model
+    gp = c3.PythonSerialization.deserialize(serialized=this.trainedModel.model)
+
+    # format data
+    X = c3.Dataset.toNumpy(dataset=input)
+
+    return c3.Dataset.fromPython(pythonData=gp.predict(X))
