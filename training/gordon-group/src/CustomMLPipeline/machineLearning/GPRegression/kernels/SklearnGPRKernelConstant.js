@@ -1,4 +1,4 @@
 function afterCreate(objs) {
-    objs.forEach(build())
-    return
+    objs.forEach(build);
+    return;
 };
