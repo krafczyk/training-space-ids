@@ -12,6 +12,5 @@ type SklearnGPRKernel {
     pickledKernel: PythonSerialization
 
     // build method to be overridden later
-    @py()
     build: member function(): any
 }
