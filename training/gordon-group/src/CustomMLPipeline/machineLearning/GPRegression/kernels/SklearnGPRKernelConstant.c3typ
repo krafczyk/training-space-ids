@@ -10,4 +10,7 @@ entity type SklearnGPRKernelConstant extends SklearnGPRKernel type key "SKLRN_GP
     // METHODS
     @py(env='gordon-ML_1_0_0')
     build: ~
+    // call build when this type is created
+    @dependency(include = "this")
+    afterCreate: ~ js server
 }
