@@ -4,6 +4,6 @@
 */
 type GaussianProcessRegressionTechnique mixes MLTechnique {
     // random seed
-    @ml(hyperParameter=true)
+    @ML(hyperParameter=true)
     randomState: integer
 }
