@@ -12,5 +12,8 @@ type SklearnGPRKernel type key "SKL_GPR_KRNL" {
     pickledKernel: string
 
     // build method to be overridden later
-    build: member function(): any
+    build: inline member function(): any
+
+    // override fromString
+    // look into beforeMake()
 }
