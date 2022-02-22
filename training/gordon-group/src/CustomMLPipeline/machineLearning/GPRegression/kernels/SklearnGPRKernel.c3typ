@@ -12,5 +12,5 @@ type SklearnGPRKernel {
     pickledKernel: string
 
     // build method to be overridden later
-    build: inline function(): any
+    build: member function(): any
 }
