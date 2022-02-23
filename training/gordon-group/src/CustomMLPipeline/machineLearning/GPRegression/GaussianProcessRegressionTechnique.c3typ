@@ -6,4 +6,7 @@ type GaussianProcessRegressionTechnique mixes MLTechnique {
     // random seed
     @ML(hyperParameter=true)
     randomState: integer
+    // the kernel object
+    @ML(hyperParameter=true)
+    kernel: SklearnGPRKernel
 }

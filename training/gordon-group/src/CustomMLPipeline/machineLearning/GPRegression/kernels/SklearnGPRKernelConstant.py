@@ -1,13 +1,8 @@
 def build(this):
-
+    """
+    This effectively constructs the type instance, by creating the object to be placed in the kernel field. Ideally this should be replaced by a callback function (beforeMake or afterMake).
+    """
     from sklearn.gaussian_process.kernels import ConstantKernel
-
-#    this.kernel.name = 'Constant'
-#    hyperPars = [this.constantValue]
-#    this.kernel.hyperParameters = hyperPars
-#    sklKernel = ConstantKernel(this.constantValue)
-#
-#    this.kernel.pickledKernel = c3.PythonSerialization.serialize(obj=sklKernel)
 
     sklKernel = ConstantKernel(this.constantValue)
 

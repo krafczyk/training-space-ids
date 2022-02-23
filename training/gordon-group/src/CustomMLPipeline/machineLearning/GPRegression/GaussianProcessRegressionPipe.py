@@ -9,8 +9,11 @@ def train(this, input, targetOutput, spec):
     X = c3.Dataset.toNumpy(dataset=input)
     y = c3.Dataset.toNumpy(dataset=targetOutput).flatten()
 
+    # get kernel object from c3, make it python again
+    kernel = c3.PythonSerialization.deserialize(serialized=this.technique.kernel.pickledKernel)
+
     # build and train GPR
-    gp = GaussianProcessRegressor()
+    gp = GaussianProcessRegressor(kernel=kernel)
     gp.fit(X, y)
 
     # pickle model
