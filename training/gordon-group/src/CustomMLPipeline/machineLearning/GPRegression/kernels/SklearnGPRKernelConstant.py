@@ -16,10 +16,10 @@ def build(this):
     kernel_name = 'Constant'
     kernel_hyperParameters = [this.constantValue]
 
-    this.kernel = c3.SklearnGPRKernel({
+    this.kernel = c3.SklearnGPRKernel(
         name=kernel_name,
         hyperParameters=kernel_hyperParameters,
         pickledKernel=kernel_pickled
-    })
+    )
 
     return this
