@@ -1,0 +1,20 @@
+/**
+* GaussianProcessRegressionPipe.c3typ
+* Performs Scikit-Learn's GP Regression for a set of inputs-outputs.
+*/
+entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
+    // ATTRIBUTES
+    // the technique for this regression
+    technique: !GaussianProcessRegressionTechnique
+
+    // METHODS
+    // train the model
+    @py(env='gordon-ML_1_0_0')
+    train: ~
+    // process data, ie predictions
+    @py(env='gordon-ML_1_0_0')
+    process: ~
+    // guarantee that process() is only allowed after train()
+    @py(env='gordon-ML_1_0_0')
+    isProcessable: ~
+}
