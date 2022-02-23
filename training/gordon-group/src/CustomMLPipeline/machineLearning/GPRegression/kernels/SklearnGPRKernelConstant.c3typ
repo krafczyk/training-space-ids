@@ -9,8 +9,8 @@ type SklearnGPRKernelConstant type key "SKLRN_GPR_KRNL_CNSTNT" {
     // the SklearnGPRKernel for this object
     kernel: SklearnGPRKernel
 
-    // METHODS
+    // constructs the SklearnGPRKernel internal object
     @py(env='gordon-ML_1_0_0')
     @dependency(include="this, kernel")
-    build: inline member function(): any
+    build: inline member function(): SklearnGPRKernel
 }
