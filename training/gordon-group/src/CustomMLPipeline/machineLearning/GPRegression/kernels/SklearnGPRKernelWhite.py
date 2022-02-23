@@ -8,7 +8,7 @@ def build(this):
 
     kernel_pickled = c3.PythonSerialization.serialize(obj=sklKernel)
     kernel_name = 'White'
-    kernel_hyperParameters = [this.lengthScale, this.alpha]
+    kernel_hyperParameters = [this.noiseLevel]
 
     this.kernel = c3.SklearnGPRKernel(
         name=kernel_name,
