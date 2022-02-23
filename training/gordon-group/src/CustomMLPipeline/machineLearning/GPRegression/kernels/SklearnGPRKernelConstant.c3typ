@@ -11,5 +11,6 @@ type SklearnGPRKernelConstant type key "SKLRN_GPR_KRNL_CNSTNT" {
 
     // METHODS
     @py(env='gordon-ML_1_0_0')
+    @dependency(include="this, kernel")
     build: member function(): any
 }
