@@ -2,7 +2,7 @@
 * NetCDFUtilSerialized.c3typ
 * Utility box to deal with NetCDF files. Methods return serialized python objects and can be run on the server as opposed to local env.
 **/
-type NetCDFUtil {
+type NetCDFUtilSerialized {
     // Open NetCDF file from external source
     @py(env='gordon_1_0_0')
     openFile: function(url: !string, localPath: string = '/tmp'): any
