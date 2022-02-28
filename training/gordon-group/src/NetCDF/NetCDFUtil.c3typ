@@ -5,7 +5,8 @@
 type NetCDFUtil {
     // Open NetCDF file from external source
     @py(env='gordon_1_0_0')
-    openFile: inline function(url: !string, localPath: string = '/tmp'): any
+    //openFile: inline function(url: !string, localPath: string = '/tmp'): any
+    openFile: function(url: !string, localPath: string = '/tmp'): any
     // Close NetCDF file
     @py(env='gordon_1_0_0')
     closeFile: inline function(ds: !any, url: !string, localPath: string = '/tmp'): integer
