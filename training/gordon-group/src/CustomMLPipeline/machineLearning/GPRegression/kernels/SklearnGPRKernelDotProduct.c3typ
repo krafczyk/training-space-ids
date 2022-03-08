@@ -11,7 +11,7 @@ type SklearnGPRKernelDotProduct type key "SKLRN_GPR_KRNL_DTPRDCT" {
 
     // constructs the SklearnGPRKernel internal object
     @py(env='gordon-ML_1_0_0')
-    @dependency(include="this, kernel")
+    //@dependency(include="this, kernel")
     //build: inline member function(): SklearnGPRKernel
     build: member function(): SklearnGPRKernel
 }
