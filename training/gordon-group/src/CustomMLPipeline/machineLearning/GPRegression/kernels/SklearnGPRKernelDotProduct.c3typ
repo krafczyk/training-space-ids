@@ -14,5 +14,5 @@ type SklearnGPRKernelDotProduct type key "SKLRN_GPR_KRNL_DTPRDCT" {
     //@dependency(include="this, kernel")
     @dependency(include="this")
     //build: inline member function(): SklearnGPRKernel
-    build: member function(): SklearnGPRKernel
+    build: member function(): SklearnGPRKernelDotProduct
 }
