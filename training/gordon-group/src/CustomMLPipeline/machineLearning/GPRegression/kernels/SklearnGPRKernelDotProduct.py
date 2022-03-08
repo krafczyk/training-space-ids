@@ -8,7 +8,8 @@ def build(this):
 
     kernel_pickled = c3.PythonSerialization.serialize(obj=sklKernel)
     kernel_name = 'DotProduct'
-    kernel_hyperParameters = [this.sigmaZero]
+    #kernel_hyperParameters = [this.sigmaZero]
+    kernel_hyperParameters = c3.c3Make("map<string, double>", {"sigmaZero":1.0})
 
     this.kernel = c3.SklearnGPRKernel(
         name=kernel_name,

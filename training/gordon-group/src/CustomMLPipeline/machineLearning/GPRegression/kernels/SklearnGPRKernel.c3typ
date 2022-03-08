@@ -7,7 +7,8 @@ type SklearnGPRKernel type key "SKL_GPR_KRNL" {
     // the name of the kernel
     name: string enum('Constant', 'DotProduct', 'ExpSineSquared', 'Matern', 'RBF', 'RationalQuadratic', 'White')
     // the kernel parameters (this should probably be a map<string,double>)
-    hyperParameters: [double] schema suffix 'HPRPRMS' 
+    //hyperParameters: [double] schema suffix 'HPRPRMS' 
+    hyperParameters: map<string,double>
     // the pickled kernel
     pickledKernel: string
 
