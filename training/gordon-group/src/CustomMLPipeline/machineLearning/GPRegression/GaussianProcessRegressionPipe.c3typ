@@ -5,7 +5,8 @@
 entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
     // ATTRIBUTES
     // the technique for this regression
-    technique: !GaussianProcessRegressionTechnique schema suffix 'TCNQ'
+    @db(persistAllFields=true)
+    technique: !GaussianProcessRegressionTechnique
 
     // METHODS
     // train the model
