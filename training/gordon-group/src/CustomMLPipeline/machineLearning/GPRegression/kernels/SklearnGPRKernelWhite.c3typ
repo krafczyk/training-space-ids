@@ -3,7 +3,7 @@
 * Scikit-Learn Gaussian Process White Kernel.
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel
 */
-type SklearnGPRKernelWhite type key "SKLRN_GPR_KRNL_WHT" {
+type SklearnGPRKernelWhite {
     // Controls the noise level (variance) of kernel
     noiseLevel: !double
     // the SklearnGPRKernel for this object
@@ -11,6 +11,5 @@ type SklearnGPRKernelWhite type key "SKLRN_GPR_KRNL_WHT" {
 
     // constructs the SklearnGPRKernel internal object
     @py(env='gordon-ML_1_0_0')
-    @dependency(include="this, kernel")
-    build: inline member function(): SklearnGPRKernel
+    build: member function(): SklearnGPRKernelWhite
 }

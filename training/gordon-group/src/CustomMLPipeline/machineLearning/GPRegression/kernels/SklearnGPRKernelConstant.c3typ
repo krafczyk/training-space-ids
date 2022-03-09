@@ -3,7 +3,7 @@
 * Scikit-Learn Gaussian Process Constant Kernel.
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.ConstantKernel.html#sklearn.gaussian_process.kernels.ConstantKernel
 */
-type SklearnGPRKernelConstant type key "SKLRN_GPR_KRNL_CNSTNT" {
+type SklearnGPRKernelConstant {
     // Constant value that defines the kernel value
     constantValue: !double
     // the SklearnGPRKernel for this object
@@ -11,6 +11,5 @@ type SklearnGPRKernelConstant type key "SKLRN_GPR_KRNL_CNSTNT" {
 
     // constructs the SklearnGPRKernel internal object
     @py(env='gordon-ML_1_0_0')
-    @dependency(include="this, kernel")
-    build: inline member function(): SklearnGPRKernel
+    build: member function(): SklearnGPRKernelConstant
 }

@@ -8,7 +8,9 @@ def build(this):
 
     kernel_pickled = c3.PythonSerialization.serialize(obj=sklKernel)
     kernel_name = 'Constant'
-    kernel_hyperParameters = [this.constantValue]
+    kernel_hyperParameters = c3.c3Make(
+        "map<string, double>", {"constantValue": this.constantValue}
+    )
 
     this.kernel = c3.SklearnGPRKernel(
         name=kernel_name,
