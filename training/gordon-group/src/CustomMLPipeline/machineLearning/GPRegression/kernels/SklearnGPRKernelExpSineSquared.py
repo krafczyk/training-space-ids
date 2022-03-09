@@ -10,7 +10,7 @@ def build(this):
     kernel_name = 'ExpSineSquared'
     kernel_hyperParameters = c3.c3Make(
         "map<string, double>", {"lengthScale": this.lengthScale,
-            "periodicity": this.pediodicity
+            "periodicity": this.periodicity
         }
     )
 
