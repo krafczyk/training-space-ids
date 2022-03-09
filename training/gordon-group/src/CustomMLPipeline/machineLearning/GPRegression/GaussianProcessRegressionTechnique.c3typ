@@ -8,5 +8,5 @@ type GaussianProcessRegressionTechnique mixes MLTechnique {
     randomState: integer
     // the kernel object
     @ML(hyperParameter=true)
-    kernel: SklearnGPRKernel schema suffix 'KRNL'
+    kernel: SklearnGPRKernel
 }
