@@ -8,7 +8,11 @@ def build(this):
 
     kernel_pickled = c3.PythonSerialization.serialize(obj=sklKernel)
     kernel_name = 'ExpSineSquared'
-    kernel_hyperParameters = [this.lengthScale, this.periodicity]
+    kernel_hyperParameters = c3.c3Make(
+        "map<string, double>", {"lengthScale": this.lengthScale,
+            "periodicity": this.periodicity
+        }
+    )
 
     this.kernel = c3.SklearnGPRKernel(
         name=kernel_name,

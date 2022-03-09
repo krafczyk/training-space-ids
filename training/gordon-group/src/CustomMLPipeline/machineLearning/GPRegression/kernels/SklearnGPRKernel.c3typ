@@ -3,15 +3,11 @@
 * Stepping stone for Scikit-Learn Gaussian Process kernels.
 * See: https://scikit-learn.org/stable/modules/classes.html#module-sklearn.gaussian_process
 */
-type SklearnGPRKernel type key "SKL_GPR_KRNL" {
+type SklearnGPRKernel {
     // the name of the kernel
     name: string enum('Constant', 'DotProduct', 'ExpSineSquared', 'Matern', 'RBF', 'RationalQuadratic', 'White')
-    // the kernel parameters (this should probably be a map<string,double>)
-    hyperParameters: [double] schema suffix 'HPRPRMS' 
+    // the kernel hyper parameters 
+    hyperParameters: map<string, double> 
     // the pickled kernel
     pickledKernel: string
-
-    // C3DS hints
-    // - override fromString
-    // - look into beforeMake()
 }

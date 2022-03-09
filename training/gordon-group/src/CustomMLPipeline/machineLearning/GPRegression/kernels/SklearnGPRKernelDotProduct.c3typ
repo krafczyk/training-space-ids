@@ -3,7 +3,7 @@
 * Scikit-Learn Gaussian Process Dot Product Kernel.
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct
 */
-type SklearnGPRKernelDotProduct type key "SKLRN_GPR_KRNL_DTPRDCT" {
+type SklearnGPRKernelDotProduct {
     // Constant that defines the kernel inhomogenity
     sigmaZero: !double
     // the SklearnGPRKernel for this object
@@ -11,6 +11,5 @@ type SklearnGPRKernelDotProduct type key "SKLRN_GPR_KRNL_DTPRDCT" {
 
     // constructs the SklearnGPRKernel internal object
     @py(env='gordon-ML_1_0_0')
-    @dependency(include="this, kernel")
-    build: inline member function(): SklearnGPRKernel
+    build: member function(): SklearnGPRKernelDotProduct
 }
