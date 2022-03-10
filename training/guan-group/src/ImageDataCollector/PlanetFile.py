@@ -95,6 +95,7 @@ def preprocess_raw_image(this):
 
     # test 2: raw image file path check #
     updated = c3.PlanetFile(**{'id':this.id})
+    tmp_path = ""
     if(this.external_raw_path != None):
         try:
             ## print(updated.external_processed_path, updated.external_raw_path)
@@ -117,7 +118,17 @@ def preprocess_raw_image(this):
         except Exception as e:
             updated.status = 'error'
             updated.merge()
+            if(os.path.exists(tmp_local)):
+                os.remove(tmp_local)
+            if(os.path.exists(tmp_path)):
+                os.remove(tmp_path)
             raise e
+
+    ## remove the local file ##
+    if(os.path.exists(tmp_local)):
+        os.remove(tmp_local)
+    if(os.path.exists(tmp_path)):
+        os.remove(tmp_path)
 
     return updated.external_processed_path
 
@@ -231,7 +242,9 @@ def predict_image(this):
     # download weight and load it
     import requests
     import os
-    for (name, url) in zip(['weight.tf.data-00000-of-00001', 'weight.tf.index'], 
+    weight_part = f'weight{this.id}.tf.data-00000-of-00001'
+    weight = f'weight{this.id}.tf.index'
+    for (name, url) in zip([weight_part, weight], 
         ['https://drive.google.com/uc?export=download&id=1u5tp5WoUiTPuVXltL1LCo_uR_YGu5Njm', 
         'https://drive.google.com/uc?export=download&id=1bhzwEFf9H7OGWw7jGr0TKnjrFnET0SWv']):
         tmp_path = "/tmp/" + name
@@ -243,12 +256,13 @@ def predict_image(this):
             with open(tmp_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
-    model.load_weights("/tmp/weight.tf")
+    model.load_weights(f"/tmp/weight{this.id}.tf")
     
     tmp_url = this.processed_image_file.url
     tmp_local = local_file(tmp_url)
     
     updated = c3.PlanetFile(**{'id':this.id})
+    npy_path = ""
     if(this.external_processed_path != None):
         try:
             updated.status = 'predicting'
@@ -343,6 +357,29 @@ def predict_image(this):
         except Exception as e:
             updated.status = 'error'
             updated.merge()
+
+            if (os.path.exists(tmp_local)):
+                os.remove(tmp_local)
+            if (os.path.exists(npy_path)):
+                os.remove(npy_path)
+            if(os.path.exists(npy_path.replace('.npy', '-pred.tif'))):
+                os.remove(npy_path.replace('.npy', '-pred.tif'))
+            if (os.path.exists(f"/tmp/{weight_part}")):
+                os.remove(f"/tmp/{weight_part}")
+            if (os.path.exists(f"/tmp/{weight}")):
+                os.remove(f"/tmp/{weight}")
+
             raise e
+
+    if (os.path.exists(tmp_local)):
+        os.remove(tmp_local)
+    if (os.path.exists(npy_path)):
+        os.remove(npy_path)
+    if (os.path.exists(npy_path.replace('.npy', '-pred.tif'))):
+        os.remove(npy_path.replace('.npy', '-pred.tif'))
+    if (os.path.exists(f"/tmp/{weight_part}")):
+        os.remove(f"/tmp/{weight_part}")
+    if (os.path.exists(f"/tmp/{weight}")):
+        os.remove(f"/tmp/{weight}")
 
     return updated
