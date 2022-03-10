@@ -95,6 +95,7 @@ def preprocess_raw_image(this):
 
     # test 2: raw image file path check #
     updated = c3.PlanetFile(**{'id':this.id})
+    tmp_path = None
     if(this.external_raw_path != None):
         try:
             ## print(updated.external_processed_path, updated.external_raw_path)
@@ -118,6 +119,12 @@ def preprocess_raw_image(this):
             updated.status = 'error'
             updated.merge()
             raise e
+
+    ## remove the local file ##
+    if(os.path.exists(tmp_local)):
+        os.remove(tmp_local)
+    if(os.path.exists(tmp_path)):
+        os.remove(tmp_path)
 
     return updated.external_processed_path
 
