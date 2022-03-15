@@ -41,7 +41,7 @@ function afterCreate(objs) {
 
     // MONTHLY-MEAN CONTAINER
     var pathToAllFiles = "azure://monthly-mean-simulations/";
-    var sampleFiles2 = FileSystem.inst().listFiles(pathToAllFiles.files);
+    var sampleFiles2 = FileSystem.inst().listFiles(pathToAllFiles).files;
     // remove non netcdf stuff
     for (var i = 0; i < sampleFiles2.length; i++) {
       var sf = sampleFiles2[i];
