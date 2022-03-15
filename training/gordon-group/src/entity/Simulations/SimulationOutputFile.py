@@ -92,9 +92,21 @@ def upsertAcureAircraftData(this):
 
     # verify file container
     if(this.container == 'monthly-mean'):
-        return True
+        variable_names = {
+            "dust" : "atmosphere_optical_thickness_due_to_dust_ambient_aerosol",
+            "solubleAitkenMode" : "atmosphere_optical_thickness_due_to_soluble_aitken_mode_ambient_aerosol",
+            "solubleAccumulationMode" : "atmosphere_optical_thickness_due_to_soluble_accumulation_mode_ambient_aerosol",
+            "solubleCoarseMode" : "atmosphere_optical_thickness_due_to_soluble_coarse_mode_ambient_aerosol",
+            "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol",
+            "insolubleAccumulationMode" : "atmosphereOpticalThickness_due_to_insoluble_accumulation_mode_ambient_aerosol",
+            "insolubleCoarseMode" : "atmosphere_optical_thickness_due_to_insoluble_coarse_mode_ambient_aerosol"
+        }
         #open file
-        #sample = c3.NetCDFUtil.openFile(this.file.url)
+        sample = c3.NetCDFUtil.openFile(this.file.url)
+        df = pd.DataFrame()
+        
+
+        return True
     
     else:
         return False
