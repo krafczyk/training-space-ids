@@ -10,6 +10,7 @@ C3 "tags" are specific deployments of the C3AI suite that have a DNS endpoint.  
 - [Branch: `tc01d`](https://github.com/c3aidti/training-space-ids/tree/tc01d): Development branch for dti-jupyter application. [Tag: `tc01d`](http://tc01d-dev.c3dti.ai/static/console)  
 - [Branch: `tc02d`](https://github.com/c3aidti/training-space-ids/tree/tc02d): Development branch for dti-jupyter application. [Tag: `tc02d`](http://tc02d-dev.c3dti.ai/static/console)  
 - [Branch: `tc03d`](https://github.com/c3aidti/training-space-ids/tree/tc03d): Development branch for dti-jupyter application. [Tag: `tc03d`](http://tc03d-dev.c3dti.ai/static/console)
+- [Branch: `tc04d`](https://github.com/c3aidti/training-space-ids/tree/tc04d): Development branch for dti-jupyter application. [Tag: `tc04d`](http://tc04d-dev.c3dti.ai/static/console)
 
 ### Workflows
 Coming soon: info on automated provisioning workflows.
