@@ -51,6 +51,10 @@ function afterCreate(objs) {
       else if (sf.url.slice(-6,-3) !== padStart(String(obj.simulationNumber), 3, '0')) {
         sampleFiles2.splice(i,1);
       }
+      else if (sf.url.slice(33,36) === "aug") {
+        sampleFiles2.splice(i,1);
+      }
+
     }
 
     // put two containers together
@@ -64,9 +68,9 @@ function afterCreate(objs) {
   
     function createSimOutFiles(file) {
       if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
-        var year = file.url.slice(42,46);
-        var month = file.url.slice(46,48);
-        var day = file.slice(48,50);
+        var year = file.url.slice(-18,-14);
+        var month = file.url.slice(-14,-12);
+        var day = file.url.slice(-12,-10);
         var date_str = year + "-" + month + "-" + day;
         var container = "monthly-mean";
         return SimulationOutputFile.make({
