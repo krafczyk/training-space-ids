@@ -99,7 +99,7 @@ def upsertMonthlyMeanData(this):
             "solubleAccumulationMode" : "atmosphere_optical_thickness_due_to_soluble_accumulation_mode_ambient_aerosol",
             "solubleCoarseMode" : "atmosphere_optical_thickness_due_to_soluble_coarse_mode_ambient_aerosol",
             "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol",
-            "insolubleAccumulationMode" : "atmosphereOpticalThickness_due_to_insoluble_accumulation_mode_ambient_aerosol",
+            "insolubleAccumulationMode" : "atmosphere_optical_thickness_due_to_insoluble_accumulation_mode_ambient_aerosol",
             "insolubleCoarseMode" : "atmosphere_optical_thickness_due_to_insoluble_coarse_mode_ambient_aerosol"
         }
         #open file
