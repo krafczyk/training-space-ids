@@ -30,31 +30,29 @@ function afterCreate(objs) {
     var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
     var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
     var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
-    var sampleFiles = FileSystem.inst().listFiles(pathToSample).files;
+    var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
+    var sampleFiles = new Array();
+
     // Remove non-NetCDF files from list
-    for (var i = 0; i < sampleFiles.length; i++) {
-      var sf = sampleFiles[i];
-      if (sf.url.slice(-3) !== ".nc") {
-        sampleFiles.splice(i,1);
+    for (var i = 0; i < allAAFiles.length; i++) {
+      var sf = allAAFiles[i];
+      if (sf.url.slice(-3) === ".nc") {
+        sampleFiles.push(sf);
       }
     }
 
     // MONTHLY-MEAN CONTAINER
     var pathToAllFiles = "azure://monthly-mean-simulations/";
-    var sampleFiles2 = FileSystem.inst().listFiles(pathToAllFiles).files;
-    // remove non netcdf stuff
-    for (var i = 0; i < sampleFiles2.length; i++) {
-      var sf = sampleFiles2[i];
-      if (sf.url.slice(-3) !== ".nc") {
-        sampleFiles2.splice(i,1);
-      }
-      else if (sf.url.slice(-6,-3) !== padStart(String(obj.simulationNumber), 3, '0')) {
-        sampleFiles2.splice(i,1);
-      }
-      else if (sf.url.slice(33,36) === "aug") {
-        sampleFiles2.splice(i,1);
-      }
+    var allMMFiles = FileSystem.inst().listFiles(pathToAllFiles).files;
+    var simString = padStart(String(obj.simulationNumber), 3, '0');
+    var sampleFiles2 = new Array(); 
 
+    // find correct simNumber, rm non-netcdf stuff, ommit "aug" folder
+    for (var i = 0; i < allMMFiles.length; i++) {
+      var sf = allMMFiles[i];
+      if (sf.url.slice(-6,-3) === simString && sf.url.slice(-3) === ".nc" && sf.url.slice(33,36) !== "aug") {
+        sampleFiles2.push(sf);
+      }
     }
 
     // put two containers together
