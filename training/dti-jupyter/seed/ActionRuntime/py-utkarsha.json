@@ -1,0 +1,23 @@
+{
+    "id": "py-utkarsha" ,
+    "name": "py-utkarsha",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.7",
+    "modules": {
+        "conda.numpy": "",
+        "conda.pip": "",
+	    "conda.requests":"",
+        "conda.matplotlib": "",
+        "conda.urllib3":"",
+        "conda.multiprocess":"",
+        "conda.tqdm":"",
+        "conda.azure-storage-blob": "",
+        "conda.pyarrow":""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
