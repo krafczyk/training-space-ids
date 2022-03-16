@@ -77,7 +77,7 @@ def upsertAcureAircraftData(this):
     
 
 
-def upsertAcureAircraftData(this):
+def upsertMonthlyMeanData(this):
     """
     Function to Open files in the SimulationOutputFile table with monthly-mean container and then populate SimulationMonthlyMeanOutput data.
     
@@ -89,6 +89,7 @@ def upsertAcureAircraftData(this):
     """
     from datetime import datetime, timedelta
     import pandas as pd
+    import numpy as np
 
     # verify file container
     if(this.container == 'monthly-mean'):
@@ -104,7 +105,35 @@ def upsertAcureAircraftData(this):
         #open file
         sample = c3.NetCDFUtil.openFile(this.file.url)
         df = pd.DataFrame()
-        
+
+        # this is to take care of variables that need to be flattened
+        for var in variable_names:
+            netcdf_name = variable_names[var]
+            tensor = sample[netcdf_name][:][2,:,:,:]
+            tensor = np.array(tensor).flatten()
+            df[var] = tensor
+
+        # now latitude, longitude and time
+        lat = sample["latitude"][:]
+        lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+        # this file times
+        ts = this.dateTag
+        # take a look at thsis: is 24 = 0?
+        times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
+                    ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
+                    ts.replace(hour=21), ts.replace(hour=0)]
+
+        df["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
+        df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+        df["longitude"] = [l for l in lon]*len(times)*len(lat)
+
+
+        # cast everything into dict and upsert
+        output_records = df.to_dict(orient="records")
+        c3.SimulationMonthlyMeanOutput.upsertBatch(objs=output_records)
+
+        this.processed = True
+        c3.SimulationOutputFile.merge(this)
 
         return True
     
