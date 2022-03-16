@@ -41,7 +41,7 @@ function afterCreate(objs) {
       }
     }
 
-    // MONTHLY-MEAN CONTAINER
+    // MONTHLY-MEAN CONTAINER...
     var pathToAllFiles = "azure://monthly-mean-simulations/";
     var allMMFiles = FileSystem.inst().listFiles(pathToAllFiles).files;
     var simString = padStart(String(obj.simulationNumber), 3, '0');
