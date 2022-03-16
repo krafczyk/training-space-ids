@@ -107,11 +107,10 @@ def upsertMonthlyMeanData(this):
         df = pd.DataFrame()
 
         # this is to take care of variables that need to be flattened
-        for var in variable_names:
-            netcdf_name = variable_names[var]
-            tensor = sample[netcdf_name][:][2,:,:,:]
+        for var in variable_names.items():
+            tensor = sample[var[1]][:][2,:,:,:]
             tensor = np.array(tensor).flatten()
-            df[var] = tensor
+            df[var[0]] = tensor
 
         # now latitude, longitude and time
         lat = sample["latitude"][:]
