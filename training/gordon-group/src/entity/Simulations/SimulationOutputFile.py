@@ -126,6 +126,9 @@ def upsertMonthlyMeanData(this):
         df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
         df["longitude"] = [l for l in lon]*len(times)*len(lat)
 
+        # now the SimulationSample field
+        df["simulationSample"] = this.simulationSample
+
 
         # cast everything into dict and upsert
         output_records = df.to_dict(orient="records")
