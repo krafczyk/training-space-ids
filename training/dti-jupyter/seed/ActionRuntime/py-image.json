@@ -1,0 +1,27 @@
+{
+    "id": "py-image" ,
+    "name": "py-image",
+    "connector": "remote",
+    "language": "Python",
+    "runtime": "CPython",
+    "runtimeVersion": "3.7",
+    "modules": {
+        "conda.numpy": "",
+        "conda.pip": "",
+	"conda.requests":"",
+	"conda.matplotlib": "",
+	"conda.tensorflow-gpu": "=2.4.1",
+	"pip.cupy-cuda101":"",
+	"pip.torch":"==1.9.0",
+	"conda.urllib3":"",
+	"conda.multiprocess":"",
+	"conda.rasterio":"",
+	"conda.tqdm":"",
+	"conda.azure-storage-blob": "",
+	"conda.gdal":""
+    },
+    "repositories": [
+        "defaults",
+        "conda-forge"
+    ]
+}
