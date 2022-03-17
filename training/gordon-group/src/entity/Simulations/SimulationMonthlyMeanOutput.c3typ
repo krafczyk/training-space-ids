@@ -1,0 +1,29 @@
+/**
+* SimulationMonthlyMeanOutput.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
+*/
+
+entity type SimulationMonthlyMeanOutput schema name 'SMLTN_MNTHLY_MN_TPT' {
+    // The {@link SimulationSample} this output belongs to
+    simulationSample: !SimulationSample
+    // dust
+    dust: !double
+    // soluble aitken mode
+    solubleAitkenMode: !double
+    // soluble accumulation mode
+    solubleAccumulationMode: !double
+    // soluble coarse mode
+    solubleCoarseMode: !double
+    // insoluble aitken mode
+    insolubleAitkenMode: !double
+    // insoluble accumulation mode
+    insolubleAccumulationMode: !double
+    // insoluble coarse mode
+    insolubleCoarseMode: !double
+    // latitude
+    latitude: !double
+    // longitude
+    longitude: !double
+    // time stamp
+    time: !datetime
+}
