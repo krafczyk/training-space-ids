@@ -38,8 +38,8 @@ function afterCreate(objs) {
       var sf = allAAFiles[i];
       if (sf.url.slice(-3) === ".nc") {
         sampleFiles.push(sf);
-      }
-    }
+      };
+    };
 
     // MONTHLY-MEAN CONTAINER...
     var simString = padStart(String(obj.simulationNumber), 3, '0');
@@ -48,7 +48,8 @@ function afterCreate(objs) {
     var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     var containerRoot = "azure://monthly-mean-simulations/";
 
-    for (var month of months) {
+    for (var i = 0; i < months.length; i++) {
+      var month = months[i];
       var pathToFiles = containerRoot + month + "/";
       var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
       while (fileStream.hasNext()) {
