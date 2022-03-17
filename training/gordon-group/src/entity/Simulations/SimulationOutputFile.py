@@ -111,6 +111,10 @@ def upsert3HourlyAODData(this):
 
         # now latitude, longitude and time
         lat = sample["latitude"][:]
+        lats = []
+        for l in lat:
+            obj = c3.Latitude.fetch({'filter': c3.Filter().eq("value", float(l))}).objs[0]
+            lats.append(obj)
         lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
         # this file times
         ts = this.dateTag
@@ -119,7 +123,7 @@ def upsert3HourlyAODData(this):
                     ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
                     ts.replace(hour=21), ts.replace(hour=0)]
         df["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
-        df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+        df["latitude"] = [l for l in lats for n in range(0, len(lon))]*len(times)
         df["longitude"] = [l for l in lon]*len(times)*len(lat)
 
 

@@ -17,7 +17,7 @@ entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
     // insoluble aitken mode
     insolubleAitkenMode: !float
     // latitude
-    latitude: !float
+    latitude: !Latitude
     // longitude
     longitude: !float
     // time stamp
