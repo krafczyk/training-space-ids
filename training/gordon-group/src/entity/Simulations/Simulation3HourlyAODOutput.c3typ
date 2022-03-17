@@ -1,9 +1,9 @@
 /**
-* SimulationMonthlyMeanOutput.c3typ
+* Simulation3HourlyAODOutput.c3typ
 * A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
 */
 
-entity type SimulationMonthlyMeanOutput schema name 'SMLTN_MNTHLY_MN_TPT' {
+entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
     // dust
@@ -16,10 +16,6 @@ entity type SimulationMonthlyMeanOutput schema name 'SMLTN_MNTHLY_MN_TPT' {
     solubleCoarseMode: !double
     // insoluble aitken mode
     insolubleAitkenMode: !double
-    // insoluble accumulation mode
-    insolubleAccumulationMode: !double
-    // insoluble coarse mode
-    insolubleCoarseMode: !double
     // latitude
     latitude: !double
     // longitude

@@ -77,9 +77,9 @@ def upsertAcureAircraftData(this):
     
 
 
-def upsertMonthlyMeanData(this):
+def upsert3HourlyAODData(this):
     """
-    Function to Open files in the SimulationOutputFile table with monthly-mean container and then populate SimulationMonthlyMeanOutput data.
+    Function to Open files in the SimulationOutputFile table with monthly-mean container and then populate Simulation3HourlyAODOutput data.
     
     - Arguments:
         -this: an instance of SimulationOutputFile
@@ -87,7 +87,6 @@ def upsertMonthlyMeanData(this):
     - Returns:
         -bool: True if file was processed, false if file has already been processed or if container type does not match.
     """
-    from datetime import datetime, timedelta
     import pandas as pd
     import numpy as np
 
@@ -98,9 +97,7 @@ def upsertMonthlyMeanData(this):
             "solubleAitkenMode" : "atmosphere_optical_thickness_due_to_soluble_aitken_mode_ambient_aerosol",
             "solubleAccumulationMode" : "atmosphere_optical_thickness_due_to_soluble_accumulation_mode_ambient_aerosol",
             "solubleCoarseMode" : "atmosphere_optical_thickness_due_to_soluble_coarse_mode_ambient_aerosol",
-            "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol",
-            "insolubleAccumulationMode" : "atmosphere_optical_thickness_due_to_insoluble_accumulation_mode_ambient_aerosol",
-            "insolubleCoarseMode" : "atmosphere_optical_thickness_due_to_insoluble_coarse_mode_ambient_aerosol"
+            "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol"
         }
         #open file
         sample = c3.NetCDFUtil.openFile(this.file.url)
@@ -132,7 +129,7 @@ def upsertMonthlyMeanData(this):
 
         # cast everything into dict and upsert
         output_records = df.to_dict(orient="records")
-        c3.SimulationMonthlyMeanOutput.upsertBatch(objs=output_records)
+        c3.Simulation3HourlyAODOutput.upsertBatch(objs=output_records)
 
         this.processed = True
         c3.SimulationOutputFile.merge(this)
@@ -154,7 +151,7 @@ def upsertData(this):
         -bool: True if file was processed, false if file has already been processed 
     """
     if(this.container == 'monthly-mean'):
-        return this.upsertMonthlyMeanData()
+        return this.upsert3HourlyAODData()
     elif(this.container == 'acure-aircraft'):
         return this.upsertAcureAircraftData()
     else:
