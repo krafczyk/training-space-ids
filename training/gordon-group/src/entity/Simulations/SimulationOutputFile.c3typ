@@ -18,7 +18,7 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     upsertAcureAircraftData: member function(): boolean
     // Load data from this file into {@link SimulationMonthlyMeanOutput}
     @py(env='gordon_1_0_0')
-    upsertMonthlyMeanData: member function(): boolean
+    upsert3HourlyAODData: member function(): boolean
     // Load data from all containers
     @py(env='gordon_1_0_0')
     upsertData: member function(): boolean

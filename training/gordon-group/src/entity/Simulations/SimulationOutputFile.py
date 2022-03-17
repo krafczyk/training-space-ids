@@ -77,9 +77,9 @@ def upsertAcureAircraftData(this):
     
 
 
-def upsertMonthlyMeanData(this):
+def upsert3HourlyAODData(this):
     """
-    Function to Open files in the SimulationOutputFile table with monthly-mean container and then populate SimulationMonthlyMeanOutput data.
+    Function to Open files in the SimulationOutputFile table with monthly-mean container and then populate Simulation3HourlyAODOutput data.
     
     - Arguments:
         -this: an instance of SimulationOutputFile
@@ -151,7 +151,7 @@ def upsertData(this):
         -bool: True if file was processed, false if file has already been processed 
     """
     if(this.container == 'monthly-mean'):
-        return this.upsertMonthlyMeanData()
+        return this.upsert3HourlyAODData()
     elif(this.container == 'acure-aircraft'):
         return this.upsertAcureAircraftData()
     else:
