@@ -49,7 +49,7 @@ function afterCreate(objs) {
                     'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     var containerRoot = "azure://monthly-mean-simulations/";
 
-    for (var month in months) {
+    for (const month of months) {
       var pathToFiles = containerRoot + month + "/";
       var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
       while (fileStream.hasNext()) {
