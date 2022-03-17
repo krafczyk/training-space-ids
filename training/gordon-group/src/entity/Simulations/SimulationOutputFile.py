@@ -101,31 +101,51 @@ def upsert3HourlyAODData(this):
         }
         #open file
         sample = c3.NetCDFUtil.openFile(this.file.url)
-        df = pd.DataFrame()
+#        df = pd.DataFrame()
+#
+#        # this is to take care of variables that need to be flattened
+#        for var in variable_names.items():
+#            tensor = sample[var[1]][:][2,:,:,:]
+#            tensor = np.array(tensor).flatten()
+#            df[var[0]] = tensor
+#
+#        # now latitude, longitude and time
+#        lat = sample["latitude"][:]
+#        lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+#        # this file times
+#        ts = this.dateTag
+#        # take a look at thsis: is 24 = 0?
+#        times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
+#                    ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
+#                    ts.replace(hour=21), ts.replace(hour=0)]
 
-        # this is to take care of variables that need to be flattened
-        for var in variable_names.items():
-            tensor = sample[var[1]][:][2,:,:,:]
-            tensor = np.array(tensor).flatten()
-            df[var[0]] = tensor
+#        df["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
+#        df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+#        df["longitude"] = [l for l in lon]*len(times)*len(lat)
 
-        # now latitude, longitude and time
-        lat = sample["latitude"][:]
-        lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
-        # this file times
-        ts = this.dateTag
-        # take a look at thsis: is 24 = 0?
         times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
                     ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
                     ts.replace(hour=21), ts.replace(hour=0)]
+        lats = sample["latitude"][:]
+        lons = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+       
+        df = pd.DataFrame()
+        row = pd.Series({'time':times[0], 'latitude':lats[0], 'longitude':lons[0]})
+        for var in variable_names.items():
+            row[var[0]] = 0.0 
+        for i,time in enumerate(times):
+            row['time'] = time
+            for j,lat in enumerate(lats):
+                row['latitude'] = lat
+                for k,lon in enumerate(lons):
+                    row['longitude'] = lon
+                    for var in variable_names.items():
+                        row[var[0]] = sample[var[1]][:][2,i,j,k]
+                    df.append(row, ignore_index=True)
 
-        df["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
-        df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
-        df["longitude"] = [l for l in lon]*len(times)*len(lat)
 
         # now the SimulationSample field
         df["simulationSample"] = this.simulationSample
-
 
         # cast everything into dict and upsert
         output_records = df.to_dict(orient="records")
