@@ -123,6 +123,7 @@ def upsert3HourlyAODData(this):
 #        df["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
 #        df["longitude"] = [l for l in lon]*len(times)*len(lat)
 
+        ts = this.dateTag
         times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
                     ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
                     ts.replace(hour=21), ts.replace(hour=0)]
