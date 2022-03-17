@@ -56,9 +56,9 @@ function afterCreate(objs) {
         var file = fileStream.next();
         if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
           sampleFiles2.push(file);
-        }
-      }
-    }
+        };
+      };
+    };
 
     // put two containers together
     sampleFiles = sampleFiles.concat(sampleFiles2);
