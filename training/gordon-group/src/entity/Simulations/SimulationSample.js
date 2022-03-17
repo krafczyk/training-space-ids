@@ -42,16 +42,21 @@ function afterCreate(objs) {
     }
 
     // MONTHLY-MEAN CONTAINER...
-    var pathToAllFiles = "azure://monthly-mean-simulations/";
-    var allMMFiles = FileSystem.inst().listFiles(pathToAllFiles).files;
     var simString = padStart(String(obj.simulationNumber), 3, '0');
-    var sampleFiles2 = new Array(); 
+    var sampleFiles2 = new Array();
 
-    // find correct simNumber, rm non-netcdf stuff, ommit "aug" folder
-    for (var i = 0; i < allMMFiles.length; i++) {
-      var sf = allMMFiles[i];
-      if (sf.url.slice(-6,-3) === simString && sf.url.slice(-3) === ".nc" && sf.url.slice(33,36) !== "aug") {
-        sampleFiles2.push(sf);
+    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+                    'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    var containerRoot = "azure://monthly-mean-simulations/";
+
+    for (var month in months) {
+      var pathToFiles = containerRoot + month + "/";
+      var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
+      while (fileStream.hasNext()) {
+        var file = fileStream.next();
+        if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
+          sampleFiles2.push(file);
+        }
       }
     }
 
