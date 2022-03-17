@@ -45,8 +45,7 @@ function afterCreate(objs) {
     var simString = padStart(String(obj.simulationNumber), 3, '0');
     var sampleFiles2 = new Array();
 
-    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
-                    'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     var containerRoot = "azure://monthly-mean-simulations/";
 
     for (var month of months) {
