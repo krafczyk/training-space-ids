@@ -2,12 +2,7 @@
 * Simulation3HourlyAODOutput.c3typ
 * A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
 */
-@db(datastore='cassandra',
-    partitionKeyField='parent',
-    persistenceOrder='start, dataVersion',
-    persistDuplicates=false,
-    compactType=true,
-    unique=['parent, start'])
+
 entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
