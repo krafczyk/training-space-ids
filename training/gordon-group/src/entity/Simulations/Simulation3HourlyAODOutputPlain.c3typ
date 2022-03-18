@@ -3,7 +3,7 @@
 * A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) without references
 */
 
-entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT_PLN' {
+entity type Simulation3HourlyAODOutputPlain schema name 'SMLTN_3HAOD_TPT_PLN' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
     // dust
