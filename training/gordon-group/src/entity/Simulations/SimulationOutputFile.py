@@ -202,7 +202,7 @@ def upsert3HourlyAODPlainData(this):
 
         # cast everything into dict and upsert
         output_records = df.to_dict(orient="records")
-        c3.Simulation3HourlyAODOutput.upsertBatch(objs=output_records)
+        c3.Simulation3HourlyAODOutputPlain.upsertBatch(objs=output_records)
 
         this.processed = True
         c3.SimulationOutputFile.merge(this)
