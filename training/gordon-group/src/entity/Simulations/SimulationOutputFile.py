@@ -263,13 +263,23 @@ def upsert3HourlyAODAllRefData(this):
         df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
         df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
 
+
+        # perhaps this is best
         gst = []
         for i in range(len(df_st)):
             la = float(df_st["latitude"].iloc[i])
             lo = float(df_st["longitude"].iloc[i])
             ti = str(df_st["time"].iloc[i])
-            geosp_obj = c3.GeoSurfaceTime.makeObj({"latitude": la, "longitude":lo, "time": ti})
+            filt = c3.Filter().eq("latitude", la).and_().eq("longitude", lo).and_().eq("time", ti)
+            fetch_obj = c3.GeoSurfaceTime.fetch(spec={"filter": filt, "limit":-1})
+            if(fetch_obj.count == 0):
+                geosp_obj = c3.GeoSurfaceTime.makeObj({"latitude": la, "longitude":lo, "time": ti})
+                geosp_obj.upsert()
+            else:
+                geosp_obj = fetch_obj.objs[0]
             gst.append(geosp_obj)
+
+
 
         df["geoSurfaceTimePoint"] = gst
 
