@@ -4,7 +4,7 @@
 */
 entity type GeoSurfaceTime schema name 'GSRFC_TM' {
     // the latitude
-    latide: !float
+    latitude: !float
     // the longitude
     longitude: !float
     // the timestamp
