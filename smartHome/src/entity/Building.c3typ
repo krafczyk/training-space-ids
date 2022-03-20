@@ -1,0 +1,4 @@
+entity type Building schema name "BLDNG" { 
+    // The electrical components that are connected to this building
+    component: [Component](building)
+}

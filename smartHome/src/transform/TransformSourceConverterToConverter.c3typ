@@ -1,0 +1,17 @@
+/**
+* TransformSourceConverterToConverter.c3typ
+* Transforms data from {@link SourceConverter} to the {@link Converter} type
+*/
+type TransformSourceConverterToConverter mixes Converter transforms SourceConverter {
+    // The id of the battery
+    id: ~ expression "id"
+
+    // Maximum power output of the {@link PV} installation
+    eff: ~ expression "eff"
+
+    // Minimum rate of {@link Converter}
+    rateMin: ~ expression "rateMin"
+
+    // maximum rate of {@link Converter}
+    rateMax: ~ expression "rateMax"
+}

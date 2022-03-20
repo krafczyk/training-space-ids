@@ -1,0 +1,35 @@
+/**
+* TransformSourceBatteryToBattery.c3typ
+* Transforms data from {@link SourceBattery} to the {@link Battery} type
+*/
+type TransformSourceBatteryToBattery mixes Battery transforms SourceBattery {
+    // The id of the battery
+    id: ~ expression "id"
+
+    // Minimum rate of {@link Battery}
+    rateMin: ~ expression "rateMin"
+
+    // Maximum rate of {@link Battery}
+    rateMax: ~ expression "rateMax"
+
+    // Capacity of {@link Battery}
+    capacity: ~ expression "capacity"
+
+    // Cost of using {@link Battery}
+    cost: ~ expression "cost"
+
+    // Charging Effeciency of {@link Battery}
+    cEff: ~ expression "cEff"
+
+    // Discharging Effeciency of {@link Battery}
+    dEff: ~ expression "dEff"
+
+    // Minimum energy that must be stored in {@link Battery}
+    eMin: ~ expression "eMin"
+
+    // Maximum energy that can be stored in {@link Battery}
+    eMax: ~ expression "eMax"
+
+    // Initial energy stored in {@link Battery}
+    e0: ~ expression "e0"
+}

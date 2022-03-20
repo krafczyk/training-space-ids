@@ -1,0 +1,14 @@
+/**
+* This type transforms data from the {@link SourceMicrogridMeasurementSeries} to the {@link MicrogridMeasurementSeries} type.
+*/
+type TransformSourceMicrogridMeasurementToMicrogridMeasurementSeries mixes MicrogridMeasurementSeries transforms SourceMicrogridMeasurementSeries {
+    // Use timestamp as unique id
+    // id: ~ expression "concat('MCRO_MSRMNT_',timestamp)"
+
+    // Sets the time zone for all records to GMT+1:00
+    timeZone: ~ expression "'GMT+01:00'"
+
+    // Sets the interval to HOUR and skips normalization engine interval detection
+    // interval: ~ expression "'HOUR'"
+
+}

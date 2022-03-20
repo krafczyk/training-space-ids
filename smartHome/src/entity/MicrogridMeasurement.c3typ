@@ -1,0 +1,18 @@
+entity type MicrogridMeasurement mixes TimedDataPoint<MicrogridMeasurementSeries>  schema name 'MCRO_GRD_MSRMNT' {
+    
+ // The measured load power consumption from the {@link NonDeferrableLoad}
+ @ts(treatment='avg')
+ load: float 
+
+ // The measured PV power generation from the {@link PV} installation
+ @ts(treatment='avg')
+ pv: float 
+
+ // The measured electricity price of the {@link UtilityGrid}
+ @ts(treatment='avg')
+ price: float 
+
+ // The measured {@link ElectricVehicle} availability/status
+ @ts(treatment='previous')
+ status: boolean 
+}

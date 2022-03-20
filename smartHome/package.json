@@ -1,0 +1,6 @@
+{
+    "name": "smartHome",
+    "description": "Smart Home energy management system",
+    "author": "Xavier Weiss (xavierw@kth.se)",
+    "dependencies": ["standardDependencies", "machineLearning"]
+}

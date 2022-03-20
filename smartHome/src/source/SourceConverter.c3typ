@@ -1,0 +1,17 @@
+/**
+* SourceConverter.c3typ
+* Source for {@link Converter}
+*/
+type SourceConverter mixes Source {
+    // ID
+    // id: string
+    
+    // Effeciency of {@link Converter}
+    eff: double
+    
+    // Minimum rate of {@link Converter}
+    rateMin: double
+    
+    // maximum rate of {@link Converter}
+    rateMax: double
+}

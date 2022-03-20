@@ -1,0 +1,13 @@
+/**
+* SourceComponentToBuildingRelation.c3typ
+* This type represents the raw data for {@link ComponentToBuildingRelation} information.
+*/
+type SourceComponentToBuildingRelation mixes Source {
+ 
+ // This represents the id of a {@link Component}
+ component: string
+ 
+ // This represents the id of a {@link Building}
+ building: string
+
+}

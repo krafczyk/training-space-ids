@@ -1,0 +1,26 @@
+/**
+* SourceMicrogridMeasurement.c3typ
+* This type represents the raw data that for {@link MicrogridMeasurement}s
+*/
+type SourceMicrogridMeasurement mixes Source {
+    // Represents the timestamp
+    timestamp: datetime
+
+    // Load
+    load: float
+
+    // PV
+    pv: float
+
+    // Fossil
+    // fossil: float
+
+    // Irradiance
+    // irradiance: float 
+
+    // Price
+    price: float
+
+    // Status
+    status: boolean
+}

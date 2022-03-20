@@ -1,0 +1,8 @@
+/*
+* MicrogridMeasurementSeries.c3typ
+* A series of measurements taken from a single {@link Building}.
+*/
+entity type MicrogridMeasurementSeries mixes TimedDataHeader<MicrogridMeasurement> schema name "MCRO_GRD_MSRMNT_SRS" {
+ // The {@link Building} for these measurements
+ building: !Building
+}

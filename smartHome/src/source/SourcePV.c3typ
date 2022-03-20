@@ -1,0 +1,11 @@
+/**
+* SourcePV.c3typ
+* Source for {@link PV}
+*/
+type SourcePV mixes Source {
+    // Capacity (kW)
+    capacity: double
+    
+    // ID of PV profile
+    // profile: string
+}

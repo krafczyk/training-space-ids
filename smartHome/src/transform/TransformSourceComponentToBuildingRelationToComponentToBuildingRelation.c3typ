@@ -1,0 +1,10 @@
+/**
+* TransformSourceComponentToBuildingRelationToComponentToBuildingRelation.c3typ
+* This type transforms the data from the {@link SourceComponentToBuildingRelation} to the {@link ComponentToBuildingRelation} type.
+*/
+type TransformSourceComponentToBuildingRelationToComponentToBuildingRelation mixes ComponentToBuildingRelation transforms SourceComponentToBuildingRelation {
+    // The id of a component
+    id: ~ expression "component"
+    // A reference to the id of a building
+    building: ~ expression { id: "building" }
+}

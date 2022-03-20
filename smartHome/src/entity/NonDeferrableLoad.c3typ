@@ -1,0 +1,17 @@
+/**
+* NonDeferrableLoad.c3typ
+* A @link{Component} that represents an electrical load that cannot be controlled.
+*/
+entity type NonDeferrableLoad extends Component schema name "NN_DFRBLE_LD" {
+    // Whether load is active 
+    availability: boolean
+
+    // Time Resolution (minutes)
+    timeResolution: float
+
+    // Unit of measurement for power consumption
+    loadProfileUOM: Unit post default "{id:'kilo_watt'}"
+    
+    // This load's time series data of loads.
+    loadProfile: [NonDeferrableLoadMeasurementSeries](nonDeferrableLoad)
+} 

@@ -1,0 +1,11 @@
+/**
+* Component.c3typ
+* A piece of electrical equipment connected to a house.s
+*/
+extendable entity type Component schema name "CMPNT" { // mixes Persisable<Component>
+    // The building this component is in
+    building: !Building
+
+    // The name of this component (optional)
+    name: string
+}

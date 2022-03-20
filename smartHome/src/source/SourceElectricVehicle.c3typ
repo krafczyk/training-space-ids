@@ -1,0 +1,20 @@
+/**
+* SourceElectricVehicle.c3typ
+* The source for {@link ElectricVehicle} data 
+*/
+type SourceElectricVehicle mixes Source {
+    // The ID of the @{link Battery} in the Electric Vehicle
+    battery: string
+
+    // The ID of the @{link PowerMeasurementSeries} in the Electric Vehicle
+    // availability: string
+
+    // Trip Energy Required for single trip in {@link ElectricVehicle}
+    tripEnergyRequired: float
+
+    // Range anxiety penalty of {@link ElectricVehicle} user
+    K: float
+
+    // Wrap around cost for end-of-day discrepancy in {@link ElectricVehicle} charge
+    wrapAroundCost: float
+}

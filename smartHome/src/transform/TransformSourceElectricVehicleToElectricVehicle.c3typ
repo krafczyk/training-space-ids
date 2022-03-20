@@ -1,0 +1,17 @@
+/**
+* TransformSourceElectricVehicleToElectricVehicle.c3typ
+* Transforms data from {@link SourceElectricVehicle} to the {@link ElectricVehicle} type
+*/
+type TransformSourceElectricVehicleToElectricVehicle mixes ElectricVehicle transforms SourceElectricVehicle {
+    // The id of the battery
+    id: ~ expression "id"
+
+    // Trip Energy Required for single trip in {@link ElectricVehicle}
+    tripEnergyRequired: ~ expression "tripEnergyRequired"
+
+    // Range anxiety penalty of {@link ElectricVehicle} user
+    K: ~ expression "K"
+
+    // Wrap around cost for end-of-day discrepancy in {@link ElectricVehicle} charge
+    wrapAroundCost: ~ expression "wrapAroundCost"
+}

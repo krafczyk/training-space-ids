@@ -1,0 +1,3 @@
+// These records will be indexed on two fields; the to and from fields.
+@db(index=['to', 'from'])
+entity type ComponentToBuildingRelation mixes TimedIntervalRelation<Component, Building> schema name "CMPNT_BLDNG_RLTN"

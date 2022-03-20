@@ -1,0 +1,22 @@
+extendable entity type ElectricVehicle extends Battery schema name "EV" {
+    // Whether EV is connected to its parent building
+    availabilityMeasurements: [EVavailabilityMeasurementSeries](electricVehicle)
+
+    // Trip Energy required (in kWh)
+    tripEnergyRequired: !float
+    
+    // Risk Aversion (0: No RA, 0.001: Intermediate, 0.005: Risk Averse User)
+    K: !float
+
+    // Wrap Around Cost
+    wrapAroundCost: !float
+
+    // Length of trip
+    tripDuration: int
+
+    // Trip Start (time slot)
+    tripStart: int
+
+    // Trip End
+    tripEnd: int
+}

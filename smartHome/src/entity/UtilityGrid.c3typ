@@ -1,0 +1,16 @@
+entity type UtilityGrid extends Component schema name "UG" {
+    // Minimum power exchange with utility grid
+    rateMin: !float
+    
+    // Maximum power exchange with utility grid
+    rateMax: !float
+
+    // Price of electricity (buying/selling, $/kW)
+    price: [priceMeasurementSeries](utilityGrid)
+
+    // Mean
+    mean: float
+
+    // Standard Deviation
+    std: float
+}

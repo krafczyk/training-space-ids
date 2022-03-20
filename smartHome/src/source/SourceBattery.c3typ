@@ -1,0 +1,35 @@
+/**
+* SourceBattery.c3typ
+* Source for {@link Battery}
+*/
+type SourceBattery mixes Source {
+    // ID
+    // id: string
+    
+    // Minimum rate of {@link Battery}
+    rateMin: double
+    
+    // Maximum rate of {@link Battery}
+    rateMax: double
+
+    // Capacity of {@link Battery}
+    capacity: float
+
+    // Cost of using {@link Battery}
+    cost: float
+
+    // Charging Effeciency of {@link Battery}
+    cEff: float
+
+    // Discharging Effeciency of {@link Battery}
+    dEff: float
+
+    // Minimum energy that must be stored in {@link Battery}
+    eMin: float
+
+    // Maximum energy that can be stored in {@link Battery}
+    eMax: float
+
+    // Initial energy stored in {@link Battery}
+    e0: float
+}

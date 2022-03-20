@@ -1,0 +1,14 @@
+/**
+* SourceUtilityGrid.c3typ
+* Source for {@link UtilityGrid}
+*/
+type SourceUtilityGrid mixes Source {
+    // ID
+    // id: string
+    
+    // Minimum rate of {@link UtilityGrid}
+    rateMin: double
+    
+    // maximum rate of {@link UtilityGrid}
+    rateMax: double
+}
