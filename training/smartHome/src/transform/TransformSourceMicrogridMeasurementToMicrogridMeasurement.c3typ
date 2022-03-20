@@ -1,7 +1,7 @@
 /**
-* This type transforms data from the {@link SourceMicrogridMeasurementSeries} to the {@link MicrogridMeasurementSeries} type.
+* This type transforms data from the {@link SourceMicrogridMeasurement} to the {@link MicrogridMeasurement} type.
 */
-type TransformSourceMicrogridMeasurementToMicrogridMeasurementSeries mixes MicrogridMeasurementSeries transforms SourceMicrogridMeasurementSeries {
+type TransformSourceMicrogridMeasurementToMicrogridMeasurement mixes MicrogridMeasurement transforms SourceMicrogridMeasurement {
     // Use timestamp as unique id
     // id: ~ expression "concat('MCRO_MSRMNT_',timestamp)"
 
