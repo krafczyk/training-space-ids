@@ -1,4 +1,7 @@
-extendable entity type ElectricVehicle extends Battery schema name "EV" {
+entity type ElectricVehicle mixes Battery schema name "EV" {
+    // {@link Battery} inside the EV
+    battery: !Battery
+
     // Trip Energy required (in kWh)
     tripEnergyRequired: !float
     
