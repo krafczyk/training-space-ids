@@ -1,18 +1,15 @@
 extendable entity type Battery extends Component schema name "BTRY" {
-    // State of Charge [0,1]
-    soc: !float
+    // Minimum charge/discharge rate in kW per timestep
+    rateMin: !float
+
+    // Maximum charge/discharge rate in kW per timestep
+    rateMax: !float
 
     // Capacity (kWh)
     capacity: !float
 
-    // Current Energy Stored
-    e: !float
-
-    // Minimum Energy Stored
-    eMin: !float
-
-    // Maximum energy stored
-    eMax: !float
+    // Cost of using battery (per kWh)
+    cost: !float
 
     // Effeciency (charge)
     cEff: !float
@@ -20,12 +17,12 @@ extendable entity type Battery extends Component schema name "BTRY" {
     // Effeciency (discharge)
     dEff: !float
 
-    // Cost of using battery (per kWh)
-    cost: !float
+    // Minimum Energy Stored
+    eMin: !float
 
-    // Minimum charge/discharge rate in kW per timestep
-    rateMin: !float
+    // Maximum energy stored
+    eMax: !float
 
-    // Maximum charge/discharge rate in kW per timestep
-    rateMax: !float
+    // Initial Energy Stored
+    e0: !float
 }
