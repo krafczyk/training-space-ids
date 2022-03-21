@@ -4,7 +4,7 @@
 */
 type TransformSourceBatteryToBattery mixes Battery transforms SourceBattery {
     // Directly maps the id field to a battery id
-    id: ~ expression "id"
+    // id: ~ expression "id"
 
     // Minimum rate of {@link Battery}
     rateMin: ~ expression "rateMin"

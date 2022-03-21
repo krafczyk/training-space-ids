@@ -4,7 +4,7 @@
 */
 type SourceBattery mixes Source {
     // The id of a battery
-    battery: string
+    // battery: string
     
     // Minimum rate of {@link Battery}
     rateMin: double
