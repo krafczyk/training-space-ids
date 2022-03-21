@@ -1,7 +1,4 @@
 extendable entity type ElectricVehicle extends Battery schema name "EV" {
-    // Whether EV is connected to its parent building
-    availabilityMeasurements: [EVavailabilityMeasurementSeries](electricVehicle)
-
     // Trip Energy required (in kWh)
     tripEnergyRequired: !float
     

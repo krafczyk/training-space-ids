@@ -5,9 +5,6 @@ entity type PV extends Component schema name "PV" {
     // Unit of measurement for power consumption
     pvProfileUOM: Unit post default "{id:'kilo_watt'}"
 
-    // Power output profile of PV panel (fraction 0 to 1)*capacity (=kW)
-    pvProfile: [PVprofileMeasurementSeries](pV) 
-
     // Mean
     mean: float
 

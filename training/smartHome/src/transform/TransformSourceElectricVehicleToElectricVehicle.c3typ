@@ -3,8 +3,8 @@
 * Transforms data from {@link SourceElectricVehicle} to the {@link ElectricVehicle} type
 */
 type TransformSourceElectricVehicleToElectricVehicle mixes ElectricVehicle transforms SourceElectricVehicle {
-    // The id of the battery
-    id: ~ expression "id"
+    // The id of the {@link Battery} in the EV
+    battery: ~ expression "battery"
 
     // Trip Energy Required for single trip in {@link ElectricVehicle}
     tripEnergyRequired: ~ expression "tripEnergyRequired"
