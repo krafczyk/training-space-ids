@@ -2,7 +2,7 @@
 * NonDeferrableLoad.c3typ
 * A @link{Component} that represents an electrical load that cannot be controlled.
 */
-entity type NonDeferrableLoad extends Component schema name "NN_DFRBLE_LD" {
+entity type NonDeferrableLoad schema name "NN_DFRBLE_LD" {
     // Whether load is active 
     availability: boolean
 

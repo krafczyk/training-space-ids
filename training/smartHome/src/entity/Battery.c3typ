@@ -1,4 +1,4 @@
-extendable entity type Battery extends Component schema name "BTRY" {
+extendable entity type Battery schema name "BTRY" {
     // Minimum charge/discharge rate in kW per timestep
     rateMin: !float
 

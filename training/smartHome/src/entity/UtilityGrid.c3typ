@@ -1,4 +1,4 @@
-entity type UtilityGrid extends Component schema name "UG" {
+entity type UtilityGrid schema name "UG" {
     // Minimum power exchange with utility grid
     rateMin: !float
     

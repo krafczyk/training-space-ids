@@ -1,4 +1,4 @@
-entity type Converter extends Component schema name "CNVRTR" {
+entity type Converter schema name "CNVRTR" {
     // Effeciency of bi-directional converter (0 to 1)
     eff: !float
 

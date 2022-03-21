@@ -1,4 +1,4 @@
-entity type PV extends Component schema name "PV" {
+entity type PV schema name "PV" {
     // Maximum power output (in kW, will be modulated by profile)
     capacity: !float
 
