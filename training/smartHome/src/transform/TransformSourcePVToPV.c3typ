@@ -3,8 +3,8 @@
 * Transforms data from {@link SourcePV} to the {@link PV} type
 */
 type TransformSourcePVToPV mixes PV transforms SourcePV {
-    // The id of the battery
-    id: ~ expression "id"
+    // The id of the PV
+    // id: ~ expression "id"
 
     // Maximum power output of the {@link PV} installation
     capacity: ~ expression "capacity"

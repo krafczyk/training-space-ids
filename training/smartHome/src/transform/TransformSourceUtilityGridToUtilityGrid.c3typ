@@ -3,8 +3,8 @@
 * Transforms data from {@link SourceUtilityGrid} to the {@link UtilityGrid} type
 */
 type TransformSourceUtilityGridToUtilityGrid mixes UtilityGrid transforms SourceUtilityGrid {
-    // The id of the battery
-    id: ~ expression "id"
+    // The id of the Utility Grid
+    //id: ~ expression "id"
 
     // Minimum rate of {@link UtilityGrid}
     rateMin: ~ expression "rateMin"

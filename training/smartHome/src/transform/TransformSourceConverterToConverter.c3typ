@@ -3,9 +3,6 @@
 * Transforms data from {@link SourceConverter} to the {@link Converter} type
 */
 type TransformSourceConverterToConverter mixes Converter transforms SourceConverter {
-    // The id of the battery
-    id: ~ expression "id"
-
     // Maximum power output of the {@link PV} installation
     eff: ~ expression "eff"
 
