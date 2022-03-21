@@ -5,6 +5,6 @@
 type TransformSourceComponentToBuildingRelationToComponentToBuildingRelation mixes ComponentToBuildingRelation transforms SourceComponentToBuildingRelation {
     // The id of a component
     id: ~ expression "component"
-    // A reference to the id of a building
+    // A reference to the id of a building {@link Building}
     building: ~ expression { id: "building" }
 }
