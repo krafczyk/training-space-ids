@@ -1,0 +1,52 @@
+/**
+HycomDataset.c3typ
+A collection of datasets from the HYCOM Thredds server.
+*/
+entity type HycomDataset mixes SeedData schema name "HCM_DTST" {
+    // Version of the dataset
+    hycomVersion: string
+    // Name of the dataset
+    name: !string
+    // Hycom experiment
+    experiment: !string
+    // Region of interest (used to tag LatLong pair data)
+    region: !string
+    // Description of the dataset
+    description: string    
+    // The geospatial coverage of the dataset in degrees LAT/LON
+    geospatialCoverage: !GeospatialCoverage
+    // The resolution of the dataset in degrees LAT/LON
+    geospatialResolution: GeospatialResolution post default "{latResolution: 0.03999900817871094, lonResolution: 0.03997802734375}"
+    // The url of the dataset catalog
+    catalogUrl: string
+    // the url of the FMRC catalog for this dataset
+    fmrcCatalogUrl: string
+    // A Collection of {@link HycomFMRC}s
+    fmrcs: [HycomFMRC](dataset,id)
+    // The total storage footprint of archived FMRC data in Bytes for this dataset
+    fmrcArchiveSize: long integer stored calc 'sum(fmrcs.fmrcArchiveSize)' post default 0
+    // Collection of {@link HycomHindcast}s
+    hindcasts: [HycomHindcast](dataset,id)
+    // The total storage footprint of archived Hindcast data in Bytes for this dataset
+    hindcastArchiveSize: long integer stored calc 'sum(hindcasts.archiveSize)' post default 0
+    /**
+    *  Inspects the Hycom catalog, upserts new FMRC runs and marks old ones as expired.
+    */
+    @py(env="hycom_1_0_0")
+    upsertFMRCs: member function(): [HycomFMRC]
+    /**
+    * Update Data Archives for all FMRCs that have not expired.  Can be used in a {@link CronJob} to automate archival of FMRC data.
+    * 
+    * @param hycomSubsetOptions 
+    *     Specifies the {@link HycomSubsetOptions} used to stage and download the files.
+    * @param hycomDownloadOptions
+    *     Specifies the {@link HycomDownloadOptions} used to stage and download the files. 
+    * @param fmrcDownloadOptions
+    *     {@link FMRCDownloadJob} for specifying the {@link FMRCDownloadJob} batch options.
+    * @returns
+    *     The FMRC download BatchJob 
+    */
+    @py(env="hycom_1_0_0")
+    updateFMRCData: member function(hycomSubsetOptions: !HycomSubsetOptions , hycomDownloadOptions: !HycomDownloadOptions, fmrcDownloadJobOptions: !FMRCDownloadJobOptions): BatchJob
+    
+}

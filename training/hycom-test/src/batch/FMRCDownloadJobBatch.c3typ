@@ -1,0 +1,8 @@
+/**
+FMRCDownloadJobBatch
+Batch definition for {@link FMRCDownloadJob}s.
+*/
+type FMRCDownloadJobBatch {
+    // Batch of {@link FMRCFile}s to process.
+    values: [FMRCFile]
+}

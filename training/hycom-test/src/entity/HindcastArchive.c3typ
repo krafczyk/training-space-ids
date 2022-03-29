@@ -1,0 +1,39 @@
+/**
+HindcastArchive.c3typ
+An archive of {@link HindcastFile}s for a particular choice of C3 of {@link HycomSubsetOption}s
+and {@link HycomDownloadOption}s.
+*/
+entity type HindcastArchive schema name 'HNDCST_ARCHV' {
+    // Referecne to the {@link HycomHindcast} that this archive is for.
+    hindcast: !HycomHindcast
+    //
+    description: string
+    // The {@link HycomSubsetOption}s used to generate this archive.  Can be updated.  Updates will
+    // trigger additional files to be staged.  Only updates to the timeRange field of the subset are supported.
+    // Care should be taken not to cahnge fileds other than timeRange in the subset options.  Use the "update"
+    // method on this type to ensure only timeRange is modified.
+    @callback(onchange = "stageFiles")
+    subsetOptions: HycomSubsetOptions
+    // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
+    downloadOptions: HycomDownloadOptions
+    // Collection of {@link FMRCFile}s associated with this archive.
+    files: [HindcastFile](hindcastArchive,id)
+    // Calculated storage size for this archive
+    archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
+    // The number of files that have been staged for download for this archive
+    stagedFileCount: long integer stored calc 'count(files)' post default 0
+    // The number of staged files that have been downloaded for this archive
+    downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
+    /**
+    Stage Files for download to this archive based on the subsetOptions using rules defines in the
+    downloadOptions.
+    */
+    @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
+    stageFiles: member function(): ObjList
+    // Update the timeRange of the subset options for this archive.  Note that the new timeRange
+    // must intersect the original timeRange of the subset options.
+    //update: member function(timeRange: !TimeRange): js server
+    @dependency(include="this,hindcast.name")
+    afterCreate: ~ js server
+}
