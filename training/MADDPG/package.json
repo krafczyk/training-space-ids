@@ -1,0 +1,7 @@
+{
+    "name": "MADDPG",
+    "description": "Multi-agent Deep Deterministic Policy Gradient (MA-DDPG)",
+    "author": "Xavier Weiss",
+    "dependencies": ["standardDependencies"]
+  }
+  
