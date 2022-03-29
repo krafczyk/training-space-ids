@@ -1,6 +1,0 @@
-/**
-* Irradiance.c3typ
-*/
-entity type Irradiance schema name "IRDNCE" {
-
-}
