@@ -1,7 +1,0 @@
-/**
-
-*/
-type GeospatialResolution {
-    latResolution: decimal
-    lonResolution: decimal
-}

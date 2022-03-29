@@ -1,7 +1,0 @@
-{
-    "name": "gordon-group",
-    "description": "Test application for Gordon data analysis.",
-    "author": "DTI DevOps",
-    "dependencies": ["standardDependencies"]
-  }
-  

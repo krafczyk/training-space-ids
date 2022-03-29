@@ -1,7 +1,0 @@
-{
-    "name": "xu-group",
-    "description": "Test application for Xu Python code.",
-    "author": "DTI DevOps",
-    "dependencies": ["standardDependencies"]
-  }
-  
