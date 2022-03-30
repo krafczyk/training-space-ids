@@ -60,6 +60,8 @@ function afterCreate(objs) {
       };
     };
 
+    
+
     // put two containers together
     sampleFiles = sampleFiles.concat(sampleFiles2);
 

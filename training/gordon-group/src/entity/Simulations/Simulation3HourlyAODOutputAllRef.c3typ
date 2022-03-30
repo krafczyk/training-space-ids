@@ -1,9 +1,9 @@
 /**
-* Simulation3HourlyAODOutput.c3typ
-* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
+* Simulation3HourlyAODOutputAllRef.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) with references to {@link GeoSurfaceTime}
 */
 
-entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
+entity type Simulation3HourlyAODOutputAllRef schema name 'SM_3HAOD_TPT_LLRF' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
     // dust
@@ -16,10 +16,6 @@ entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
     solubleCoarseMode: !float
     // insoluble aitken mode
     insolubleAitkenMode: !float
-    // latitude
-    latitude: !Latitude
-    // longitude
-    longitude: !float
-    // time stamp
-    time: !datetime
+    // the space-time point for this measurement
+    geoSurfaceTimePoint: !GeoSurfaceTime
 }
