@@ -18,7 +18,7 @@
         "conda.matplotlib": "",
         "conda.ipywidgets": "",
         "conda.dill": "=0.2.8.2",
-        "pip.tensorflow-datasets": "==3.1.0"
+        "pip.tensorflow-datasets": "==3.1.0",
         "absl-py": "==1.0.0",
         "astor": "==0.8.1",
         "certifi":  "==2021.10.8",
