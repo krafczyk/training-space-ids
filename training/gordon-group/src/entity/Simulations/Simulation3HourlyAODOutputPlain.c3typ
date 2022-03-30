@@ -1,9 +1,9 @@
 /**
-* Simulation3HourlyAODOutput.c3typ
-* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
+* Simulation3HourlyAODOutputPlain.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) without references
 */
 
-entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
+entity type Simulation3HourlyAODOutputPlain schema name 'SMLTN_3HAOD_TPT_PLN' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
     // dust
@@ -17,7 +17,7 @@ entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
     // insoluble aitken mode
     insolubleAitkenMode: !float
     // latitude
-    latitude: !Latitude
+    latitude: !float
     // longitude
     longitude: !float
     // time stamp

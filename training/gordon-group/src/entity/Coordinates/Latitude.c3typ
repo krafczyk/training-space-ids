@@ -1,0 +1,8 @@
+/**
+* Latitude.c3typ
+* Type to support geospatial coordinates
+*/
+entity type Latitude schema name 'LTTD' {
+    // the latitude of this entry
+    value: !double
+}
