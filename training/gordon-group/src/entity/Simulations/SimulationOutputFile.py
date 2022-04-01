@@ -274,7 +274,7 @@ def upsert3HourlyAODAllRefData(this):
         c3.Simulation3HourlyAODOutputAllRef.upsertBatch(objs=output_records)
 
         #this.processed = True
-        c3.SimulationOutputFile({"id": this.id, "processed"=True}).merge()
+        c3.SimulationOutputFile({"id": this.id, "processed": True}).merge()
         #c3.SimulationOutputFile.merge(this)
 
         return True
