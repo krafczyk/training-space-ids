@@ -16,7 +16,7 @@
         batch.push(dataset.next());
 
         if (batch.length >= options.batchSize || !dataset.hasNext()) {
-            var batchSpec = UpsertDataBatch.make({values: batch});
+            var batchSpec = UpsertAODDataBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
             batch = [];
