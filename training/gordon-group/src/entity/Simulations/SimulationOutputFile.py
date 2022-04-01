@@ -273,8 +273,9 @@ def upsert3HourlyAODAllRefData(this):
         output_records = df_batch.to_dict(orient="records")
         c3.Simulation3HourlyAODOutputAllRef.upsertBatch(objs=output_records)
 
-        this.processed = True
-        c3.SimulationOutputFile.merge(this)
+        #this.processed = True
+        c3.SimulationOutputFile({"id": this.id, "processed"=True}).merge()
+        #c3.SimulationOutputFile.merge(this)
 
         return True
     
