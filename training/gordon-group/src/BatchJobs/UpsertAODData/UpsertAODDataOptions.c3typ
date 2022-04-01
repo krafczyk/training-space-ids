@@ -1,0 +1,7 @@
+/**
+* UpsertAODDataOptions.c3typ
+* Represents customization options for a {@link UpsertAODData} batch job
+*/
+type UpsertAODDataOptions {
+    batchSize: int = 1
+}
