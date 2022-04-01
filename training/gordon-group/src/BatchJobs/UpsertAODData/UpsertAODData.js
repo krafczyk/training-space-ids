@@ -9,7 +9,7 @@
 
     var dataset = SimulationOutputFile.fetchObjStream({
         filter: "container == 'monthly-mean'",
-        limit: -1
+        limit: options.limit
     });
 
     while(dataset.hasNext()) {
