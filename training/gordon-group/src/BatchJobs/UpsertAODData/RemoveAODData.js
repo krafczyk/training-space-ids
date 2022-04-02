@@ -7,20 +7,17 @@
  function doStart(job, options) {
     var batch = [];
 
-    var dataset = Simulation3HourlyAODOutputAllRef.fetchObjStream({
-        limit: options.limit
-    });
+    while(Simulation3HourlyAODOutputAllRef.exists()) {
+        var fetch_batch = Simulation3HourlyAODOutputAllRef.fetch({
+            limit: options.limit
+        })
+        batch = fetch_batch.objs;
+        var batchSpec = RemoveAODDataBatch.make({values: batch});
+        job.scheduleBatch(batchSpec);
 
-    while(dataset.hasNext()) {
-        batch.push(dataset.next());
-
-        if (batch.length >= options.batchSize || !dataset.hasNext()) {
-            var batchSpec = RemoveAODDataBatch.make({values: batch});
-            job.scheduleBatch(batchSpec);
-            
-            batch = [];
-        }
+        batch = [];
     }
+
 }
 
 
