@@ -28,5 +28,5 @@
  * @param {UpsertAODDataOptions} options
  */
 function processBatch(batch, job, options) {
-    Simulation3HourlyAODOutputAllRef.removeBatch(batch)
+    Simulation3HourlyAODOutputAllRef.removeBatch(batch.values)
 }
