@@ -1,0 +1,7 @@
+/**
+* RemoveAODDataBatch.c3typ
+* Represents a unit of work (batch) in a {@link RemoveAODData} batch job.
+*/
+type RemoveAODDataBatch {
+    values: [Simulation3HourlyAODOutputAllRef]
+}
