@@ -1,0 +1,8 @@
+{
+    "name": "dti-util",
+    "id": "dti-util",
+    "path": "dti-util",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": false
+  }

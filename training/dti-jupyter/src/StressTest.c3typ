@@ -1,0 +1,10 @@
+/**
+ * StressTest.c3typ
+ 
+ */
+type StressTest {
+ // compute_pi CPU stress test
+ // Probably should make these member functions and set some options in the constructor
+ @py(env="dataanalysis_1_0_0")
+ compute_pi: function(n: integer): string
+}

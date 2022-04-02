@@ -1,0 +1,8 @@
+/**
+HindcastProcessJobBatch
+Batch definition for {@link HindcastProcessJob}s.
+*/
+type HindcastProcessJobBatch {
+    // Batch of {@link HindcastFile}s to process.
+    values: [HindcastFile]
+}

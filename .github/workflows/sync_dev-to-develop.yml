@@ -1,0 +1,62 @@
+############################################################################
+#
+#  Workflow to sychronize development branches
+#
+#  Sync code pushed to any tag branch to the develop branch
+#
+############################################################################
+name: Sync tag-branch to develop
+on:
+  push:
+    branches:
+      - tc01d
+      - tc02d
+      - tc03d
+      - tc04d
+      - tc05d
+      - qa01d
+
+jobs:    
+    
+  createPullRequest:
+    runs-on: ubuntu-latest
+    env:
+      REF: ${{ github.event.ref }}
+    steps:
+      - name: Set the referece branch value
+        id: step_one
+        run: |
+          echo "UPDATE_BRANCH=`basename $REF`" >> $GITHUB_ENV
+          
+      - uses: actions/checkout@v2
+      
+      - name: Create Pull Request
+        id: cpr
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "develop"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_label: "automated pr,automerge"
+          pr_title: "Sync ${{ env.UPDATE_BRANCH }} to develop"
+          
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+          
+      - name: Approve PR
+        if: "${{ steps.cpr.outputs.pr_number }}"
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+          pull-request-number:  "${{ steps.cpr.outputs.pr_number }}"
+          
+#       - name: Automerge PR
+#         if: "${{ steps.cpr.outputs.pull-request-number }}"
+#         uses: "pascalgn/automerge-action@v0.14.3"
+#         env:
+#           GITHUB_TOKEN: "${{ secrets.DTI_DEVOPS_TOKEN }}"
+#           MERGE_METHOD: "merge"
+#           MERGE_DELETE_BRANCH: false
+#           PULL_REQUEST: "${{ steps.cpr.outputs.pr_number }}"
+#           MERGE_REQUIRED_APPROVALS: "1"
+          

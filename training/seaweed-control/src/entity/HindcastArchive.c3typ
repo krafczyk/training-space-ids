@@ -1,0 +1,52 @@
+/**
+HindcastArchive.c3typ
+An archive of {@link HindcastFile}s for a particular choice of C3 of {@link HycomSubsetOption}s
+and {@link HycomDownloadOption}s.
+*/
+entity type HindcastArchive schema name 'HNDCST_ARCHV' {
+    // Reference to the {@link HycomHindcast} that this archive is for.
+    hindcast: !HycomHindcast
+    // A description for this archive definition.
+    description: string
+    // The {@link HycomSubsetOption}s used to generate this archive.
+    subsetOptions: HycomSubsetOptions
+    // The {@link HycomDownloadOptions} for how to retrive the files that make up the dataset
+    downloadOptions: HycomDownloadOptions
+    // Collection of {@link FMRCFile}s associated with this archive.
+    files: [HindcastFile](hindcastArchive,id)
+    // Calculated storage size for this archive
+    archiveSize: long integer stored calc 'sum(files.file.contentLength)' post default 0
+    // The number of files that have been staged for download for this archive
+    stagedFileCount: long integer stored calc 'count(files)' post default 0
+    // The number of staged files that have been downloaded for this archive
+    downloadedFileCount: long integer stored calc 'count(files.(status=="downloaded"))' post default 0
+    /**
+    Stage Files for download to this archive based on the subsetOptions using rules defined in the
+    downloadOptions.
+    */
+    @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
+    stageFiles: member function(): ObjList
+    /**
+    *  Update the timeRange of the subset options for this archive and stage files.  
+    *  The new timeRange must intersect the original timeRange of the subset options.
+    * @example
+    * ```
+    * from datetime import timedelta
+    * # Extend the Archive by 1 day
+    * archv = c3.HindcastArchive.get(id)
+    * new = c3.TimeRange(
+    *     start = archv.subsetOptions.timeRange.start,
+    *     end = archv.subsetOptions.timeRange.end + timedelta(days=1)
+    * )
+    * archv.updateTimeRange(new)
+    * ```
+    */
+    @py(env=hycom_1_0_0)
+    @dependency(include="this,hindcast.name")
+    updateTimeRange: member function(timeRange: !TimeRange): HindcastArchive
+    /**
+    */
+    @dependency(include="this,hindcast.name")
+    afterCreate: ~ js server
+}

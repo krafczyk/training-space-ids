@@ -1,0 +1,112 @@
+on:
+  workflow_call:
+  ########################################################################        
+  # Settings for this workflow:
+  # Use the following settings to match target C3 tag and local 
+  # c3repo and package names. 
+  ########################################################################
+    inputs:
+      tenant:
+        description: 'Target C3 Tenant'     
+        required: true
+        type: string
+      tag:
+        description: 'target C3 Tag'
+        required: true
+        type: string
+      branch:
+        description: 'Base branch to compare changes'
+        required: true
+        type: string
+      domain:
+        description: 'Web domain for tag'
+        required: true
+        type: string
+      c3repo:
+        description: 'Repo directory containing package'
+        required: true
+        type: string
+      package:
+        description: 'Name of package to be provisioned'
+        required: true
+        type: string
+      options:
+        description: 'Additional options to pass to the C3CLI (eg: -E, -r)'
+        required: false
+        type: string
+      version:
+        description: 'dti-provisioner version'
+        required: false
+        type: string
+        default: 'main'
+    secrets:
+      token:
+        required: true
+      gpg:
+        required: true
+
+jobs:
+  # Gate to check for changed files within the c3repo
+  c3changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      c3repo: ${{ steps.filter.outputs.c3repo }}
+    steps:
+      - run: echo "Event name " ${{ github.event_name }}
+      - run: echo "Ref name " $GITHUB_REF_NAME
+      - name: Checkout this repo
+        # For pull requests it's not necessary to checkout the code
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            base: ${{ inputs.branch }}
+            c3repo:
+              - "${{ inputs.c3repo }}/**"
+  provision:
+    name: Provision to ${{ inputs.tag }}
+    needs: c3changes
+    runs-on: ubuntu-latest
+    steps:
+          
+      - name: Checkout this repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2
+        
+      - name: Check out C3 CLI
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2  
+        with:
+          repository: c3aidti/C3-CLI
+          token: ${{ secrets.token }}
+          path: c3cli
+          
+      - name: Install C3 CLI Environment
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        run: |
+          ./c3cli/c3 install
+        
+      - name: Checkout DTI Provisioner repo
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: actions/checkout@v2
+        with:
+          repository: c3aidti/dti-provisioner
+          ref: ${{ inputs.version }}
+          token: ${{ secrets.token }}
+          path: dti-provisioner
+          
+      - name: Run Provisioner
+        if: ${{ needs.c3changes.outputs.c3repo == 'true' }}
+        uses: ./dti-provisioner
+        env:
+          GPG_PASS: ${{ secrets.gpg }}
+        with:
+          tenant: ${{ inputs.tenant }}
+          tag: ${{ inputs.tag }}
+          domain: ${{ inputs.domain }}
+          package: ${{ inputs.package }}
+          c3repo: ${{ inputs.c3repo }}
+          options: ${{ inputs.options }}

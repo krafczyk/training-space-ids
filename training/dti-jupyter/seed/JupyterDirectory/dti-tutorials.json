@@ -1,0 +1,8 @@
+{
+    "name": "dti-tutorials",
+    "id": "dti-tutorials",
+    "path": "dti-tutorials",
+    "jupyterContentType": "directory",
+    "format": "json",
+    "writable": false
+  }

@@ -1,6 +1,6 @@
 {
-    "id": "py-image" ,
-    "name": "py-image",
+    "id": "py-image_download" ,
+    "name": "py-image_download",
     "connector": "remote",
     "language": "Python",
     "runtime": "CPython",
@@ -9,21 +9,12 @@
         "conda.numpy": "",
         "conda.pip": "",
 	"conda.requests":"",
-	"conda.matplotlib": "",
-	"conda.tensorflow-gpu": "=2.4.1",
-	"pip.cupy-cuda101":"",
-	"pip.torch":"==1.9.0",
-	"conda.urllib3":"",
-	"conda.multiprocess":"",
-	"conda.rasterio":"",
-	"conda.tqdm":"",
 	"conda.azure-storage-blob": "",
-	"conda.gdal":""
+	"conda.urllib3":"",
+	"conda.tqdm":""
     },
     "repositories": [
         "defaults",
         "conda-forge"
     ]
-
 }
-

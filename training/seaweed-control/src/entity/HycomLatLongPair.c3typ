@@ -1,0 +1,23 @@
+/**
+HycomLatLongPair.c3typ
+2-D geospatial grid for the Hycom model
+*/
+// 2 multi-column indices, one for the ij pairs another for lat-lon pairs
+@db(index=["i,j","lat,lon"])
+entity type HycomLatLongPair mixes MetricEvaluatable schema name 'LT_LNG_PR' {
+    // The longitude index
+    i: !integer
+    // The latitude index
+    j: !integer
+    // The latitude value
+    lat: !double
+    // The longitude value
+    lon: !double
+    // The LatLong pair values
+    pair: LatLong
+    // The collection of {@link SurfaceHindcastDataSeries} records
+    @db(order='ascending(i),ascending(j)')
+    surfaceHindcastData: [SurfaceHindcastDataSeries](latLongPair)
+    //subsurfaceHindcasatData: [SubsurfaceHindcastDataSeries]
+
+}
