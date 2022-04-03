@@ -25,7 +25,7 @@
         "cache": false
       },
       "c3Tools": true,
-      "acl": false
+      "acl": true
     }
   ]
 }
