@@ -16,7 +16,7 @@
         }).objs;
         var batchSpec = RemoveAODDataBatch.make({values: fetch_batch});
         batches.push(batchSpec);
-        offset += batch_size;
+        offset += options.batchSize;
     };
 
     for (var i = 0; i < batches.length; i++) {
