@@ -5,18 +5,23 @@
  * @param {UpsertAODDataOptions} options
  */
  function doStart(job, options) {
-    var batch = [];
+    var batches = [];
+    var offset = 0;
+    var total = Simulation3HourlyAODOutputAllRef.fetchCount();
 
-    while(Simulation3HourlyAODOutputAllRef.exists()) {
+    while ((offset + options.batchSize) < total) {
         var fetch_batch = Simulation3HourlyAODOutputAllRef.fetch({
-            limit: options.limit
-        })
-        batch = fetch_batch.objs;
-        var batchSpec = RemoveAODDataBatch.make({values: batch});
-        job.scheduleBatch(batchSpec);
+            limit: options.batchSize,
+            offset: offset
+        }).objs;
+        var batchSpec = RemoveAODDataBatch.make({values: fetch_batch});
+        batches.push(batchSpec);
+        offset += batch_size;
+    };
 
-        batch = [];
-    }
+    for (var i = 0; i < batches.length; i++) {
+        job.scheduleBatch(batches[i]);
+    };
 
 }
 
