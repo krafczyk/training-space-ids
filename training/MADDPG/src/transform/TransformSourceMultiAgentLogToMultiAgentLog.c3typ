@@ -1,8 +1,8 @@
 /**
-* TransformSourceLogToLog.c3typ
-* Transforms data from {@link SourceLog} to {@Log}
+* TransformSourceMultiAgentLogToMultiAgentLog.c3typ
+* Transforms data from {@link SourceMultiAgentLog} to {@MultiAgentLog}
 */
-type TransformSourceLogToLog mixes Log transforms SourceLog {
+type TransformSourceMultiAgentLogToMultiAgentLog mixes MultiAgentLog transforms SourceMultiAgentLog {
     // The id of the simulation
     id: ~ expression "concat('Idx_',idx,'_Eps_',episodes)"
     // The remaining parameters (all doubles for now)

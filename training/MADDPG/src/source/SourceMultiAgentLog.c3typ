@@ -1,8 +1,8 @@
 /**
-* SourceLog.c3typ
+* SourceMultiAgentLog.c3typ
 * The source for Log data
 */
-type SourceLog mixes Source {
+type SourceMultiAgentLog mixes Source {
     idx: int
     steps: int
     episodes: int
