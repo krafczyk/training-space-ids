@@ -1,0 +1,17 @@
+/**
+* Log.c3typ
+* A set of values from training log.
+*/
+entity type Log schema name "LOG" {
+    idx: !int
+    steps: !int
+    episodes: !int
+    reward: !double
+    time: !double
+    agent0_reward: !double
+    agent1_reward: !double
+    agent2_reward: !double
+    agent3_reward: !double
+    agent4_reward: !double
+    agent5_reward: !double
+}

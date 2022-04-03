@@ -1,0 +1,19 @@
+/**
+* TransformSourceLogToLog.c3typ
+* Transforms data from {@link SourceLog} to {@Log}
+*/
+type TransformSourceLogToLog mixes Log transforms SourceLog {
+    // The id of the simulation
+    id: ~ expression "concat('Idx_',idx,'_Eps_',episodes)"
+    // The remaining parameters (all doubles for now)
+    steps: ~ expression "steps"
+    episodes: ~ expression "episodes"
+    reward: ~ expression "reward" 
+    time: ~ expression "time"
+    agent0_reward: ~ expression "agent0_reward"
+    agent1_reward: ~ expression "agent1_reward"
+    agent2_reward: ~ expression "agent2_reward"
+    agent3_reward: ~ expression "agent3_reward"
+    agent4_reward: ~ expression "agent4_reward"
+    agent5_reward: ~ expression "agent5_reward"
+}
