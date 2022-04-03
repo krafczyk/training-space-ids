@@ -586,14 +586,14 @@
     "path": "research_teams/xu/MADDPG_basic.ipynb",
     "jupyterContentType": "notebook",
     "format": "json",
-    "writable": false,
+    "writable": true,
     "contentSize": 11067,
     "typeIdent": "NTBK",
     "acl": [
         {
-            "canUpdate": false,
-            "canRemove": false,
-            "canModifyAcl": false,
+            "canUpdate": true,
+            "canRemove": true,
+            "canModifyAcl": true,
             "member": {
                 "id": "C3.Group.DataScience"
             }
