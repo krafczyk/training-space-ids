@@ -2,7 +2,7 @@
 * RemoveAODDataOptions.c3typ
 * Represents customization options for a {@link RemoveAODData} batch job
 */
-type UpsertAODDataOptions {
+type RemoveAODDataOptions {
     limit: int=-1
     initialDate: datetime
     finalDate: datetime
