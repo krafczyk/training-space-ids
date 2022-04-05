@@ -2,9 +2,9 @@
 * Simulation3HourlyAODOutputAllRef.c3typ
 * A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) with references to {@link GeoSurfaceTime}
 */
-@db(index=["geoSurfaceTimePoint",
+@db(index=["geoSurfaceTimePoint"],
     compactType=true,
-    shortId=true])
+    shortId=true)
 entity type Simulation3HourlyAODOutputAllRef schema name 'SM_3HAOD_TPT_LLRF' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
