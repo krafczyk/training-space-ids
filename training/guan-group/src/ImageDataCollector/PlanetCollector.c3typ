@@ -9,9 +9,9 @@
 entity type PlanetCollector schema name "PLANET_CLLCTR"{
 
 	// Base url for Planet Images
-	base_url: !string
-	mosaic_id: !string
-	api_key: !string
+	base_url: !string // for azure blob, the base url is the image folders.
+	mosaic_id: string
+	api_key: string
 
 	// latlong start and end equvalent bbox
 	start_lat: !double
@@ -27,5 +27,7 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	@py(env="image_download")
 	@dependency(include="this")
 	stage_planet_raw: member function(): any
+
+	stage_blob_image: member function(int num_images): any
 
 }
