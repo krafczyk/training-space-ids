@@ -271,7 +271,7 @@ def upsert3HourlyAODAllRefData(this):
         df_batch["geoSurfaceTimePoint"] = gst.objs
 
         output_records = df_batch.to_dict(orient="records")
-        c3.Simulation3HourlyAODOutputAllRef.upsertBatch(objs=output_records)
+        c3.Simulation3HourlyAODOutputAllRef.createBatch(objs=output_records)
 
         #this.processed = True
         c3.SimulationOutputFile(id=this.id, processed=True).merge()

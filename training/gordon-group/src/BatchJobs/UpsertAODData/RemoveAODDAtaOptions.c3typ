@@ -1,0 +1,10 @@
+/**
+* RemoveAODDataOptions.c3typ
+* Represents customization options for a {@link RemoveAODData} batch job
+*/
+type UpsertAODDataOptions {
+    limit: int=-1
+    initialDate: datetime
+    finalDate: datetime
+    timeGranularity: string enum('HOUR', 'DAY')
+}
