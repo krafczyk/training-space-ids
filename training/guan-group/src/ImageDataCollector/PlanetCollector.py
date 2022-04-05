@@ -47,11 +47,18 @@ def stage_planet_raw(this):
 
 def stage_blob_image(num_images):
 
-    folder_path = c3.FileSystem.urlFromMountAndRelativeEncodePath(this.base_url)
+    folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
 
     ## TODO: modify this image path dictionary ##
+    fps = c3.FileSystem.inst().listFiles(folder_path)
     images_path = [] # in theory it will be id and file_path
+    for fp in fps.files:
+        if(".tif" in fp.contentLocation):
+            fp_id = fp.contentLocation.split("/")[-1].split(".tif")[0]
+            fp_location = fp.url
+            images_path.append({'id': fp_id, 'location': fp_location})
 
+    ## creating new PlanetFiles ##
     all_files = []
     for i in images_path:
         PRF = c3.PlanetFile(
@@ -59,7 +66,10 @@ def stage_blob_image(num_images):
                 "id": this.id + '_' + i['id'],
                 "planet_collector": this.id,
                 "name": i['id'],
-                "query_url": i['_links']['download']
+                "query_url": i['location'],
+                "status": "preprocessed",                                       ## this happening because this new dataset is preprocessed already ##
+                "processed_image_file": c3.File(**{'url': i['location']}),      ## this happening because this new dataset is preprocessed already ##
+                "external_processed_path": i['location']                        ## this happening because this new dataset is preprocessed already ##
             }
         )
         all_files.append(PRF)
