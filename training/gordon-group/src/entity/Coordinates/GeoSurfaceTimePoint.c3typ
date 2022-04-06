@@ -3,7 +3,7 @@
 * A space-time point where space is the Earth's surface.
 */
 
-entity type GeoSurfaceTime schema name 'GSRFC_TM' {
+entity type GeoSurfaceTimePoint schema name 'GSRFCTMPT' {
     // the latitude
     latitude: !float
     // the longitude

@@ -21,5 +21,5 @@ entity type Simulation3HourlyAODOutputAllRef schema name 'SM_3HAOD_TPT_LLRF' {
     // insoluble aitken mode
     insolubleAitkenMode: !float
     // the space-time point for this measurement
-    geoSurfaceTimePoint: !GeoSurfaceTime
+    geoSurfaceTimePoint: !GeoSurfaceTimePoint
 }

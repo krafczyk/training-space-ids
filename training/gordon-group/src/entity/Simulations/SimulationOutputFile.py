@@ -265,7 +265,7 @@ def upsert3HourlyAODAllRefData(this):
 
         # now upsert this
         output_records = df_st.to_dict(orient="records")
-        gst = c3.GeoSurfaceTime.upsertBatch(objs=output_records)
+        gst = c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
 
         df_batch = pd.DataFrame(df_var)
         df_batch["geoSurfaceTimePoint"] = gst.objs
