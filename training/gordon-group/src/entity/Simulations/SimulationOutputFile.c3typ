@@ -12,6 +12,8 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     container: !string enum('acure-aircraft', 'monthly-mean')
     // processed
     processed: boolean post default "false"
+    // processing metadata
+    processMeta: MetaFileProcessing
 
     // Load data from this file into {@link SimulationModelOutput}
     @py(env='gordon_1_0_0')
