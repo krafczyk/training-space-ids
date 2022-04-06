@@ -4,5 +4,6 @@
 */
 type UpsertAODDataOptions {
     batchSize: int = 1
-    limit: int=-1
+    limit: int = -1
+    offset: int = 0
 }
