@@ -224,6 +224,7 @@ def upsert3HourlyAODAllRefData(this):
     """
     import pandas as pd
     import numpy as np
+    from datetime import datetime as dt
 
     # verify file container
     if(this.container == 'monthly-mean'):
@@ -265,7 +266,13 @@ def upsert3HourlyAODAllRefData(this):
 
         # now upsert this
         output_records = df_st.to_dict(orient="records")
-        gst = c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
+        try:
+            gst = c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
+        except:
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True)
+            c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            return False
 
         df_batch = pd.DataFrame(df_var)
         df_batch["geoSurfaceTimePoint"] = gst.objs
@@ -274,7 +281,9 @@ def upsert3HourlyAODAllRefData(this):
         c3.Simulation3HourlyAODOutputAllRef.createBatch(objs=output_records)
 
         #this.processed = True
-        c3.SimulationOutputFile(id=this.id, processed=True).merge()
+        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=False)
+        c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge()
         #c3.SimulationOutputFile.merge(this)
 
         return True
