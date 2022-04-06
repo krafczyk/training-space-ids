@@ -7,8 +7,10 @@
  function doStart(job, options) {
     var batch = [];
 
+    var finalFilter = options.filter.and().eq("container", "monthly-mean");
+
     var dataset = SimulationOutputFile.fetchObjStream({
-        filter: "container == 'monthly-mean'",
+        filter: finalFilter,
         limit: options.limit,
         offset: options.offset
     });

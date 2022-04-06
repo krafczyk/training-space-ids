@@ -276,15 +276,19 @@ def upsert3HourlyAODAllRefData(this):
 
         df_batch = pd.DataFrame(df_var)
         df_batch["geoSurfaceTimePoint"] = gst.objs
-
         output_records = df_batch.to_dict(orient="records")
-        c3.Simulation3HourlyAODOutputAllRef.createBatch(objs=output_records)
+        try:
+            c3.Simulation3HourlyAODOutputAllRef.createBatch(objs=output_records)
+        except:
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True)
+            c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            return False
 
-        #this.processed = True
+        # if we get here, it worked
         meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
                     lastAttemptFailed=False)
         c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge()
-        #c3.SimulationOutputFile.merge(this)
 
         return True
     
