@@ -46,7 +46,7 @@ function afterCreate(objs) {
     var sampleFiles2 = new Array();
 
     var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-    var containerRoot = "azure://monthly-mean-simulations/";
+    var containerRoot = "azure://gordon/aod-3hourly/";
 
     for (var i = 0; i < months.length; i++) {
       var month = months[i];
@@ -71,13 +71,14 @@ function afterCreate(objs) {
       return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
     }
   
+    /// THIS NEEDS WORK
     function createSimOutFiles(file) {
       if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
         var year = file.url.slice(-18,-14);
         var month = file.url.slice(-14,-12);
         var day = file.url.slice(-12,-10);
         var date_str = year + "-" + month + "-" + day;
-        var container = "monthly-mean";
+        var container = "aod-3hourly";
         return SimulationOutputFile.make({
           "simulationSample": obj,
           "file": File.make({
