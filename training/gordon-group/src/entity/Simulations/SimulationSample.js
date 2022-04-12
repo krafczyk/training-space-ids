@@ -71,7 +71,7 @@ function afterCreate(objs) {
       return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
     }
   
-    /// THIS NEEDS WORK
+    /// THIS NEEDS WORK -- container will jave diff mount point
     function createSimOutFiles(file) {
       if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
         var year = file.url.slice(-18,-14);

@@ -7,7 +7,7 @@
  function doStart(job, options) {
     var batch = [];
 
-    var finalFilter = options.filter.and().eq("container", "monthly-mean");
+    var finalFilter = options.filter.and().eq("container", "aod-3hourly");
 
     var dataset = SimulationOutputFile.fetchObjStream({
         filter: finalFilter,
@@ -36,6 +36,6 @@
  */
 function processBatch(batch, job, options) {
     batch.values.forEach(function(file) {
-        file.upsert3HourlyAODAllRefData();
+        file.upsert3HourlyAODData();
     });
 }
