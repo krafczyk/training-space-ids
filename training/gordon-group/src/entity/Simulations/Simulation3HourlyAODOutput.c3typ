@@ -1,13 +1,13 @@
 /**
-* Simulation3HourlyAODOutputAllRef.c3typ
-* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) with references to {@link GeoSurfaceTime}
+* Simulation3HourlyAODOutput.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) with references to {@link GeoSurfaceTimePoint}, stored in Cassandra
 */
 @db(datastore='cassandra',
     partitionKeyField='geoSurfaceTimePoint',
     persistenceOrder='simulationSample',
     persistDuplicates=false,
     compactType=true)
-entity type Simulation3HourlyAODOutputAllRef schema name 'SM_3HAOD_TPT_LLRF' {
+entity type Simulation3HourlyAODOutput schema name 'SM_3HAOD_TPT' {
     // The {@link SimulationSample} this output belongs to
     simulationSample: !SimulationSample
     // dust
