@@ -16,6 +16,27 @@ def train(this, input, targetOutput, spec):
     gp = GaussianProcessRegressor(kernel=kernel)
     gp.fit(X, y)
 
+    # this step for updating the kernel parameters is written specifically for the Matern parameters
+    if this.kernel.kernel_name is 'Matern':
+
+        # record kernel parameters now that they are fitted
+        fit_params = gp.kernel_.get_params()
+
+        updated_hyperParameters = c3.c3Make(
+            "map<string, double>", {
+                "lengthScale": list(fit_params['k2__length_scale']),
+                "coefficient": fit_params['k1'],
+                "nu": fit_params['k2__nu']
+            }
+        )
+
+        # restate the kernel using the fitted parameters
+        this.kernel = c3.SklearnGPRKernel(
+            name=this.kernel.kernel_name,
+            hyperParameters=updated_hyperParameters,
+            pickledKernel=this.kernel.kernel_pickled
+        )
+
     # pickle model
     this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=gp))
 
