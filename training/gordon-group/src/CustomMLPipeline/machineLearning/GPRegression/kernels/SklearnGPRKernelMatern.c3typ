@@ -4,8 +4,8 @@
 * See: https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.kernels.Matern.html#sklearn.gaussian_process.kernels.Matern
 */
 type SklearnGPRKernelMatern {
-    // Constant that defines the kernel length scale
-    lengthScale: !double
+    // Array of constants which define an anisotropic kernel's length scales
+    lengthScale: !Float32Array
     // Constant prepended to the kernel function (for the variance K(x,x))
     coefficient: !double
     // Gamma and modified Bessel function orders
