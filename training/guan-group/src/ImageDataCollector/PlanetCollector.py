@@ -82,4 +82,4 @@ def stage_blob_image(this):
     '''
     
     
-    return this.base_url, this.num_images)
+    return this.base_url, this.num_images
