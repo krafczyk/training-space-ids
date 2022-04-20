@@ -28,6 +28,6 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	@dependency(include="this")
 	stage_planet_raw: member function(): any
 
-	stage_blob_image: member function(int num_images): any
+	stage_blob_image: member function(num_images: int): any
 
 }
