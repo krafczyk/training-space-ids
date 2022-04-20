@@ -49,7 +49,7 @@ def stage_blob_image(num_images):
 
     folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
 
-    ## TODO: modify this image path dictionary ##
+    ## modify this image path dictionary ##
     fps = c3.FileSystem.inst().listFiles(folder_path)
     images_path = [] # in theory it will be id and file_path
     for fp in fps.files:
