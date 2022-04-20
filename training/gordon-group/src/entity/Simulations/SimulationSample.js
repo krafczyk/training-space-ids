@@ -46,7 +46,7 @@ function afterCreate(objs) {
     var sampleFiles2 = new Array();
 
     var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-    var containerRoot = "azure://gordon/aod-3hourly/";
+    var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_1");
 
     for (var i = 0; i < months.length; i++) {
       var month = months[i];
