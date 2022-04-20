@@ -92,7 +92,7 @@ def upsert3HourlyAODData(this):
     from datetime import datetime as dt
 
     # verify file container
-    if(this.container == 'aod3-hourly'):
+    if(this.container == 'aod-3hourly'):
         variable_names = {
             "dust" : "atmosphere_optical_thickness_due_to_dust_ambient_aerosol",
             "solubleAitkenMode" : "atmosphere_optical_thickness_due_to_soluble_aitken_mode_ambient_aerosol",
