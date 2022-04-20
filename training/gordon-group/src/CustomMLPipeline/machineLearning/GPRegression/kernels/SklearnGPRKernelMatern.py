@@ -9,7 +9,7 @@ def build(this):
     kernel_pickled = c3.PythonSerialization.serialize(obj=sklKernel)
     kernel_name = 'Matern'
     kernel_hyperParameters = c3.c3Make(
-        "map<string, double>", {
+        "map<string, any>", {
             "lengthScale": this.lengthScale,
             "coefficient": this.coefficient,
             "nu": this.nu

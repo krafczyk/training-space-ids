@@ -5,7 +5,7 @@
 */
 type SklearnGPRKernelMatern {
     // Array of constants which define an anisotropic kernel's length scales
-    lengthScale: !Float32Array
+    lengthScale: ![double]
     // Constant prepended to the kernel function (for the variance K(x,x))
     coefficient: !double
     // Gamma and modified Bessel function orders

@@ -7,7 +7,7 @@ type SklearnGPRKernel {
     // the name of the kernel
     name: string enum('Constant', 'DotProduct', 'ExpSineSquared', 'Matern', 'RBF', 'RationalQuadratic', 'White')
     // the kernel hyper parameters 
-    hyperParameters: map<string, double> 
+    hyperParameters: map<string, any> 
     // the pickled kernel
     pickledKernel: string
 }
