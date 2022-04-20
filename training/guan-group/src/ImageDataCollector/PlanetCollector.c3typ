@@ -14,11 +14,11 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	api_key: string
 
 	// latlong start and end equvalent bbox
-	start_lat: !double
-	start_lon: !double
+	start_lat: double
+	start_lon: double
 	// latlong start and end equvalent bbox
-	end_lat: !double
-	end_lon: !double
+	end_lat: double
+	end_lon: double
 
 	// collection field of the planet image files, calling from c3Grid(PlanetCollector.fetch({include:"this, raw_image_collector"}))
 	raw_image_collector: [PlanetFile](planet_collector,id)
