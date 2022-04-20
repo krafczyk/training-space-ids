@@ -45,7 +45,7 @@ def stage_planet_raw(this):
     return c3.PlanetFile.mergeBatch(objs=all_files)
     
 
-def stage_blob_image(this, num_images):
+def stage_blob_image(this):
 
     folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
 
@@ -59,7 +59,7 @@ def stage_blob_image(this, num_images):
             images_path.append({'id': fp_id, 'location': fp_location})
 
     ## modification for num_images parameters
-    images_path = images_path[0:num_images]
+    images_path = images_path[0:this.num_images]
 
     ## creating new PlanetFiles ##
     all_files = []

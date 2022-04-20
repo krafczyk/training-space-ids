@@ -20,6 +20,9 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	end_lat: double
 	end_lon: double
 
+	// num_images
+	num_images: int
+
 	// collection field of the planet image files, calling from c3Grid(PlanetCollector.fetch({include:"this, raw_image_collector"}))
 	raw_image_collector: [PlanetFile](planet_collector,id)
 
@@ -27,9 +30,9 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	@py(env="image_download")
 	@dependency(include="this")
 	stage_planet_raw: member function(): any
-	
+
 	@py(env="image_download")
 	@dependency(include="this")
-	stage_blob_image: member function(num_images: int): any
+	stage_blob_image: member function(): any
 
 }
