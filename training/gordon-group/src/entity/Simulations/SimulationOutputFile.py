@@ -143,7 +143,7 @@ def upsert3HourlyAODData(this):
         df_batch["geoSurfaceTimePoint"] = gst.objs
         output_records = df_batch.to_dict(orient="records")
         try:
-            c3.Simulation3HourlyAODOutputAllRef.createBatch(objs=output_records)
+            c3.Simulation3HourlyAODOutput.createBatch(objs=output_records)
         except:
             meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
                     lastAttemptFailed=True)
