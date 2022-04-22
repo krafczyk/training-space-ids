@@ -151,7 +151,7 @@ def upsert3HourlyAODData(this):
             df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
             df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
 
-            df_st["id"] = df_st["latitude"].astype(str) + "_" + df_st["longitude"].astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
+            df_st["id"] = round(df_st["latitude"],3).astype(str) + "_" + round(df_st["longitude"],3).astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
         except:
             meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
                     lastAttemptFailed=True,
