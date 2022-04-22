@@ -86,6 +86,15 @@ def upsert3HourlyAODData(this):
 
     - Returns:
         -bool: True if file was processed, false if file has already been processed or if container type does not match.
+
+    Return codes:
+        0: All good!
+        1: Failed to open NetCDFFile
+        2: Failed to create DataFrame for variables
+        3: Failed to create DataFrame for GeoSpaceTimePoint
+        4: Failed to upsert GeoSpaceTimePoint
+        5: Failed to upsert Simulation3HourlyAODData
+        6: File does not have appropriate container for this method
     """
     import pandas as pd
     import numpy as np
@@ -101,63 +110,90 @@ def upsert3HourlyAODData(this):
             "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol"
         }
         #open file
-        sample = c3.NetCDFUtil.openFile(this.file.url)
-        df_var = pd.DataFrame()
-
-        # this is to take care of variables that need to be flattened
-        for var in variable_names.items():
-            tensor = sample[var[1]][:][2,:,:,:]
-            tensor = np.array(tensor).flatten()
-            df_var[var[0]] = tensor
-
-        # include simulation sample
-        df_var["simulationSample"] = this.simulationSample
-
-        # now do spacetime coordinates
-        df_st = pd.DataFrame()
-
-        lat = sample["latitude"][:]
-        lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
-        ts = this.dateTag
-        times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
-                ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
-                ts.replace(hour=21), ts.replace(hour=0)]
-
-        df_st["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
-        df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
-        df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
-
-        df_st["id"] = df_st["latitude"].astype(str) + "_" + df_st["longitude"].astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
-
-        # now upsert this
-        output_records = df_st.to_dict(orient="records")
         try:
-            gst = c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
+            sample = c3.NetCDFUtil.openFile(this.file.url)
         except:
             meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
-                    lastAttemptFailed=True)
+                    lastAttemptFailed=True,
+                    returnCode=1)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
             return False
 
-        df_batch = pd.DataFrame(df_var)
-        df_batch["geoSurfaceTimePoint"] = gst.objs
-        output_records = df_batch.to_dict(orient="records")
+
         try:
+            df_var = pd.DataFrame()
+            # this is to take care of variables that need to be flattened
+            for var in variable_names.items():
+                tensor = sample[var[1]][:][2,:,:,:]
+                tensor = np.array(tensor).flatten()
+                df_var[var[0]] = tensor
+            # include simulation sample
+            df_var["simulationSample"] = this.simulationSample
+        except:
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True,
+                    returnCode=2)
+            c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            return False
+
+        try:
+            # now do spacetime coordinates
+            df_st = pd.DataFrame()
+
+            lat = sample["latitude"][:]
+            lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+            ts = this.dateTag
+            times = [ts.replace(hour=3), ts.replace(hour=6), ts.replace(hour=9), 
+                ts.replace(hour=12), ts.replace(hour=15), ts.replace(hour=18), 
+                ts.replace(hour=21), ts.replace(hour=0)]
+
+            df_st["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
+            df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+            df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
+
+            df_st["id"] = df_st["latitude"].astype(str) + "_" + df_st["longitude"].astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
+        except:
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True,
+                    returnCode=3)
+            c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            return False
+
+        try:
+        # now upsert this
+            output_records = df_st.to_dict(orient="records")
+            gst = c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
+        except:
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True,
+                    returnCode=4)
+            c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            return False
+
+        try:
+            df_batch = pd.DataFrame(df_var)
+            df_batch["geoSurfaceTimePoint"] = gst.objs
+            output_records = df_batch.to_dict(orient="records")
             c3.Simulation3HourlyAODOutput.createBatch(objs=output_records)
         except:
             meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
-                    lastAttemptFailed=True)
+                    lastAttemptFailed=True,
+                    returnCode=5)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
             return False
 
         # if we get here, it worked
         meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
-                    lastAttemptFailed=False)
+                    lastAttemptFailed=False,
+                    returnCode=0)
         c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge()
-
         return True
     
     else:
+        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+                    lastAttemptFailed=True,
+                    returnCode=6)
+        c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge
         return False
 
 
