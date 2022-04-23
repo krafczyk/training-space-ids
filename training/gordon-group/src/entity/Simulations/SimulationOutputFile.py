@@ -134,6 +134,7 @@ def upsert3HourlyAODData(this):
                     lastAttemptFailed=True,
                     returnCode=2)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         try:
@@ -157,6 +158,7 @@ def upsert3HourlyAODData(this):
                     lastAttemptFailed=True,
                     returnCode=3)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         try:
@@ -168,6 +170,7 @@ def upsert3HourlyAODData(this):
                     lastAttemptFailed=True,
                     returnCode=4)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         try:
@@ -180,6 +183,7 @@ def upsert3HourlyAODData(this):
                     lastAttemptFailed=True,
                     returnCode=5)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # if we get here, it worked
@@ -187,6 +191,7 @@ def upsert3HourlyAODData(this):
                     lastAttemptFailed=False,
                     returnCode=0)
         c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge()
+        c3.NetCDFUtil.closeFile(sample, this.file.url)
         return True
     
     else:
