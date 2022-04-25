@@ -2,7 +2,7 @@
 * Batch job to upsert table with files for each {@link Simulationsample}
 */
 type CreateSimulationFileTable extends BatchJob<CreateSimulationFileTable, CreateSimulationFileTableOptions, CreateSimulationFileTableBatch> type key 'CRT_SMLTN_FL_TBL' {
-    simulationSamples: ![SimulationSample]
+    simulationSamples: ![SimulationSample] schema suffix 'SMSMPL'
 
     doStart:        ~ js server
     processBatch:   ~ js server
