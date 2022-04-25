@@ -1,7 +1,7 @@
 /**
 * Files containing output from {@link SimulationSample}s
 */
-@db(unique="[file]")
+@db(unique=["file"])
 entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     // The {@link SimulationSample} that theses files belong to.
     simulationSample: !SimulationSample
