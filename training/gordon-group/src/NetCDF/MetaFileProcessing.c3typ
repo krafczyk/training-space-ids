@@ -7,4 +7,6 @@ type MetaFileProcessing {
     lastProcessAttempt: datetime
     // did the attempt succeed?
     lastAttemptFailed: boolean  
+    // return (error) code
+    returnCode: int
 }
