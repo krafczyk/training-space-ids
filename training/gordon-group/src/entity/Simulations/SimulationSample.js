@@ -11,7 +11,6 @@
  * Then the objs will have at least those requested fields.
  * @return List of any errors that were encountered.
  */
-
 function afterCreate(objs) {
   var files = objs.map(createFiles);
   files.forEach(upsertBatch);
@@ -65,14 +64,14 @@ function afterCreate(objs) {
     // put two containers together
     sampleFiles = sampleFiles.concat(sampleFiles2);
 
-    return sampleFiles.map(createSimOutFiles);
+    return sampleFiles.map(createSimOutFile);
   
     function padStart(text, length, pad) {
       return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
     }
   
     /// THIS NEEDS WORK -- container will jave diff mount point
-    function createSimOutFiles(file) {
+    function createSimOutFile(file) {
       if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
         var year = file.url.slice(-18,-14);
         var month = file.url.slice(-14,-12);
@@ -111,6 +110,94 @@ function afterCreate(objs) {
   }
 };
 
+/**
+ * Implementation of upsertFileTable
+ * @param this: {@link SimulationSample} instance
+ * @return: integer 
+ */
+function upsertFileTable() {
+  var ensemble = this.ensemble;
+
+  // ACURE-AIRCRAFT CONTAINER                
+  var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+  var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
+  var pathToSample = prePathToAllFiles + padStart(String(this.simulationNumber),3,'0');
+  var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
+  var sampleFiles = new Array();
+  // Remove non-NetCDF files from list
+  for (var i = 0; i < allAAFiles.length; i++) {
+    var sf = allAAFiles[i];
+    if (sf.url.slice(-3) === ".nc") {
+      sampleFiles.push(sf);
+    };
+  };
+
+  // 3HOURLY-AOD CONTAINER
+  var simString = padStart(String(obj.simulationNumber), 3, '0');
+  var sampleFiles2 = new Array();
+  var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_1");
+  for (var i = 0; i < months.length; i++) {
+    var month = months[i];
+    var pathToFiles = containerRoot + month + "/";
+    var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
+    while (fileStream.hasNext()) {
+      var file = fileStream.next();
+      if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
+        sampleFiles2.push(file);
+      };
+    };
+  };
+
+  // put two containers together and upsert
+  sampleFiles = sampleFiles.concat(sampleFiles2);
+  var fileObjects = sampleFiles.map(createSimOutFile);
+  SimulationOutputFile.upsertBatch(fileObjects);
+  return 0;
+
+
+  function padStart(text, length, pad) {
+    return (pad.repeat(Math.max(0, length - text.length)) + text).slice(-length);
+  }
+
+  
+  function createSimOutFile(file) {
+    if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
+      var year = file.url.slice(-18,-14);
+      var month = file.url.slice(-14,-12);
+      var day = file.url.slice(-12,-10);
+      var date_str = year + "-" + month + "-" + day;
+      var container = "aod-3hourly";
+      return SimulationOutputFile.make({
+        "simulationSample": obj,
+        "file": File.make({
+                "url": file.url
+        }),
+        "dateTag": DateTime.make({
+                "value": date_str
+        }),
+        "container": container
+      });
+    }
+    else {
+      var year = file.url.slice(-11,-7);
+      var month = file.url.slice(-7,-5);
+      var day = file.url.slice(-5,-3);
+      var date_str = year + "-" + month + "-" + day;
+      var container = "acure-aircraft";
+      return SimulationOutputFile.make({
+                "simulationSample": obj,
+                "file": File.make({
+                        "url": file.url
+                }),
+                "dateTag": DateTime.make({
+                        "value": date_str
+                }),
+                "container": container
+      });
+    }
+  }
+};
 
 
 
