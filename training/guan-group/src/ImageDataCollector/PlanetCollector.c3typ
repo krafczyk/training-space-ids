@@ -31,7 +31,7 @@ entity type PlanetCollector schema name "PLANET_CLLCTR"{
 	@dependency(include="this")
 	stage_planet_raw: member function(): any
 
-	@py(env="image_download")
+	@py(env="empty")
 	@dependency(include="this")
 	stage_blob_image: member function(): any
 
