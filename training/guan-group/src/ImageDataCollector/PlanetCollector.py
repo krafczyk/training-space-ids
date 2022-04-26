@@ -49,6 +49,7 @@ def stage_blob_image(this):
 
     folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
 
+    return folder_path
     '''
     ## modify this image path dictionary ##
     fps = c3.FileSystem.inst().listFiles(folder_path)
@@ -82,4 +83,4 @@ def stage_blob_image(this):
     '''
     
     
-    return folder_path
+    
