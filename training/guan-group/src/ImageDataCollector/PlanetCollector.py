@@ -11,6 +11,12 @@ def stage_planet_raw(this):
     ## use batches to upsert the file using "mergeBatch"
     ## look at "HindcastArchive.py"
 
+    ## checking the condition if no mosaic_id or api_key ##
+    if(this.mosaic_id):
+        raise ValueError('no mosaic id')
+    elif(this.api_key):
+        raise ValueError('no api key')
+
     ## create the auth ##
     auth = HTTPBasicAuth(this.api_key, '')
     ## create the full path of the url ##
@@ -37,4 +43,44 @@ def stage_planet_raw(this):
         all_files.append(PRF)
 
     return c3.PlanetFile.mergeBatch(objs=all_files)
+    
+
+def stage_blob_image(this):
+
+    folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
+
+    return folder_path
+    '''
+    ## modify this image path dictionary ##
+    fps = c3.FileSystem.inst().listFiles(folder_path)
+    images_path = [] # in theory it will be id and file_path
+    for fp in fps.files:
+        if(".tif" in fp.contentLocation):
+            fp_id = fp.contentLocation.split("/")[-1].split(".tif")[0]
+            fp_location = fp.url
+            images_path.append({'id': fp_id, 'location': fp_location})
+
+    ## modification for num_images parameters
+    images_path = images_path[0:this.num_images]
+
+    ## creating new PlanetFiles ##
+    all_files = []
+    for i in images_path:
+        PRF = c3.PlanetFile(
+            **{
+                "id": this.id + '_' + i['id'],
+                "planet_collector": this.id,
+                "name": i['id'],
+                "query_url": i['location'],
+                "status": "preprocessed",                                       ## this happening because this new dataset is preprocessed already ##
+                "processed_image_file": c3.File(**{'url': i['location']}),      ## this happening because this new dataset is preprocessed already ##
+                "external_processed_path": i['location']                        ## this happening because this new dataset is preprocessed already ##
+            }
+        )
+        all_files.append(PRF)
+
+    c3.PlanetFile.mergeBatch(objs=all_files)
+    '''
+    
+    
     

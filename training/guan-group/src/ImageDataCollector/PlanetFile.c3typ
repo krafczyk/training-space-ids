@@ -43,6 +43,6 @@ entity type PlanetFile schema name "PLANET_RAW_F"{
     /**
     * Callback to delete underlying file when removing a row.
     */
-    beforeRemove: ~ js server
+    //beforeRemove: ~ js server
 
 }
