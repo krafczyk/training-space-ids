@@ -47,7 +47,7 @@ def stage_planet_raw(this):
 
 def stage_blob_image(this):
 
-    ##folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
+    folder_path = c3.FileSystem.inst().urlFromMountAndRelativeEncodedPath(this.base_url)
 
     '''
     ## modify this image path dictionary ##
@@ -82,4 +82,4 @@ def stage_blob_image(this):
     '''
     
     
-    return this.base_url, this.num_images
+    return folder_path
