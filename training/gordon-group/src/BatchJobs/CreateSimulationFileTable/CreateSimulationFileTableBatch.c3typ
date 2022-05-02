@@ -1,0 +1,6 @@
+/**
+* Represents a unit of work (batch) in a {@link CreateSimulationFileTable} batch job.
+*/
+type CreateSimulationFileTableBatch {
+    values: [SimulationSample]
+}

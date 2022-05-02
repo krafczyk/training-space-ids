@@ -1,0 +1,7 @@
+/**
+* Represents customization options for a {@link CreateSimulationFileTable} batch job
+*/
+type CreateSimulationFileTableOptions {
+    // the number of files that will be processed in each batch
+    batchSize: int = 1
+}

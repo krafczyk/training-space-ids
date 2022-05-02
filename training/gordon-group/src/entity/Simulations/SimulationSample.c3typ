@@ -14,16 +14,16 @@ entity type SimulationSample mixes MetricEvaluatable schema name "SMLTN_SMPL" {
     output: [SimulationModelOutputSeries](simulationSample,id)
     // the collection of {@link SimulationOutputFile}s for this simulation sample
     outputFiles: [SimulationOutputFile](simulationSample, id)
-
     // Temperature unit of measure
     temperatureUOM: Unit post default "{id: 'degrees_celsius'}"
 
 
-
-    // METHODS
     // Callback to create the {@link SimulationOutputFile}s whenever a {@link SimulationSample} is upserted. 
     @dependency(include = "this, ensemble.name")
     afterCreate: ~ js server
+    // Function that callback actually calls
+    @dependency(include = "this, ensemble")
+    upsertFileTable: member function(): int js server
     // Upsert data into {@link SimulationModelOutput} for all {@link SimulationOutputFile}s corresponding to this {@link SimulationSample}
     @dependency(include = "this, outputFiles")
     upsertSampleData: member function(): int js server
