@@ -2,7 +2,7 @@
 # Copyright (c) 2022, C3 AI DTI, Development Operations Team
 # All rights reserved. License: https://github.com/c3aidti/.github
 ##
-def getInputDataForSources(this):
+def getInputDataForSources(this, srcIds):
     """
     Implementation of...
     """
