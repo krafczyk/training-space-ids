@@ -26,7 +26,7 @@ def getInputDataForSources(this, srcIds):
         path = "output",
         expression = metricExpr
     )
-    spec = c3.EvalmetricsSpec(
+    spec = c3.EvalMetricsSpec(
         ids = simulationSamples['id'],
         expressions = [metricName],
         start = this.timestamp,
