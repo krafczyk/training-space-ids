@@ -21,6 +21,7 @@ def getInputDataForSources(this, srcIds):
     metricExpr = "avg(avg(normalized.data." + this.targetName + "))"
     metric = c3.SimpleMetric(
         id = metricName,
+        name = metricName,
         description = metricDescr,
         srcType = "SimulationSample",
         path = "output",
