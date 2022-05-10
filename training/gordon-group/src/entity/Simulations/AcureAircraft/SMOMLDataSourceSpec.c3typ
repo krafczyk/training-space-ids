@@ -8,5 +8,5 @@
 entity type SMOMLDataSourceSpec extends MLDataSourceSpec<Dataset> mixes SMOMLPartialDataSourceSpec type key 'SMODSS' {
     // implementation to get the data
     @py(env='gordon-ML_1_0_0')
-    getInputDataForSources: member function(): int
+    getInputDataForSources: ~
 }
