@@ -1,0 +1,12 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This type defines the fixed fields of the data source spec to feed {@link SimulationModelOutputSeries} into {@link GaussianProcessorRegressionPipe}.
+*/
+entity type SMOMLDataSourceSpec extends MLDataSourceSpec<Dataset> mixes SMOMLPartialDataSourceSpec type key 'SMODSS' {
+    // implementation to get the data
+    @py(env='gordon-ML_1_0_0')
+    getInputDataForSources: member function(): [Dataset]
+}
