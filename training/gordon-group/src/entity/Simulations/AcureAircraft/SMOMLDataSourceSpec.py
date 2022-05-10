@@ -39,5 +39,8 @@ def getInputDataForSources(this, srcIds):
         overrideMetrics = [metric]
     )
     y = c3.EvalMetricsResult.toPandas(result=evalMetricsResult)
+    
+    X = c3.Dataset.fromPython(X)
+    y = c3.Dataset.fromPython(y)
 
     return [X,y]
