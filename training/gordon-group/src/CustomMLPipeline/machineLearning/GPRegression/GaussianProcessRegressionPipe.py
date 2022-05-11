@@ -56,7 +56,7 @@ def process(this, input, spec):
     # format data
     X = c3.Dataset.toNumpy(dataset=input)
 
-    return c3.Dataset.fromPython(pythonData=gp.predict(X))
+    return c3.Dataset.fromPython(pythonData=gp.predict(X, return_cov=True))
 
 
 def isProcessable(this):
