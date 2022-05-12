@@ -45,7 +45,7 @@ def train(this, input, targetOutput, spec):
     return this
 
 
-def process(this, input, spec):
+def process(this, input, computeCov=False, spec):
     """
     Performs Scikit-Learn's GaussianProcessRegressor's predict().
     https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html
@@ -56,10 +56,18 @@ def process(this, input, spec):
     # format data
     X = c3.Dataset.toNumpy(dataset=input)
 
-    # get predictions and covariance dataframes
-    predictions, covariance_matrix = gp.predict(X, return_cov=True)
+    # get predictions (and covariance if computeCov=True)
+    if computeCov:
 
-    return c3.Dataset.fromPython(pythonData=predictions), c3.Dataset.fromPython(pythonData=covariance_matrix)
+        predictions, covariance_matrix = gp.predict(X, return_cov=True)
+
+        return c3.Dataset.fromPython(pythonData=predictions), c3.Dataset.fromPython(pythonData=covariance_matrix)
+
+    else:
+
+        predictions = gp.predict(X)
+
+        return c3.Dataset.fromPython(pythonData=predictions)
 
 
 def isProcessable(this):
