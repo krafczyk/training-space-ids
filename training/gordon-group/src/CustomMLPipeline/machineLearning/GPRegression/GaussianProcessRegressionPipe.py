@@ -45,7 +45,7 @@ def train(this, input, targetOutput, spec):
     return this
 
 
-def process(this, input, computeCov=False, spec):
+def process(this, input, spec, computeCov=False):
     """
     Performs Scikit-Learn's GaussianProcessRegressor's predict().
     https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html
