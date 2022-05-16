@@ -6,14 +6,14 @@ def getInputDataForSources(this, srcIds):
     """
     Implementation of...
     """
-    #import pandas as pd
+    import pandas as pd
     #from sklearn.model_selection import train_test_split
 
     # fetch features
-    #features = c3.SimulationModelParameters.fetch({"limit": -1}).objs.toJson()
-    #df = pd.DataFrame(features)
+    features = c3.SimulationModelParameters.fetch({"limit": -1}).objs.toJson()
+    df = pd.DataFrame(features)
     #simulationSamples = pd.DataFrame(df['id'])
-    #X = df[df.columns[5:]]
+    X = df[df.columns[5:]]
 
     # now grab the targets
    # metricName = "Average_" + this.targetName + "_SimulationSample"
@@ -40,7 +40,7 @@ def getInputDataForSources(this, srcIds):
    # )
    # y = c3.EvalMetricsResult.toPandas(result=evalMetricsResult)
    # 
-    #X = c3.Dataset.fromPython(X)
+    X = c3.Dataset.fromPython(X)
     #y = c3.Dataset.fromPython(y)
 
     return 0
