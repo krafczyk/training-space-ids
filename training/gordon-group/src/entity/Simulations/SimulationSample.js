@@ -136,14 +136,14 @@ function upsertFileTable() {
   var simString = padStart(String(obj.simulationNumber), 3, '0');
   var sampleFiles2 = new Array();
   var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-  var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_1");
+  var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_4");
   for (var i = 0; i < months.length; i++) {
     var month = months[i];
     var pathToFiles = containerRoot + month + "/";
     var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
     while (fileStream.hasNext()) {
       var file = fileStream.next();
-      if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
+      if (file.url.includes(simString) && file.url.includes(".nc") && !file.url.includes('ACURE')) {
         sampleFiles2.push(file);
       };
     };
@@ -162,10 +162,12 @@ function upsertFileTable() {
 
   
   function createSimOutFile(file) {
-    if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
-      var year = file.url.slice(-18,-14);
-      var month = file.url.slice(-14,-12);
-      var day = file.url.slice(-12,-10);
+    if (file.url.includes("azure://aod-3hourly")) {
+      var date = file.url.split("a.pb")[1]
+      date = date.split(".pp")[0]
+      var year = date.slice(0,4);
+      var month = file.url.slice(4,6);
+      var day = file.url.slice(6,8);
       var date_str = year + "-" + month + "-" + day;
       var container = "aod-3hourly";
       return SimulationOutputFile.make({
