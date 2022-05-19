@@ -116,6 +116,7 @@ function afterCreate(objs) {
  * @return: integer 
  */
 function upsertFileTable() {
+  var simSample = this;
   var ensemble = this.ensemble;
 
   // ACURE-AIRCRAFT CONTAINER                
@@ -171,7 +172,7 @@ function upsertFileTable() {
       var date_str = year + "-" + month + "-" + day;
       var container = "aod-3hourly";
       return SimulationOutputFile.make({
-        "simulationSample": this,
+        "simulationSample": simSample,
         "file": File.make({
                 "url": file.url
         }),
@@ -188,7 +189,7 @@ function upsertFileTable() {
       var date_str = year + "-" + month + "-" + day;
       var container = "acure-aircraft";
       return SimulationOutputFile.make({
-                "simulationSample": this,
+                "simulationSample": simSample,
                 "file": File.make({
                         "url": file.url
                 }),
