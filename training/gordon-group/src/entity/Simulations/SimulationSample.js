@@ -119,18 +119,18 @@ function upsertFileTable() {
   var ensemble = this.ensemble;
 
   // ACURE-AIRCRAFT CONTAINER                
-  var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
-  var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
-  var pathToSample = prePathToAllFiles + padStart(String(this.simulationNumber),3,'0');
-  var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
-  var sampleFiles = new Array();
-  // Remove non-NetCDF files from list
-  for (var i = 0; i < allAAFiles.length; i++) {
-    var sf = allAAFiles[i];
-    if (sf.url.slice(-3) === ".nc") {
-      sampleFiles.push(sf);
-    };
-  };
+  //var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+  //var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
+  //var pathToSample = prePathToAllFiles + padStart(String(this.simulationNumber),3,'0');
+  //var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
+  //var sampleFiles = new Array();
+  //// Remove non-NetCDF files from list
+  //for (var i = 0; i < allAAFiles.length; i++) {
+  //  var sf = allAAFiles[i];
+  //  if (sf.url.slice(-3) === ".nc") {
+  //    sampleFiles.push(sf);
+  //  };
+  //};
 
   // 3HOURLY-AOD CONTAINER
   var simString = padStart(String(this.simulationNumber), 3, '0');
@@ -150,8 +150,8 @@ function upsertFileTable() {
   };
 
   // put two containers together and upsert
-  sampleFiles = sampleFiles.concat(sampleFiles2);
-  var fileObjects = sampleFiles.map(createSimOutFile);
+  //sampleFiles = sampleFiles.concat(sampleFiles2);
+  var fileObjects = sampleFiles2.map(createSimOutFile);
   SimulationOutputFile.upsertBatch(fileObjects);
   return 0;
 
@@ -163,6 +163,7 @@ function upsertFileTable() {
   
   function createSimOutFile(file) {
     if (file.url.includes("azure://aod-3hourly")) {
+      console.log(file.url);
       var date = file.url.split("a.pb")[1]
       date = date.split(".pp")[0]
       var year = date.slice(0,4);
