@@ -163,7 +163,6 @@ function upsertFileTable() {
   
   function createSimOutFile(file) {
     if (file.url.includes("azure://aod-3hourly")) {
-      console.log(file.url);
       var date = file.url.split("a.pb")[1]
       date = date.split(".pp")[0]
       var year = date.slice(0,4);
