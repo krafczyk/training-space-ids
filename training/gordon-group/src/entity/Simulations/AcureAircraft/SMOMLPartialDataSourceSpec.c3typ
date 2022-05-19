@@ -1,0 +1,13 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This type defines the variable fields of the data source spec to feed {@link SimulationModelOutputSeries} into {@link GaussianProcessorRegressionPipe}.
+*/
+type SMOMLPartialDataSourceSpec mixes MLPartialDataSourceSpec {
+    // name of the variable in {@link SimulationModelOutput} under investigation
+    targetName: !string
+    // the timestamp to fetch {@link SimulationModelOutputSeries}
+    timestamp: !datetime
+}
