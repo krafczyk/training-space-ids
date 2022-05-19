@@ -25,4 +25,7 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     // Load data from all containers
     @py(env='gordon_1_0_0')
     upsertData: member function(): boolean
+    // TEST
+    @py(env='gordon_1_0_0')
+    upsertTestAOD: member function(): boolean
 }
