@@ -133,7 +133,7 @@ function upsertFileTable() {
   };
 
   // 3HOURLY-AOD CONTAINER
-  var simString = padStart(String(obj.simulationNumber), 3, '0');
+  var simString = padStart(String(this.simulationNumber), 3, '0');
   var sampleFiles2 = new Array();
   var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
   var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_4");
