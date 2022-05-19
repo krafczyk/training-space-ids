@@ -166,8 +166,8 @@ function upsertFileTable() {
       var date = file.url.split("a.pb")[1]
       date = date.split(".pp")[0]
       var year = date.slice(0,4);
-      var month = date.url.slice(4,6);
-      var day = date.url.slice(6,8);
+      var month = date.slice(4,6);
+      var day = date.slice(6,8);
       var date_str = year + "-" + month + "-" + day;
       var container = "aod-3hourly";
       return SimulationOutputFile.make({
