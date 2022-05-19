@@ -171,7 +171,7 @@ function upsertFileTable() {
       var date_str = year + "-" + month + "-" + day;
       var container = "aod-3hourly";
       return SimulationOutputFile.make({
-        "simulationSample": obj,
+        "simulationSample": this,
         "file": File.make({
                 "url": file.url
         }),
@@ -188,7 +188,7 @@ function upsertFileTable() {
       var date_str = year + "-" + month + "-" + day;
       var container = "acure-aircraft";
       return SimulationOutputFile.make({
-                "simulationSample": obj,
+                "simulationSample": this,
                 "file": File.make({
                         "url": file.url
                 }),
