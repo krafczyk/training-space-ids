@@ -113,7 +113,7 @@ def upsertTestAOD(this):
         try:
             sample = c3.NetCDFUtil.openFile(this.file.url)
         except:
-            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=1)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
@@ -130,7 +130,7 @@ def upsertTestAOD(this):
             # include simulation sample
             df_var["simulationSample"] = this.simulationSample
         except:
-            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=2)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
@@ -157,7 +157,7 @@ def upsertTestAOD(this):
 
             df_st["id"] = round(df_st["latitude"],3).astype(str) + "_" + round(df_st["longitude"],3).astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
         except:
-            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=3)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
@@ -169,7 +169,7 @@ def upsertTestAOD(this):
             output_records = df_st.to_dict(orient="records")
             gst = c3.TestGSTP.upsertBatch(objs=output_records)
         except:
-            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=4)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
@@ -182,7 +182,7 @@ def upsertTestAOD(this):
             output_records = df_batch.to_dict(orient="records")
             c3.TestAOD.createBatch(objs=output_records)
         except:
-            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+            meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=5)
             c3.SimulationOutputFile(id=this.id, processMeta=meta).merge()
@@ -190,7 +190,7 @@ def upsertTestAOD(this):
             return False
 
         # if we get here, it worked
-        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=False,
                     returnCode=0)
         c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge()
@@ -198,7 +198,7 @@ def upsertTestAOD(this):
         return True
     
     else:
-        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.now(),
+        meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
                     returnCode=6)
         c3.SimulationOutputFile(id=this.id, processed=True, processMeta=meta).merge
