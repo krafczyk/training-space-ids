@@ -180,7 +180,7 @@ def upsertTestAOD(this):
             df_batch = pd.DataFrame(df_var)
             df_batch["geoSurfaceTimePoint"] = gst.objs
             output_records = df_batch.to_dict(orient="records")
-            c3.TestAOD.createBatch(objs=output_records)
+            c3.TestAODData.createBatch(objs=output_records)
         except:
             meta = c3.MetaFileProcessing(lastProcessAttempt=dt.datetime.now(),
                     lastAttemptFailed=True,
