@@ -28,6 +28,8 @@ def getTargetDataForSources(this, srcIds):
     """
     Implementation to get Targets, viz. SimulationModelOutputSeries
     """
+    import pandas as pd
+    
     parameters = c3.SimulationModelParameters.fetch({"include": "id"}).objs
     parameters = parameters.toJson()
     df = pd.DataFrame(parameters)
