@@ -116,42 +116,43 @@ function afterCreate(objs) {
  * @return: integer 
  */
 function upsertFileTable() {
+  var simSample = this;
   var ensemble = this.ensemble;
 
   // ACURE-AIRCRAFT CONTAINER                
-  var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
-  var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
-  var pathToSample = prePathToAllFiles + padStart(String(this.simulationNumber),3,'0');
-  var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
-  var sampleFiles = new Array();
-  // Remove non-NetCDF files from list
-  for (var i = 0; i < allAAFiles.length; i++) {
-    var sf = allAAFiles[i];
-    if (sf.url.slice(-3) === ".nc") {
-      sampleFiles.push(sf);
-    };
-  };
+  //var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
+  //var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
+  //var pathToSample = prePathToAllFiles + padStart(String(this.simulationNumber),3,'0');
+  //var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
+  //var sampleFiles = new Array();
+  //// Remove non-NetCDF files from list
+  //for (var i = 0; i < allAAFiles.length; i++) {
+  //  var sf = allAAFiles[i];
+  //  if (sf.url.slice(-3) === ".nc") {
+  //    sampleFiles.push(sf);
+  //  };
+  //};
 
   // 3HOURLY-AOD CONTAINER
-  var simString = padStart(String(obj.simulationNumber), 3, '0');
+  var simString = padStart(String(this.simulationNumber), 3, '0');
   var sampleFiles2 = new Array();
   var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-  var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_1");
+  var containerRoot = FileSystem.urlFromMountAndRelativeEncodedPath("GORDON_4");
   for (var i = 0; i < months.length; i++) {
     var month = months[i];
     var pathToFiles = containerRoot + month + "/";
     var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
     while (fileStream.hasNext()) {
       var file = fileStream.next();
-      if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
+      if (file.url.includes(simString) && file.url.includes(".nc") && !file.url.includes('ACURE')) {
         sampleFiles2.push(file);
       };
     };
   };
 
   // put two containers together and upsert
-  sampleFiles = sampleFiles.concat(sampleFiles2);
-  var fileObjects = sampleFiles.map(createSimOutFile);
+  //sampleFiles = sampleFiles.concat(sampleFiles2);
+  var fileObjects = sampleFiles2.map(createSimOutFile);
   SimulationOutputFile.upsertBatch(fileObjects);
   return 0;
 
@@ -162,14 +163,16 @@ function upsertFileTable() {
 
   
   function createSimOutFile(file) {
-    if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
-      var year = file.url.slice(-18,-14);
-      var month = file.url.slice(-14,-12);
-      var day = file.url.slice(-12,-10);
+    if (file.url.includes("azure://aod-3hourly")) {
+      var date = file.url.split("a.pb")[1]
+      date = date.split(".pp")[0]
+      var year = date.slice(0,4);
+      var month = date.slice(4,6);
+      var day = date.slice(6,8);
       var date_str = year + "-" + month + "-" + day;
       var container = "aod-3hourly";
       return SimulationOutputFile.make({
-        "simulationSample": obj,
+        "simulationSample": simSample,
         "file": File.make({
                 "url": file.url
         }),
@@ -186,7 +189,7 @@ function upsertFileTable() {
       var date_str = year + "-" + month + "-" + day;
       var container = "acure-aircraft";
       return SimulationOutputFile.make({
-                "simulationSample": obj,
+                "simulationSample": simSample,
                 "file": File.make({
                         "url": file.url
                 }),
