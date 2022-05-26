@@ -18,5 +18,5 @@ def getInputDataForSources(this, srcIds):
     # cast it into 
     X = c3.Dataset.fromPython(X)
 
-    return 0
+    return X
    # return [X,y]
