@@ -7,7 +7,7 @@
 */
 entity type SMOMLDataSourceSpec extends SupervisedMLDataSourceSpec<Dataset, Dataset> type key 'SMODSS' {
     // target name, viz. {@link SimulationModelOutput} column
-    targetName: !string
+    targetName: !string enum ('mass_BC_acc')
     // timestamp to retrieve data
     timestamp: !datetime
     // ratio of the entire data that WILL NOT be retrieved, default is 0
