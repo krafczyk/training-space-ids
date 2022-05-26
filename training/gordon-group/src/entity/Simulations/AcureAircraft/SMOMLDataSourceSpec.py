@@ -28,7 +28,7 @@ def getTargetDataForSources(this, srcIds):
     """
     Implementation to get Targets, viz. SimulationModelOutputSeries
     """
-    parameters = c3.SimulationModelParameters.fetch({include: "id"}).objs
+    parameters = c3.SimulationModelParameters.fetch({"include": "id"}).objs
     parameters = parameters.toJson()
     df = pd.DataFrame(parameters)
     df = df.sort_values(by = ["id"])
