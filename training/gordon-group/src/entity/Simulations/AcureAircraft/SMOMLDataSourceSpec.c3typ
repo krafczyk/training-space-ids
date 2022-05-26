@@ -18,5 +18,6 @@ entity type SMOMLDataSourceSpec extends SupervisedMLDataSourceSpec<Dataset, Data
     @py(env='gordon-ML_1_0_0')
     getInputDataForSources: ~
     // implementation to get target data
+    @py(env='gordon-ML_1_0_0')
     getTargetDataForSources: ~
 }
