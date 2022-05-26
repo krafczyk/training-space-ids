@@ -13,7 +13,7 @@ def getInputDataForSources(this, srcIds):
     features = c3.SimulationModelParameters.fetch({"limit": -1, "order": "id"}).objs.toJson()
     df = pd.DataFrame(features)
     X = df[df.columns[5:]]
-    X = df.sample(frac=this.leaveBehindRatio, random_state=this.randomSeed)
+    X = X.sample(frac=this.leaveBehindRatio, random_state=this.randomSeed)
 
     # cast it into 
     X = c3.Dataset.fromPython(X)
