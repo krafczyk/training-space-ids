@@ -11,9 +11,9 @@ entity type SMOMLDataSourceSpec extends SupervisedMLDataSourceSpec<Dataset, Data
     // timestamp to retrieve data
     timestamp: !datetime
     // ratio of the entire data that WILL NOT be retrieved, default is 0
-    leaveBehindRatio: double = 0.0
+    leaveBehindRatio: double post default 0.0
     // random seed to shuffle datasets, default is 42
-    randomSeed: int = 42
+    randomSeed: int post default 42
     // implementation to get input data
     @py(env='gordon-ML_1_0_0')
     getInputDataForSources: ~
