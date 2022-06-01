@@ -144,7 +144,9 @@ function upsertFileTable() {
     var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
     while (fileStream.hasNext()) {
       var file = fileStream.next();
-      if (file.url.includes(simString) && file.url.includes(".nc") && !file.url.includes('ACURE')) {
+      var simString2 = file.url.split("_")[1];
+      simString2 = simString2.slice(0,3);
+      if (simString2 === simString && file.url.includes(".nc") && !file.url.includes('ACURE')) {
         sampleFiles2.push(file);
       };
     };
