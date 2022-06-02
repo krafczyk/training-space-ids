@@ -223,3 +223,85 @@ def upsertData(this):
         return False
 
 
+def createAODDataCassandraHeaders(this):
+    import pandas as pd
+    import numpy as np
+    import datetime as dt
+
+    sample = c3.NetCDFUtil.openFile(this.file.url)
+    df_st = pd.DataFrame()
+
+    lat = sample["latitude"][:]
+    lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+    tim = sample["time"][:]
+    zero_time = dt.datetime(1970,1,1,0,0)
+    times = []
+    for t in tim:
+        target_time = zero_time + dt.timedelta(hours=t)
+        times.append(target_time)
+            
+
+    df_st["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
+    df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+    df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
+    df_st["id"] = round(df_st["latitude"],3).astype(str) + "_" + round(df_st["longitude"],3).astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
+
+    output_records = df_st.to_dict(orient="records")
+    c3.GeoSurfaceTimePoint.upsertBatch(objs=output_records)
+
+    return True
+
+
+def upsert3HourlyAODDataAfterHeadersCreated(this):
+    import pandas as pd
+    import numpy as np
+    import datetime as dt
+
+    variable_names = {
+            "dust" : "atmosphere_optical_thickness_due_to_dust_ambient_aerosol",
+            "solubleAitkenMode" : "atmosphere_optical_thickness_due_to_soluble_aitken_mode_ambient_aerosol",
+            "solubleAccumulationMode" : "atmosphere_optical_thickness_due_to_soluble_accumulation_mode_ambient_aerosol",
+            "solubleCoarseMode" : "atmosphere_optical_thickness_due_to_soluble_coarse_mode_ambient_aerosol",
+            "insolubleAitkenMode" : "atmosphere_optical_thickness_due_to_insoluble_aitken_mode_ambient_aerosol"
+    }
+
+    sample = c3.NetCDFUtil.openFile(this.file.url)
+
+    df_var = pd.DataFrame()
+    for var in variable_names.items():
+        tensor = sample[var[1]][:][2,:,:,:]
+        tensor = np.array(tensor).flatten()
+        df_var[var[0]] = tensor
+     # include simulation sample
+    df_var["simulationSample"] = this.simulationSample
+
+    # now find partiion keys
+    df_st = pd.DataFrame()
+    lat = sample["latitude"][:]
+    lon = [x*(x < 180) + (x - 360)*(x >= 180) for x in sample["longitude"][:]]
+    tim = sample["time"][:]
+    zero_time = dt.datetime(1970,1,1,0,0)
+    times = []
+    for t in tim:
+        target_time = zero_time + dt.timedelta(hours=t)
+        times.append(target_time)
+    df_st["time"] = [t for t in times for n in range(0, len(lat)*len(lon))]
+    df_st["latitude"] = [l for l in lat for n in range(0, len(lon))]*len(times)
+    df_st["longitude"] = [l for l in lon]*len(times)*len(lat)
+
+    ids = round(df_st["latitude"],3).astype(str) + "_" + round(df_st["longitude"],3).astype(str) + "_" + df_st["time"].astype(str).apply(lambda x: x.replace(" ", 'T'))
+    def make_gstp(objId):
+        return c3.GeoSurfaceTimePoint(id=objId)
+    objs = ids.apply(make_gstp)
+
+    # upsert it
+    df_batch = pd.DataFrame(df_var)
+    df_batch["geoSurfaceTimePoint"] = objs
+    output_records = df_batch.to_dict(orient="records")
+    c3.Simulation3HourlyAODOutput.upsertBatch(objs=output_records)
+
+    return True
+
+
+
+
