@@ -286,6 +286,7 @@ def createAODDataCassandraHeaders(this):
                 id=this.id, 
                 processed=True, 
                 processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # upsert data
@@ -302,6 +303,7 @@ def createAODDataCassandraHeaders(this):
                 id=this.id, 
                 processed=True, 
                 processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # success
@@ -314,6 +316,7 @@ def createAODDataCassandraHeaders(this):
             id=this.id, 
             processed=True, 
             processMeta=meta).merge()
+        c3.NetCDFUtil.closeFile(sample, this.file.url)
         return True
     else:
         meta = c3.MetaFileProcessing(
@@ -396,6 +399,7 @@ def upsert3HourlyAODDataAfterHeadersCreated(this):
                 id=this.id, 
                 processed=True, 
                 processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # find partiion keys
@@ -425,6 +429,7 @@ def upsert3HourlyAODDataAfterHeadersCreated(this):
                 id=this.id, 
                 processed=True, 
                 processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # upsert data
@@ -443,6 +448,7 @@ def upsert3HourlyAODDataAfterHeadersCreated(this):
                 id=this.id, 
                 processed=True, 
                 processMeta=meta).merge()
+            c3.NetCDFUtil.closeFile(sample, this.file.url)
             return False
 
         # success
@@ -455,6 +461,7 @@ def upsert3HourlyAODDataAfterHeadersCreated(this):
             id=this.id, 
             processed=True, 
             processMeta=meta).merge()
+        c3.NetCDFUtil.closeFile(sample, this.file.url)
         return True
 
     else:
