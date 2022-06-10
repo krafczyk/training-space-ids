@@ -38,7 +38,7 @@ function afterCreate(objs) {
     return observationFiles.map(createObsOutFiles);
     
     function createObsOutFiles(file) {
-      if(file.url.slice(-6,3) === "001") {
+      if(file.url.slice(-6,-3) === "001") {
         return ObservationOutputFile.make({
           "observationSet": obj,
           "file": File.make({
