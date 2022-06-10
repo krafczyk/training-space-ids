@@ -61,7 +61,8 @@ function afterCreate(objs) {
                       })
         });
       };
-  }
+    };
+  } 
 };
   
   
