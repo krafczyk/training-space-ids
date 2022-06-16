@@ -102,9 +102,10 @@ def upsertATOMData(this):
         return False
 
     # implement how to upsert data
+    parent_id = "OOS_SetName_" + this.observationSet.name + "_Ver_" + this.observationSet.versionTag
+    # grab file, open, cast data into pandas df then make a dict
 
-
-    parent_id = "OOS_SetName_" + obsSet.name + "_Ver_" + obsSet.versionTag
+    # upsert the data
     c3.ObservationAtomOutput.upsertBatch(objs=output_records)
 
     this.processed = True
