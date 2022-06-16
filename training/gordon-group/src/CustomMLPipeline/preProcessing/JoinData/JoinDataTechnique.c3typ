@@ -1,0 +1,8 @@
+/**
+* JoinDataTechnique.c3typ
+* Defines which outputs are desired
+*/
+type JoinDataTechnique mixes MLTechnique {
+    // Include total output?
+    includeTotal: boolean
+}
