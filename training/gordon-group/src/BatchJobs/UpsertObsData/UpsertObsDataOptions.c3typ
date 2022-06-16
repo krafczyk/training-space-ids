@@ -1,0 +1,6 @@
+/**
+* Represents customization options for a {@link UpsertObsData} batch job
+*/
+type UpsertObsDataOptions {
+    batchSize: int = 10
+}
