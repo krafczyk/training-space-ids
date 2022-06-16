@@ -7,6 +7,10 @@ def upsertAcureAircraftData(this):
 
     - Returns:
         -bool: True if file was processed, false if file has already been processed or if container type does not match.
+
+    Return codes:
+        0: All good!
+        1: Wrong container
     """
     from datetime import datetime, timedelta
     import pandas as pd
@@ -69,10 +73,27 @@ def upsertAcureAircraftData(this):
         # upsert this batch
         c3.SimulationModelOutput.upsertBatch(objs=output_records)
 
-        this.processed = True
-        c3.SimulationOutputFile.merge(this)
+        meta = c3.MetaFileProcessing(
+            lastAction="upsert-data",
+            lastProcessAttempt=datetime.now(),
+            lastAttemptFailed=False,
+            returnCode=0)
+        c3.SimulationOutputFile(
+            id=this.id, 
+            processed=True, 
+            processMeta=meta).merge()
         return True
+
     else:
+        meta = c3.MetaFileProcessing(
+            lastAction="upsert-data",
+            lastProcessAttempt=datetime.now(),
+            lastAttemptFailed=True,
+            returnCode=1)
+        c3.SimulationOutputFile(
+            id=this.id, 
+            processed=False, 
+            processMeta=meta).merge()
         return False
 
 
