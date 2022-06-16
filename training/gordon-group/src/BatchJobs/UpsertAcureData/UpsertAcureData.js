@@ -1,22 +1,21 @@
 /**
- * UpsertData.js
- * Implementation of UpsertData.c3typ
- * @param {UpsertData} job
- * @param {UpsertDataOptions} options
+ * Implementation of UpsertAcureData.c3typ
+ * @param {UpsertAcureData} job
+ * @param {UpsertAcureDataOptions} options
  */
 function doStart(job, options) {
     var batch = [];
 
     var dataset = SimulationOutputFile.fetchObjStream({
-//        filter: 'processed == false',
-        limit: -1
+        limit: -1,
+        filter: "container == 'acure-aircraft'"
     });
 
     while(dataset.hasNext()) {
         batch.push(dataset.next());
 
         if (batch.length >= options.batchSize || !dataset.hasNext()) {
-            var batchSpec = UpsertDataBatch.make({values: batch});
+            var batchSpec = UpsertAcureDataBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
             batch = [];
@@ -27,12 +26,12 @@ function doStart(job, options) {
 
 
 /**
- * @param {UpsertDataBatch} batch
- * @param {UpsertData} job
- * @param {UpsertDataOptions} options
+ * @param {UpsertAcureDataBatch} batch
+ * @param {UpsertAcureData} job
+ * @param {UpsertAcureDataOptions} options
  */
 function processBatch(batch, job, options) {
     batch.values.forEach(function(file) {
-        file.upsertData();
+        file.upsertAcureAircraftData();
     });
 }
