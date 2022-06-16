@@ -1,0 +1,8 @@
+/**
+* AutomaticRelevanceDeterminationTechnique.c3typ
+* 
+*/
+type AutomaticRelevanceDeterminationTechnique mixes MLTechnique {
+    // 
+    includeTotal: boolean
+}

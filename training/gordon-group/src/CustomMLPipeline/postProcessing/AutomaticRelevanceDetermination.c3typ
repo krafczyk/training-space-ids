@@ -1,0 +1,24 @@
+/**
+* AutomaticRelevanceDetermination.c3typ
+* For automatic relevance determination, a means of deciding variable
+* importance. Obtain the fitted length scale parameters for a fitted Gaussian
+* Process Regressor object.
+*/
+entity type AutomaticRelevanceDetermination extends MLLeafPipe<Dataset, Dataset> type key 'JD' {
+    // ATTRIBUTES
+    // the technique used for this pipe
+    technique: !AutomaticRelevanceDeterminationTechnique
+
+    // METHODS
+    // train method (pre compute 'fillers' for usage when process() is called)
+    // this fetches output data
+    @py(env='gordon-ML_1_0_0')
+    train: ~
+    // process method to actually transform data
+    // this joins the output data to the table of inputs
+    @py(env='gordon-ML_1_0_0')
+    process: ~
+    // this is to make sure process is only callable after train
+    @py(env='gordon-ML_1_0_0')
+    isProcessable: ~
+}
