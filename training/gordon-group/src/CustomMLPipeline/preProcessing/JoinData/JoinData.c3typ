@@ -2,7 +2,7 @@
 * JoinData.c3typ
 * Performs join of output and input tables.
 */
-entity type JoinData extends MLLeafPipe<Dataset, Dataset> type key 'JD' {
+entity type JoinData extends MLLeafPipe<FetchResult, FetchResult> type key 'JD' {
     // ATTRIBUTES
     // the technique used for this pipe
     technique: !JoinDataTechnique

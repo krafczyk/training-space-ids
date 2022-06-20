@@ -4,9 +4,9 @@ def train(this, input, spec):
     inputs are assumed a priori to be irrelevant (e.g. ones with 'carb' or 'ems'
     in the name), but we do not select these out in this pipe.
 
-    input : pandas DataFrame
-        Model parameter table, i.e. the result of c3.SimulationModelParameters--
-        .fetch().objs.toJson() converted to a DataFrame
+    input : c3.FetchResult<SimulationModelParameters>
+        Model parameter table, i.e. the result of
+        c3.SimulationModelParameters.fetch()
     """
     this.inputTable = input
 
@@ -18,7 +18,7 @@ def process(this, input, spec):
     Define a geoSpaceTimePoint for the dataset which is desired and input it
     here to filter out data at that GSTP. Then join it with the input table.
 
-    input : geoSpaceTimePoint
+    input : c3.FetchResult<GeoSurfaceTimePoint>
         A C3 type defined for specifying the latitude-longitude-time range for
         which all simulation ensemble members' outputs are desired.
     """
@@ -41,7 +41,7 @@ def process(this, input, spec):
 
     # Join the outputs with the input table
     joinedData = pd.merge(
-        this.inputTable,
+        pd.DataFrame(this.inputTable.objs.toJson()), # Input table -> DataFrame
         this.outputTable,
         on="id",
         how="inner"
