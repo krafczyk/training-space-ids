@@ -4,7 +4,7 @@
 * importance. Obtain the fitted length scale parameters for a fitted Gaussian
 * Process Regressor object.
 */
-entity type AutomaticRelevanceDetermination extends MLLeafPipe<Dataset, Dataset> type key 'JD' {
+entity type AutomaticRelevanceDetermination extends MLLeafPipe<Dataset, Dataset> type key 'ARD' {
     // ATTRIBUTES
     // the technique used for this pipe
     technique: !AutomaticRelevanceDeterminationTechnique
