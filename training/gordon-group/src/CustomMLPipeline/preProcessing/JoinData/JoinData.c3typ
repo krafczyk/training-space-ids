@@ -7,5 +7,8 @@ entity type JoinData extends MLDataSourceSpec<Dataset> type key 'JD' {
 
     // Join inputs and outputs with this function
     @py(env='gordon-ML_1_0_0')
-    joinData: ~
+    getInputDataForSources: ~
+    //
+    @py(env='gordon-ML_1_0_0')
+    combineInputDataObjects: ~
 }
