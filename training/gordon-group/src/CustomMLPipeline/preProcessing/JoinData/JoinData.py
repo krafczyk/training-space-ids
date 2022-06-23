@@ -13,7 +13,7 @@ def getInputDataForSources(this, srcIds):
 
 def getTargetDataForSources(this, srcIds):
     """
-    dataObjs : geoSurfaceTimePoint
+    Get outputs give a GeoSurfaceTimePoint instance's id.
     """
     import pandas as pd
 
