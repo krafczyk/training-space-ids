@@ -11,33 +11,24 @@ def getInputDataForSources(this, srcIds):
     return c3.Dataset.fromPython(inputTablePandas.select_dtypes(["number"]))
 
 
-#def combineInputDataObjects(this, dataObjs):
-#    """
-#    dataObjs : geoSurfaceTimePoint
-#    """
-#
-#    # Get input table
-#    inputTablePandas = c3.Dataset.toPandas(this.getInputDataForSources())
-#
-#    # Collect the outputs from the geoSpaceTimePoint
-#    s3haodFilter = c3.Filter().eq("geoSurfaceTimePoint", dataObjs)
-#    outputTableC3 = c3.Simulation3HourlyAODOutput.fetch(
-#        {"filter": s3haodFilter, "limit": -1}
-#    )
-#    outputTablePandas = pd.DataFrame(outputTableC3.objs.toJson())
-#    outputTablePandas["simID"] = [int(row["id"]) for row in outputTablePandas.simulationSample]
-#
-#    # Join the outputs with the input table
-#    joinedData = pd.merge(
-#        inputTablePandas,
-#        outputTablePandas,
-#        on="simID",
-#        how="inner"
-#    )
-#
-#    # Add identifier from the geoSurfaceTimePoint to each row
-#    nrows = joinedData.shape[0]
-#    joinedData["point"] = [dataObjs[k]["id"] for k in range(nrows)]
-#
-#    return joinedData
-#
+def getTargetDataForSources(this, srcIds):
+    """
+    dataObjs : geoSurfaceTimePoint
+    """
+    import pandas as pd
+
+    gstp_id = srcIds[0]
+    s3haodFilter = c3.Filter().eq("geoSurfaceTimePoint.id", gstp_id)
+    outputTableC3 = c3.Simulation3HourlyAODOutput.fetch({
+        "filter": s3haodFilter, 
+        "limit": -1, 
+        "order": "simulationSample.id"
+        }
+    )
+    outputTablePandas = pd.DataFrame(outputTableC3.objs.toJson())
+    outputTablePandas = outputTablePandas.drop("version", axis=1)
+    ### simplifcation
+    df = pd.DataFrame(outputTablePandas.select_dtypes(["number"])["dust"])
+
+    return c3.Dataset.fromPython(df)
+

@@ -5,10 +5,10 @@
 entity type JoinData extends SupervisedMLDataSourceSpec<Dataset, Dataset> type key 'JD' {
     // Fixed fields
 
-    // Join inputs and outputs with this function
+    // Gets the features from SimulationModelParameters
     @py(env='gordon-ML_1_0_0')
     getInputDataForSources: ~
-    //
-    //@py(env='gordon-ML_1_0_0')
-    //getTargetDataForSources: ~
+    // Gets the targets from Simulation3HourlyAOD....
+    @py(env='gordon-ML_1_0_0')
+    getTargetDataForSources: ~
 }
