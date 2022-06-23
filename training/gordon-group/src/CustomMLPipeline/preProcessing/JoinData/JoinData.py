@@ -17,7 +17,7 @@ def getTargetDataForSources(this, srcIds):
     """
     import pandas as pd
 
-    gstp_id = srcIds[0]
+    gstp_id = srcIds.pop()
     s3haodFilter = c3.Filter().eq("geoSurfaceTimePoint.id", gstp_id)
     outputTableC3 = c3.Simulation3HourlyAODOutput.fetch({
         "filter": s3haodFilter, 
