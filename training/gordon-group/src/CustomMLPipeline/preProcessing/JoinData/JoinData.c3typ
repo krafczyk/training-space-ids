@@ -2,13 +2,13 @@
 * JoinData.c3typ
 * Performs join of output and input tables.
 */
-entity type JoinData extends MLDataSourceSpec<Dataset> type key 'JD' {
+entity type JoinData extends SupervisedMLDataSourceSpec<Dataset, Dataset> type key 'JD' {
     // Fixed fields
 
     // Join inputs and outputs with this function
     @py(env='gordon-ML_1_0_0')
     getInputDataForSources: ~
     //
-    @py(env='gordon-ML_1_0_0')
-    combineInputDataObjects: ~
+    //@py(env='gordon-ML_1_0_0')
+    //getTargetDataForSources: ~
 }
