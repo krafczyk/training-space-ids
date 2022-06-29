@@ -12,7 +12,7 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     featuresSpec: FetchSpec
     //
     targetType: TypeRef
-    //
+    // target
     targetSpec: FetchSpec
 
     // get features data
