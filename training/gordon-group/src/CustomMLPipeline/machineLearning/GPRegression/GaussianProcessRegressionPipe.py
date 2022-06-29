@@ -76,3 +76,31 @@ def isProcessable(this):
     """
 
     return this.isTrained()
+
+
+def getFeatures(this):
+    """
+    Gets the features to train the GPR model.
+    """
+    import pandas as pd
+
+    featuresType = this.featuresType.toType()
+    inputTableC3 = featuresType.fetch(this.featuresSpec).objs.toJson()
+    inputTablePandas = pd.DataFrame(inputTableC3)
+    inputTablePandas = inputTablePandas.drop("version", axis=1)
+
+    return c3.Dataset.fromPython(inputTablePandas.select_dtypes(["number"]))
+
+
+def getTarget(this):
+    """
+    Get the targets to train the GPR model.
+    """
+    import pandas as pd
+
+    targetType = this.targetType.toType()
+    outputTableC3 = targetType.fetch(this.targetSpec).objs.toJson()
+    outputTablePandas = pd.DataFrame(outputTableC3)
+    outputTablePandas = outputTablePandas.drop("version", axis=1)
+
+    return c3.Dataset.fromPython(outputTablePandas.select_dtypes(["number"]))
