@@ -9,11 +9,11 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // 
     featuresType: TypeRef
     // 
-    featuresSpec: FetchSpec
+    featuresSpec: FetchSpec schema suffix "FTSPC"
     //
     targetType: TypeRef
     // target
-    targetSpec: FetchSpec
+    targetSpec: FetchSpec schema suffix "TRSPC"
 
     // get features data
     @py(env='gordon-ML_1_0_0')
