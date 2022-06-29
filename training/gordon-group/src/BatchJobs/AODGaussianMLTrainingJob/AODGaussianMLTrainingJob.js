@@ -15,7 +15,7 @@
         batch.push(gstps.next());
 
         if (batch.length >= options.batchSize || !gstps.hasNext()) {
-            var batchSpec = AODGaussianMLTrainingBatch.make({values: batch});
+            var batchSpec = AODGaussianMLTrainingJobBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
             batch = [];
