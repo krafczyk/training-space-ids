@@ -1,0 +1,9 @@
+/**
+* Represents customization options for
+*/
+type AODGaussianMLTrainingJobOptions {
+    // How many models will be trained in each batch
+    batchSize: int = 10
+    // {@link GeoSurfaceTimePoint}s filter that defines the total number of models
+    gstpFilter: Filter
+}

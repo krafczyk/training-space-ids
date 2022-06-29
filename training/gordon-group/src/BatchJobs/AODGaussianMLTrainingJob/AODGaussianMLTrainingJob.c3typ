@@ -1,0 +1,9 @@
+/**
+* 
+*/
+type AODGaussianMLTrainingJob extends BatchJob<AODGaussianMLTrainingJob, AODGaussianMLTrainingJobOptions, AODGaussianMLTrainingJobBatch> type key 'AODGMLJB' {
+
+    doStart:        ~ js server
+    processBatch:   ~ js server
+    // allComplete: ~ js server
+}
