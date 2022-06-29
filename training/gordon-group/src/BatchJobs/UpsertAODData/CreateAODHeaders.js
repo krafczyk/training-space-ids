@@ -1,8 +1,11 @@
 /**
- * UpsertAODData.js
- * Implementation of UpsertAODData.c3typ
- * @param {UpsertAODData} job
- * @param {UpsertAODDataOptions} options
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+ * Implementation of CreateAODHeaders.c3typ
+ * @param {CreateAODHeaders} job
+ * @param {CreateAODHeadersOptions} options
  */
  function doStart(job, options) {
     var batch = [];
@@ -19,7 +22,7 @@
         batch.push(dataset.next());
 
         if (batch.length >= options.batchSize || !dataset.hasNext()) {
-            var batchSpec = UpsertAODDataBatch.make({values: batch});
+            var batchSpec = CreateAODHeadersBatch.make({values: batch});
             job.scheduleBatch(batchSpec);
             
             batch = [];
@@ -27,15 +30,13 @@
     }
 }
 
-
-
 /**
- * @param {UpsertAODDataBatch} batch
- * @param {UpsertAODData} job
- * @param {UpsertAODDataOptions} options
+ * @param {CreateAODHeadersBatch} batch
+ * @param {CreateAODHeaders} job
+ * @param {CreateAODHeadersOptions} options
  */
 function processBatch(batch, job, options) {
     batch.values.forEach(function(file) {
-        file.upsert3HourlyAODData();
+        file.createAODDataCassandraHeaders();
     });
 }

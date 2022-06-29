@@ -33,26 +33,36 @@ function afterCreate(objs) {
         observationFiles.splice(i,1);
       } else if (of.url.slice(-6,-3) !== obj.versionTag) {
         observationFiles.splice(i,1);
-      }
+      } 
     }
     return observationFiles.map(createObsOutFiles);
     
     function createObsOutFiles(file) {
-      var year = file.url.slice(-15,-11);
-      var month = file.url.slice(-11,-9);
-      var day = file.url.slice(-9,-7);
-      var date_str = year + "-" + month + "-" + day;
-      return ObservationOutputFile.make({
-                    "observationSet": obj,
-                    "file": File.make({
-                            "url": file.url
-                    }),
-                    "dateTag": DateTime.make({
-                            "value": date_str
-                    })
-      });
-    }
-  }
+      if(file.url.slice(-6,-3) === "001") {
+        return ObservationOutputFile.make({
+          "observationSet": obj,
+          "file": File.make({
+                  "url": file.url
+          }),
+        });
+      }
+      else {
+        var year = file.url.slice(-15,-11);
+        var month = file.url.slice(-11,-9);
+        var day = file.url.slice(-9,-7);
+        var date_str = year + "-" + month + "-" + day;
+        return ObservationOutputFile.make({
+                      "observationSet": obj,
+                      "file": File.make({
+                              "url": file.url
+                      }),
+                      "dateTag": DateTime.make({
+                              "value": date_str
+                      })
+        });
+      };
+    };
+  } 
 };
   
   

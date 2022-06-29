@@ -11,6 +11,9 @@ def upsertORACLESData(this):
     from datetime import datetime
     import pandas as pd
 
+    if (this.observationSet.name == "ATom_60s"):
+        return False
+        
     class ObsVars:
         nc_variables = ['time', 'Longitude', 'Latitude', 'GPS_Altitude', 
                         'rBC_massConc', 'Static_Air_Temp', 'Static_Pressure','Dew_Point','Lambda_Avg_SSA_Front',
@@ -76,6 +79,34 @@ def upsertORACLESData(this):
 
     # upsert this batch
     c3.ObservationOutput.upsertBatch(objs=output_records)
+
+    this.processed = True
+    c3.ObservationOutputFile.merge(this)
+    return True
+
+
+def upsertATOMData(this):
+    """
+    Function to Open files in the ObservationOutputFile table and then populate ObservationOutput data.
+    
+    - Arguments:
+        -this: an instance of ObservationOutputFile
+
+    - Returns:
+        -bool: True if file was processed, false if file has already been processed
+    """
+    from datetime import datetime
+    import pandas as pd
+
+    if (this.observationSet.name != "ATom_60s"):
+        return False
+
+    # implement how to upsert data
+    parent_id = "OOS_SetName_" + this.observationSet.name + "_Ver_" + this.observationSet.versionTag
+    # grab file, open, cast data into pandas df then make a dict
+
+    # upsert the data
+    c3.ObservationAtomOutput.upsertBatch(objs=output_records)
 
     this.processed = True
     c3.ObservationOutputFile.merge(this)

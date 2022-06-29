@@ -12,7 +12,10 @@ entity type ObservationOutputFile schema name 'OBS_OTPT_FL' {
     processed: boolean post default "false"
 
     // METHODS
-    // Load data from this file into {@link ObservationOutput}
+    // Load data from this oracles file into {@link ObservationOutput}
     @py(env='gordon_1_0_0')
     upsertORACLESData: member function(): boolean
+    // Load data from this atom file into {@link ObservationOutput}
+    @py(env='gordon_1_0_0')
+    upsertATOMData: member function(): boolean
 }

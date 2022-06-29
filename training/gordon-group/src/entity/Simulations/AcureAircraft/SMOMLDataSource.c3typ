@@ -1,0 +1,13 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This type defines the the data source that is filtered by {@link SMOMLDataSourceSpec}.
+*/
+entity type SMOMLDataSource schema name "SMOML_DTSRC" {
+    // The timestamp for this data source
+    timestamp: !datetime
+    // The name of the variable to train the model
+    variable: !string
+}

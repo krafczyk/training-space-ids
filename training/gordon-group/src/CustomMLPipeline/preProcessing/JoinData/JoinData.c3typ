@@ -1,0 +1,14 @@
+/**
+* JoinData.c3typ
+* Performs join of output and input tables.
+*/
+entity type JoinData extends SupervisedMLDataSourceSpec<Dataset, Dataset> type key 'JD' {
+    // Fixed fields
+
+    // Gets the features from SimulationModelParameters
+    @py(env='gordon-ML_1_0_0')
+    getInputDataForSources: ~
+    // Gets the targets from Simulation3HourlyAOD....
+    @py(env='gordon-ML_1_0_0')
+    getTargetDataForSources: ~
+}

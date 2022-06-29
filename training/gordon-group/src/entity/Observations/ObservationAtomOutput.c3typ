@@ -1,0 +1,20 @@
+/**
+* ObservationAtomOutput.c3typ
+* A single output taken from a single Atom [ObservationSet](type:ObservationSet)
+*/
+@db(datastore='cassandra',
+    partitionKeyField='parent',
+    persistenceOrder='start, dataVersion',
+    persistDuplicates=false,
+    compactType=true,
+    unique=['parent, start'])
+entity type ObservationAtomOutput mixes TimedDataPoint<ObservationOutputSeries> schema name 'OBS_ATM_TPT' {
+    // The Latitude of this output
+    @ts(treatment='avg')
+    latitude: double
+    // The Longitude of this output
+    @ts(treatment='avg')
+    longitude: double
+
+    // ADD ALL OTHER VARIABLES
+}

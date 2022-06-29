@@ -1,0 +1,6 @@
+/**
+* Represents customization options for a {@link UpsertAcureData} batch job
+*/
+type UpsertAcureDataOptions {
+    batchSize: int = 10
+}

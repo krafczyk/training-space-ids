@@ -1,0 +1,6 @@
+/**
+* Represents a unit of work (batch) in a {@link UpsertAcureData} batch job.
+*/
+type UpsertAcureDataBatch {
+    values: [SimulationOutputFile]
+}

@@ -19,13 +19,10 @@ entity type SimulationOutputFile schema name 'SMLTN_OTPT_FL' {
     // Load data from this file into {@link SimulationModelOutput}
     @py(env='gordon_1_0_0')
     upsertAcureAircraftData: member function(): boolean
-    // Load data from this file into {@link SimulationMonthlyMeanOutput}
+    // Create headers for {@link Simulation3HourlyAODOutput}
     @py(env='gordon_1_0_0')
-    upsert3HourlyAODData: member function(): boolean
-    // Load data from all containers
+    createAODDataCassandraHeaders: member function(): boolean
+    // After headers are created, upsert
     @py(env='gordon_1_0_0')
-    upsertData: member function(): boolean
-    // TEST
-    @py(env='gordon_1_0_0')
-    upsertTestAOD: member function(): boolean
+    upsert3HourlyAODDataAfterHeadersCreated: member function(): boolean
 }

@@ -6,7 +6,21 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // the technique for this regression
     @db(persistAllFields=true)
     technique: !GaussianProcessRegressionTechnique
+    // 
+    featuresType: TypeRef
+    // 
+    featuresSpec: FetchSpec schema suffix "FTSPC"
+    //
+    targetType: TypeRef
+    // target
+    targetSpec: FetchSpec schema suffix "TRSPC"
 
+    // get features data
+    @py(env='gordon-ML_1_0_0')
+    getFeatures: member function(): Dataset
+    // get target data
+    @py(env='gordon-ML_1_0_0')
+    getTarget: member function(): Dataset
     // train the model
     @py(env='gordon-ML_1_0_0')
     train: ~
