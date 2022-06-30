@@ -1,5 +1,9 @@
 /**
- * Implementation of 
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+ * Implementation of AODGaussianMLTrainingJob
  * @param {AODGaussianMLTrainingJob} job
  * @param {AODGaussianMLTrainingJobOptions} options
  */
@@ -25,6 +29,7 @@
 
 
 /**
+ * Implementation of what to do in each batch
  * @param {AODGaussianMLTrainingJobBatch} batch
  * @param {AODGaussianMLTrainingJob} job
  * @param {AODGaussianMLTrainingJobOptions} options
@@ -58,7 +63,6 @@ function processBatch(batch, job, options) {
         var targetSpec = FetchSpec.make({
             "limit": -1,
             "order": "simulationSample.id",
-            "include": "dust",
             "filter": targetFilter.toString()
         });
 
@@ -70,12 +74,14 @@ function processBatch(batch, job, options) {
             "featuresSpec": featuresSpec,
             "targetType": targetType,
             "targetSpec": targetSpec,
+            "targetName": options.targetName,
             "id": pipeId
         });
 
         // get targets
         var X = GPR_pipe.getFeatures();
         var y = GPR_pipe.getTarget();
+        y = y.extractColumns([options.targetName]);
 
         var GPR_pipe_trained = GPR_pipe.train(X, y);
         GPR_pipe_trained.upsert();
