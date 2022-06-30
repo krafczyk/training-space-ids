@@ -63,12 +63,14 @@ function processBatch(batch, job, options) {
         });
 
         // create pipe
+        var pipeId = "GSTP_" + gstp.id;
         var GPR_pipe = GaussianProcessRegressionPipe.make({
             "technique": GPR_technique,
             "featuresType": featuresType,
             "featuresSpec": featuresSpec,
             "targetType": targetType,
-            "targetSpec": targetSpec
+            "targetSpec": targetSpec,
+            "id": pipeId
         });
 
         // get targets
