@@ -56,11 +56,27 @@ function processBatch(batch, job, options) {
         var samples = targetType.fetch(simulationsSpec).objs
         var simIds = []
         for(var i = 0; i < samples.length; i++) {
-            simIds.push(samples[i].simulationSample.id)
+            simIds.push(samples[i].simulationSample.id);
+        }
+
+        var allSamples = featuresType.fetch({
+            "limit": -1,
+            "order": "id",
+            "include": "id"
+        })
+        var allSimIds = []
+        for(var i = 0; i < allSamples.length; i++) {
+            simIds.push(allSamples[i].id);
+        }
+        var excludeIds = []
+        for(var i = 0; i < allSamples.length; i++) {
+            if(!simIds.includes(allSimIds[i])) {
+                excludeIds.push(allSimIds[i]);
+            }
         }
 
         // define the features
-        var featuresFilter = Filter.intersects("id", simIds);
+        var featuresFilter = Filter.not().intersects("id", excludeIds);
         var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
         var featuresSpec = FetchSpec.make({
             "limit": -1,
