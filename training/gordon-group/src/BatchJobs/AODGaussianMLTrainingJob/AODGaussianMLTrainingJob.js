@@ -37,13 +37,6 @@
 function processBatch(batch, job, options) {
     batch.values.forEach(function(gstp) {
 
-        // define the features
-        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
-        var featuresSpec = FetchSpec.make({
-            "limit": -1,
-            "order": "id"
-        });
-
         // define targets
         var targetType = TypeRef.make({"typeName": "Simulation3HourlyAODOutput"});
         var targetFilter = Filter.eq("geoSurfaceTimePoint.id", gstp.id);
@@ -51,6 +44,28 @@ function processBatch(batch, job, options) {
             "limit": -1,
             "order": "simulationSample.id",
             "filter": targetFilter.toString()
+        });
+
+        // find the simulations
+        var simulationsSpec = FetchSpec.make({
+            "limit": -1,
+            "order": "simulationSample.id",
+            "filter": targetFilter.toString(),
+            "include": "simulationSample"
+        });
+        var samples = targetType.fetch(simulationsSpec).objs
+        var simIds = []
+        for(var i = 0; i < samples.length; i++) {
+            simIds.push(samples[i].simulationSample.id)
+        }
+
+        // define the features
+        var featuresFilter = Filter.intersects("id", simIds);
+        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
+        var featuresSpec = FetchSpec.make({
+            "limit": -1,
+            "order": "id",
+            "filter": featuresFilter
         });
 
         // create pipe
@@ -68,6 +83,20 @@ function processBatch(batch, job, options) {
         // get targets
         var X = GPR_pipe.getFeatures();
         var y = GPR_pipe.getTarget();
+        if (options.targetName === "all") {
+            var sum = new Array(y.shape[0]).fill(0);
+            for(var i=0; i<y.shape[1]; i++) {
+                var colName = y.indices[1][i];
+                var col = y.extractColumns([colName]).m_data;
+                sum = sum.map(function (val, idx) {
+                    return val + col[idx];
+                });
+            }
+            y.indices[1][0] = "all";
+            col = y.extractColumns(["all"]);
+            col.m_data = sum;
+            y = col;
+        }
         y = y.extractColumns([options.targetName]);
 
         var GPR_pipe_trained = GPR_pipe.train(X, y);
