@@ -9,7 +9,9 @@ type AODGaussianMLTrainingJobOptions {
     // How many models will be trained in each batch
     batchSize: int = 10
     // {@link GeoSurfaceTimePoint}s filter that defines the total number of models
-    gstpFilter: Filter
+    gstpFilter: !Filter
     // the name of the variable to collect from {@link Simulation3HourlyAODData}
-    targetName: string
+    targetName: !string
+    // the {@link GaussianProcessRegressionTechnique} to train the models
+    gprTechnique: !GaussianProcessRegressionTechnique
 }

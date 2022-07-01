@@ -38,17 +38,17 @@ function processBatch(batch, job, options) {
     batch.values.forEach(function(gstp) {
 
         // define the kernel
-        var GPR_kernel = SklearnGPRKernelMatern.make({
-            "lengthScale": [1.0],
-            "nu": 0.5,
-            "coefficient": 1.0
-        }).build().kernel
-
-        // define the technique
-        var GPR_technique = GaussianProcessRegressionTechnique.make({
-            "randomState": 42,
-            "kernel": GPR_kernel
-        });
+        //var GPR_kernel = SklearnGPRKernelMatern.make({
+        //    "lengthScale": [1.0],
+        //    "nu": 0.5,
+        //    "coefficient": 1.0
+        //}).build().kernel
+//
+        //// define the technique
+        //var GPR_technique = GaussianProcessRegressionTechnique.make({
+        //    "randomState": 42,
+        //    "kernel": GPR_kernel
+        //});
 
         // define the features
         var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
@@ -69,7 +69,7 @@ function processBatch(batch, job, options) {
         // create pipe
         var pipeId = "GSTP_" + gstp.id;
         var GPR_pipe = GaussianProcessRegressionPipe.make({
-            "technique": GPR_technique,
+            "technique": options.gprTechnique,
             "featuresType": featuresType,
             "featuresSpec": featuresSpec,
             "targetType": targetType,
