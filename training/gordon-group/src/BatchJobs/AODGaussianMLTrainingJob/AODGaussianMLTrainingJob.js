@@ -59,6 +59,7 @@ function processBatch(batch, job, options) {
             simIds.push(samples[i].simulationSample.id);
         }
 
+        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
         var allSamples = featuresType.fetch({
             "limit": -1,
             "order": "id",
@@ -77,7 +78,6 @@ function processBatch(batch, job, options) {
 
         // define the features
         var featuresFilter = Filter.not().intersects("id", excludeIds);
-        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
         var featuresSpec = FetchSpec.make({
             "limit": -1,
             "order": "id",
