@@ -53,28 +53,28 @@ function processBatch(batch, job, options) {
             "filter": targetFilter.toString(),
             "include": "simulationSample"
         });
-        var samples = targetType.fetch(simulationsSpec).objs
-        var simIds = []
+        var samples = targetType.toType().fetch(simulationsSpec).objs;
+        var simIds = [];
         for(var i = 0; i < samples.length; i++) {
             simIds.push(samples[i].simulationSample.id);
         }
 
         var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
-        var allSamples = featuresType.fetch({
+        var allSamples = featuresType.toType().fetch({
             "limit": -1,
             "order": "id",
             "include": "id"
-        })
-        var allSimIds = []
+        }).objs;
+        var allSimIds = [];
         for(var i = 0; i < allSamples.length; i++) {
-            simIds.push(allSamples[i].id);
-        }
+            allSimIds.push(allSamples[i].id);
+        };
         var excludeIds = []
         for(var i = 0; i < allSamples.length; i++) {
             if(!simIds.includes(allSimIds[i])) {
                 excludeIds.push(allSimIds[i]);
             }
-        }
+        };
 
         // define the features
         var featuresFilter = Filter.not().intersects("id", excludeIds);
