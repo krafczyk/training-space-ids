@@ -69,8 +69,8 @@ function processBatch(batch, job, options) {
         for(var i = 0; i < allSamples.length; i++) {
             allSimIds.push(allSamples[i].id);
         };
-        var excludeIds = []
-        for(var i = 0; i < allSamples.length; i++) {
+        var excludeIds = [];
+        for(var i = 0; i < allSimIds.length; i++) {
             if(!simIds.includes(allSimIds[i])) {
                 excludeIds.push(allSimIds[i]);
             }
