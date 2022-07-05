@@ -71,7 +71,8 @@ function processBatch(batch, job, options) {
         };
         var excludeIds = [];
         for(var i = 0; i < allSimIds.length; i++) {
-            if(!simIds.includes(allSimIds[i])) {
+            //if(!simIds.includes(allSimIds[i])) {
+            if(simIds.indexOf(allSimIds[i]) === -1) {
                 excludeIds.push(allSimIds[i]);
             }
         };
