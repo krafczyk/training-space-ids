@@ -100,7 +100,7 @@ function processBatch(batch, job, options) {
         var X = GPR_pipe.getFeatures();
         var y = GPR_pipe.getTarget();
         if (options.targetName === "all") {
-            var sum = Array.apply(null, Array(y.shape[0])).map(function(){return 0});
+            var sum = Array.apply(undefined, Array(y.shape[0])).map(function(){return 0});
             for(var i=0; i<y.shape[1]; i++) {
                 var colName = y.indices[1][i];
                 var col = y.extractColumns([colName]).m_data;
