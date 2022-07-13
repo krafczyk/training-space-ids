@@ -88,6 +88,6 @@ def getTarget(this):
             columns=[this.dataSourceSpec.targetName]
         )
     else:
-        outputTablePandas = outputTablePandas[this.dataSourceSpec.targetName]
+        outputTablePandas = pd.DataFrame(outputTablePandas[this.dataSourceSpec.targetName])
 
     return c3.Dataset.fromPython(outputTablePandas)
