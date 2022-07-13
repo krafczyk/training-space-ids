@@ -7,7 +7,7 @@ def train(this, input, targetOutput, spec):
 
     # get data
     X = c3.Dataset.toNumpy(dataset=input)
-    y = c3.Dataset.toNumpy(dataset=targetOutput)#.flatten()
+    y = c3.Dataset.toNumpy(dataset=targetOutput)
 
     # get kernel object from c3, make it python again
     kernel = c3.PythonSerialization.deserialize(serialized=this.technique.kernel.pickledKernel)
@@ -60,8 +60,8 @@ def getFeatures(this):
     """
     import pandas as pd
 
-    featuresType = this.featuresType.toType()
-    inputTableC3 = featuresType.fetch(this.featuresSpec).objs.toJson()
+    featuresType = this.dataSourceSpec.featuresType.toType()
+    inputTableC3 = featuresType.fetch(this.dataSourceSpec.featuresSpec).objs.toJson()
     inputTablePandas = pd.DataFrame(inputTableC3)
     inputTablePandas = inputTablePandas.drop("version", axis=1)
 
@@ -74,8 +74,8 @@ def getTarget(this):
     """
     import pandas as pd
 
-    targetType = this.targetType.toType()
-    outputTableC3 = targetType.fetch(this.targetSpec).objs.toJson()
+    targetType = this.dataSourceSpec.targetType.toType()
+    outputTableC3 = targetType.fetch(this.dataSourceSpec.targetSpec).objs.toJson()
     outputTablePandas = pd.DataFrame(outputTableC3)
     outputTablePandas = outputTablePandas.drop("version", axis=1)
 
