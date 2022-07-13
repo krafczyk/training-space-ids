@@ -21,7 +21,7 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // Target name (variable)
     //targetName: string
     // data source spec
-    dataSourceSpec: !GPRDataSourceSpec
+    dataSourceSpec: !GPRDataSourceSpec schema suffix "DTSP" 
 
     // get features data
     @py(env='gordon-ML_1_0_0')
