@@ -70,7 +70,7 @@ def getFeatures(this):
 
     # drop ignored features
     if (this.dataSourceSpec.excludeFeatures):
-        inputTablePandas.drop(list(this.dataSourceSpec.excludeFeatures), inplace=True)
+        inputTablePandas.drop(columns=this.dataSourceSpec.excludeFeatures, inplace=True)
 
     return c3.Dataset.fromPython(inputTablePandas)
 
