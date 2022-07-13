@@ -5,15 +5,15 @@
 /**
 * Specifies the fields to construct a {@link GaussianProcessRegressionPipe}
 */
-type GPRDataSourceSpec type key 'GPR_DTSPC' {
+type GPRDataSourceSpec type key 'GPRDT' {
     // Reference to the type that stores the features
     featuresType: TypeRef
     // {@link FetchSpec} to retrieve features
-    featuresSpec: FetchSpec //schema suffix "FTSPC"
+    featuresSpec: FetchSpec schema suffix "FTSP"
     // Reference to the type that stores the target
     targetType: TypeRef
     // {@link FetchSpec} to retrieve target
-    targetSpec: FetchSpec //schema suffix "TRSPC"
+    targetSpec: FetchSpec schema suffix "TRSP"
     // Target name (variable)
     targetName: string
 } 
