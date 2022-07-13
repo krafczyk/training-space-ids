@@ -69,7 +69,8 @@ def getFeatures(this):
     inputTablePandas = inputTablePandas.select_dtypes(["number"])
 
     # drop ignored features
-    inputTablePandas.drop(this.dataSourceSpec.excludeFeatures, inplace=True)
+    if (this.dataSourceSpec.excludeFeatures):
+        inputTablePandas.drop(this.dataSourceSpec.excludeFeatures, inplace=True)
 
     return c3.Dataset.fromPython(inputTablePandas)
 
