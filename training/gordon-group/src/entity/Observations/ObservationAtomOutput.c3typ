@@ -17,7 +17,7 @@ entity type ObservationAtomOutput mixes TimedDataPoint<ObservationOutputSeries> 
     longitude: double
     // The altitude of this output: meters
     @ts(treatment='avg')
-    longitude: double
+    altitude: double
     // The temperature of this output: K at ambient
     @ts(treatment='avg')
     temperature: double
