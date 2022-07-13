@@ -79,4 +79,15 @@ def getTarget(this):
     outputTablePandas = pd.DataFrame(outputTableC3)
     outputTablePandas = outputTablePandas.drop("version", axis=1)
 
-    return c3.Dataset.fromPython(outputTablePandas.select_dtypes(["number"]))
+    # collect only the numeric fields
+    outputTablePandas = outputTablePandas.select_dtypes(["number"])
+
+    if this.dataSourceSpec.targetName == "all":
+        outputTablePandas = pd.DataFrame(
+            outputTablePandas.sum(axis=1),
+            columns=[this.dataSourceSpec.targetName]
+        )
+    else:
+        outputTablePandas = outputTablePandas[this.dataSourceSpec.targetName]
+
+    return c3.Dataset.fromPython(outputTablePandas)
