@@ -12,6 +12,8 @@ type AODGaussianMLTrainingJobOptions {
     gstpFilter: !Filter
     // the name of the variable to collect from {@link Simulation3HourlyAODData}
     targetName: !string
+    // the features to exclude in {@link SimulationModelParameters}
+    excludeFeatures: [string]
     // the {@link GaussianProcessRegressionTechnique} to train the models
     gprTechnique: !GaussianProcessRegressionTechnique
 }

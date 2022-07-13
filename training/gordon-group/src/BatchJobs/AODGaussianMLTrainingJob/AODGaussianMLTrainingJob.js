@@ -84,36 +84,51 @@ function processBatch(batch, job, options) {
             "filter": featuresFilter
         });
 
-        // create pipe
-        var pipeId = "GSTP_" + gstp.id + "_" + options.targetName;
-        var GPR_pipe = GaussianProcessRegressionPipe.make({
-            "technique": options.gprTechnique,
+        // define the data source spec
+        var sourceSpec = GPRDataSourceSpec.make({
             "featuresType": featuresType,
             "featuresSpec": featuresSpec,
+            "excludeFeatures": options.excludeFeatures,
             "targetType": targetType,
             "targetSpec": targetSpec,
-            "targetName": options.targetName,
-            "id": pipeId
-        });
+            "targetName": options.targetName
+        })
+
+        // create pipe
+        //var pipeId = "GSTP_" + gstp.id + "_" + options.targetName;
+        //var GPR_pipe = GaussianProcessRegressionPipe.make({
+        //    "technique": options.gprTechnique,
+        //    "featuresType": featuresType,
+        //    "featuresSpec": featuresSpec,
+        //    "targetType": targetType,
+        //    "targetSpec": targetSpec,
+        //    "targetName": options.targetName,
+        //    "id": pipeId
+        //});
+
+        var GPR_pipe = GaussianProcessRegressionPipe.make({
+            "technique": options.gprTechnique,
+            "dataSourceSpec": sourceSpec
+        })
 
         // get targets
         var X = GPR_pipe.getFeatures();
         var y = GPR_pipe.getTarget();
-        if (options.targetName === "all") {
-            var sum = Array.apply(undefined, Array(y.shape[0])).map(function(){return 0});
-            for(var i=0; i<y.shape[1]; i++) {
-                var colName = y.indices[1][i];
-                var col = y.extractColumns([colName]).m_data;
-                sum = sum.map(function (val, idx) {
-                    return val + col[idx];
-                });
-            }
-            y.indices[1][0] = "all";
-            col = y.extractColumns(["all"]);
-            col.m_data = sum;
-            y = col;
-        }
-        y = y.extractColumns([options.targetName]);
+        //if (options.targetName === "all") {
+        //    var sum = Array.apply(undefined, Array(y.shape[0])).map(function(){return 0});
+        //    for(var i=0; i<y.shape[1]; i++) {
+        //        var colName = y.indices[1][i];
+        //        var col = y.extractColumns([colName]).m_data;
+        //        sum = sum.map(function (val, idx) {
+        //            return val + col[idx];
+        //        });
+        //    }
+        //    y.indices[1][0] = "all";
+        //    col = y.extractColumns(["all"]);
+        //    col.m_data = sum;
+        //    y = col;
+        //}
+        //y = y.extractColumns([options.targetName]);
 
         var GPR_pipe_trained = GPR_pipe.train(X, y);
         GPR_pipe_trained.upsert();
