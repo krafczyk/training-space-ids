@@ -65,7 +65,13 @@ def getFeatures(this):
     inputTablePandas = pd.DataFrame(inputTableC3)
     inputTablePandas = inputTablePandas.drop("version", axis=1)
 
-    return c3.Dataset.fromPython(inputTablePandas.select_dtypes(["number"]))
+    # collect only the numeric fields
+    inputTablePandas = inputTablePandas.select_dtypes(["number"])
+
+    # drop ignored features
+    inputTablePandas.drop(this.dataSourceSpec.excludeFeatures, inplace=True)
+
+    return c3.Dataset.fromPython(inputTablePandas)
 
 
 def getTarget(this):

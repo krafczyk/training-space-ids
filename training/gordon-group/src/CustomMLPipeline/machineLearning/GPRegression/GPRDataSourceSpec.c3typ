@@ -10,6 +10,8 @@ type GPRDataSourceSpec type key 'GPRDT' {
     featuresType: TypeRef
     // {@link FetchSpec} to retrieve features
     featuresSpec: FetchSpec schema suffix "FTSP"
+    // Features to ignore
+    excludeFeatures: [string] schema suffix "FTXCL"
     // Reference to the type that stores the target
     targetType: TypeRef
     // {@link FetchSpec} to retrieve target
