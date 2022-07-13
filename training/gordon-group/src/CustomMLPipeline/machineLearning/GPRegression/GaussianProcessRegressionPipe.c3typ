@@ -4,23 +4,15 @@
 **/
 /**
 * GaussianProcessRegressionPipe.c3typ
-* Performs Scikit-Learn's GP Regression for a set of inputs-outputs.
+* Performs Scikit-Learn's GP Regression.
 */
+@db(unique=['technique, dataSourceSpec'])
 entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
     // the technique for this regression
     @db(persistAllFields=true)
     technique: !GaussianProcessRegressionTechnique
-    // Reference to the type that stores the features
-    //featuresType: TypeRef
-    // {@link FetchSpec} to retrieve features
-    //featuresSpec: FetchSpec schema suffix "FTSPC"
-    // Reference to the type that stores the target
-    //targetType: TypeRef
-    // {@link FetchSpec} to retrieve target
-    //targetSpec: FetchSpec schema suffix "TRSPC"
-    // Target name (variable)
-    //targetName: string
-    // data source spec
+    // data source spec for this regression
+    @db(persistAllFields=true)
     dataSourceSpec: !GPRDataSourceSpec schema suffix "DTSP" 
 
     // get features data
