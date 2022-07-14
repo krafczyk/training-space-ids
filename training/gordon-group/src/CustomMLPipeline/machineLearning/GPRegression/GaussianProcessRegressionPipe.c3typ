@@ -9,11 +9,9 @@
 @db(unique=['technique, dataSourceSpec'])
 entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
     // the technique for this regression
-    //@db(persistAllFields=true)
     technique: !GaussianProcessRegressionTechnique
     // data source spec for this regression
-    //@db(persistAllFields=true)
-    dataSourceSpec: !GPRDataSourceSpec //schema suffix "DTSP" 
+    dataSourceSpec: !GPRDataSourceSpec /
 
     // get features data
     @py(env='gordon-ML_1_0_0')
