@@ -2,7 +2,7 @@
 * GaussianProcessRegressionTechnique.c3typ
 * Defines hyper parameters for GP Regression.
 */
-entity type GaussianProcessRegressionTechnique mixes MLTechnique schema name 'GPRTCHNQ' {
+entity type GaussianProcessRegressionTechnique mixes MLTechnique type key 'GPRTCHNQ' {
     // random seed
     @ML(hyperParameter=true)
     randomState: integer
