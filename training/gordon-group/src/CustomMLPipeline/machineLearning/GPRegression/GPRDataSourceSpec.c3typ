@@ -13,7 +13,7 @@ entity type GPRDataSourceSpec schema name 'GPRDTSRCSPC' {
     // {@link FetchSpec} to retrieve features
     featuresSpec: FetchSpec schema suffix "FTSP"
     // Features to ignore
-    excludeFeatures: [string] schema suffix "FTXCL"
+    excludeFeatures: [string] schema suffix "FTXC"
     // Reference to the type that stores the target
     targetType: TypeRef
     // {@link FetchSpec} to retrieve target
