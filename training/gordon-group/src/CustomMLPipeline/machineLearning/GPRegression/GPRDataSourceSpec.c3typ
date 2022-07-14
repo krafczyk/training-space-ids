@@ -5,7 +5,7 @@
 /**
 * Specifies the fields to construct a {@link GaussianProcessRegressionPipe}
 */
-type GPRDataSourceSpec type key 'GPRDT' {
+entity type GPRDataSourceSpec schema name 'GPRDTSRCSPC' {
     // Reference to the type that stores the features
     featuresType: TypeRef
     // {@link FetchSpec} to retrieve features
