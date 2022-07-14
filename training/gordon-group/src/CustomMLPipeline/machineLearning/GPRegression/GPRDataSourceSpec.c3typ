@@ -6,7 +6,7 @@
 * Specifies the fields to construct a {@link GaussianProcessRegressionPipe}
 */
 @db(
-    unique=['featuresType, featuresSpec, excludeFeatures, targetType, targetSpec, targetName'],
+    unique=['featuresType', 'featuresSpec', 'excludeFeatures', 'targetType', 'targetSpec', 'targetName'],
     shortId=true
 )
 entity type GPRDataSourceSpec schema name 'GPRDTSRCSPC' {
