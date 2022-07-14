@@ -3,7 +3,7 @@
 * Stepping stone for Scikit-Learn Gaussian Process kernels.
 * See: https://scikit-learn.org/stable/modules/classes.html#module-sklearn.gaussian_process
 */
-type SklearnGPRKernel {
+entity type SklearnGPRKernel schema name 'SKLKRNL' {
     // the name of the kernel
     name: string enum('Constant', 'DotProduct', 'ExpSineSquared', 'Matern', 'RBF', 'RationalQuadratic', 'White')
     // the kernel hyper parameters 
