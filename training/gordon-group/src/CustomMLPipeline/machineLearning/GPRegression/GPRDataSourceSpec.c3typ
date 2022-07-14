@@ -5,6 +5,10 @@
 /**
 * Specifies the fields to construct a {@link GaussianProcessRegressionPipe}
 */
+@db(
+    unique=['featuresType, featuresSpec, excludeFeatures, targetType, targetSpec, targetName'],
+    shortId=true
+)
 entity type GPRDataSourceSpec schema name 'GPRDTSRCSPC' {
     // Reference to the type that stores the features
     featuresType: TypeRef
