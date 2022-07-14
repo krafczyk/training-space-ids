@@ -8,5 +8,5 @@ entity type GaussianProcessRegressionTechnique mixes MLTechnique schema name 'GP
     randomState: integer
     // the kernel object
     @ML(hyperParameter=true)
-    kernel: SklearnGPRKernel
+    kernel: SklearnGPRKernel schema suffix "KRNL"
 }
