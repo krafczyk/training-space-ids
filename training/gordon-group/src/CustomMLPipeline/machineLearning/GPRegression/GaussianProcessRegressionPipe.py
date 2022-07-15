@@ -60,8 +60,10 @@ def getFeatures(this):
     """
     import pandas as pd
 
-    featuresType = this.dataSourceSpec.featuresType.toType()
-    inputTableC3 = featuresType.fetch(this.dataSourceSpec.featuresSpec).objs.toJson()
+    dataSourceSpec = c3.GPRDataSourceSpec.get(this.dataSourceSpec.id)
+
+    featuresType = dataSourceSpec.featuresType.toType()
+    inputTableC3 = featuresType.fetch(dataSourceSpec.featuresSpec).objs.toJson()
     inputTablePandas = pd.DataFrame(inputTableC3)
     inputTablePandas = inputTablePandas.drop("version", axis=1)
 
@@ -69,8 +71,8 @@ def getFeatures(this):
     inputTablePandas = inputTablePandas.select_dtypes(["number"])
 
     # drop ignored features
-    if (this.dataSourceSpec.excludeFeatures):
-        inputTablePandas.drop(columns=this.dataSourceSpec.excludeFeatures, inplace=True)
+    if (dataSourceSpec.excludeFeatures):
+        inputTablePandas.drop(columns=dataSourceSpec.excludeFeatures, inplace=True)
 
     return c3.Dataset.fromPython(inputTablePandas)
 
