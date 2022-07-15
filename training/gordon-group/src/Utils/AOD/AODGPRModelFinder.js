@@ -1,4 +1,4 @@
-function getModel(excFeats, gstpId, targetName, technique) {
+function getPipe(excFeats, gstpId, targetName, technique) {
 
     // find the data source specs
     var gstpKey = "geoSurfaceTimePoint.id == '" + gstpId + "'";
@@ -39,4 +39,16 @@ function getModel(excFeats, gstpId, targetName, technique) {
     });
 
     return pipeStream
+}
+
+function getPipeStream(excFeats, gstpFilter, targetName, technique) {
+    var gstpIds = GeoSurfaceTimePoint.fetch({
+        "filter": gstpFilter,
+        "limit": -1,
+        "include": "id"
+    }).objs.map(obj => obj.id);
+
+    var pipes = gstpIds.map(id => AODGPRModelFinder.getPipe(excFeats, id, targetName, technique));
+
+    return pipes
 }

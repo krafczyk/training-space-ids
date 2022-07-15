@@ -9,5 +9,8 @@
 * via a {@link AODGaussianMLTrainingJob}
 */
 type AODGPRModelFinder {
-    getModel: function(excFeats: [string], gstpId: string, targetName: string, technique: any): any js server
+    // Retrieve models based on exluded features, {@GeoSurfaceTimePoint} instance, target name and training technique
+    getPipe: function(excFeats: [string], gstpId: string, targetName: string, technique: any): any js server
+    // get all models for a certain gstp filter
+    getPipeStream: function(excFeats: [string], gstpFilter: any, targetName: string, technique: any): any js server
 }
