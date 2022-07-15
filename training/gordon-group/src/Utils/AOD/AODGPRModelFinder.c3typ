@@ -1,0 +1,13 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This finds {@link GaussianProcessRegressionPipe}s that were trained 
+* with {@link Simulation3HourlyAODOutput} as targets, 
+* {@link SimulationModelParameters} as features, 
+* via a {@link AODGaussianMLTrainingJob}
+*/
+type AODGPRModelFinder {
+    getModel: function(excFeats: [string], gstpId: string, targetName: string, technique: any): any js server
+}
