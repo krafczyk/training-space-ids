@@ -83,20 +83,22 @@ def getTarget(this):
     """
     import pandas as pd
 
-    targetType = this.dataSourceSpec.targetType.toType()
-    outputTableC3 = targetType.fetch(this.dataSourceSpec.targetSpec).objs.toJson()
+    dataSourceSpec = c3.GPRDataSourceSpec.get(this.dataSourceSpec.id)
+
+    targetType = dataSourceSpec.targetType.toType()
+    outputTableC3 = targetType.fetch(dataSourceSpec.targetSpec).objs.toJson()
     outputTablePandas = pd.DataFrame(outputTableC3)
     outputTablePandas = outputTablePandas.drop("version", axis=1)
 
     # collect only the numeric fields
     outputTablePandas = outputTablePandas.select_dtypes(["number"])
 
-    if this.dataSourceSpec.targetName == "all":
+    if dataSourceSpec.targetName == "all":
         outputTablePandas = pd.DataFrame(
             outputTablePandas.sum(axis=1),
-            columns=[this.dataSourceSpec.targetName]
+            columns=[dataSourceSpec.targetName]
         )
     else:
-        outputTablePandas = pd.DataFrame(outputTablePandas[this.dataSourceSpec.targetName])
+        outputTablePandas = pd.DataFrame(outputTablePandas[dataSourceSpec.targetName])
 
     return c3.Dataset.fromPython(outputTablePandas)
