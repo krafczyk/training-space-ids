@@ -5,7 +5,10 @@
 /**
 * pass
 */
-type CollectGPRLearnedParameters extends MapReduce<GeoSurfaceTimePoint, string,  int, int> type key "CLTGPRLRNPRS" {
+type CollectGPRLearnedParameters extends MapReduce<GeoSurfaceTimePoint, string,  int, any> type key "CLTGPRLRNPRS" {
+    // the mapper
     map:    ~ js server
-    reduce: ~ js server
+    // the reducer
+    @py(env='gordon-ML_1_0_0')
+    reduce: ~ 
 }
