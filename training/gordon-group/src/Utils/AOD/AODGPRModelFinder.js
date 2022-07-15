@@ -33,12 +33,12 @@ function getPipe(excFeats, gstpId, targetName, technique) {
     // now find the models
     filter = Filter.intersects("technique.id", techIds)
         .and().intersects("dataSourceSpec.id", sourceSpecIds);
-    var pipeStream = GaussianProcessRegressionPipe.fetchObjStream({
+    var pipes = GaussianProcessRegressionPipe.fetch({
         "filter": filter.value,
         "limit": -1
-    });
+    }).objs;
 
-    return pipeStream
+    return pipes
 }
 
 function getPipeStream(excFeats, gstpFilter, targetName, technique) {
