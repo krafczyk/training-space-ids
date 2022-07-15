@@ -8,10 +8,10 @@ function map(batch, objs, job) {
     var dict = {};
     var models = objs.forEach(function (obj) {
         AODGPRModelFinder.getPipe(
-            job.context.excludeFeatures, 
+            job.context.value.excludeFeatures, 
             obj.id,
-            job.context.targetName,
-            job.context.technique);
+            job.context.value.targetName,
+            job.context.value.technique);
     });
     dict[batch] = models;
     return dict;
