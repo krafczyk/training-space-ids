@@ -5,12 +5,14 @@ def train(this, input, targetOutput, spec):
     """
     from sklearn.gaussian_process import GaussianProcessRegressor
 
+    technique = c3.GaussianProcessRegressionTechnique.get(this.technique.id)
+
     # get data
     X = c3.Dataset.toNumpy(dataset=input)
     y = c3.Dataset.toNumpy(dataset=targetOutput)
 
     # get kernel object from c3, make it python again
-    kernel = c3.PythonSerialization.deserialize(serialized=this.technique.kernel.pickledKernel)
+    kernel = c3.PythonSerialization.deserialize(serialized=technique.kernel.pickledKernel)
 
     # build and train GPR
     gp = GaussianProcessRegressor(kernel=kernel)
