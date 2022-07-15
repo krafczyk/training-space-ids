@@ -49,6 +49,9 @@ function getPipeStream(excFeats, gstpFilter, targetName, technique) {
     }).objs.map(obj => obj.id);
 
     var pipes = gstpIds.map(id => AODGPRModelFinder.getPipe(excFeats, id, targetName, technique));
+    var nonNulls = pipes.filter(function (el) {
+        return el != null;
+    });
 
-    return pipes
+    return nonNulls
 }
