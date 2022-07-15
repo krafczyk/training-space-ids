@@ -41,7 +41,7 @@ function getPipe(excFeats, gstpId, targetName, technique) {
     return pipes
 }
 
-function getPipeStream(excFeats, gstpFilter, targetName, technique) {
+function getPipes(excFeats, gstpFilter, targetName, technique) {
     var gstpIds = GeoSurfaceTimePoint.fetch({
         "filter": gstpFilter,
         "limit": -1,
