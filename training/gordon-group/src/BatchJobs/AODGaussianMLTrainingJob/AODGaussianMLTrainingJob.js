@@ -92,7 +92,7 @@ function processBatch(batch, job, options) {
             "targetType": targetType,
             "targetSpec": targetSpec,
             "targetName": options.targetName
-        })
+        }).upsert()
 
         // create the pipe
         var GPR_pipe = GaussianProcessRegressionPipe.make({
