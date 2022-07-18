@@ -1,7 +1,7 @@
 function getPipe(excFeats, gstpId, targetName, technique) {
 
     // find the data source specs
-    var gstpKey = "geoSurfaceTimePoint.id == '" + gstpId + "'";
+    var gstpKey = "geoSurfaceTimePoint.id == \"" + gstpId + "\"";
     var filter = Filter.eq("featuresType.typeName", "SimulationModelParameters")
         .and().eq("targetType.typeName", "Simulation3HourlyAODOutput")
         .and().intersects("excludeFeatures", excFeats)
