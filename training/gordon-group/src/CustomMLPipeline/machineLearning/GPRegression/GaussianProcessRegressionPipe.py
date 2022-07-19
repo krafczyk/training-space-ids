@@ -46,7 +46,7 @@ def process(this, input, spec, computeStd=False, computeCov=False):
 
     elif not computeStd and computeCov:
         predictions, cov = gp.predict(X, return_cov=True)
-        result = np.concatenate((predictions,cov), axis=1)
+        result = np.c_[predictions,cov]
 
         return c3.Dataset.fromPython(pythonData=result)
 
