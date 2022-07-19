@@ -24,26 +24,39 @@ def train(this, input, targetOutput, spec):
     return this
 
 
-def process(this, input, spec, computeCov=False):
+def process(this, input, spec, computeStd=False, computeCov=False):
     """
     Performs Scikit-Learn's GaussianProcessRegressor's predict().
     https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html
     """
+    import numpy as np
+
     # unpickle the model
     gp = c3.PythonSerialization.deserialize(serialized=this.trainedModel.model)
 
     # format data
     X = c3.Dataset.toNumpy(dataset=input)
 
-    # get predictions (and covariance if computeCov=True)
-    if computeCov:
+    # get predictions
+    if computeStd and not computeCov:
+        predictions, std = gp.predict(X, return_std=True)
+        result = np.concatenate((predictions,std), axis=1)
 
-        predictions, covariance_matrix = gp.predict(X, return_cov=True)
+        return c3.Dataset.fromPython(pythonData=result)
 
-        return c3.Dataset.fromPython(pythonData=predictions), c3.Dataset.fromPython(pythonData=covariance_matrix)
+    elif not computeStd and computeCov:
+        predictions, cov = gp.predict(X, return_cov=True)
+        result = np.concatenate((predictions,cov), axis=1)
+
+        return c3.Dataset.fromPython(pythonData=result)
+
+    elif computeStd and computeCov:
+        predictions, std, cov = gp.predict(X, return_std=True, return_cov=True)
+        result = np.concatenate((predictions,std,cov), axis=1)
+
+        return c3.Dataset.fromPython(pythonData=result)
 
     else:
-
         predictions = gp.predict(X)
 
         return c3.Dataset.fromPython(pythonData=predictions)
