@@ -37,22 +37,16 @@ def process(this, input, spec, computeStd=False, computeCov=False):
     # format data
     X = c3.Dataset.toNumpy(dataset=input)
 
-    # get predictions
+    # get predictions: notice that cov and std simultaneously is not supported by Sklearn https://github.com/scikit-learn/scikit-learn/blob/baf0ea25d/sklearn/gaussian_process/_gpr.py#L327
     if computeStd and not computeCov:
         predictions, std = gp.predict(X, return_std=True)
-        result = np.hstack((predictions,std))
+        result = np.c_[predictions,std]
 
         return c3.Dataset.fromPython(pythonData=result)
 
     elif not computeStd and computeCov:
         predictions, cov = gp.predict(X, return_cov=True)
         result = np.concatenate((predictions,cov), axis=1)
-
-        return c3.Dataset.fromPython(pythonData=result)
-
-    elif computeStd and computeCov:
-        predictions, std, cov = gp.predict(X, return_std=True, return_cov=True)
-        result = np.concatenate((predictions,std,cov), axis=1)
 
         return c3.Dataset.fromPython(pythonData=result)
 
