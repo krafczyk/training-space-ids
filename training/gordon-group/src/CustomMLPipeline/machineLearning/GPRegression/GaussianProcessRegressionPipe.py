@@ -40,7 +40,7 @@ def process(this, input, spec, computeStd=False, computeCov=False):
     # get predictions
     if computeStd and not computeCov:
         predictions, std = gp.predict(X, return_std=True)
-        result = np.concatenate((predictions,std), axis=1)
+        result = np.hstack((predictions,std))
 
         return c3.Dataset.fromPython(pythonData=result)
 
