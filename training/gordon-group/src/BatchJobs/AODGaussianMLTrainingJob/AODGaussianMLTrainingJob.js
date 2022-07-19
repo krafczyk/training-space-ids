@@ -1,5 +1,9 @@
 /**
- * Implementation of 
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+ * Implementation of AODGaussianMLTrainingJob
  * @param {AODGaussianMLTrainingJob} job
  * @param {AODGaussianMLTrainingJobOptions} options
  */
@@ -25,6 +29,7 @@
 
 
 /**
+ * Implementation of what to do in each batch
  * @param {AODGaussianMLTrainingJobBatch} batch
  * @param {AODGaussianMLTrainingJob} job
  * @param {AODGaussianMLTrainingJobOptions} options
@@ -32,49 +37,74 @@
 function processBatch(batch, job, options) {
     batch.values.forEach(function(gstp) {
 
-        // define the kernel
-        var GPR_kernel = SklearnGPRKernelMatern.make({
-            "lengthScale": [1.0],
-            "nu": 0.5,
-            "coefficient": 1.0
-        }).build().kernel
-
-        // define the technique
-        var GPR_technique = GaussianProcessRegressionTechnique.make({
-            "randomState": 42,
-            "kernel": GPR_kernel
-        });
-
-        // define the features
-        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
-        var featuresSpec = FetchSpec.make({
-            "limit": -1,
-            "order": "id"
-        });
-
-        // define targets
+        // define target
         var targetType = TypeRef.make({"typeName": "Simulation3HourlyAODOutput"});
         var targetFilter = Filter.eq("geoSurfaceTimePoint.id", gstp.id);
         var targetSpec = FetchSpec.make({
             "limit": -1,
             "order": "simulationSample.id",
-            "include": "dust",
             "filter": targetFilter.toString()
         });
 
-        // create pipe
-        var GPR_pipe = GaussianProcessRegressionPipe.make({
-            "technique": GPR_technique,
-            "featuresType": featuresType,
-            "featuresSpec": featuresSpec,
-            "targetType": targetType,
-            "targetSpec": targetSpec
+        // find the simulations
+        var simulationsSpec = FetchSpec.make({
+            "limit": -1,
+            "order": "simulationSample.id",
+            "filter": targetFilter.toString(),
+            "include": "simulationSample"
+        });
+        var samples = targetType.toType().fetch(simulationsSpec).objs;
+        var simIds = [];
+        for(var i = 0; i < samples.length; i++) {
+            simIds.push(samples[i].simulationSample.id);
+        }
+
+        var featuresType = TypeRef.make({"typeName": "SimulationModelParameters"});
+        var allSamples = featuresType.toType().fetch({
+            "limit": -1,
+            "order": "id",
+            "include": "id"
+        }).objs;
+        var allSimIds = [];
+        for(var i = 0; i < allSamples.length; i++) {
+            allSimIds.push(allSamples[i].id);
+        };
+        var excludeIds = [];
+        for(var i = 0; i < allSimIds.length; i++) {
+            if(simIds.indexOf(allSimIds[i]) === -1) {
+                excludeIds.push(allSimIds[i]);
+            }
+        };
+
+        // define the features
+        var featuresFilter = Filter.not().intersects("id", excludeIds);
+        var featuresSpec = FetchSpec.make({
+            "limit": -1,
+            "order": "id",
+            "filter": featuresFilter
         });
 
-        // get targets
+        // define the data source spec
+        var sourceSpec = GPRDataSourceSpec.make({
+            "featuresType": featuresType,
+            "featuresSpec": featuresSpec,
+            "excludeFeatures": options.excludeFeatures,
+            "targetType": targetType,
+            "targetSpec": targetSpec,
+            "targetName": options.targetName
+        }).upsert()
+
+        // create the pipe
+        var GPR_pipe = GaussianProcessRegressionPipe.make({
+            "technique": options.gprTechnique,
+            "dataSourceSpec": sourceSpec
+        })
+
+        // get target and features
         var X = GPR_pipe.getFeatures();
         var y = GPR_pipe.getTarget();
 
+        // train and save
         var GPR_pipe_trained = GPR_pipe.train(X, y);
         GPR_pipe_trained.upsert();
 

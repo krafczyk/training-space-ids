@@ -1,0 +1,14 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* pass
+*/
+type CollectGPRLearnedParameters extends MapReduce<GeoSurfaceTimePoint, string,  int, any> type key "CLTGPRLRNPRS" {
+    // the mapper
+    map:    ~ js server
+    // the reducer
+    @py(env='gordon-ML_1_0_0')
+    reduce: ~ 
+}

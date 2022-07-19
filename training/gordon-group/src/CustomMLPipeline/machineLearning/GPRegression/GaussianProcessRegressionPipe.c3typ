@@ -1,19 +1,17 @@
 /**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
 * GaussianProcessRegressionPipe.c3typ
-* Performs Scikit-Learn's GP Regression for a set of inputs-outputs.
+* Performs Scikit-Learn's GP Regression.
 */
+@db(unique=['technique, dataSourceSpec'])
 entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
     // the technique for this regression
-    @db(persistAllFields=true)
     technique: !GaussianProcessRegressionTechnique
-    // 
-    featuresType: TypeRef
-    // 
-    featuresSpec: FetchSpec schema suffix "FTSPC"
-    //
-    targetType: TypeRef
-    // target
-    targetSpec: FetchSpec schema suffix "TRSPC"
+    // data source spec for this regression
+    dataSourceSpec: !GPRDataSourceSpec
 
     // get features data
     @py(env='gordon-ML_1_0_0')
@@ -26,7 +24,7 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     train: ~
     // process data, ie predictions
     @py(env='gordon-ML_1_0_0')
-    process: ~
+    process: member function(input: Dataset, spec: MLProcessSpec, computeStd: boolean, computeCov: boolean): Dataset
     // guarantee that process() is only allowed after train()
     @py(env='gordon-ML_1_0_0')
     isProcessable: ~
