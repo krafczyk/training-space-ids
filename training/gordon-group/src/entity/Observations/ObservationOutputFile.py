@@ -100,7 +100,8 @@ def upsertATOMData(this):
     from datetime import datetime
     import pandas as pd
 
-    if (this.observationSet.name != "ATom_60s"):
+    obsSet = c3.ObservationSet.get(this.observationSet.id)
+    if (obsSet.name != "ATom_60s"):
         return False
 
     class ObsVars:
@@ -203,7 +204,6 @@ def upsertATOMData(this):
     
 
     df = ObsVars.get_df_from_c3_file(this)
-    obsSet = c3.ObservationSet.get(this.observationSet.id)
     parent_id = "OOS_SetName_" + obsSet.name + "_Ver_" + obsSet.versionTag
     df['parent'] = parent_id
 
