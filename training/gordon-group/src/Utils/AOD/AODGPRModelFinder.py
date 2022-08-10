@@ -24,7 +24,16 @@ def extractLearnedParametersJob(excFeats, gstpFilter, targetName, technique, bat
                     model = c3.PythonSerialization.deserialize(serialized=pickledModel)
                     hp = model.kernel_.get_params()['k2__length_scale']
                     model_id = m["id"]
-                    values.append((hp, model_id))
+
+                    # find GSTP
+                    dssId = m["dataSourceSpec"]["id"]
+                    dss = c3.GPRDataSourceSpec.get(dssId)
+                    gstpId = dss.targetSpec.filter.split(" == ")[1].replace('"', '')
+                    gstp = c3.GeoSurfaceTimePoint.get(gstpId)
+                    lat = gstp.latitude
+                    lon = gstp.longitude
+                    time = gstp.time
+                    values.append((hp, model_id, lat, lon, time))
 
         return values
 
@@ -61,6 +70,9 @@ def getDataframeFromJob(job):
 
     lengthScales = []
     ids = []
+    lats = []
+    lons = []
+    times = []
     if job.status().status == "completed":
         for key, value in job.results().items():
             for subvalue in value:
@@ -68,9 +80,15 @@ def getDataframeFromJob(job):
                 model_id = np.array([subvalue[1]]).astype(str)
                 lengthScales.append(ls)
                 ids.append(model_id[0])
+                lats.append(np.array(subvalue[2]).astype(float))
+                lons.append(np.array(subvalue[3]).astype(float))
+                times.append(np.array(subvalue[4]))
                 
         df = pd.DataFrame(lengthScales)
         df["modelId"] = ids
+        df["latitude"] = lats
+        df["longitude"] = lons
+        df["time"] = times
         return df
     else:
         return False
