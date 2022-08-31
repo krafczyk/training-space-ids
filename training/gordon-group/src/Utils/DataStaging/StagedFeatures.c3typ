@@ -1,0 +1,11 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This type hosts data for models that cannot obtain Features 
+* directly from other entity types.
+*/
+entity type StagedFeatures schema name "STGD_FTRS" {
+    feature: map<string, double> suffix name "FTR"
+}
