@@ -71,8 +71,26 @@ def getFeatures(this):
     import pandas as pd
 
     dataSourceSpec = c3.GPRDataSourceSpec.get(this.dataSourceSpec.id)
-
     featuresType = dataSourceSpec.featuresType.toType()
+    
+    if (featuresType.name == "StagedFeatures"):
+        features = c3.StagedFeatures.fetch({
+            "limit": -1,
+            "order": "id"
+        }).objs.toJson()
+
+        df = pd.DataFrame(features)
+        keys = df.iloc[0]["feature"].keys()
+
+        for key in keys:
+            df[key] = df["feature"].apply(lambda x: x[key])
+        
+        df.drop("version", axis=1, inplace=True)
+        df = df.select_dtypes(["number"])
+
+        return c3.Dataset.fromPython(df)
+
+
     inputTableC3 = featuresType.fetch(dataSourceSpec.featuresSpec).objs.toJson()
     inputTablePandas = pd.DataFrame(inputTableC3)
     inputTablePandas = inputTablePandas.drop("version", axis=1)
