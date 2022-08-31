@@ -7,5 +7,5 @@
 * directly from other entity types.
 */
 entity type StagedFeatures schema name "STGD_FTRS" {
-    feature: map<string, double> suffix name "FTR"
+    feature: map<string, double> schema suffix "FTR"
 }
