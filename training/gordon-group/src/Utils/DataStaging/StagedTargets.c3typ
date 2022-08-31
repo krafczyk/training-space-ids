@@ -3,9 +3,9 @@
 * All rights reserved. License: https://github.com/c3aidti/.github
 **/
 /**
-* This type hosts data for models that cannot obtain Features 
+* This type hosts data for models that cannot obtain Targets
 * directly from other entity types.
 */
-entity type StagedFeatures schema name "STGD_FTRS" {
-    features: map<string, double> schema suffix "FTR"
+entity type StagedTargets schema name "STGD_TRGTS" {
+    targets: map<string, double> schema suffix "TRGT"
 }

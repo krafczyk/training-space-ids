@@ -80,10 +80,10 @@ def getFeatures(this):
         }).objs.toJson()
 
         df = pd.DataFrame(features)
-        keys = df.iloc[0]["feature"].keys()
+        keys = df.iloc[0]["features"].keys()
 
         for key in keys:
-            df[key] = df["feature"].apply(lambda x: x[key])
+            df[key] = df["features"].apply(lambda x: x[key])
         
         df.drop("version", axis=1, inplace=True)
         df = df.select_dtypes(["number"])
@@ -112,8 +112,26 @@ def getTarget(this):
     import pandas as pd
 
     dataSourceSpec = c3.GPRDataSourceSpec.get(this.dataSourceSpec.id)
-
     targetType = dataSourceSpec.targetType.toType()
+
+    if (targetType.name == "StagedTargets"):
+        targets = c3.StagedTargets.fetch({
+            "limit": -1,
+            "order": "id"
+        }).objs.toJson()
+
+        df = pd.DataFrame(targets)
+        keys = df.iloc[0]["targets"].keys()
+
+        for key in keys:
+            df[key] = df["targets"].apply(lambda x: x[key])
+        
+        df.drop("version", axis=1, inplace=True)
+        df = df.select_dtypes(["number"])
+
+        return c3.Dataset.fromPython(df)
+ 
+        
     outputTableC3 = targetType.fetch(dataSourceSpec.targetSpec).objs.toJson()
     outputTablePandas = pd.DataFrame(outputTableC3)
     outputTablePandas = outputTablePandas.drop("version", axis=1)
