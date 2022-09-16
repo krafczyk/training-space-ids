@@ -24,9 +24,11 @@ def train(this, input, targetOutput, spec):
     gp.fit(X, y)
 
     if (technique.centerTarget):
+        params = {}
+        params["targetMean"] = float(y.mean())
         this.trainedModel = c3.MLTrainedModelArtifact(
             model=c3.PythonSerialization.serialize(obj=gp),
-            targetMean=float(y.mean())
+            parameterss=params
         )
     else:
         this.trainedModel = c3.MLTrainedModelArtifact(
