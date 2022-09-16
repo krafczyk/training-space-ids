@@ -13,6 +13,7 @@ def train(this, input, targetOutput, spec):
     y = c3.Dataset.toNumpy(dataset=targetOutput)
 
     if (technique.centerTarget):
+        targetMean = float(y.mean())
         y = y - y.mean()
     
 
@@ -25,7 +26,7 @@ def train(this, input, targetOutput, spec):
 
     if (technique.centerTarget):
         params = {}
-        params["targetMean"] = float(y.mean())
+        params["targetMean"] = targetMean
         this.trainedModel = c3.MLTrainedModelArtifact(
             model=c3.PythonSerialization.serialize(obj=gp),
             parameters=params
