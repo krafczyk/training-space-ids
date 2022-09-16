@@ -12,6 +12,10 @@ def train(this, input, targetOutput, spec):
     X = c3.Dataset.toNumpy(dataset=input)
     y = c3.Dataset.toNumpy(dataset=targetOutput)
 
+    if (technique.centerTarget):
+        y = y - y.mean()
+    
+
     # get kernel object from c3, make it python again
     kernel = c3.PythonSerialization.deserialize(serialized=serializedKernel.pickledKernel)
 
@@ -19,7 +23,15 @@ def train(this, input, targetOutput, spec):
     gp = GaussianProcessRegressor(kernel=kernel)
     gp.fit(X, y)
 
-    this.trainedModel = c3.MLTrainedModelArtifact(model=c3.PythonSerialization.serialize(obj=gp))
+    if (technique.centerTarget):
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+            targetMean=float(y.mean())
+        )
+    else:
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+        )
 
     return this
 

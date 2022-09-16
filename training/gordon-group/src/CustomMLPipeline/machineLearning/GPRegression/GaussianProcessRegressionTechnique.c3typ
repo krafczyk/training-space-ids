@@ -10,4 +10,7 @@ entity type GaussianProcessRegressionTechnique mixes MLTechnique schema name 'GP
     // the kernel object
     @ML(hyperParameter=true)
     kernel: SklearnGPRKernel
+    // center target data before fitting
+    @ML(hyperParameter=true)
+    centerTarget: boolean=false
 }
