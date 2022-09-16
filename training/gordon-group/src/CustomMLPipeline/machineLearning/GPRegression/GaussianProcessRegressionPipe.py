@@ -28,7 +28,7 @@ def train(this, input, targetOutput, spec):
         params["targetMean"] = float(y.mean())
         this.trainedModel = c3.MLTrainedModelArtifact(
             model=c3.PythonSerialization.serialize(obj=gp),
-            parameterss=params
+            parameters=params
         )
     else:
         this.trainedModel = c3.MLTrainedModelArtifact(
