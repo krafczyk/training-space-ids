@@ -24,7 +24,7 @@ function getPipe(excFeats, gstpId, targetName, technique) {
 
     // find the techniques
     filter = Filter.intersects("kernel.id", kernelIds)
-        .and().eq("technique.centerTarget", technique.centerTarget);
+        .and().eq("centerTarget", technique.centerTarget);
     var techIds = GaussianProcessRegressionTechnique.fetch({
         "filter": filter.value,
         "limit": -1,
