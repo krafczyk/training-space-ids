@@ -20,8 +20,8 @@ def stageFromAODGPRModelIdsList(ids):
     inputTable = pd.DataFrame(inputTableC3)
     inputTable = inputTable.drop("version", axis=1)
     inputTable = inputTable.select_dtypes(["number"])
-    if (dataSourceSpec.excludeFeatures):
-        inputTable.drop(columns=dataSourceSpec.excludeFeatures, inplace=True)
+    if (excludeFeatures):
+        inputTable.drop(columns=excludeFeatures, inplace=True)
 
     # get gstp coordinates from each model
     lats = []
