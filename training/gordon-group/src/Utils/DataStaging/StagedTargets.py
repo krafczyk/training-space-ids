@@ -16,7 +16,7 @@ def stageFromAODGPRModelIdsList(ids):
     df = pd.DataFrame()
     for model_id in ids:
         model = c3.GaussianProcessRegressionPipe.get(model_id)
-        pdf = model.getTarget()
+        pdf = c3.Dataset.toPandas(model.getTarget())
         df = pd.concat([df,pdf], ignore_index=True)
 
     def row_to_dict(row):
