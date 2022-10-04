@@ -11,6 +11,8 @@ def stageFromAODGPRModelIdsList(ids):
     """
     import pandas as pd
 
+    c3.StagedFeatures.removeAll()
+
     # get data from dataSourceSpec one model
     model = c3.GaussianProcessRegressionPipe.get(ids[0], "dataSourceSpec")
     data_source_spec = c3.GPRDataSourceSpec.get(model.dataSourceSpec.id)
