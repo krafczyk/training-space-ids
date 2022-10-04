@@ -24,6 +24,12 @@ def stageFromAODGPRModelIdsList(ids):
         pdf["longitude"] = gstp.longitude
         df = pd.concat([df,pdf], ignore_index=True)
 
+    def row_to_dict(row):
+        d = {}
+        for col in row.index:
+            d[col] = row[col]
+        return d
+        
     df_final = pd.DataFrame()
     df_final["features"] = df.apply(row_to_dict, axis=1)
     df_final["id"] = df_final.index
