@@ -8,7 +8,7 @@
 */
 entity type StagedFeatures schema name "STGD_FTRS" {
     // the features to be staged
-    features: map<string, any> schema suffix "FTR"
+    features: map<string, double> schema suffix "FTR"
     // method to stage from gstp list
     @py(env='gordon_1_0_0')
     stageFromAODGPRModelIdsList: function(ids: !any): integer

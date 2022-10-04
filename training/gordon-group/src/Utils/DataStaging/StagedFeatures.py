@@ -42,10 +42,9 @@ def stageFromAODGPRModelIdsList(ids):
             d[col] = row[col]
         return d
 
-    def add_coords(obj, lat, lon, time):
+    def add_coords(obj, lat, lon):
         obj["latitude"] = lat
         obj["longitude"] = lon
-        obj["time"] = time
         return
     
     # build dataframe
@@ -55,7 +54,7 @@ def stageFromAODGPRModelIdsList(ids):
     df = pd.DataFrame()
     for i in range(len(lats)):
         df_to_add = df_sim_par.copy()
-        df_to_add["features"].apply(add_coords, args=(lats[i], lons[i], times[i]))
+        df_to_add["features"].apply(add_coords, args=(lats[i], lons[i]))
         df = pd.concat([df,df_to_add], ignore_index=True)
 
     df["id"] = df.index
