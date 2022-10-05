@@ -163,3 +163,55 @@ def getTarget(this):
         outputTablePandas = pd.DataFrame(outputTablePandas[dataSourceSpec.targetName])
 
     return c3.Dataset.fromPython(outputTablePandas)
+
+
+def trainWithStagedAOD(this, ids):
+    """
+    This method trains a large model with data coming from previously trained
+    GPR models with AOD data.
+
+    Inputs:
+        ids: list of GaussianProcessRegressionPipes ids
+
+    Returns:
+        int: 0 if method worked, 1 otherwise
+    """
+    from sklearn.gaussian_process import GaussianProcessRegressor
+
+    # stage features and targets
+    c3.StagedFeatures.stageFromAODGPRModelIdsList(ids)
+    c3.StagedTargets.stageFromAODGPRModelIdsList(ids)
+    # get data
+    X = c3.Dataset.toNumpy(dataset=this.getFeatures())
+    y = c3.Dataset.toNumpy(dataset=this.getTarget())
+
+    # generate training technique
+    technique = c3.GaussianProcessRegressionTechnique.get(this.technique.id)
+    serializedKernel = c3.SklearnGPRKernel.get(technique.kernel.id)
+
+    if (technique.centerTarget):
+        targetMean = float(y.mean())
+        y = y - y.mean()
+    
+    # get kernel object from c3, make it python again
+    kernel = c3.PythonSerialization.deserialize(serialized=serializedKernel.pickledKernel)
+
+    # build and train GPR
+    gp = GaussianProcessRegressor(kernel=kernel)
+    gp.fit(X, y)
+
+    if (technique.centerTarget):
+        params = {}
+        params["targetMean"] = targetMean
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+            parameters=params
+        )
+    else:
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+        )
+
+    this.upsert()
+
+    return 0    

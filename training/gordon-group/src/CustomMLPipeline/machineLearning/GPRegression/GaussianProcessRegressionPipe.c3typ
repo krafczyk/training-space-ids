@@ -28,4 +28,7 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // guarantee that process() is only allowed after train()
     @py(env='gordon-ML_1_0_0')
     isProcessable: ~
+    // train large model with AOD staged data
+    @py(env='gordon-ML_1_0_0')
+    trainWithStagedAOD: member function(modelIds: any): integer
 }
