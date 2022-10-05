@@ -165,7 +165,7 @@ def getTarget(this):
     return c3.Dataset.fromPython(outputTablePandas)
 
 
-def trainWithStagedAOD(this, ids):
+def trainWithStagedAOD(this, modelIds):
     """
     This method trains a large model with data coming from previously trained
     GPR models with AOD data.
@@ -179,8 +179,8 @@ def trainWithStagedAOD(this, ids):
     from sklearn.gaussian_process import GaussianProcessRegressor
 
     # stage features and targets
-    c3.StagedFeatures.stageFromAODGPRModelIdsList(ids)
-    c3.StagedTargets.stageFromAODGPRModelIdsList(ids)
+    c3.StagedFeatures.stageFromAODGPRModelIdsList(modelIds)
+    c3.StagedTargets.stageFromAODGPRModelIdsList(modelIds)
     # get data
     X = c3.Dataset.toNumpy(dataset=this.getFeatures())
     y = c3.Dataset.toNumpy(dataset=this.getTarget())
