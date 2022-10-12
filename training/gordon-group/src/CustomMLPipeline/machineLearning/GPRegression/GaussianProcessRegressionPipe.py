@@ -17,8 +17,11 @@ def train(this, input, targetOutput, spec):
         y = y - y.mean()
     
     if (technique.validation):
-        # trim X
-        # trim y
+        rng = np.random.RandomState(technique.randomSeed)
+        rng.shuffle(X)
+        X = X[0:int(technique.splitFraction*len(X))]
+        rng.shuffle(y)
+        y = y[0:int(technique.splitFraction*len(y))]
 
 
     # get kernel object from c3, make it python again
