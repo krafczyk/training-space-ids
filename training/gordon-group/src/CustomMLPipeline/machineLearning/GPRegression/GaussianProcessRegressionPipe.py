@@ -16,6 +16,10 @@ def train(this, input, targetOutput, spec):
         targetMean = float(y.mean())
         y = y - y.mean()
     
+    if (technique.validation):
+        # trim X
+        # trim y
+
 
     # get kernel object from c3, make it python again
     kernel = c3.PythonSerialization.deserialize(serialized=serializedKernel.pickledKernel)
