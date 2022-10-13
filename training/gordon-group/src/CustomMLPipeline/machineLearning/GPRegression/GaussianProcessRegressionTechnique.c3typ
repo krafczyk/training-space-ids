@@ -13,4 +13,13 @@ entity type GaussianProcessRegressionTechnique mixes MLTechnique schema name 'GP
     // center target data before fitting
     @ML(hyperParameter=true)
     centerTarget: boolean=false
+    // leave fraction of rows for post-validation
+    @ML(hyperParameter=true)
+    validation: boolean=false
+    // random seed to be used by numpy.shuffle
+    @ML(hyperParameter=true)
+    randomSeed: integer=42
+    // fraction to be left for validation
+    @ML(hyperParameter=true)
+    splitFraction: float=0.2
 }
