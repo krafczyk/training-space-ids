@@ -9,7 +9,8 @@
       "conda.torchaudio":"=0.12.1",
       "conda.cudatoolkit":"=11.3",
       "conda.libgcc":"=7.2.0",
-      "conda.gpytorch":"=1.9.0"
+      "conda.gpytorch":"=1.9.0",
+      "conda.dill":"=0.2.8.2"
     },
     "repositories": [
       "https://repo.continuum.io/pkgs/main",
