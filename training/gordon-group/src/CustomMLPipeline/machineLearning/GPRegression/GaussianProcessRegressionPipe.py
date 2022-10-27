@@ -240,7 +240,7 @@ def trainWithListOfAODModels(this, modelIds):
     # get data
     X = pd.DataFrame()
     y = pd.DataFrame()
-    for model_id in ids:
+    for model_id in modelIds:
         model = c3.GaussianProcessRegressionPipe.get(model_id)
         data_source_spec = c3.GPRDataSourceSpec.get(model.dataSourceSpec.id, "targetSpec")
         gstp_id = data_source_spec.targetSpec.filter.split(" == ")[1].replace('"', '')
