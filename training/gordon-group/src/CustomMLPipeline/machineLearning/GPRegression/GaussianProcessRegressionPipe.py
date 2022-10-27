@@ -235,6 +235,7 @@ def trainWithListOfAODModels(this, modelIds):
         int: 0 if method worked, 1 otherwise
     """
     from sklearn.gaussian_process import GaussianProcessRegressor
+    import pandas as pd
 
     # get data
     X = pd.DataFrame()
