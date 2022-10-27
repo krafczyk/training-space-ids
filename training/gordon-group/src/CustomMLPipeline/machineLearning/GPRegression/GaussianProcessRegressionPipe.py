@@ -221,4 +221,66 @@ def trainWithStagedAOD(this, modelIds):
 
     this.upsert()
 
-    return 0    
+    return 0
+
+def trainWithListOfAODModels(this, modelIds):
+    """
+    This method trains a large model with data coming from previously trained
+    GPR models with AOD data.
+
+    Inputs:
+        ids: list of GaussianProcessRegressionPipes ids
+
+    Returns:
+        int: 0 if method worked, 1 otherwise
+    """
+    from sklearn.gaussian_process import GaussianProcessRegressor
+
+    # get data
+    X = pd.DataFrame()
+    y = pd.DataFrame()
+    for model_id in ids:
+        model = c3.GaussianProcessRegressionPipe.get(model_id)
+        data_source_spec = c3.GPRDataSourceSpec.get(model.dataSourceSpec.id, "targetSpec")
+        gstp_id = data_source_spec.targetSpec.filter.split(" == ")[1].replace('"', '')
+        gstp = c3.GeoSurfaceTimePoint.get(gstp_id)
+        px = c3.Dataset.toPandas(model.getFeatures())
+        px["latitude"] = gstp.latitude
+        px["longitude"] = gstp.longitude
+        X = pd.concat([X,px], ignore_index=True)
+
+        py = c3.Dataset.toPandas(model.getTarget())
+        y = pd.concat([y,py], ignore_index=True)
+    X = X.to_numpy()
+    y = y.to_numpy()
+
+    # generate training technique
+    technique = c3.GaussianProcessRegressionTechnique.get(this.technique.id)
+    serializedKernel = c3.SklearnGPRKernel.get(technique.kernel.id)
+
+    if (technique.centerTarget):
+        targetMean = float(y.mean())
+        y = y - y.mean()
+
+    # get kernel object from c3, make it python again
+    kernel = c3.PythonSerialization.deserialize(serialized=serializedKernel.pickledKernel)
+
+    # build and train GPR
+    gp = GaussianProcessRegressor(kernel=kernel)
+    gp.fit(X, y)
+
+    if (technique.centerTarget):
+        params = {}
+        params["targetMean"] = targetMean
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+            parameters=params
+        )
+    else:
+        this.trainedModel = c3.MLTrainedModelArtifact(
+            model=c3.PythonSerialization.serialize(obj=gp),
+        )
+
+    this.upsert()
+
+    return 0
