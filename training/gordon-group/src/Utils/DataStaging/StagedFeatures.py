@@ -10,6 +10,7 @@ def stageFromAODGPRModelIdsList(ids):
         int: zero if it worked, 1 if it failed
     """
     import pandas as pd
+    from datetime import timedelta 
 
     c3.StagedFeatures.removeAll()
 
@@ -22,6 +23,12 @@ def stageFromAODGPRModelIdsList(ids):
         pdf = c3.Dataset.toPandas(model.getFeatures())
         pdf["latitude"] = gstp.latitude
         pdf["longitude"] = gstp.longitude
+        my_time = gstp.time.timetuple()
+        pdf["time"] = timedelta(
+            days=my_time.tm_yday,
+            minutes=my_time.tm_min,
+            hours=my_time.tm_hour
+        ).total_seconds() / 3600
         df = pd.concat([df,pdf], ignore_index=True)
 
     def row_to_dict(row):
