@@ -236,6 +236,7 @@ def trainWithListOfAODModels(this, modelIds, excludeFeatures):
     """
     from sklearn.gaussian_process import GaussianProcessRegressor
     import pandas as pd
+    from datetime import timedelta
 
     # get data
     X = pd.DataFrame()
@@ -245,9 +246,15 @@ def trainWithListOfAODModels(this, modelIds, excludeFeatures):
         data_source_spec = c3.GPRDataSourceSpec.get(model.dataSourceSpec.id, "targetSpec")
         gstp_id = data_source_spec.targetSpec.filter.split(" == ")[1].replace('"', '')
         gstp = c3.GeoSurfaceTimePoint.get(gstp_id)
+        my_time = gstp.time.timetuple()
         px = c3.Dataset.toPandas(model.getFeatures())
         px["latitude"] = gstp.latitude
         px["longitude"] = gstp.longitude
+        px["time"] = timedelta(
+            days=my_time.tm_yday,
+            minutes=my_time.tm_min,
+            hours=my_time.tm_hour
+        ).total_seconds() / 3600
         X = pd.concat([X,px], ignore_index=True)
 
         py = c3.Dataset.toPandas(model.getTarget())
