@@ -252,7 +252,7 @@ def trainWithListOfAODModels(this, modelIds, excludeFeatures):
 
         py = c3.Dataset.toPandas(model.getTarget())
         y = pd.concat([y,py], ignore_index=True)
-    X.drop(excludeFeatures, axis=1, inplace=True)
+    X.drop(columns=excludeFeatures, inplace=True)
     X = X.to_numpy()
     y = y.to_numpy()
 
