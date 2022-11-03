@@ -33,5 +33,5 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     trainWithStagedAOD: member function(modelIds: any): integer
     // train with list of GSTPs
     @py(env='gordon-ML_1_0_0')
-    trainWithListOfAODModels: member function(modelIds: any): integer
+    trainWithListOfAODModels: member function(modelIds: any, excludeFeatures: any): integer
 }

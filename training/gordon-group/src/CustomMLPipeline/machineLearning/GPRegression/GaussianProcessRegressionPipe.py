@@ -223,7 +223,7 @@ def trainWithStagedAOD(this, modelIds):
 
     return 0
 
-def trainWithListOfAODModels(this, modelIds):
+def trainWithListOfAODModels(this, modelIds, excludeFeatures):
     """
     This method trains a large model with data coming from previously trained
     GPR models with AOD data.
@@ -252,6 +252,7 @@ def trainWithListOfAODModels(this, modelIds):
 
         py = c3.Dataset.toPandas(model.getTarget())
         y = pd.concat([y,py], ignore_index=True)
+    X.drop(excludeFeatures, axis=1, inplace=True)
     X = X.to_numpy()
     y = y.to_numpy()
 
