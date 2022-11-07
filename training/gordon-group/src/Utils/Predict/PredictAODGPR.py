@@ -71,20 +71,18 @@ def getPredictionsDataframeFromJob(job):
     import numpy as np
 
     predictions = []
-    
+
     if job.status().status == "completed":
         for key, value in job.results().items():
             for subvalue in value:
-                df_y = c3.Dataset.toPandas(subvalue[0])
-                df_y[0] += subvalue[3]
-                df_x = c3.Dataset.toPandas(subvalue[1])
-                m_preds = pd.concat(
-                    [df_x, df_y],
-                    axis=1
-                )
-                m_preds["modelId"] = subvalue[2]
-                predictions.append(m_preds)
-                
+                df_m = pd.DataFrame()
+                df_m["mean"] = np.array(subvalue[0]).flatten()
+                df_m["mean"] += subvalue[3]
+                df_m["sd"] = subvalue[1]
+                df_m["modelId"] = subvalue[2]
+
+            predictions.append(df_m)
+
         df = pd.concat(predictions, axis=0).reset_index(drop=True)
         return df
     else:
