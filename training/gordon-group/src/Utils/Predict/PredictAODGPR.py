@@ -19,7 +19,7 @@ def makePredictionsJob(
 
     def cassandra_reducer(key, interValues, job):
         values = []
-        synthDataframe = c3.Dataset.toPandas(synthDataset)
+        synthDataframe = c3.Dataset.toPandas(job.context.value["syntheticDataset"])
         for iv in interValues:
             for val in iv:
                 for m in val:
