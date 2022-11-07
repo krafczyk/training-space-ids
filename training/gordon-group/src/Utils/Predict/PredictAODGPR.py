@@ -4,7 +4,6 @@ def makePredictionsJob(
     """
     Dynamic map-reduce job to get predictions on synthDataset.
     """
-    import pandas as pd
 
     def cassandra_mapper(batch, objs, job):
         models = []
@@ -34,8 +33,7 @@ def makePredictionsJob(
                     pickledModel = m["trainedModel"]["model"]
                     model = c3.PythonSerialization.deserialize(serialized=pickledModel)
                     mean, sd = model.predict(synthDataframe, return_std=True)
-                    preds = pd.concat([pd.DataFrame(mean), pd.DataFrame(sd)], axis=1)
-                    values.append((preds, synthDataset, model_id, center))
+                    values.append((mean, sd, synthDataset, model_id, center))
                     
 
         return values
