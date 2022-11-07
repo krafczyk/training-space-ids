@@ -19,6 +19,7 @@ def makePredictionsJob(
 
     def cassandra_reducer(key, interValues, job):
         values = []
+        synthDataframe = c3.Dataset.toPandas(synthDataset)
         for iv in interValues:
             for val in iv:
                 for m in val:
@@ -28,7 +29,10 @@ def makePredictionsJob(
                         center = m["trainedModel"].parameters["targetMean"].asfloat()
                     else:
                         center = 0
-                    preds = m.process(synthDataset, computeStd=True)
+                    pickledModel = m["trainedModel"]["model"]
+                    model = c3.PythonSerialization.deserialize(serialized=pickledModel)
+                    mean, sd = model.predict(synthDataframe, return_std=True)
+                    preds = pd.concat([pd.DataFrame(mean), pd.DataFrame(sd)], axis=1)
                     values.append((preds, synthDataset, model_id, center))
                     
 
