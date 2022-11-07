@@ -4,6 +4,8 @@ def makePredictionsJob(
     """
     Dynamic map-reduce job to get predictions on synthDataset.
     """
+    import pandas as pd
+
     def cassandra_mapper(batch, objs, job):
         models = []
         for obj in objs:
