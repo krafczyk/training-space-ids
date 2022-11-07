@@ -33,7 +33,7 @@ def makePredictionsJob(
                     pickledModel = m["trainedModel"]["model"]
                     model = c3.PythonSerialization.deserialize(serialized=pickledModel)
                     mean, sd = model.predict(synthDataframe, return_std=True)
-                    values.append((mean, sd, synthDataset, model_id, center))
+                    values.append((mean, sd, model_id, center))
                     
 
         return values
