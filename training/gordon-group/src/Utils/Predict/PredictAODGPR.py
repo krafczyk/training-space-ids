@@ -43,7 +43,7 @@ def makePredictionsJob(
                     lat = gstp.latitude
                     lon = gstp.longitude
                     time = gstp.time
-                    values.append((model_id, mean, center, sd, synthDataframe, lat, lon, time))
+                    values.append((model_id, mean, center, sd, lat, lon, time))
                     
 
         return values
@@ -93,8 +93,6 @@ def getPredictionsDataframeFromJob(job):
                 df_m["lon"] = subvalue[6]
                 df_m["time"] = subvalue[7]
                 df_m["modelId"] = subvalue[0]
-
-                df_m = pd.concat([df_m, subvalue[4]], axis=1)
 
             predictions.append(df_m)
 
