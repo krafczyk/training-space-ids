@@ -24,6 +24,7 @@ def makePredictionsJob(
         for iv in interValues:
             for val in iv:
                 for m in val:
+                    # predictions
                     model_id = m["id"]
                     centered = m["technique"]["centerTarget"]
                     if centered:
@@ -33,7 +34,16 @@ def makePredictionsJob(
                     pickledModel = m["trainedModel"]["model"]
                     model = c3.PythonSerialization.deserialize(serialized=pickledModel)
                     mean, sd = model.predict(synthDataframe, return_std=True)
-                    values.append((mean, sd, model_id, center))
+
+                    # location
+                    dssId = m["dataSourceSpec"]["id"]
+                    dss = c3.GPRDataSourceSpec.get(dssId)
+                    gstpId = dss.targetSpec.filter.split(" == ")[1].replace('"', '')
+                    gstp = c3.GeoSurfaceTimePoint.get(gstpId)
+                    lat = gstp.latitude
+                    lon = gstp.longitude
+                    time = gstp.time
+                    values.append((model_id, mean, center, sd, synthDataframe, lat, lon, time))
                     
 
         return values
@@ -74,12 +84,17 @@ def getPredictionsDataframeFromJob(job):
 
     if job.status().status == "completed":
         for key, value in job.results().items():
-            for subvalue in value:
+            for subvalue in value: #(model_id, mean, center, sd, synthDataframe, lat, lon, time)
                 df_m = pd.DataFrame()
-                df_m["mean"] = np.array(subvalue[0]).flatten()
-                df_m["mean"] += subvalue[3]
-                df_m["sd"] = subvalue[1]
-                df_m["modelId"] = subvalue[2]
+                df_m["mean"] = np.array(subvalue[1]).flatten()
+                df_m["mean"] += subvalue[2]
+                df_m["sd"] = subvalue[3]
+                df_m["lat"] = subvalue[5]
+                df_m["lon"] = subvalue[6]
+                df_m["time"] = subvalue[7]
+                df_m["modelId"] = subvalue[0]
+
+                df_m = pd.concat([df_m, subvalue[4]], axis=1)
 
             predictions.append(df_m)
 
