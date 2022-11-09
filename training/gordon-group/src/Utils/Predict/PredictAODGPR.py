@@ -96,7 +96,7 @@ def getPredictionsDataframeFromJob(job):
 
             predictions.append(df_m)
 
-        # df = pd.concat(predictions, axis=0).reset_index(drop=True)
+        df = pd.concat(predictions, axis=0).reset_index(drop=True)
         return predictions
     else:
         return False
