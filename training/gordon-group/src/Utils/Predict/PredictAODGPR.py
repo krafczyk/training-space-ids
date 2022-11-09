@@ -86,17 +86,17 @@ def getPredictionsDataframeFromJob(job):
         for key, value in job.results().items():
             for subvalue in value:
                 df_m = pd.DataFrame()
-                df_m["mean"] = np.array(subvalue[1]).flatten()
-                df_m["mean"] += subvalue[2]
-                df_m["sd"] = subvalue[3]
-                df_m["lat"] = subvalue[4]
-                df_m["lon"] = subvalue[5]
+                df_m["meanResponse"] = np.array(subvalue[1]).flatten()
+                df_m["meanResponse"] += subvalue[2]
+                df_m["sdResponse"] = subvalue[3]
+                df_m["latitude"] = subvalue[4]
+                df_m["longitude"] = subvalue[5]
                 df_m["time"] = subvalue[6]
                 df_m["modelId"] = subvalue[0]
 
             predictions.append(df_m)
 
-        df = pd.concat(predictions, axis=0).reset_index(drop=True)
-        return df
+        # df = pd.concat(predictions, axis=0).reset_index(drop=True)
+        return predictions
     else:
         return False
