@@ -93,10 +93,11 @@ def getPredictionsDataframeFromJob(job):
                 df_m["longitude"] = subvalue[5]
                 df_m["time"] = subvalue[6]
                 df_m["modelId"] = subvalue[0]
+                df_m["variant"] = list(range(df_m.shape[0]))
 
             predictions.append(df_m)
 
         df = pd.concat(predictions, axis=0).reset_index(drop=True)
-        return predictions
+        return df
     else:
         return False
