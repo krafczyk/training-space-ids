@@ -5,13 +5,14 @@
 /**
 * GaussianProcessRegressionPipe.c3typ
 * Performs Scikit-Learn's GP Regression.
+* Bogus comment to reprovision app.
 */
 @db(unique=['technique, dataSourceSpec'])
 entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> type key 'GPREG' {
     // the technique for this regression
     technique: !GaussianProcessRegressionTechnique
     // data source spec for this regression
-    dataSourceSpec: !GPRDataSourceSpec
+    dataSourceSpec: GPRDataSourceSpec
 
     // get features data
     @py(env='gordon-ML_1_0_0')
@@ -28,4 +29,10 @@ entity type GaussianProcessRegressionPipe extends MLLeafPipe<Dataset, Dataset> t
     // guarantee that process() is only allowed after train()
     @py(env='gordon-ML_1_0_0')
     isProcessable: ~
+    // train large model with AOD staged data
+    @py(env='gordon-ML_1_0_0')
+    trainWithStagedAOD: member function(modelIds: any): integer
+    // train with list of GSTPs
+    @py(env='gordon-ML_1_0_0')
+    trainWithListOfAODModels: member function(modelIds: any, excludeFeatures: any): integer
 }

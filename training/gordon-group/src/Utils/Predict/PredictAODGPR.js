@@ -1,4 +1,5 @@
 function getPipe(excFeats, gstpId, targetName, technique) {
+    // identical to the methods used in AODGPRModelFinder.js
 
     // find the data source specs
     var gstpKey = "geoSurfaceTimePoint.id == \"" + gstpId + "\"";

@@ -1,0 +1,15 @@
+/**
+* Copyright (c) 2022, C3 AI DTI, Development Operations Team
+* All rights reserved. License: https://github.com/c3aidti/.github
+**/
+/**
+* This type hosts data for models that cannot obtain Targets
+* directly from other entity types.
+*/
+entity type StagedTargets schema name "STGD_TRGTS" {
+    // the staged targets
+    targets: map<string, double> schema suffix "TRGT"
+    // method to stage from gstp list
+    @py(env='gordon_1_0_0')
+    stageFromAODGPRModelIdsList: function(ids: !any): integer
+}
