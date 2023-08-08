@@ -1,0 +1,58 @@
+The following are the length scales for centered models at one pixel where the response is averaged over a given time interval.
+
+a) (0 lat, 0 lon), all of July
+
+{'acure_dry_dep_acc': 1.6656406991033057,
+ 'acure_sea_spray': 2.6298965607129117,
+ 'acure_bvoc_soa': 3.0513616549330322,
+ 'acure_dry_dep_so2': 3.4922782522027944,
+ 'acure_dry_dep_ait': 3.580792243766012,
+ 'acure_bl_nuc': 3.6080719337007845,
+ 'acure_bc_ri': 4.210487841065232,
+ 'a_ent_1_rp': 4.512779380614034,
+ 'acure_anth_so2_r': 6.071025194110054,
+ 'acure_autoconv_exp_nd': 8.993878670574126,
+ 'dbsdtbs_turb_0': 18.45075970010545,
+ 'bparam': 36.671922321542965,
+ 'acure_dms': 656.8081540106524,
+ 'acure_carb_bb_diam': 808.4539657357514,
+ 'acure_cloud_ph': 865.0403405327564,
+ 'acure_ait_width': 1051.3861869263787}
+ 
+ b) (5 lat, 30 lon), all of July
+ 
+ {'acure_dry_dep_acc': 1.005268570123502,
+ 'acure_bl_nuc': 2.0933618302615944,
+ 'acure_bvoc_soa': 2.85394158943054,
+ 'acure_dry_dep_ait': 8.787413192473695,
+ 'acure_autoconv_exp_nd': 9.224409793257832,
+ 'dbsdtbs_turb_0': 10.068838536190485,
+ 'a_ent_1_rp': 13.812426105859059,
+ 'acure_ait_width': 15.846639900277868,
+ 'bparam': 18.674248964214822,
+ 'acure_bc_ri': 19.40992053042839,
+ 'acure_dry_dep_so2': 28.84442436369535,
+ 'acure_sea_spray': 42.089503400588,
+ 'acure_cloud_ph': 6497.848450892198,
+ 'acure_anth_so2_r': 7909.263832947914,
+ 'acure_carb_bb_diam': 12683.955216882587,
+ 'acure_dms': 19170.343486937145}
+ 
+ c) (0 lat, 0 lon), July 1st
+ 
+ {'acure_sea_spray': 1.1875184465911712,
+ 'acure_dry_dep_acc': 1.3427760446389863,
+ 'a_ent_1_rp': 2.3002661235751876,
+ 'acure_bc_ri': 2.4891661954508906,
+ 'acure_autoconv_exp_nd': 2.6291718613412347,
+ 'acure_bvoc_soa': 2.7487013155070903,
+ 'acure_dry_dep_so2': 3.0319658169388615,
+ 'acure_bl_nuc': 3.1229780794216415,
+ 'acure_dms': 3.136878564266187,
+ 'acure_dry_dep_ait': 3.1662600156248635,
+ 'acure_anth_so2_r': 4.949995255957084,
+ 'bparam': 1194.411814015134,
+ 'acure_cloud_ph': 71714.79730124849,
+ 'dbsdtbs_turb_0': 75017.47477097252,
+ 'acure_carb_bb_diam': 86557.7466472202,
+ 'acure_ait_width': 100000.00000000001}
