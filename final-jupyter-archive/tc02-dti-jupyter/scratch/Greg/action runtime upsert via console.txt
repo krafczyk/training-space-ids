@@ -1,0 +1,22 @@
+via the console:
+
+v.upsertSeedObjs([
+ActionRuntime.make({
+    "language": "Python",
+    "runtimeVersion": "3.9",
+    "modules": {
+      "conda.pip": "=21.2.2",
+      "conda.dill": "=0.3.4",
+      "conda.pivottablejs": "=0.9.0",
+----------- snip ----------------
+    },
+    "repositories": [
+      "defaults",
+      "conda-forge"
+    ],
+    "runtime": "CPython",
+    "name": "py-ocean_sim_cpu_test",
+    "id": "py-ocean_sim_cpu_test"
+}
+)]
+)
