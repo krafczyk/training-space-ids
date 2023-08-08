@@ -1,0 +1,43 @@
+/*
+ * Copyright 2009-2020 C3 (https://urldefense.com/v3/__http://www.c3.ai__;!!DZ3fjg!vOHl5MKXciZ7ZXxvhQ6mFXcW3cQxTwyCnVR4vKiSxBvVqF-_XxaC-pk7dbamaHN4zICfWQ$ ). All Rights Reserved.
+ * This material, including without limitation any software, is the confidential trade secret and proprietary
+ * information of C3 and its licensors. Reproduction, use and/or distribution of this material in any form is
+ * strictly prohibited except as set forth in a written license agreement with C3 and/or its authorized distributors.
+ * This material may be covered by one or more patents or pending patent applications.
+ */
+
+/**
+ * This type wraps the tensorflow.keras.preprocessing.ImageDataGenerator and applies the data generation to the batches of
+ * images. The options in imageAugmentationOptions will only be used during training, and the options in 
+ * imagePreprocessingOptions will be used in both training and prediction.
+ * See https://urldefense.com/v3/__https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator__;!!DZ3fjg!vOHl5MKXciZ7ZXxvhQ6mFXcW3cQxTwyCnVR4vKiSxBvVqF-_XxaC-pk7dbamaHMgfiwSXw$  for the original API docs.
+ */
+type ImageDataGeneratorSpec mixes MLDataGeneratorSpec {
+  /**
+   * Random state seed to set
+   */
+  randomState: int
+
+  /**
+   * "channels_last" mode means that the images should have shape (samples, height, width, channels), 
+   * "channels_first" mode means that the images should have shape (samples, channels, height, width).
+   */
+  dataFormat: string enum("channels_first", "channels_last") = "channels_last"
+
+  /**
+   * Image preprocessing options that will be applied on both training and processing data.
+   */
+  imagePreprocessingOptions: ImagePreprocessingOptions
+
+  /**
+   * Image augmentation options that will be applied only on training data.
+   */
+  imageAugmentationOptions: ImageAugmentationOptions
+
+  /**
+   * Python generator function returning a generator iterator. Each element should be a batch of data to be fed into
+   * the forward pass of a neural network.
+   */
+  @py(env="tensorflow_3_0_0")
+  generator: ~
+}

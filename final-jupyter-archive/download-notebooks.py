@@ -2,13 +2,13 @@ from c3python import get_c3, C3Migrate
 import os
 
 from_tenant = "dev"
-from_tag = "tc01d"
-base_url = "tc01d-dev.c3dti.ai"
+from_tag = "tc03d"
+base_url = "tc03d-dev.c3dti.ai"
 from_url = "https://" + base_url
 from_keyfile = "/home/dadams/.c3/c3-rsa-"+ base_url
 
 do_files = True
-do_notebooks = False
+do_notebooks = True
 
 c3 = get_c3(from_url, from_tenant, from_tag, keyfile=from_keyfile)
 
