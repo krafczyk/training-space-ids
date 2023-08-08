@@ -1,9 +1,9 @@
 from c3python import get_c3, C3Migrate
 import os
 
-from_tenant = "dev"
-from_tag = "tc03d"
-base_url = "tc03d-dev.c3dti.ai"
+from_tenant = "dti-jupyter"
+from_tag = "tc01"
+base_url = "tc01-dti-jupyter.c3dti.ai"
 from_url = "https://" + base_url
 from_keyfile = "/home/dadams/.c3/c3-rsa-"+ base_url
 
