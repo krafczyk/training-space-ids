@@ -25,19 +25,46 @@ function afterCreate(objs) {
     var ensemble = SimulationEnsemble.fetch({
                       filter: Filter.eq("id",obj.ensemble.id) 
                     }).objs[0]
-    // AZURE DIRECTORY PATH HERE: change 'gordon-group; to whatever you need
+
+    // ACURE-AIRCRAFT CONTAINER                
     var ensemblePath = FileSystem.inst().rootUrl() + 'gordon-group/' + ensemble.name + '/';
     var prePathToAllFiles = ensemblePath + ensemble.prePathToFiles;
     var pathToSample = prePathToAllFiles + padStart(String(obj.simulationNumber),3,'0');
+    var allAAFiles = FileSystem.inst().listFiles(pathToSample).files;
+    var sampleFiles = new Array();
 
-    var sampleFiles = FileSystem.inst().listFiles(pathToSample).files;
     // Remove non-NetCDF files from list
-    for (var i = 0; i < sampleFiles.length; i++) {
-      var sf = sampleFiles[i];
-      if (sf.url.slice(-3) !== ".nc") {
-        sampleFiles.splice(i,1);
-      }
-    }
+    for (var i = 0; i < allAAFiles.length; i++) {
+      var sf = allAAFiles[i];
+      if (sf.url.slice(-3) === ".nc") {
+        sampleFiles.push(sf);
+      };
+    };
+
+    // MONTHLY-MEAN CONTAINER...
+    var simString = padStart(String(obj.simulationNumber), 3, '0');
+    var sampleFiles2 = new Array();
+
+    var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    var containerRoot = "azure://monthly-mean-simulations/";
+
+    for (var i = 0; i < months.length; i++) {
+      var month = months[i];
+      var pathToFiles = containerRoot + month + "/";
+      var fileStream = FileSystem.inst().listFilesStream(pathToFiles);
+      while (fileStream.hasNext()) {
+        var file = fileStream.next();
+        if (file.url.slice(-6,-3) === simString && file.url.slice(-3) === ".nc" && file.url.slice(37,42) !== 'ACURE') {
+          sampleFiles2.push(file);
+        };
+      };
+    };
+
+    
+
+    // put two containers together
+    sampleFiles = sampleFiles.concat(sampleFiles2);
+
     return sampleFiles.map(createSimOutFiles);
   
     function padStart(text, length, pad) {
@@ -45,19 +72,40 @@ function afterCreate(objs) {
     }
   
     function createSimOutFiles(file) {
-      var year = file.url.slice(-11,-7);
-      var month = file.url.slice(-7,-5);
-      var day = file.url.slice(-5,-3);
-      var date_str = year + "-" + month + "-" + day;
-      return SimulationOutputFile.make({
+      if (file.url.slice(0,32) === "azure://monthly-mean-simulations") {
+        var year = file.url.slice(-18,-14);
+        var month = file.url.slice(-14,-12);
+        var day = file.url.slice(-12,-10);
+        var date_str = year + "-" + month + "-" + day;
+        var container = "monthly-mean";
+        return SimulationOutputFile.make({
+          "simulationSample": obj,
+          "file": File.make({
+                  "url": file.url
+          }),
+          "dateTag": DateTime.make({
+                  "value": date_str
+          }),
+          "container": container
+        });
+      }
+      else {
+        var year = file.url.slice(-11,-7);
+        var month = file.url.slice(-7,-5);
+        var day = file.url.slice(-5,-3);
+        var date_str = year + "-" + month + "-" + day;
+        var container = "acure-aircraft";
+        return SimulationOutputFile.make({
                   "simulationSample": obj,
                   "file": File.make({
                           "url": file.url
                   }),
                   "dateTag": DateTime.make({
                           "value": date_str
-                  })
-      });
+                  }),
+                  "container": container
+        });
+      }
     }
   }
 };

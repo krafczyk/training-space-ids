@@ -1,0 +1,25 @@
+/**
+* Simulation3HourlyAODOutputAllRef.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample) with references to {@link GeoSurfaceTime}
+*/
+@db(datastore='cassandra',
+    partitionKeyField='geoSurfaceTimePoint',
+    persistenceOrder='simulationSample',
+    persistDuplicates=false,
+    compactType=true)
+entity type Simulation3HourlyAODOutputAllRef schema name 'SM_3HAOD_TPT_LLRF' {
+    // The {@link SimulationSample} this output belongs to
+    simulationSample: !SimulationSample
+    // dust
+    dust: !float
+    // soluble aitken mode
+    solubleAitkenMode: !float
+    // soluble accumulation mode
+    solubleAccumulationMode: !float
+    // soluble coarse mode
+    solubleCoarseMode: !float
+    // insoluble aitken mode
+    insolubleAitkenMode: !float
+    // the space-time point for this measurement
+    geoSurfaceTimePoint: !GeoSurfaceTimePoint
+}

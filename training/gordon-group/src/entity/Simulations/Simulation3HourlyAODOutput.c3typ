@@ -1,0 +1,25 @@
+/**
+* Simulation3HourlyAODOutput.c3typ
+* A single monthly-mean output taken from a single [SimulationSample](type:SimulationSample)
+*/
+
+entity type Simulation3HourlyAODOutput schema name 'SMLTN_3HAOD_TPT' {
+    // The {@link SimulationSample} this output belongs to
+    simulationSample: !SimulationSample
+    // dust
+    dust: !float
+    // soluble aitken mode
+    solubleAitkenMode: !float
+    // soluble accumulation mode
+    solubleAccumulationMode: !float
+    // soluble coarse mode
+    solubleCoarseMode: !float
+    // insoluble aitken mode
+    insolubleAitkenMode: !float
+    // latitude
+    latitude: !Latitude
+    // longitude
+    longitude: !float
+    // time stamp
+    time: !datetime
+}
